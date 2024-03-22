@@ -1,0 +1,26 @@
+{
+  "menu": {
+    "home": "Trang chủ",
+    "organizational_structure": "Cơ cấu tổ chức",
+    "appointment_booking": "Đặt lịch hẹn",
+    "input_assessment_schedule": "Lịch kiểm tra đầu vào",
+    "input_check": "Kiểm tra đầu vào",
+    "consultation": "Tư vấn",
+    "test_study": "Học thử",
+    "contract_signing": "Ký hợp đồng",
+    "customer_management": "Khách hàng",
+    "notification": "Thông báo",
+    "personal_information": "Thông tin cá nhân",
+    "unit_list": "Danh sách đơn vị",
+    "user_list": "Danh sách người dùng",
+    "course_management_individual": "Khoá học lẻ",
+    "course_combo_management": "Combo khoá học",
+    "promotion_program_management": "Chương trình khuyến mãi",
+    "course_registration_for_customer": "Đăng ký khoá học cho KH",
+    "contract_template_management": "Mẫu hợp đồng",
+    "contract_management": "Hợp đồng"
+  },
+  "logout": "Đăng xuất",
+  "profile": "Thông tin cá nhân",
+  "mark_all_as_read": "Đánh dấu đã đọc tất cả"
+}

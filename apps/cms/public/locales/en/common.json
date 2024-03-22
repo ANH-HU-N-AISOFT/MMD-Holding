@@ -1,0 +1,12 @@
+{
+  "type_required": "{{type}} is required",
+  "type_must_be_select": "{{type}} must be selected",
+  "type_invalid": "{{type}} is invalid",
+  "type_greater_than": "{{ type }} must greater than {{ number }}",
+  "add_type": "Add {{ type }}",
+  "select_type": "Select {{ type }}",
+  "type_greater_than_or_equal": "{{ type }} must greater or equal {{ number }}",
+  "something_went_wrong": "Something went wrong!",
+  "showing_range_result": "Showing {{ from }} to {{ to }} of {{ total }} result",
+  "showing_range_results": "Showing {{ from }} to {{ to }} of {{ total }} results"
+}

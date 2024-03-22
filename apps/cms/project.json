@@ -1,0 +1,82 @@
+{
+  "name": "cms",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/cms/src",
+  "tags": [],
+  "targets": {
+    "prebuild": {
+      "command": "cross-env NODE_ENV=production ts-node --project ./tsconfig.antd.json ./scripts/genAntdCss.tsx",
+      "options": {
+        "cwd": "{projectRoot}"
+      }
+    },
+    "build": {
+      "dependsOn": [
+        "prebuild"
+      ],
+      "command": "remix build",
+      "options": {
+        "cwd": "{projectRoot}",
+        "postcssConfig": "{projectRoot}/postcss.config.js"
+      }
+    },
+    "start": {
+      "dependsOn": [
+        "build"
+      ],
+      "command": "remix-serve ./build/index.js",
+      "options": {
+        "cwd": "{projectRoot}"
+      }
+    },
+    "predev": {
+      "command": "ts-node --project tsconfig.antd.json scripts/genAntdCss.tsx",
+      "options": {
+        "cwd": "{projectRoot}"
+      }
+    },
+    "dev": {
+      "command": "remix dev --manual",
+      "options": {
+        "cwd": "{projectRoot}"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "{projectRoot}/**/*.{js,ts,jsx,tsx}"
+        ],
+        "fix": true,
+        "ignorePath": "{workspaceRoot}/.eslintignore"
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "commands": [
+          "tsc -p tsconfig.json --noEmit"
+        ],
+        "forwardAllArgs": false
+      }
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "{projectRoot}/**/*.css"
+        ],
+        "fix": true,
+        "formatter": "compact"
+      }
+    }
+  }
+}

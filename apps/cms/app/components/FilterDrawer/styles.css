@@ -1,0 +1,7 @@
+.FilterDrawer__container .ant-drawer-header {
+  @apply !px-4;
+}
+
+.FilterDrawer__container .ant-drawer-header-title .ant-drawer-close {
+  @apply order-2 !mr-0;
+}

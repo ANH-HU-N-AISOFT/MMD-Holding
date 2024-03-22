@@ -1,0 +1,11 @@
+{
+  "Modal": {
+    "ok": "Ok",
+    "cancel": "Cancel"
+  },
+  "FilterDrawer": {
+    "filter": "Filter",
+    "reset": "Reset",
+    "apply": "Apply"
+  }
+}

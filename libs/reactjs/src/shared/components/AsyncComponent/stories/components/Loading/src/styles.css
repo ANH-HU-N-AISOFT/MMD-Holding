@@ -1,0 +1,21 @@
+.Loading__container {
+  display: inline-block;
+  border-radius: 9999px;
+  border-top-width: 2px;
+  border-right-width: 2px;
+  border-style: solid;
+  border-right-color: transparent;
+  border-top-color: #353945;
+  width: 1rem;
+  height: 1rem;
+  animation: Loading__spin 1s linear infinite;
+}
+
+@keyframes Loading__spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

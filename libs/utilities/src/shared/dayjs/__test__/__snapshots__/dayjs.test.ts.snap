@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dayjs should throw an error with a warning for server-side usage 1`] = `
+"⚠️ Warning: Using Day.js on the server side may lead to issues related to timezone offsets. Servers typically deal with timestamps and forward them to other services. Mutating or altering date objects with Day.js in a server environment can result in unexpected behavior.
+
+    For server-side operations, consider using libraries that are specifically designed for server environments and timestamp handling. Day.js is best suited for client-side tasks where timezone-related issues are typically less problematic.
+
+    Always ensure that you handle date and time operations in a way that aligns with your server's requirements and avoids unnecessary mutations or alterations of date objects.
+
+    If you are working in a server environment, it's recommended to use server-friendly libraries for date and time handling to prevent unintended complications.
+    "
+`;

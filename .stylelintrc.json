@@ -1,0 +1,27 @@
+{
+  "ignoreFiles": ["**/*"],
+  "extends": ["stylelint-config-recommended", "stylelint-config-standard"],
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "tailwind",
+          "apply",
+          "variants",
+          "responsive",
+          "screen"
+        ]
+      }
+    ],
+    "order/order": [
+      "dollar-variables",
+      "custom-properties",
+      "at-rules",
+      "declarations",
+      "rules"
+    ],
+    "order/properties-order": []
+  }
+}

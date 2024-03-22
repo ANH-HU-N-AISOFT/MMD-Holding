@@ -1,0 +1,29 @@
+/* Table */
+.TableListing__container.ant-table-wrapper
+  .ant-table-pagination
+  .ant-pagination-total-text {
+  @apply basis-full  md:!flex-1;
+}
+
+.TableListing__container.ant-table-wrapper .ant-spin-nested-loading {
+  @apply h-full;
+}
+
+.TableListing__container.ant-table-wrapper .ant-spin-container {
+  @apply h-full flex flex-col;
+}
+
+.TableListing__container.ant-table-wrapper .ant-table-container {
+  @apply bg-white;
+}
+
+.TableListing__container.ant-table-wrapper .ant-table-pagination {
+  @apply bg-white !m-0 !py-3 !px-2 border border-solid border-t-transparent border-neutral-300 rounded-bl-lg rounded-br-lg;
+}
+
+.TableListing--paginationSticky.ant-table-wrapper .ant-table-pagination {
+  @apply sticky bottom-0 z-10  !-ml-8 !-mr-8 flex items-center justify-between border border-solid border-transparent border-t-neutral-300 !p-6 !mt-0 !mb-0 bg-white;
+}
+.TableListing--paginationSticky.ant-table-wrapper .ant-table {
+  @apply flex-1 bg-transparent;
+}

@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "target": "ES2019",
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./app/*"],
+      "@remix-app-generators": [
+        "../../libs/@remix-app-generators/src/index.ts"
+      ],
+      "reactjs": ["../../libs/reactjs/src/index.ts"],
+      "remixjs/client": ["../../libs/remixjs/src/client.ts"],
+      "remixjs/server": ["../../libs/remixjs/src/server.ts"],
+      "typescript-utilities": ["../../libs/typescript-utilities/src/index.ts"],
+      "utilities": ["../../libs/utilities/src/index.ts"]
+    }
+  }
+}

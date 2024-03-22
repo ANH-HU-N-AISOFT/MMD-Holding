@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-family: Inter;
+}
+
+.icon__container--bold {
+  display: inline-block !important;
+  fill: currentColor;
+}
+.icon__container--linear {
+  display: inline-block !important;
+  stroke: currentColor;
+}
+
+/* Custom antd */
+.ant-input.ant-input-lg {
+  @apply !text-sm;
+}

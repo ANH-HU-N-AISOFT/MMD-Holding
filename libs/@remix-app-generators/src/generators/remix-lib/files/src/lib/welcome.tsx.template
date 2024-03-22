@@ -1,0 +1,22 @@
+import { ActionFunction, LoaderFunction, json } from '@remix-run/node';
+import styles from './welcome.module.css';
+
+export const loader: LoaderFunction = () => {
+  return json({
+    message: 'Welcome to test!',
+  });
+};
+
+export const action: ActionFunction = () => {
+  return json({
+    message: 'Welcome to test!',
+  });
+};
+
+export const Welcome = () => {
+  return (
+    <div className={styles['container']}>
+      <h1>Welcome to test!</h1>
+    </div>
+  );
+};

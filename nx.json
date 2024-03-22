@@ -1,0 +1,36 @@
+{
+  "targetDefaults": {
+    "stylelint": {
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.stylelintrc(.(json|yml|yaml|js))?"
+      ]
+    }
+  },
+  "workspaceLayout": {
+    "appsDir": "apps",
+    "libsDir": "libs"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx-cloud",
+      "options": {
+        "cacheDirectory": ".nx-cache",
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "typecheck",
+          "test",
+          "e2e",
+          "build-storybook",
+          "stylelint"
+        ],
+        "accessToken": "MTM5NzhiMjYtNTc5MC00ZmY3LTlkYWEtN2EzNTMxMzJiOTFmfHJlYWQtd3JpdGU="
+      }
+    }
+  },
+  "affected": {
+    "defaultBase": "main"
+  },
+  "defaultProject": "apps-debug"
+}
