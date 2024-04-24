@@ -5,8 +5,8 @@ import { RemixLibGeneratorSchema } from '../schema';
 import { normalizeDirectory, normalizeProjectName } from './project';
 
 export interface RemixLibraryOptions extends RemixLibGeneratorSchema {
-  projectName: string;
-  importPath: string;
+  projectName?: string;
+  importPath?: string;
 }
 
 export const normalizeOptions = (tree: Tree, options: RemixLibGeneratorSchema): RemixLibraryOptions => {
@@ -14,14 +14,21 @@ export const normalizeOptions = (tree: Tree, options: RemixLibGeneratorSchema): 
   const name = names(options.name).fileName;
 
   const { projectDirectory } = extractLayoutDirectory(directory);
-  const fullProjectDirectory = normalizeDirectory(name, projectDirectory);
-  const importPath = getImportPath(tree, fullProjectDirectory);
-  const projectName = normalizeProjectName(name, projectDirectory);
 
+  if (projectDirectory) {
+    const fullProjectDirectory = normalizeDirectory(name, projectDirectory);
+    const importPath = getImportPath(tree, fullProjectDirectory);
+    const projectName = normalizeProjectName(name, projectDirectory);
+
+    return {
+      ...options,
+      name,
+      importPath,
+      projectName,
+    };
+  }
   return {
     ...options,
     name,
-    importPath,
-    projectName,
   };
 };

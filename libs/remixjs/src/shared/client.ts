@@ -1,1 +1,1 @@
-export * from './features/remix-image/client';
+export const a = 1;

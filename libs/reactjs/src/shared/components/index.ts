@@ -3,4 +3,3 @@ export * from './ClientSideOnly';
 export * from './Field';
 export * from './FixedProgressLoader';
 export * from './TableListing';
-export * from './icons';

@@ -1,3 +1,0 @@
-# Overview
-
-This repository contains a simple demonstration of a RemixJS application created within an NX workspace. The project, named **_`"cms"`_**, showcases basic functionalities and serves as a starting point for developers interested in working with RemixJS and NX.

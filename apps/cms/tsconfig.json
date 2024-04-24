@@ -1,23 +1,31 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2019"],
-    "target": "ES2019",
-    "allowJs": true,
     "jsx": "react-jsx",
-    "noEmit": true,
+    "allowJs": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "types": [
+      "vite/client",
+      "node",
+      "@nx/react/typings/cssmodule.d.ts",
+      "@nx/react/typings/image.d.ts"
+    ],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"],
+      "~/*": ["./src/*"],
       "@remix-app-generators": [
         "../../libs/@remix-app-generators/src/index.ts"
       ],
+      "assets": ["../../libs/assets/src/index.ts"],
       "reactjs": ["../../libs/reactjs/src/index.ts"],
       "remixjs/client": ["../../libs/remixjs/src/client.ts"],
       "remixjs/server": ["../../libs/remixjs/src/server.ts"],
+      "services": ["../../libs/services/src/index.ts"],
       "typescript-utilities": ["../../libs/typescript-utilities/src/index.ts"],
       "utilities": ["../../libs/utilities/src/index.ts"]
     }
-  }
+  },
+  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
 }

@@ -4,9 +4,7 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "node": true,
-    "cypress/globals": true,
-    "jest/globals": true
+    "node": true
   },
   "settings": {
     "react": {
@@ -20,8 +18,7 @@
     "prettier",
     "jsx-a11y",
     "react",
-    "react-hooks",
-    "jest"
+    "react-hooks"
   ],
   "overrides": [
     {
@@ -54,7 +51,6 @@
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:jsx-a11y/recommended",
-    "plugin:jest/recommended",
     "plugin:cypress/recommended"
   ],
   "rules": {

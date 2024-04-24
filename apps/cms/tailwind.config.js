@@ -7,11 +7,13 @@ module.exports = {
   presets: [require('../../tailwind-workspace-preset.js')],
   content: [
     // Lắng nghe trong app
-    join(__dirname, './app/**/*.{js,ts,jsx,tsx}'),
-    // Lắng nghe các libs
-    join(__dirname, '../../libs/**/*.{js,ts,jsx,tsx}'),
+    join(__dirname, './src/**/*.{js,ts,jsx,tsx}'),
+    join(__dirname, '../../libs/**/*.{js,ts,jsx,tsx}'), // Listen files in "libs" at root workspace
     ...createGlobPatternsForDependencies(__dirname),
   ],
+  corePlugins: {
+    preflight: false,
+  },
   theme: {
     extend: {},
   },

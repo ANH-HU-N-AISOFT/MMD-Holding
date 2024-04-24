@@ -1,4 +1,5 @@
 {
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "stylelint": {
       "inputs": [
@@ -15,7 +16,6 @@
     "default": {
       "runner": "nx-cloud",
       "options": {
-        "cacheDirectory": ".nx-cache",
         "cacheableOperations": [
           "build",
           "lint",
@@ -28,9 +28,5 @@
         "accessToken": "MTM5NzhiMjYtNTc5MC00ZmY3LTlkYWEtN2EzNTMxMzJiOTFmfHJlYWQtd3JpdGU="
       }
     }
-  },
-  "affected": {
-    "defaultBase": "main"
-  },
-  "defaultProject": "apps-debug"
+  }
 }

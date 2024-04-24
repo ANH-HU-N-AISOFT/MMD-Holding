@@ -52,7 +52,6 @@ export const remixAppGenerator = async (tree: Tree, options: RemixAppGeneratorSc
           options: {
             cwd: '{projectRoot}',
             commands: ['tsc -p tsconfig.json --noEmit'],
-            forwardAllArgs: false,
           },
         },
         stylelint: {

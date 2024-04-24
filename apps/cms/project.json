@@ -1,56 +1,39 @@
 {
   "name": "cms",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
   "sourceRoot": "apps/cms/src",
-  "tags": [],
+  "projectType": "application",
   "targets": {
-    "prebuild": {
-      "command": "cross-env NODE_ENV=production ts-node --project ./tsconfig.antd.json ./scripts/genAntdCss.tsx",
-      "options": {
-        "cwd": "{projectRoot}"
-      }
-    },
     "build": {
-      "dependsOn": [
-        "prebuild"
-      ],
-      "command": "remix build",
+      "executor": "@nx/vite:build",
+      "outputs": ["{projectRoot}/{options.outputPath}"],
       "options": {
-        "cwd": "{projectRoot}",
-        "postcssConfig": "{projectRoot}/postcss.config.js"
-      }
-    },
-    "start": {
-      "dependsOn": [
-        "build"
-      ],
-      "command": "remix-serve ./build/index.js",
-      "options": {
-        "cwd": "{projectRoot}"
-      }
-    },
-    "predev": {
-      "command": "ts-node --project tsconfig.antd.json scripts/genAntdCss.tsx",
-      "options": {
-        "cwd": "{projectRoot}"
+        "outputPath": "{projectRoot}/dist"
       }
     },
     "dev": {
-      "command": "remix dev --manual",
+      "executor": "@nx/vite:dev-server",
       "options": {
-        "cwd": "{projectRoot}"
+        "buildTarget": "cms:build"
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "options": {
+        "buildTarget": "cms:build"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "cms:build"
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "{projectRoot}/**/*.{js,ts,jsx,tsx}"
-        ],
+        "lintFilePatterns": ["{projectRoot}/**/*.{js,ts,jsx,tsx}"],
         "fix": true,
         "ignorePath": "{workspaceRoot}/.eslintignore"
       }
@@ -59,24 +42,9 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "{projectRoot}",
-        "commands": [
-          "tsc -p tsconfig.json --noEmit"
-        ],
-        "forwardAllArgs": false
-      }
-    },
-    "stylelint": {
-      "executor": "nx-stylelint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
-      "options": {
-        "lintFilePatterns": [
-          "{projectRoot}/**/*.css"
-        ],
-        "fix": true,
-        "formatter": "compact"
+        "commands": ["tsc -p tsconfig.json --noEmit"]
       }
     }
-  }
+  },
+  "tags": []
 }

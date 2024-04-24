@@ -36,7 +36,6 @@ export const remixLibGenerator = async (tree: Tree, schema: RemixLibGeneratorSch
           options: {
             cwd: '{projectRoot}',
             commands: ['tsc -p tsconfig.json --noEmit'],
-            forwardAllArgs: false,
           },
         },
       },
@@ -47,14 +46,16 @@ export const remixLibGenerator = async (tree: Tree, schema: RemixLibGeneratorSch
 
     // Update tsconfig.base.json
     updateJson(tree, getRootTsConfigPathInTree(tree) as string, json => {
-      const paths_ = json?.compilerOptions?.paths;
-      const paths = paths_ && typeof paths_ === 'object' ? paths_ : {};
-      json.compilerOptions.paths = {
-        ...paths,
-        [options.projectName]: [`libs/${options.projectName}/src/index.ts`],
-        [`${options.projectName}/server`]: [`libs/${options.projectName}/src/server.ts`],
-      };
-      return json;
+      if (options.projectName) {
+        const paths_ = json?.compilerOptions?.paths;
+        const paths = paths_ && typeof paths_ === 'object' ? paths_ : {};
+        json.compilerOptions.paths = {
+          ...paths,
+          [options.projectName]: [`libs/${options.projectName}/src/index.ts`],
+          [`${options.projectName}/server`]: [`libs/${options.projectName}/src/server.ts`],
+        };
+        return json;
+      }
     });
 
     // Update all tsconfig.json of "apps"
