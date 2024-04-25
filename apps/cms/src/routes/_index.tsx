@@ -6,7 +6,7 @@ export const loader = ({ request }: LoaderFunctionArgs) => {
   if (url.pathname === '/') {
     const isLoggedIn = getSession();
     if (isLoggedIn) {
-      return redirect('/dashboard');
+      return redirect('/dashboard', {});
     }
   }
   return null;

@@ -38,7 +38,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
           refreshToken: response.data.refreshToken,
         },
       });
-      return redirect('/dashboard');
+      return redirect('/dashboard', {});
     }
     return json(...handleFormResolverError<FormLoginValues>(errors));
   } catch (error) {

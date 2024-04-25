@@ -23,7 +23,7 @@ export const loader = async () => {
     });
   } catch (error) {
     console.log(error);
-    return redirect('/logout?expired=true');
+    return redirect('/logout?expired=true', {});
   }
 };
 

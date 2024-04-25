@@ -7,7 +7,7 @@ import { getSession } from '~/packages/common/Auth/sessionStorage';
 export const loader = () => {
   const isLoggedIn = getSession();
   if (isLoggedIn) {
-    return redirect('/');
+    return redirect('/', {});
   }
   return null;
 };

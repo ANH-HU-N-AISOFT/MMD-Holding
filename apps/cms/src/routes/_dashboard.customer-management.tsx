@@ -27,7 +27,7 @@ export const loader = async ({
       page: Math.min(page, response.getCustomers.pagination.totalPages || 1),
     });
   } catch (error) {
-    return redirect('/500');
+    return redirect('/500', { reason: '' });
   }
 };
 
