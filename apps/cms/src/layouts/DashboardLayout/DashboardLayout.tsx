@@ -1,10 +1,12 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Button, Layout, Menu } from 'antd';
-import { useMemo, useState } from 'react';
+import classNames from 'classnames';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import { Logo } from './components/Logo';
 import { Notification } from './components/Notification';
 import { UserDropdown } from './components/UserDropdown';
 import { useGetNavData } from './hooks/useGetNavData';
+import { useMobile } from '~/hooks/useMobile';
 import { Link, Outlet, useLocation } from '~/overrides/@remix';
 
 const { Header, Content, Sider } = Layout;
@@ -12,6 +14,8 @@ const { Header, Content, Sider } = Layout;
 export const DashboardLayout = () => {
   const menuItems = useGetNavData();
   const location = useLocation();
+
+  const { isMobile } = useMobile();
 
   const [collapsed, setCollapsed] = useState(false);
 
@@ -26,6 +30,15 @@ export const DashboardLayout = () => {
     return [];
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleCollapseMenu = () => {
+    setCollapsed(isMobile ? true : !collapsed);
+  };
+  useEffect(() => {
+    if (isMobile) {
+      setCollapsed(true);
+    }
+  }, [isMobile]);
 
   return (
     <Layout className="!min-h-screen">
@@ -56,7 +69,8 @@ export const DashboardLayout = () => {
             <Button
               type="text"
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
+              onClick={handleCollapseMenu}
+              className={classNames(isMobile ? 'invisible' : 'visible')}
             />
             <div className="flex items-center gap-4 lg:gap-8">
               <Notification />
@@ -64,8 +78,10 @@ export const DashboardLayout = () => {
             </div>
           </div>
         </Header>
-        <Content className="p-8 !pb-0">
-          <Outlet />
+        <Content className="p-4 md:p-8 !pb-0">
+          <Suspense fallback={null}>
+            <Outlet />
+          </Suspense>
         </Content>
       </Layout>
     </Layout>

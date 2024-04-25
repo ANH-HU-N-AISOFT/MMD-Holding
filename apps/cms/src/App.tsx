@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, Suspense } from 'react';
 import { ScrollRestoration, Navigate, Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import * as Forbidden from './routes/403';
 import * as NotFound from './routes/404';
@@ -27,10 +27,10 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <>
+      <Suspense fallback={null}>
         <Outlet />
         <ScrollRestoration />
-      </>
+      </Suspense>
     ),
     loader: Root.loader,
     errorElement: <Navigate to="/404" />,
@@ -38,73 +38,151 @@ const router = createBrowserRouter([
       {
         element: <AuthLayout.Page />,
         loader: AuthLayout.loader,
+        errorElement: <AuthLayout.ErrorBoundary />,
         children: [
           {
             path: '/login',
             action: Login.action,
-            element: <Login.Page />,
+            errorElement: <Login.ErrorBoundary />,
+            element: (
+              <Suspense fallback={null}>
+                <Login.Page />
+              </Suspense>
+            ),
           },
         ],
       },
       {
         element: <DashboardLayout.Page />,
         loader: DashboardLayout.loader,
+        errorElement: <DashboardLayout.ErrorBoundary />,
         children: [
           {
             path: '/dashboard',
-            element: <Dashboard.Page />,
+            errorElement: <Dashboard.ErrorBoundary />,
+            element: (
+              <Suspense fallback={null}>
+                <Dashboard.Page />
+              </Suspense>
+            ),
           },
           {
             path: '/appointment-booking',
-            element: <AppointmentBooking.Page />,
+            errorElement: <AppointmentBooking.ErrorBoundary />,
+            element: (
+              <Suspense fallback={null}>
+                <AppointmentBooking.Page />
+              </Suspense>
+            ),
           },
           {
             path: '/contract-management',
-            element: <ContractManagement.Page />,
+            errorElement: <ContractManagement.ErrorBoundary />,
+            element: (
+              <Suspense fallback={null}>
+                <ContractManagement.Page />
+              </Suspense>
+            ),
           },
           {
             path: '/contract-template-management',
-            element: <ContractTemplateManagement.Page />,
+            errorElement: <ContractTemplateManagement.ErrorBoundary />,
+            element: (
+              <Suspense fallback={null}>
+                <ContractTemplateManagement.Page />
+              </Suspense>
+            ),
           },
           {
             path: '/course-combo-management',
-            element: <CourseComboManagement.Page />,
+            errorElement: <CourseComboManagement.ErrorBoundary />,
+            element: (
+              <Suspense fallback={null}>
+                <CourseComboManagement.Page />
+              </Suspense>
+            ),
           },
           {
             path: '/course-management-individual',
-            element: <CourseManagementIndividual.Page />,
+            errorElement: <CourseManagementIndividual.ErrorBoundary />,
+            element: (
+              <Suspense fallback={null}>
+                <CourseManagementIndividual.Page />
+              </Suspense>
+            ),
           },
           {
             path: '/course-registration-for-customer',
-            element: <CourseRegistrationForCustomer.Page />,
+            errorElement: <CourseRegistrationForCustomer.ErrorBoundary />,
+            element: (
+              <Suspense fallback={null}>
+                <CourseRegistrationForCustomer.Page />
+              </Suspense>
+            ),
           },
           {
             path: '/customer-management',
-            element: <CustomerManagement.Page />,
+            errorElement: <CustomerManagement.ErrorBoundary />,
+            loader: CustomerManagement.loader,
+            element: (
+              <Suspense fallback={null}>
+                <CustomerManagement.Page />
+              </Suspense>
+            ),
           },
           {
             path: '/input-assessment-schedule',
-            element: <InputAssessmentSchedule.Page />,
+            errorElement: <InputAssessmentSchedule.ErrorBoundary />,
+            element: (
+              <Suspense fallback={null}>
+                <InputAssessmentSchedule.Page />
+              </Suspense>
+            ),
           },
           {
             path: '/input-check',
-            element: <InputCheck.Page />,
+            errorElement: <InputCheck.ErrorBoundary />,
+            element: (
+              <Suspense fallback={null}>
+                <InputCheck.Page />
+              </Suspense>
+            ),
           },
           {
             path: '/promotion-program-management',
-            element: <PromotionProgramManagement.Page />,
+            errorElement: <PromotionProgramManagement.ErrorBoundary />,
+            element: (
+              <Suspense fallback={null}>
+                <PromotionProgramManagement.Page />
+              </Suspense>
+            ),
           },
           {
             path: '/test-study',
-            element: <TestStudy.Page />,
+            errorElement: <TestStudy.ErrorBoundary />,
+            element: (
+              <Suspense fallback={null}>
+                <TestStudy.Page />
+              </Suspense>
+            ),
           },
           {
             path: '/unit-list',
-            element: <UnitList.Page />,
+            errorElement: <UnitList.ErrorBoundary />,
+            element: (
+              <Suspense fallback={null}>
+                <UnitList.Page />
+              </Suspense>
+            ),
           },
           {
             path: '/user-list',
-            element: <UserList.Page />,
+            errorElement: <UserList.ErrorBoundary />,
+            element: (
+              <Suspense fallback={null}>
+                <UserList.Page />
+              </Suspense>
+            ),
           },
         ],
       },

@@ -2,7 +2,7 @@
 .TableListing__container.ant-table-wrapper
   .ant-table-pagination
   .ant-pagination-total-text {
-  @apply basis-full  md:!flex-1;
+  @apply basis-full  md:!flex-1 !m-0 md:!me-2;
 }
 
 .TableListing__container.ant-table-wrapper .ant-spin-nested-loading {
@@ -21,8 +21,9 @@
   @apply bg-white !m-0 !py-3 !px-2 border border-solid border-t-transparent border-neutral-300 rounded-bl-lg rounded-br-lg;
 }
 
+/* Phụ thuộc vào padding layout */
 .TableListing--paginationSticky.ant-table-wrapper .ant-table-pagination {
-  @apply sticky bottom-0 z-10  !-ml-8 !-mr-8 flex items-center justify-between border border-solid border-transparent border-t-neutral-300 !p-6 !mt-0 !mb-0 bg-white;
+  @apply sticky bottom-0 z-10  !-ml-4 !-mr-4 md:!-ml-8 md:!-mr-8 text-center md:text-left flex items-center justify-center md:justify-between border border-solid border-transparent border-t-neutral-300 !p-2 md:!px-6 md:!py-4 !mt-0 !mb-0 bg-white;
 }
 .TableListing--paginationSticky.ant-table-wrapper .ant-table {
   @apply flex-1 bg-transparent;

@@ -3,6 +3,7 @@ import { notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { ActionFunctionArgs, json, redirect, useActionData, useNavigation } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { getFormLoginZodSchema } from '~/packages/common/Auth/FormLogin/constants/zod';
@@ -73,5 +74,7 @@ export const Page = () => {
     </div>
   );
 };
+
+export const ErrorBoundary = PageErrorBoundary;
 
 export default Page;

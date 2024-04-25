@@ -5,14 +5,14 @@ import { UrlSearchParamsUtils } from 'utilities';
 import { SimpleListingLoaderResponse } from '../types/SimpleListingLoaderResponse';
 import type { FetcherWithComponents } from '@remix-run/react';
 
-interface UseListingData<T extends AnyRecord, SearchParams extends AnyRecord & { page: number }> {
+interface UseListingData<T extends AnyRecord, SearchParams extends AnyRecord & { page?: number }> {
   loaderData: SimpleListingLoaderResponse<T>;
   fetcherData: FetcherWithComponents<SimpleListingLoaderResponse<T>>;
   getNearestPageAvailable: (page: number) => void;
   urlSearchParamsUtils: UrlSearchParamsUtils<SearchParams>;
 }
 
-export const useListingData = <T extends AnyRecord, SearchParams extends AnyRecord & { page: number }>({
+export const useListingData = <T extends AnyRecord, SearchParams extends AnyRecord & { page?: number }>({
   loaderData,
   fetcherData,
   getNearestPageAvailable,

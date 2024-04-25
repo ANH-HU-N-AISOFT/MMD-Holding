@@ -1,0 +1,16 @@
+{
+  "customers": "Danh sách người dùng",
+  "avatar": "Avatar",
+  "account_name": "Tên tài khoản",
+  "full_name": "Họ và tên",
+  "department": "Đơn vị",
+  "email": "Email",
+  "phone": "Số điện thoại",
+  "status": "Trạng thái",
+  "action": "Action",
+  "edit": "Cập nhật",
+  "change_password": "Đổi mật khẩu",
+  "search_placeholder": "Tìm kiếm",
+  "delete": "Xoá",
+  "total_records_selected": "Đã chọn {{ total }} bản ghi"
+}

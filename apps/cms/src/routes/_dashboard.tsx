@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { DashboardLayout } from '~/layouts/DashboardLayout/DashboardLayout';
 import { json, redirect, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { Session } from '~/packages/common/Auth/models/Session';
@@ -39,5 +40,7 @@ export const Page = () => {
 
   return <DashboardLayout />;
 };
+
+export const ErrorBoundary = PageErrorBoundary;
 
 export default Page;
