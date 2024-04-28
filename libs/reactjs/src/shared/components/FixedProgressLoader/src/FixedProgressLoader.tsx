@@ -5,6 +5,7 @@ import type { FC } from 'react';
 import './styles.css';
 
 export interface Props {
+  hidden?: boolean;
   /** Indicates whether loading is complete or not */
   done: boolean;
   /** Duration of the progress bar in milliseconds */
@@ -20,6 +21,7 @@ export interface Props {
  * It displays a progress bar at the top of the page to indicate loading status.
  */
 export const FixedProgressLoader: FC<Props> = ({
+  hidden,
   done,
   duration = 300,
   containerClassName = '',
@@ -94,7 +96,7 @@ export const FixedProgressLoader: FC<Props> = ({
   }
 
   return (
-    <div className={classNames('FixedProgressLoader__container', containerClassName)}>
+    <div className={classNames('FixedProgressLoader__container', hidden ? 'invisible' : 'visible', containerClassName)}>
       <div
         className={classNames('FixedProgressLoader__bar', barClassName)}
         style={{ width: `${count * 10}%`, transition: `width ${duration}ms` }}

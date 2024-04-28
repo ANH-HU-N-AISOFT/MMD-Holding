@@ -5,8 +5,8 @@ import { redirect } from '~/overrides/@remix';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 
 export const loader = () => {
-  const isLoggedIn = getSession();
-  if (isLoggedIn) {
+  const session = getSession();
+  if (session?.token) {
     return redirect('/', {});
   }
   return null;

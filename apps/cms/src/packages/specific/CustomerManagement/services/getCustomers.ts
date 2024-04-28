@@ -1,3 +1,5 @@
+import { delay } from 'utilities';
+
 const fakeData = [
   {
     _id: 'customer_1',
@@ -31,7 +33,8 @@ const fakeData = [
   },
 ];
 
-export const getCustomers = ({ page, ..._ }: { page: number; pageSize: number }) => {
+export const getCustomers = async ({ page, ..._ }: { page: number; pageSize: number }) => {
+  await delay(1000);
   if (page === 3) {
     return Promise.resolve({
       getCustomers: {

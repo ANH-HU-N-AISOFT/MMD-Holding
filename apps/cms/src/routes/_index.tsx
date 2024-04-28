@@ -1,3 +1,4 @@
+import { RootLayout } from '~/layouts/RootLayout/RootLayout';
 import { LoaderFunctionArgs, redirect } from '~/overrides/@remix';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 
@@ -10,4 +11,8 @@ export const loader = ({ request }: LoaderFunctionArgs) => {
     }
   }
   return null;
+};
+
+export const Page = () => {
+  return <RootLayout />;
 };

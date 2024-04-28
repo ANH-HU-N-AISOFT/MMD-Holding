@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
+import { useIsomorphicLayoutEffect } from '../../useIsomorphicLayoutEffect';
 
 interface UseMediaQueryOptions {
   defaultValue?: boolean;
@@ -8,7 +8,6 @@ interface UseMediaQueryOptions {
 
 const IS_SERVER = typeof window === 'undefined';
 
-// FIXME: Di chuyển vào lib "reactjs"
 export function useMediaQuery(
   query: string,
   { defaultValue = false, initializeWithValue = true }: UseMediaQueryOptions = {},

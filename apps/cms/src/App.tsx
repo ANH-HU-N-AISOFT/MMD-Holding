@@ -1,5 +1,5 @@
 import { FC, Suspense } from 'react';
-import { ScrollRestoration, Navigate, Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import * as Forbidden from './routes/403';
 import * as NotFound from './routes/404';
 import * as InternalError from './routes/500';
@@ -20,19 +20,14 @@ import * as PromotionProgramManagement from './routes/_dashboard.promotion-progr
 import * as TestStudy from './routes/_dashboard.test-study';
 import * as UnitList from './routes/_dashboard.unit-list';
 import * as UserList from './routes/_dashboard.user-list';
-import * as Root from './routes/_index';
+import * as RootLayout from './routes/_index';
 import * as Logout from './routes/logout';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <Suspense fallback={null}>
-        <Outlet />
-        <ScrollRestoration />
-      </Suspense>
-    ),
-    loader: Root.loader,
+    element: <RootLayout.Page />,
+    loader: RootLayout.loader,
     errorElement: <Navigate to="/404" />,
     children: [
       {

@@ -1,12 +1,11 @@
-import { ExportOutlined, ImportOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
 import { updateURLSearchParamsOfBrowserWithoutNavigation } from 'utilities';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { LoaderFunctionArgs, TypedResponse, json, redirect, useFetcher, useLoaderData } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
-import { FormSearchNFilter } from '~/packages/specific/CustomerManagement/components/FormSearchNFilter/FormSearchNFilter';
-import { Listing } from '~/packages/specific/CustomerManagement/components/Listing/Listing';
+import { FormSearchNFilter } from '~/packages/specific/CustomerManagement/components/Listing/FormSearchNFilter';
+import { Header } from '~/packages/specific/CustomerManagement/components/Listing/Header';
+import { Table } from '~/packages/specific/CustomerManagement/components/Listing/Table';
 import { CustomerManagement } from '~/packages/specific/CustomerManagement/models/CustomerManagement';
 import { getCustomers } from '~/packages/specific/CustomerManagement/services/getCustomers';
 import { ListingSearchParams } from '~/packages/specific/CustomerManagement/types/ListingSearchParams';
@@ -56,19 +55,7 @@ export const Page = () => {
 
   return (
     <div className="flex flex-col h-full">
-      {/* FIXME: Tách thành 1 component UI */}
-      <div className="flex flex-wrap justify-between items-center mb-4">
-        <div className="text-2xl font-semibold">Khách hàng</div>
-        <div className="flex items-center gap-2">
-          <Button icon={<ExportOutlined />}>Export</Button>
-          <Button className="hidden sm:block" icon={<ImportOutlined />}>
-            Import
-          </Button>
-          <Button icon={<PlusOutlined />} type="primary">
-            Thêm mới
-          </Button>
-        </div>
-      </div>
+      <Header />
       <FormSearchNFilter
         searchValue={paramsInUrl.search?.toString()}
         formFilterValues={{
@@ -79,7 +66,7 @@ export const Page = () => {
         onResetFilter={() => handleRequest({ page: 1, status: undefined })}
         onSearch={value => handleRequest({ page: 1, search: value })}
       />
-      <Listing
+      <Table
         loading={isFetchingList}
         currentPage={data.page}
         pageSize={10}

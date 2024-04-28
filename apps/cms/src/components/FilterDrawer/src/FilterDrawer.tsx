@@ -3,7 +3,7 @@ import { Drawer } from 'antd';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '../AntCustom/Button/Button';
+import { Button } from '../../AntCustom/Button';
 import type { ReactNode } from 'react';
 import './styles.css';
 

@@ -38,11 +38,12 @@ export const useRemixForm = <T extends FieldValues>({
 
   // Submits the data to the server when form is valid
   const onSubmit = (data: T) => {
-    submit(createFormData({ ...data, ...submitData }), {
-      method: 'post',
-      ...submitConfig,
-    });
-    // FIXME: Xem xét liệu có đúng ??
+    if (!submitHandlers?.onValid) {
+      submit(createFormData({ ...data, ...submitData }), {
+        method: 'post',
+        ...submitConfig,
+      });
+    }
     submitHandlers?.onValid?.(data);
   };
 

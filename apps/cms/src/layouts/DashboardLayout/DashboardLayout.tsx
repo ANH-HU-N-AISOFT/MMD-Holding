@@ -2,11 +2,11 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Button, Layout, Menu } from 'antd';
 import classNames from 'classnames';
 import { Suspense, useEffect, useMemo, useState } from 'react';
+import { useMobile } from 'reactjs';
 import { Logo } from './components/Logo';
 import { Notification } from './components/Notification';
 import { UserDropdown } from './components/UserDropdown';
 import { useGetNavData } from './hooks/useGetNavData';
-import { useMobile } from '~/hooks/useMobile';
 import { Link, Outlet, useLocation } from '~/overrides/@remix';
 
 const { Header, Content, Sider } = Layout;

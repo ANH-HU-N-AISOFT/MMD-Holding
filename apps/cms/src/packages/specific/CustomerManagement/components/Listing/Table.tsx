@@ -3,8 +3,8 @@ import { Avatar, Button, Checkbox } from 'antd';
 import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
-import { ListingColumnType, TableListing, TableListingProps } from 'reactjs';
 import { CustomerManagement } from '../../models/CustomerManagement';
+import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
 import { TableActions } from '~/components/TableActions/TableActions';
 
@@ -18,7 +18,7 @@ export interface Props
   onDelete?: (recordKeys: string[]) => void;
 }
 
-export const Listing = ({
+export const Table = ({
   currentPage,
   pageSize,
   totalRecords,
@@ -27,6 +27,7 @@ export const Listing = ({
   onChangePassword,
   onEdit,
   onDelete,
+  ...props
 }: Props) => {
   const { t } = useTranslation(['common', 'customer_management']);
 
@@ -158,6 +159,7 @@ export const Listing = ({
   return (
     <>
       <TableListing<CustomerManagement>
+        {...props}
         dataSource={dataSource}
         columns={columns}
         currentPage={currentPage}

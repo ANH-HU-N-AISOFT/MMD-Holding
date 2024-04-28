@@ -1,5 +1,5 @@
 {
-  "customers": "Danh sách người dùng",
+  "customers": "Khách hàng",
   "avatar": "Avatar",
   "account_name": "Tên tài khoản",
   "full_name": "Họ và tên",
@@ -12,5 +12,8 @@
   "change_password": "Đổi mật khẩu",
   "search_placeholder": "Tìm kiếm",
   "delete": "Xoá",
-  "total_records_selected": "Đã chọn {{ total }} bản ghi"
+  "total_records_selected": "Đã chọn {{ total }} bản ghi",
+  "add_new": "Thêm mới",
+  "export": "Export",
+  "import": "Import"
 }
