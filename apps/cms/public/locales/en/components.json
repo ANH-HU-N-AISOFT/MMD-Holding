@@ -7,5 +7,12 @@
     "filter": "Filter",
     "reset": "Reset",
     "apply": "Apply"
+  },
+  "ModalImport": {
+    "upload_and_preview": "Tải lên xem trước",
+    "title": "Import {{ type }} từ file csv",
+    "download_sample": "Tải xuống biểu mẫu",
+    "add_file": "Chọn file",
+    "replace_file": "Chọn file khác"
   }
 }
