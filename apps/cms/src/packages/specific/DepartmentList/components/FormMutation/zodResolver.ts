@@ -39,7 +39,7 @@ export const getFormMutationResolver = (t: TFunction<['common', 'department']>) 
           },
           { message: code.invalid },
         ),
-      managerDepartmentId: string().optional(),
+      manageDepartmentId: string().optional(),
       businessStatus: string(),
       address: string().trim().min(3, address.length).max(64, address.length).optional(),
       city: string().optional(),

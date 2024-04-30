@@ -50,6 +50,7 @@ export const loader = async ({
         pagination: {
           totalPages: response.headers['x-pages-count'],
           totalRecords: response.headers['x-total-count'],
+          pageSize: response.headers['x-per-page'],
         },
       },
       page: Math.min(page, response.headers['x-pages-count'] || 1),
@@ -172,7 +173,7 @@ export const Page = () => {
       <Table
         loading={isFetchingList}
         currentPage={data.page}
-        pageSize={10}
+        pageSize={data.info.pagination.pageSize}
         totalRecords={data.info.pagination.totalRecords}
         dataSource={data.info.hits}
         onChange={page => handleRequest({ page })}
@@ -196,7 +197,9 @@ export const Page = () => {
           <div className="basis-[400px]">
             <FormSearchNFilter
               searchValue={paramsInUrl.search?.toString()}
-              formFilterValues={{}}
+              formFilterValues={{
+                businessStatus: paramsInUrl.businessStatus,
+              }}
               isSubmiting={isFetchingList}
               onFilter={values => handleRequest({ page: 1, businessStatus: values.businessStatus })}
               onResetFilter={() => handleRequest({ page: 1, businessStatus: undefined })}

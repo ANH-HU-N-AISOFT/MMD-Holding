@@ -84,7 +84,12 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
   }, [fieldsError]);
 
   useDeepCompareEffect(() => {
-    reset(defaultValues);
+    if (defaultValues) {
+      reset({
+        ...defaultValues,
+        businessStatus: defaultValues.businessStatus ?? BusinessStatusEnum.ACTIVE,
+      });
+    }
   }, [defaultValues]);
 
   return (

@@ -21,7 +21,10 @@ export const loader = async ({
     return json({
       info: {
         hits: response.getCustomers.hits,
-        pagination: response.getCustomers.pagination,
+        pagination: {
+          ...response.getCustomers.pagination,
+          pageSize: 10,
+        },
       },
       page: Math.min(page, response.getCustomers.pagination.totalPages || 1),
     });

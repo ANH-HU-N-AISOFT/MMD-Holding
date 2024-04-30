@@ -6,6 +6,7 @@ export interface SimpleListingLoaderResponse<T extends AnyRecord> {
     pagination: {
       totalRecords: number;
       totalPages: number;
+      pageSize: number;
     };
   };
   page: number;
