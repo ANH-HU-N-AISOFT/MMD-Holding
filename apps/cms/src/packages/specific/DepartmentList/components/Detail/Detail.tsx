@@ -34,7 +34,7 @@ export const Detail = ({ department }: Props) => {
                   code: department.code,
                   email: department.email,
                   foundationDate: department.foundationDate,
-                  manageDepartmentId: department.managementUnit?._id,
+                  manageDepartmentId: department.managementUnit?.id,
                   name: department.name,
                   phone: department.phoneNumber,
                   presentDepartmentId: department.unitManager?.id,

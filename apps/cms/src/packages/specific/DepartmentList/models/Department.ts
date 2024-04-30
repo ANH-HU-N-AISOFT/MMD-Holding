@@ -12,20 +12,17 @@ export enum BusinessStatusEnum {
 }
 
 export interface ManagementUnit {
-  _id: string;
-  name: string;
+  id: string;
+  fullName: string;
   code: string;
-  managementUnitId?: string;
-  businessStatus: BusinessStatusEnum;
-  level: CapHanhChinh;
-  address: string;
-  province: string;
-  foundationDate: string;
-  companyId: string;
-  createdAt: string;
-  updatedAt: string;
-  managementUnit?: ManagementUnit;
-  __v: 0;
+  phoneNumber: string;
+  email: string;
+}
+export interface UnitManager {
+  id: string;
+  fullName: string;
+  phoneNumber: string;
+  workEmail: string;
 }
 export interface Department {
   address: string;
@@ -38,10 +35,6 @@ export interface Department {
   businessStatus: BusinessStatusEnum;
   level: CapHanhChinh;
   managementUnit?: ManagementUnit;
-  unitManager?: {
-    fullName: string;
-    email: string;
-    id: string;
-  };
+  unitManager?: UnitManager;
   id: string;
 }
