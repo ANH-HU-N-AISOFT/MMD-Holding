@@ -28,5 +28,6 @@
         "accessToken": "MTM5NzhiMjYtNTc5MC00ZmY3LTlkYWEtN2EzNTMxMzJiOTFmfHJlYWQtd3JpdGU="
       }
     }
-  }
+  },
+  "useDaemonProcess": false
 }

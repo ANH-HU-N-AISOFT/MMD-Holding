@@ -1,20 +1,20 @@
 import { FileExcelOutlined } from '@ant-design/icons';
-import { Button, Typography, Upload } from 'antd';
+import { Button, ModalProps, Typography, Upload } from 'antd';
 import { RcFile } from 'antd/es/upload';
 import Dragger from 'antd/es/upload/Dragger';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal } from '~/components/AntCustom/Modal';
 
-interface Props {
+interface Props extends Omit<ModalProps, 'title' | 'okText' | 'footer'> {
   downSampleUrl: string;
 }
 
-export const ModalImport = ({ downSampleUrl }: Props) => {
+export const ModalImport = ({ downSampleUrl, ...props }: Props) => {
   const { t } = useTranslation(['components']);
 
   const [fileState, setFileState] = useState<File | null>(null);
-  console.log(fileState);
+
   const renderDragger = () => {
     if (fileState) {
       return (
@@ -61,7 +61,7 @@ export const ModalImport = ({ downSampleUrl }: Props) => {
 
   return (
     <Modal
-      open
+      {...props}
       title={t('components:ModalImport.title', { type: 'products' })}
       okText={t('components:ModalImport.upload_and_preview')}
       footer={(_, { OkBtn, CancelBtn }) => (

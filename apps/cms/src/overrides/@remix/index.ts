@@ -1,4 +1,5 @@
 export * from './src/ActionFunctionArgs';
+export * from './src/FetcherWithComponents';
 export * from './src/Form';
 export * from './src/Link';
 export * from './src/LoaderFunctionArgs';

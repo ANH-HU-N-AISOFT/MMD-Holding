@@ -1,8 +1,8 @@
 import { HomeOutlined, LogoutOutlined } from '@ant-design/icons';
-import { useFetcher, useNavigate } from '@remix-run/react';
 import { Button } from 'antd';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useFetcher, useNavigate } from '~/overrides/@remix';
 
 export const Page: FC = () => {
   const { t } = useTranslation(['page403']);

@@ -14,5 +14,19 @@
     "download_sample": "Tải xuống biểu mẫu",
     "add_file": "Chọn file",
     "replace_file": "Chọn file khác"
+  },
+  "ModalDelete": {
+    "ok": "Xoá",
+    "cancel": "Huỷ bỏ"
+  },
+  "FormMutation": {
+    "ok": "Xác nhận",
+    "save": "Lưu",
+    "cancel": "Huỷ",
+    "confirm_description": "Xác nhận để lưu bản ghi này"
+  },
+  "Detail": {
+    "edit": "Cập nhật",
+    "delete": "Xoá"
   }
 }

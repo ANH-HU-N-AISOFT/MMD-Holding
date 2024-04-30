@@ -93,7 +93,8 @@ export class FetchAPI {
     this._axiosInstance.interceptors.request.use(config => {
       if (config?.url && this.setConditionApplyAccessToken(config)) {
         const accessToken = this.setAccessToken();
-        config.headers['Authorization'] = accessToken;
+        // config.headers['Authorization'] = accessToken;
+        config.headers['access-token'] = accessToken;
       }
       return config;
     });

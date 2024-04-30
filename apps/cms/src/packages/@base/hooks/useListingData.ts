@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { AnyRecord } from 'typescript-utilities';
 import { UrlSearchParamsUtils } from 'utilities';
 import { SimpleListingLoaderResponse } from '../types/SimpleListingLoaderResponse';
-import type { FetcherWithComponents } from '@remix-run/react';
+import { FetcherWithComponents } from '~/overrides/@remix';
 
 interface UseListingData<T extends AnyRecord, SearchParams extends AnyRecord & { page?: number }> {
   loaderData: SimpleListingLoaderResponse<T>;

@@ -1,14 +1,24 @@
 import { Modal, ModalProps } from 'antd';
 import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
-export interface ModalConfirmDeleteProps extends Omit<ModalProps, 'children' | 'title'> {
+export interface ModalConfirmDeleteProps extends Pick<ModalProps, 'open' | 'onCancel' | 'onOk'> {
   title: ReactNode;
   description?: ReactNode;
+  loading?: boolean;
 }
 
-export const ModalConfirmDelete = ({ title, description, ...props }: ModalConfirmDeleteProps) => {
+export const ModalConfirmDelete = ({ title, description, loading, ...props }: ModalConfirmDeleteProps) => {
+  const { t } = useTranslation(['components']);
   return (
-    <Modal {...props} title="">
+    <Modal
+      {...props}
+      title=""
+      okButtonProps={{ danger: true }}
+      confirmLoading={loading}
+      okText={t('components:ModalDelete.ok')}
+      cancelText={t('components:ModalDelete.cancel')}
+    >
       <div className="flex gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-status-error/20">
           <span className="text-2xl text-status-red">

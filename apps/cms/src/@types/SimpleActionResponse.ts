@@ -4,4 +4,5 @@ export interface SimpleActionResponse<Model, FieldsError> {
   info?: Model | undefined;
   fieldsError?: Partial<FieldsError>;
   error?: string;
+  errorCode?: string;
 }

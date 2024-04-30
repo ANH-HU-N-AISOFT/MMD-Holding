@@ -1,0 +1,23 @@
+.DepartmentListing__Table .ant-table-cell:has(.ant-table-expanded-row-fixed) {
+  @apply !hidden;
+}
+
+.DepartmentListing__Table
+  .ant-table-row.ant-table-row-level-1
+  .ant-table-cell:has(.first_column) {
+  @apply !pl-8;
+}
+.DepartmentListing__Table
+  .ant-table-row.ant-table-row-level-2
+  .ant-table-cell:has(.first_column) {
+  @apply !pl-12;
+}
+
+.DepartmentListing__Table
+  .ant-table-row.ant-table-row-level-3
+  .ant-table-cell:has(.first_column) {
+  @apply !pl-16;
+}
+.DepartmentListing__Table .ant-table-row-expand-icon-cell {
+  @apply !invisible !pointer-events-none;
+}

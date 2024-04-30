@@ -1,7 +1,6 @@
-import { Outlet } from '@remix-run/react';
 import { Suspense } from 'react';
 import { FixedProgressLoader, usePrevious } from 'reactjs';
-import { ScrollRestoration, useNavigation } from '~/overrides/@remix';
+import { Outlet, ScrollRestoration, useNavigation } from '~/overrides/@remix';
 
 export const RootLayout = () => {
   const navigation = useNavigation();

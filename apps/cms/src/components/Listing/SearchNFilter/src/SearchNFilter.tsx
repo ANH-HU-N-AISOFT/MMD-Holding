@@ -1,5 +1,6 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
+import classNames from 'classnames';
 import { ChangeEvent, ReactNode } from 'react';
 import { FilterDrawer } from '../../../FilterDrawer';
 import { debounce } from '~/utils/functions/debounce';
@@ -18,14 +19,15 @@ export interface SearchNFilterProps {
     form: ReactNode;
   };
   isSubmiting?: boolean;
+  containerClassName?: string;
 }
 
-export const SearchNFilter = ({ filter, search, isSubmiting }: SearchNFilterProps) => {
+export const SearchNFilter = ({ filter, search, isSubmiting, containerClassName }: SearchNFilterProps) => {
   const { placeholder, onSearch, searchValue } = search;
   const { uid, count, form, onApply, onReset } = filter;
 
   return (
-    <div className="flex flex-col xs:flex-row sm:justify-end mb-1 gap-2">
+    <div className={classNames('flex flex-col xs:flex-row gap-2', containerClassName)}>
       <Input
         defaultValue={searchValue}
         className="md:max-w-[350px]"

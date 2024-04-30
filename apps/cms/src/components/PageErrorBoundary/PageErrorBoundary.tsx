@@ -6,6 +6,7 @@ export const PageErrorBoundary = () => {
   const error = useRouteError();
 
   useEffect(() => {
+    console.log('PageErrorBoundary', error);
     InteralError.setError(error);
   }, [error]);
 

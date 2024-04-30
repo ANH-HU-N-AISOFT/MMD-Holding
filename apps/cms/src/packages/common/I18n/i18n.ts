@@ -11,7 +11,7 @@ i18n
     ns: [
       // Common
       'common',
-      'error-message',
+      'error_message',
       'auth',
       'components',
       'page403',
@@ -19,6 +19,8 @@ i18n
       'page500',
 
       // Specific
+      'department',
+      'location',
     ],
     supportedLngs: ['en'],
     fallbackNS: 'en',

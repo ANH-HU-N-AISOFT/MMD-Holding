@@ -30,9 +30,9 @@ export const useGetNavData = () => {
       label: t('dashboard_layout:menu.organizational_structure'),
       children: [
         {
-          key: '/unit-list',
-          label: t('dashboard_layout:menu.unit_list'),
-          onClick: () => navigate('/unit-list'),
+          key: '/department-list',
+          label: t('dashboard_layout:menu.department_list'),
+          onClick: () => navigate('/department-list'),
         },
         {
           key: '/user-list',

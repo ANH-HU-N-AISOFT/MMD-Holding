@@ -7,6 +7,7 @@ import { Logo } from './components/Logo';
 import { Notification } from './components/Notification';
 import { UserDropdown } from './components/UserDropdown';
 import { useGetNavData } from './hooks/useGetNavData';
+import { getTabActiveWithLocation } from './utils/getTabActiveWithLocation';
 import { Link, Outlet, useLocation } from '~/overrides/@remix';
 
 const { Header, Content, Sider } = Layout;
@@ -22,7 +23,11 @@ export const DashboardLayout = () => {
   const defaultOpenKeys = useMemo(() => {
     const currentActiveKey = location.pathname;
     const parentMenuItem = menuItems.find(item => {
-      return item && 'children' in item && item.children?.some(child => child?.key === currentActiveKey);
+      return (
+        item &&
+        'children' in item &&
+        item.children?.some(child => child?.key && currentActiveKey.startsWith(child?.key.toString()))
+      );
     });
     if (parentMenuItem?.key) {
       return [parentMenuItem.key.toString()];
@@ -56,7 +61,7 @@ export const DashboardLayout = () => {
           </Link>
         </div>
         <Menu
-          selectedKeys={[location.pathname]}
+          selectedKeys={[getTabActiveWithLocation(location)]}
           theme="light"
           mode="inline"
           items={menuItems}
