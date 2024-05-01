@@ -6,6 +6,7 @@ import { Session } from '~/packages/common/Auth/models/Session';
 import { ResponseSuccess, endpoint } from '~/packages/common/Auth/services/getProfile';
 import { destroySession, getSession, setSession } from '~/packages/common/Auth/sessionStorage';
 import { fetchApi } from '~/utils/functions/fetchApi';
+import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalidateOnListingPage';
 
 export interface LoaderResponse {
   profile: Session;
@@ -59,5 +60,7 @@ export const Page = () => {
 };
 
 export const ErrorBoundary = PageErrorBoundary;
+
+export const shouldRevalidate = preventRevalidateOnListingPage;
 
 export default Page;

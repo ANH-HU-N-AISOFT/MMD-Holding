@@ -49,6 +49,7 @@ const router = createBrowserRouter([
       },
       {
         element: <DashboardLayout.Page />,
+        shouldRevalidate: DashboardLayout.shouldRevalidate,
         loader: DashboardLayout.loader,
         errorElement: <DashboardLayout.ErrorBoundary />,
         children: [

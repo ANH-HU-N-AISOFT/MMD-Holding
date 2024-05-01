@@ -33,6 +33,7 @@ import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Department/util
 import { Role } from '~/packages/specific/Employee/models/Employee';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
+import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalidateOnListingPage';
 
 export const loader = async ({
   request,
@@ -261,5 +262,7 @@ export const Page = () => {
 };
 
 export const ErrorBoundary = PageErrorBoundary;
+
+export const shouldRevalidate = preventRevalidateOnListingPage;
 
 export default Page;

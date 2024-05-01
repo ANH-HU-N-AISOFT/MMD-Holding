@@ -36,6 +36,7 @@ import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Employee/utils/
 import { fetcherFormData } from '~/utils/functions/formData/fetcherFormData';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
+import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalidateOnListingPage';
 
 export const loader = async ({
   request,
@@ -262,5 +263,7 @@ export const Page = () => {
 };
 
 export const ErrorBoundary = PageErrorBoundary;
+
+export const shouldRevalidate = preventRevalidateOnListingPage;
 
 export default Page;

@@ -11,6 +11,7 @@ const DepartmentRoutes: RouteObject[] = [
   {
     path: '/department',
     loader: DepartmentList.loader,
+    shouldRevalidate: DepartmentList.shouldRevalidate,
     errorElement: <DepartmentList.ErrorBoundary />,
     element: (
       <Suspense fallback={null}>

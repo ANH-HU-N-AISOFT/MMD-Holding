@@ -12,6 +12,7 @@ const EmployeeRoutes: RouteObject[] = [
   {
     path: '/employee',
     loader: EmployeeList.loader,
+    shouldRevalidate: EmployeeList.shouldRevalidate,
     errorElement: <EmployeeList.ErrorBoundary />,
     element: (
       <Suspense fallback={null}>
