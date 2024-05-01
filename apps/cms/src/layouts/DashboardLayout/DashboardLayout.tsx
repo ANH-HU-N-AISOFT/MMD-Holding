@@ -46,7 +46,7 @@ export const DashboardLayout = () => {
   }, [isMobile]);
 
   return (
-    <Layout className="!min-h-screen">
+    <Layout className="!h-screen overflow-hidden">
       <Sider
         width={210}
         trigger={null}
@@ -83,7 +83,7 @@ export const DashboardLayout = () => {
             </div>
           </div>
         </Header>
-        <Content className="p-4 md:p-8 !pb-0">
+        <Content className="p-4 md:p-8 !pb-0 overflow-y-auto">
           <Suspense fallback={null}>
             <Outlet />
           </Suspense>

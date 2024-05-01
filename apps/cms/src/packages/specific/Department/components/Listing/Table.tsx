@@ -95,14 +95,9 @@ export const Table = ({
       render: (_, __, index) => pageSize * (currentPage - 1) + index + 1,
     },
     {
-      width: 140,
-      title: t('department:code'),
-      render: (_, record) => record.code,
-    },
-    {
       width: 200,
       title: t('department:name'),
-      render: (_, record) => record.name,
+      render: (_, record) => [record.name, record.code].join(' - '),
     },
     {
       width: 200,
@@ -110,7 +105,7 @@ export const Table = ({
       render: (_, record) => record.managementUnit?.fullName,
     },
     {
-      width: 140,
+      width: 180,
       align: 'center',
       title: t('department:status').toString(),
       render: (_, record) => {
