@@ -3,5 +3,5 @@ export interface Session {
     accessToken: string;
     refreshToken: string;
   };
-  role: string;
+  role: 'admin' | 'tvv' | 'sales';
 }

@@ -123,7 +123,11 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                 placeholder={t('department:code')}
               />
             </Field>
-            <Field label={t('department:manager_department')} error={errors.manageDepartmentId?.message}>
+            <Field
+              withRequiredMark
+              label={t('department:manage_department')}
+              error={errors.manageDepartmentId?.message}
+            >
               <SelectManagementUnit
                 allowClear
                 managementUnit={manageDepartmentId}

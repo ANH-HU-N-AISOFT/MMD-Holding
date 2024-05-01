@@ -4,6 +4,7 @@ import type { TFunction } from 'i18next';
 import { getInvalidMessage } from '~/utils/functions/getInvalidMessage';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessage } from '~/utils/functions/getRequiredMessage';
+import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMessageSelectField';
 import { isEmail, isPhone } from '~/utils/regexes';
 
 export const getFormMutationResolver = (t: TFunction<['common', 'department']>) => {
@@ -11,10 +12,14 @@ export const getFormMutationResolver = (t: TFunction<['common', 'department']>) 
     required: getRequiredMessage(t, 'department:name'),
     length: getRangeLengthMessage(t, 'department:name', 3, 32),
   };
+
   const code = {
     required: getRequiredMessage(t, 'department:code'),
     length: getRangeLengthMessage(t, 'department:code', 2, 12),
     invalid: t('department:field_code_invalid'),
+  };
+  const manageDepartmentId = {
+    required: getRequiredMessageSelectField(t, 'department:manage_department'),
   };
   const address = {
     length: getRangeLengthMessage(t, 'department:address', 3, 64),
@@ -39,7 +44,7 @@ export const getFormMutationResolver = (t: TFunction<['common', 'department']>) 
           },
           { message: code.invalid },
         ),
-      manageDepartmentId: string().optional(),
+      manageDepartmentId: string({ required_error: manageDepartmentId.required }),
       businessStatus: string(),
       address: string().trim().min(3, address.length).max(64, address.length).optional(),
       city: string().optional(),

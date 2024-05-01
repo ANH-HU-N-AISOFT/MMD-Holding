@@ -13,7 +13,7 @@
   "business_status": "Trạng thái kinh doanh",
   "name": "Tên đơn vị",
   "code": "Mã đơn vị",
-  "manager_department": "Đơn vị quản lý",
+  "manage_department": "Đơn vị quản lý",
   "present_department": "Đại diện đơn vị",
   "delete_success": "Xoá thành công !",
   "delete_failure": "Xoá thất bại !",

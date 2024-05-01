@@ -1,7 +1,7 @@
 {
   "type_required": "{{type}} là bắt buộc",
   "range_length": "Trường thông tin cần có {{ from }} - {{ to }} ký tự",
-  "type_must_be_select": "{{type}} phải được chọn",
+  "type_must_be_select": "Phải chọn ít nhất một {{type}}",
   "type_invalid": "{{type}} không hợp lệ",
   "type_greater_than": "{{ type }} phải lớn hơn {{ number }}",
   "add_type": "Thêm {{ type }}",

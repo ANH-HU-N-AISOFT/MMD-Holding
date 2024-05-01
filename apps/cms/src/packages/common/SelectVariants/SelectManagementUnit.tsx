@@ -19,7 +19,7 @@ export const SelectManagementUnit = ({ disabled, managementUnit, allowClear, onC
   return (
     <SelectSingleDecoupling
       allowClear={allowClear}
-      placeholder={t('department:manager_department')}
+      placeholder={t('department:manage_department')}
       disabled={disabled}
       value={managementUnit}
       onChange={onChange}

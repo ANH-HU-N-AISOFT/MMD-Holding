@@ -32,7 +32,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         },
       });
       setSession({
-        role: '',
+        role: 'admin',
         token: {
           accessToken: response.data.accessToken,
           refreshToken: response.data.refreshToken,

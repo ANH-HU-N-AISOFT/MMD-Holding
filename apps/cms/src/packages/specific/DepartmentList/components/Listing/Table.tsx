@@ -102,7 +102,7 @@ export const Table = ({
     },
     {
       width: 200,
-      title: t('department:manager_department'),
+      title: t('department:manage_department'),
       render: (_, record) => record.managementUnit?.fullName,
     },
     {
