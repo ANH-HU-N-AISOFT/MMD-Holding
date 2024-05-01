@@ -11,7 +11,7 @@ export interface Props<ValueType extends OptionValueType[]> extends OmitRawProps
   options: Option[];
   value?: ValueType;
   defaultValue?: ValueType;
-  onChange?: SelectProps<ValueType, Option>['onChange'];
+  onChange?: SelectProps<ValueType | undefined, Option>['onChange'];
 }
 
 export const SelectMultiple = <ValueType extends OptionValueType[] = OptionValueType[]>({

@@ -136,7 +136,7 @@ export const TableForTreeLayout = ({
   const tree = leavesToTreeDataNode(dataSource as Department[], searchParams);
   const shakedTree = shakeUnmatchedBranches(tree);
 
-  console.log({ tree, shakedTree });
+  console.log({ tree, shakedTree, dataSource });
 
   useEffect(() => {
     // Default mở nút root ra

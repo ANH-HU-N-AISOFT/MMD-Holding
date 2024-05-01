@@ -18,7 +18,7 @@ export const FormLogin = ({ isSubmitting }: FormLoginProps) => {
     watch,
     setValue,
     trigger,
-  } = useRemixForm<FormLoginValues>({
+  } = useRemixForm<Partial<FormLoginValues>>({
     mode: 'onSubmit',
     defaultValues: {
       username: 'admin1',
@@ -45,7 +45,7 @@ export const FormLogin = ({ isSubmitting }: FormLoginProps) => {
           placeholder={t('auth:username')}
           prefix={<UserOutlined />}
           onChange={event => {
-            setValue('username', event.target.value);
+            setValue('username', event.target.value || undefined);
             trigger('username');
           }}
         />
@@ -57,7 +57,7 @@ export const FormLogin = ({ isSubmitting }: FormLoginProps) => {
           value={password}
           placeholder={t('auth:password')}
           onChange={event => {
-            setValue('password', event.target.value);
+            setValue('password', event.target.value || undefined);
             trigger('password');
           }}
         />

@@ -99,7 +99,7 @@ export const FormSearchNFilter = ({
                   return !!Role[item as keyof typeof Role];
                 })}
                 onChange={value => {
-                  setValue('roles', value.join(','));
+                  setValue('roles', value?.join(','));
                 }}
               />
             </Field>
