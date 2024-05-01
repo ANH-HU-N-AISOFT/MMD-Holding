@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
-import { getBusinessStatusMappingToLabels } from '~/packages/specific/DepartmentList/constants/BusinessStatusMappingToLabels';
-import { BusinessStatusEnum } from '~/packages/specific/DepartmentList/models/Department';
+import { getBusinessStatusMappingToLabels } from '~/packages/specific/Department/constants/BusinessStatusMappingToLabels';
+import { BusinessStatusEnum } from '~/packages/specific/Department/models/Department';
 
 interface Props {
   businessStatus?: BusinessStatusEnum;

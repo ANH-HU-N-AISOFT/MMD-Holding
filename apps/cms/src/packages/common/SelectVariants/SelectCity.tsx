@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Option, SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
-import { Location } from '~/packages/specific/Location/models/Location';
+import { City } from '~/packages/specific/Location/models/Location';
 import { getCities } from '~/packages/specific/Location/services/getCities';
 
 interface Props {
-  city?: Location['id'];
-  onChange?: SelectSingleProps<Location['id']>['onChange'];
+  city?: City['id'];
+  onChange?: SelectSingleProps<City['id']>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
 }

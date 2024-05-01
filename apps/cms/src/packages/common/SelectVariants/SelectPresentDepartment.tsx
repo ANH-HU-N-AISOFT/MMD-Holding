@@ -7,8 +7,8 @@ import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployees } from '~/packages/specific/Employee/services/getEmployees';
 
 interface Props {
-  presentDepartment?: Employee['id'];
-  onChange?: SelectSingleDecouplingProps<Employee, Employee['id']>['onChange'];
+  presentDepartment?: Employee['employeeId'];
+  onChange?: SelectSingleDecouplingProps<Employee, Employee['employeeId']>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
 }

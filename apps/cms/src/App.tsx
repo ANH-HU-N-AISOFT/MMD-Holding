@@ -18,9 +18,9 @@ import * as InputAssessmentSchedule from './routes/_dashboard.input-assessment-s
 import * as InputCheck from './routes/_dashboard.input-check';
 import * as PromotionProgramManagement from './routes/_dashboard.promotion-program-management';
 import * as TestStudy from './routes/_dashboard.test-study';
-import * as UserList from './routes/_dashboard.user-list';
 import * as RootLayout from './routes/_index';
 import DepartmentRoutes from './routes/Department';
+import EmployeeRoutes from './routes/Employee';
 import * as Logout from './routes/logout';
 
 const router = createBrowserRouter([
@@ -162,15 +162,7 @@ const router = createBrowserRouter([
             ),
           },
           ...DepartmentRoutes,
-          {
-            path: '/user-list',
-            errorElement: <UserList.ErrorBoundary />,
-            element: (
-              <Suspense fallback={null}>
-                <UserList.Page />
-              </Suspense>
-            ),
-          },
+          ...EmployeeRoutes,
         ],
       },
     ],

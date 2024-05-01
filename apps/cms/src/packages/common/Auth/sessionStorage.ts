@@ -2,12 +2,17 @@
 import { notification } from 'antd';
 import i18next from 'i18next';
 import { localStorage } from 'utilities';
-import { object, string } from 'zod';
+import { array, object, string } from 'zod';
 import { KeyOfSessionInCookie } from './constants/KeyOfSessionInCookie';
 import { Session } from './models/Session';
 
-const sessionSchema = object({
-  role: string(),
+export const sessionSchema = object({
+  profile: object({
+    roles: array(string()),
+    organizationName: string(),
+    fullName: string(),
+    avatar: string(),
+  }).optional(),
   token: object({
     accessToken: string(),
     refreshToken: string(),

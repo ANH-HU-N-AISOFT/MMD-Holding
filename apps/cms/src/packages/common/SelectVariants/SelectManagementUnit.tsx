@@ -3,8 +3,8 @@ import {
   SelectSingleDecoupling,
   SelectSingleDecouplingProps,
 } from '~/components/SelectDecoupling/SelectSingleDecoupling';
-import { Department } from '~/packages/specific/DepartmentList/models/Department';
-import { getDepartments } from '~/packages/specific/DepartmentList/services/getDepartments';
+import { Department } from '~/packages/specific/Department/models/Department';
+import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 
 interface Props {
   managementUnit?: Department['id'];

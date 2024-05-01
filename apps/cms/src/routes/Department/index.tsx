@@ -1,15 +1,15 @@
 import { Suspense } from 'react';
 import { RouteObject } from 'react-router-dom';
-import * as DepartmentList from './src/_dashboard.department-list';
-import * as DeleteDepartment from './src/_dashboard.department-list.$id.delete';
-import * as DepartmentDetail from './src/_dashboard.department-list.$id.detail';
-import * as EditDepartment from './src/_dashboard.department-list.$id.edit';
-import * as CreateDepartment from './src/_dashboard.department-list.create';
-import * as ExportDepartments from './src/_dashboard.department-list.export';
+import * as DepartmentList from './src/_dashboard.department';
+import * as DeleteDepartment from './src/_dashboard.department.$id.delete';
+import * as DepartmentDetail from './src/_dashboard.department.$id.detail';
+import * as EditDepartment from './src/_dashboard.department.$id.edit';
+import * as CreateDepartment from './src/_dashboard.department.create';
+import * as ExportDepartments from './src/_dashboard.department.export';
 
 const DepartmentRoutes: RouteObject[] = [
   {
-    path: '/department-list',
+    path: '/department',
     loader: DepartmentList.loader,
     errorElement: <DepartmentList.ErrorBoundary />,
     element: (
@@ -19,30 +19,31 @@ const DepartmentRoutes: RouteObject[] = [
     ),
   },
   {
-    path: '/department-list/:id/detail',
+    path: '/department/:id/detail',
     loader: DepartmentDetail.loader,
     element: <DepartmentDetail.Page />,
     errorElement: <DepartmentDetail.ErrorBoundary />,
   },
   {
-    path: '/department-list/:id/edit',
+    path: '/department/:id/edit',
     loader: EditDepartment.loader,
     action: EditDepartment.action,
     element: <EditDepartment.Page />,
     errorElement: <EditDepartment.ErrorBoundary />,
   },
   {
-    path: '/department-list/create',
+    path: '/department/create',
+    loader: CreateDepartment.loader,
     action: CreateDepartment.action,
     element: <CreateDepartment.Page />,
     errorElement: <CreateDepartment.ErrorBoundary />,
   },
   {
-    path: '/department-list/export',
+    path: '/department/export',
     action: ExportDepartments.action,
   },
   {
-    path: '/department-list/:id/delete',
+    path: '/department/:id/delete',
     action: DeleteDepartment.action,
   },
 ];

@@ -9,7 +9,10 @@ import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { getFormLoginZodSchema } from '~/packages/common/Auth/FormLogin/constants/zod';
 import { FormLogin } from '~/packages/common/Auth/FormLogin/FormLogin';
 import { FormLoginValues } from '~/packages/common/Auth/FormLogin/types/Values';
-import { ResponseSuccess, endpoint } from '~/packages/common/Auth/services/login';
+import {
+  endpoint as endpointLogin,
+  ResponseSuccess as ResponseLoginSuccess,
+} from '~/packages/common/Auth/services/login';
 import { setSession } from '~/packages/common/Auth/sessionStorage';
 import { fetchApi } from '~/utils/functions/fetchApi';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
@@ -23,16 +26,16 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       zodResolver(getFormLoginZodSchema(t as TFunction<any>)),
     );
     if (data) {
-      const response = await fetchApi.request<ResponseSuccess>({
-        url: endpoint,
+      const response = await fetchApi.request<ResponseLoginSuccess>({
+        url: endpointLogin,
         method: 'POST',
         data: {
           userName: data?.username,
           password: data?.password,
         },
       });
+
       setSession({
-        role: 'admin',
         token: {
           accessToken: response.data.accessToken,
           refreshToken: response.data.refreshToken,

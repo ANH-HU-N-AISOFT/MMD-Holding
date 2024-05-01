@@ -1,12 +1,12 @@
 {
   "Modal": {
-    "ok": "Ok",
-    "cancel": "Cancel"
+    "ok": "Xác nhận",
+    "cancel": "Huỷ"
   },
   "FilterDrawer": {
-    "filter": "Filter",
-    "reset": "Reset",
-    "apply": "Apply"
+    "filter": "Bộ lọc",
+    "reset": "Xoá bộ lọc",
+    "apply": "Lọc"
   },
   "ModalImport": {
     "upload_and_preview": "Tải lên xem trước",

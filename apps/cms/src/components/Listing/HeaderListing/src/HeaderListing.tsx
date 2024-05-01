@@ -7,6 +7,9 @@ export interface HeaderListingProps {
   exportBtn: ReactNode;
   importBtn: ReactNode;
   createBtn: ReactNode;
+  creatable?: boolean;
+  exportable?: boolean;
+  importable?: boolean;
   onExport?: () => void;
   onImport?: () => void;
   onCreate?: () => void;
@@ -16,8 +19,11 @@ export interface HeaderListingProps {
 export const HeaderListing: FC<HeaderListingProps> = ({
   title,
   exportBtn,
+  exportable = true,
   importBtn,
+  importable = true,
   createBtn,
+  creatable = true,
   onCreate,
   onExport,
   onImport,
@@ -27,15 +33,21 @@ export const HeaderListing: FC<HeaderListingProps> = ({
     <div className="flex flex-wrap justify-between items-center mb-4">
       <div className="text-2xl font-semibold">{title}</div>
       <div className="flex items-center gap-2">
-        <Button loading={isExporting} onClick={onExport} icon={<ExportOutlined />}>
-          {exportBtn}
-        </Button>
-        <Button onClick={onImport} className="hidden sm:block" icon={<ImportOutlined />}>
-          {importBtn}
-        </Button>
-        <Button onClick={onCreate} icon={<PlusOutlined />} type="primary">
-          {createBtn}
-        </Button>
+        {exportable && (
+          <Button loading={isExporting} onClick={onExport} icon={<ExportOutlined />}>
+            {exportBtn}
+          </Button>
+        )}
+        {importable && (
+          <Button onClick={onImport} className="hidden sm:block" icon={<ImportOutlined />}>
+            {importBtn}
+          </Button>
+        )}
+        {creatable && (
+          <Button onClick={onCreate} icon={<PlusOutlined />} type="primary">
+            {createBtn}
+          </Button>
+        )}
       </div>
     </div>
   );

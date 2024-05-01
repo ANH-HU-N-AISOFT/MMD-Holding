@@ -1,7 +1,4 @@
-export interface Session {
-  token: {
-    accessToken: string;
-    refreshToken: string;
-  };
-  role: 'admin' | 'tvv' | 'sales';
-}
+import { TypeOf } from 'zod';
+import { sessionSchema } from '../sessionStorage';
+
+export type Session = TypeOf<typeof sessionSchema>;

@@ -94,7 +94,7 @@ export class FetchAPI {
       if (config?.url && this.setConditionApplyAccessToken(config)) {
         const accessToken = this.setAccessToken();
         // config.headers['Authorization'] = accessToken;
-        config.headers['access-token'] = accessToken;
+        config.headers['access-token'] = config.headers['access-token'] || accessToken;
       }
       return config;
     });
@@ -155,6 +155,7 @@ export class FetchAPI {
     this.request = (requestConfig: AxiosRequestConfig): Promise<AxiosResponse> => {
       const axiosCancelToken = axios.CancelToken.source();
       const controller = new AbortController();
+
       const request = this._axiosInstance({
         cancelToken: axiosCancelToken.token,
         signal: controller.signal,

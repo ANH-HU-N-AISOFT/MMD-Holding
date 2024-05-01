@@ -3,7 +3,9 @@ import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBound
 import { DashboardLayout } from '~/layouts/DashboardLayout/DashboardLayout';
 import { json, redirect, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { Session } from '~/packages/common/Auth/models/Session';
-import { getSession } from '~/packages/common/Auth/sessionStorage';
+import { ResponseSuccess, endpoint } from '~/packages/common/Auth/services/getProfile';
+import { destroySession, getSession, setSession } from '~/packages/common/Auth/sessionStorage';
+import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface LoaderResponse {
   profile: Session;
@@ -12,8 +14,23 @@ export interface LoaderResponse {
 export const loader = async () => {
   try {
     const session = getSession();
-    // TODO: Get new profile data
-    console.log(session);
+    if (!session) {
+      destroySession();
+      return null;
+    }
+
+    const profileResponse = await fetchApi.request<ResponseSuccess>({
+      url: endpoint,
+    });
+    setSession({
+      ...session,
+      profile: {
+        roles: profileResponse.data.user?.roles ?? [],
+        avatar: '',
+        fullName: profileResponse.data.fullName,
+        organizationName: profileResponse.data.organization?.fullName ?? '',
+      },
+    });
 
     return json({
       profile: {

@@ -5,6 +5,7 @@ import type { HtmlHTMLAttributes, PropsWithChildren, ReactNode } from 'react';
 interface Props {
   label: ReactNode;
   error?: ReactNode;
+  help?: ReactNode;
   withRequiredMark?: boolean;
   tagName?: keyof HTMLElementTagNameMap;
   className?: string;
@@ -24,10 +25,23 @@ export const FieldError = ({
   );
 };
 
+export const FieldHelp = ({
+  help,
+  className,
+  ...props
+}: Pick<Props, 'help'> & Omit<HtmlHTMLAttributes<HTMLDivElement>, 'children'>) => {
+  return (
+    <div {...props} className={classNames('text-xs font-medium text-neutral-500', className)}>
+      {help}
+    </div>
+  );
+};
+
 export const Field = ({
   label,
   children,
   error,
+  help,
   withRequiredMark,
   tagName = 'label',
   className,
@@ -52,6 +66,7 @@ export const Field = ({
         {renderRequiredMark()}
       </div>
       <div className={classNames('mb-2', fieldWrapperClassName)}>{children}</div>
+      {!!help && <FieldHelp className="mt-2" help={help} />}
       {!!error && <FieldError className="mt-2" error={error} />}
     </>,
   );

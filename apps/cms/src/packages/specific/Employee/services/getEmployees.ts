@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { Employee } from '../models/Employee';
+import { Employee, EmployeeStatus } from '../models/Employee';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {
@@ -17,14 +17,20 @@ interface GetEmployees {
   query?: string;
   page?: number;
   perPage?: number;
+  organizationId?: string;
+  role?: string;
+  workStatus?: EmployeeStatus;
 }
-export const getEmployees = async ({ page, query, perPage }: GetEmployees) => {
+export const getEmployees = async ({ page, query, perPage, organizationId, role, workStatus }: GetEmployees) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     url: '/employees',
     params: {
       page,
       query,
       perPage,
+      organizationId,
+      role,
+      workStatus,
     },
   });
 

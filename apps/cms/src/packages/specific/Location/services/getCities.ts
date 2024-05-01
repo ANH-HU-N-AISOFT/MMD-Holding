@@ -1,9 +1,9 @@
 import { AxiosResponse } from 'axios';
-import { Location } from '../models/Location';
+import { City } from '../models/Location';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {
-  items: Location[];
+  items: City[];
   headers: {
     'x-page': number;
     'x-total-count': number;

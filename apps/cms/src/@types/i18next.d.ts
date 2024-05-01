@@ -6,6 +6,7 @@ import type courses from 'public/locales/en/courses.json';
 import type customer_management from 'public/locales/en/customer_management.json';
 import type dashboard_layout from 'public/locales/en/dashboard_layout.json';
 import type department from 'public/locales/en/department.json';
+import type employee from 'public/locales/en/employee.json';
 import type error_message from 'public/locales/en/error_message.json';
 import type location from 'public/locales/en/location.json';
 import type page403 from 'public/locales/en/page403.json';
@@ -27,6 +28,7 @@ declare module 'i18next' {
       department: typeof department;
       error_message: typeof error_message;
       location: typeof location;
+      employee: typeof employee;
     };
   }
 }
