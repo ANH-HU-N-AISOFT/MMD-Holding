@@ -117,6 +117,7 @@ export const SelectSingleDecoupling = <Model extends AnyRecord, ModelId extends 
   return (
     <SelectSingle
       {...props}
+      filterOption={() => true}
       showSearch={showSearch}
       searchValue={searchValue}
       onSearch={handleSearchDropdown}

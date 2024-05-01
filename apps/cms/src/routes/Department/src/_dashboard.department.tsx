@@ -41,9 +41,9 @@ export const loader = async ({
   const { page = 1, search, businessStatus, layout } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
     const response = await getDepartments({
-      businessStatus: businessStatus as BusinessStatusEnum | undefined,
+      businessStatus: layout === 'tree' ? undefined : (businessStatus as BusinessStatusEnum | undefined),
       page,
-      query: search,
+      query: layout === 'tree' ? undefined : search,
       perPage: layout === 'tree' ? 10000 : undefined,
     });
 
@@ -170,6 +170,7 @@ export const Page = () => {
             onView={record => navigate(`/department/${record.id}/detail`)}
             deletable={isCanShow({ accept: [Role.Admin] })}
             editable={isCanShow({ accept: [Role.Admin] })}
+            searchParams={paramsInUrl}
           />
         </BoxFields>
       );

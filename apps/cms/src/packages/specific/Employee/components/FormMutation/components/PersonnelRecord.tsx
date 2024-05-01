@@ -41,7 +41,7 @@ export const PersonnelRecord = ({ form, disabledField }: Props) => {
         <Input
           value={code}
           onChange={event => {
-            setValue('personnelRecord.code', event.target.value);
+            setValue('personnelRecord.code', event.target.value || undefined);
             if (errors.personnelRecord?.code) {
               trigger('personnelRecord.code');
             }
@@ -124,7 +124,7 @@ export const PersonnelRecord = ({ form, disabledField }: Props) => {
           format="DD/MM/YYYY"
           value={contractStartEffectDate ? dayjs(contractStartEffectDate) : undefined}
           onChange={value => {
-            setValue('personnelRecord.contractStartEffectDate', value.toISOString());
+            setValue('personnelRecord.contractStartEffectDate', value?.toISOString());
             if (errors.personnelRecord?.contractStartEffectDate) {
               trigger('personnelRecord.contractStartEffectDate');
             }
@@ -143,7 +143,7 @@ export const PersonnelRecord = ({ form, disabledField }: Props) => {
           format="DD/MM/YYYY"
           value={contractEndEffectDate ? dayjs(contractEndEffectDate) : undefined}
           onChange={value => {
-            setValue('personnelRecord.contractEndEffectDate', value.toISOString());
+            setValue('personnelRecord.contractEndEffectDate', value?.toISOString());
             if (errors.personnelRecord?.contractEndEffectDate) {
               trigger('personnelRecord.contractEndEffectDate');
             }

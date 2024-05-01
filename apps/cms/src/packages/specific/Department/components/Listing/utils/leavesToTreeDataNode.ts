@@ -1,11 +1,14 @@
 import { Department } from '../../../models/Department';
+import { ListingSearchParams } from '../../../types/ListingSearchParams';
 
 export interface TreeNodeData {
   generalInformation: Department;
   children: TreeNodeData[];
+  matched: boolean;
 }
 
-export const leavesToTreeDataNode = (data: Department[]): TreeNodeData[] => {
+export const leavesToTreeDataNode = (data: Department[], searchParams: ListingSearchParams): TreeNodeData[] => {
+  const inSearchOrFilterMode = searchParams.businessStatus || searchParams.search;
   const map: { [key: string]: TreeNodeData } = {};
   const treeData: TreeNodeData[] = [];
 
@@ -13,12 +16,19 @@ export const leavesToTreeDataNode = (data: Department[]): TreeNodeData[] => {
     map[node.id] = {
       generalInformation: node,
       children: [],
+      matched: inSearchOrFilterMode ? false : true,
     };
   });
 
   // Build the tree structure
   data.forEach(node => {
     const treeNode = map[node.id];
+    // Xét nút đang xét thoả mãn điều kiện search hay không
+    if (searchParams.businessStatus && treeNode.generalInformation.businessStatus === searchParams.businessStatus) {
+      treeNode.matched = true;
+    }
+
+    // Push nút đang xét vào nút cha
     if (!node.managementUnit?.id) {
       treeData.push(treeNode); // Add root nodes directly to treeData
     } else {

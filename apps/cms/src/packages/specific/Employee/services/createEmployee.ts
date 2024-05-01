@@ -8,6 +8,7 @@ import {
   Role,
 } from '../models/Employee';
 import { fetchApi } from '~/utils/functions/fetchApi';
+import { removeEmptyStringKeys } from '~/utils/functions/removeEmptyStringKeys';
 
 export interface CreateEmployee {
   fullName: string;
@@ -43,7 +44,7 @@ export const createEmployee = async (data: CreateEmployee) => {
   const response = await fetchApi.request({
     method: 'POST',
     url: '/employees',
-    data,
+    data: removeEmptyStringKeys(data),
   });
   return response.data;
 };

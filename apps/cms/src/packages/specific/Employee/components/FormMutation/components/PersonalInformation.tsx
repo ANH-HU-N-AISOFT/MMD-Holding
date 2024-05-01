@@ -44,7 +44,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         <Input
           value={fullName}
           onChange={event => {
-            setValue('personalInformation.fullName', event.target.value);
+            setValue('personalInformation.fullName', event.target.value || undefined);
             if (errors.personalInformation?.fullName) {
               trigger('personalInformation.fullName');
             }
@@ -57,7 +57,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         <Input
           value={phone}
           onChange={event => {
-            setValue('personalInformation.phone', event.target.value);
+            setValue('personalInformation.phone', event.target.value || undefined);
             if (errors.personalInformation?.phone) {
               trigger('personalInformation.phone');
             }
@@ -78,7 +78,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
           format="DD/MM/YYYY"
           value={dateOfBirth ? dayjs(dateOfBirth) : undefined}
           onChange={value => {
-            setValue('personalInformation.dateOfBirth', value.toISOString());
+            setValue('personalInformation.dateOfBirth', value?.toISOString());
             if (errors.personalInformation?.dateOfBirth) {
               trigger('personalInformation.dateOfBirth');
             }
@@ -104,7 +104,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         <Input
           value={workEmail}
           onChange={event => {
-            setValue('personalInformation.workEmail', event.target.value);
+            setValue('personalInformation.workEmail', event.target.value || undefined);
             if (errors.personalInformation?.workEmail) {
               trigger('personalInformation.workEmail');
             }
@@ -121,7 +121,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         <Input
           value={personalEmail}
           onChange={event => {
-            setValue('personalInformation.personalEmail', event.target.value);
+            setValue('personalInformation.personalEmail', event.target.value || undefined);
             if (errors.personalInformation?.personalEmail) {
               trigger('personalInformation.personalEmail');
             }
@@ -135,7 +135,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
           <Input
             value={currentAddress}
             onChange={event => {
-              setValue('personalInformation.currentAddress', event.target.value);
+              setValue('personalInformation.currentAddress', event.target.value || undefined);
               if (errors.personalInformation?.currentAddress) {
                 trigger('personalInformation.currentAddress');
               }
@@ -150,7 +150,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
           <Input
             value={residenceAddress}
             onChange={event => {
-              setValue('personalInformation.residenceAddress', event.target.value);
+              setValue('personalInformation.residenceAddress', event.target.value || undefined);
               if (errors.personalInformation?.residenceAddress) {
                 trigger('personalInformation.residenceAddress');
               }
@@ -176,7 +176,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         <Input
           value={citizenIdCard}
           onChange={event => {
-            setValue('personalInformation.citizenIdCard', event.target.value);
+            setValue('personalInformation.citizenIdCard', event.target.value || undefined);
             if (errors.personalInformation?.citizenIdCard) {
               trigger('personalInformation.citizenIdCard');
             }
@@ -195,7 +195,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         <Input
           value={emergencyContactName}
           onChange={event => {
-            setValue('personalInformation.emergencyContactName', event.target.value);
+            setValue('personalInformation.emergencyContactName', event.target.value || undefined);
             if (errors.personalInformation?.emergencyContactName) {
               trigger('personalInformation.emergencyContactName');
             }
@@ -211,7 +211,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         <Input
           value={emergencyContactPhone}
           onChange={event => {
-            setValue('personalInformation.emergencyContactPhone', event.target.value);
+            setValue('personalInformation.emergencyContactPhone', event.target.value || undefined);
             if (errors.personalInformation?.emergencyContactPhone) {
               trigger('personalInformation.emergencyContactPhone');
             }
@@ -229,7 +229,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         <Input
           value={emergencyContactRelationship}
           onChange={event => {
-            setValue('personalInformation.emergencyContactRelationship', event.target.value);
+            setValue('personalInformation.emergencyContactRelationship', event.target.value || undefined);
             if (errors.personalInformation?.emergencyContactRelationship) {
               trigger('personalInformation.emergencyContactRelationship');
             }
@@ -246,7 +246,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
           <Input.TextArea
             value={notes}
             onChange={event => {
-              setValue('personalInformation.notes', event.target.value);
+              setValue('personalInformation.notes', event.target.value || undefined);
               if (errors.personalInformation?.notes) {
                 trigger('personalInformation.notes');
               }

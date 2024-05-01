@@ -2,15 +2,17 @@ import { CaretRightOutlined, DeleteOutlined, EditOutlined, EyeOutlined } from '@
 import { Button, Tag } from 'antd';
 import { ExpandableConfig } from 'antd/es/table/interface';
 import classNames from 'classnames';
-import { isEmpty } from 'ramda';
-import { useMemo, useState } from 'react';
+import { isEmpty, nth } from 'ramda';
+import { useEffect, useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
 import { BusinessStatusMappingToColors } from '../../constants/BusinessStatusMappingToColors';
 import { getBusinessStatusMappingToLabels } from '../../constants/BusinessStatusMappingToLabels';
 import { Department } from '../../models/Department';
 import './styles.css';
+import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { TreeNodeData, leavesToTreeDataNode } from './utils/leavesToTreeDataNode';
+import { shakeUnmatchedBranches } from './utils/shakeUnmatchedBranches';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
 import { TableActions } from '~/components/TableActions/TableActions';
@@ -22,6 +24,7 @@ export interface Props extends Pick<TableListingProps<Department>, 'dataSource' 
   onDelete?: (recordKeys: string) => void;
   onDeleteMany?: (recordKeys: string[]) => void;
   onView?: (record: Department) => void;
+  searchParams?: ListingSearchParams;
 }
 
 export const TableForTreeLayout = ({
@@ -32,6 +35,7 @@ export const TableForTreeLayout = ({
   onView,
   deletable,
   editable,
+  searchParams = {},
   ...props
 }: Props) => {
   const { t } = useTranslation(['common', 'department']);
@@ -72,7 +76,7 @@ export const TableForTreeLayout = ({
       },
     },
     {
-      width: 140,
+      width: 180,
       align: 'center',
       title: t('department:status').toString(),
       render: (_, record) => {
@@ -129,7 +133,20 @@ export const TableForTreeLayout = ({
     return null;
   };
 
-  const tree = leavesToTreeDataNode(dataSource as Department[]);
+  const tree = leavesToTreeDataNode(dataSource as Department[], searchParams);
+  const shakedTree = shakeUnmatchedBranches(tree);
+
+  console.log({ tree, shakedTree });
+
+  useEffect(() => {
+    // Default mở nút root ra
+    const rootId = nth(0, tree)?.generalInformation.id;
+    if (rootId) {
+      setRowsExpanding([rootId]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <TableListing<TreeNodeData>

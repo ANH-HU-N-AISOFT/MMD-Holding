@@ -117,6 +117,7 @@ export const SelectMultipleDecoupling = <Model extends AnyRecord, ModelId extend
   return (
     <SelectMultiple
       {...props}
+      filterOption={() => true}
       showSearch={showSearch}
       searchValue={searchValue}
       onSearch={handleSearchDropdown}

@@ -101,7 +101,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <Input
                 value={name}
                 onChange={event => {
-                  setValue('name', event.target.value);
+                  setValue('name', event.target.value || undefined);
                   if (errors.name) {
                     trigger('name');
                   }
@@ -114,7 +114,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <Input
                 value={code}
                 onChange={event => {
-                  setValue('code', event.target.value);
+                  setValue('code', event.target.value || undefined);
                   if (errors.code) {
                     trigger('code');
                   }
@@ -157,7 +157,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <Input
                 value={address}
                 onChange={event => {
-                  setValue('address', event.target.value);
+                  setValue('address', event.target.value || undefined);
                   if (errors.address) {
                     trigger('address');
                   }
@@ -183,7 +183,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <Input
                 value={phone}
                 onChange={event => {
-                  setValue('phone', event.target.value);
+                  setValue('phone', event.target.value || undefined);
                   if (errors.phone) {
                     trigger('phone');
                   }
@@ -198,7 +198,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <Input
                 value={email}
                 onChange={event => {
-                  setValue('email', event.target.value);
+                  setValue('email', event.target.value || undefined);
                   if (errors.email) {
                     trigger('email');
                   }
@@ -225,7 +225,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                 format="DD/MM/YYYY"
                 value={foundationDate ? dayjs(foundationDate) : undefined}
                 onChange={value => {
-                  setValue('foundationDate', value.toISOString());
+                  setValue('foundationDate', value?.toISOString());
                   if (errors.foundationDate) {
                     trigger('foundationDate');
                   }

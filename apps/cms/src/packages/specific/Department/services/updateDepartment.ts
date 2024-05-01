@@ -1,5 +1,6 @@
 import { Department } from '../models/Department';
 import { fetchApi } from '~/utils/functions/fetchApi';
+import { removeEmptyStringKeys } from '~/utils/functions/removeEmptyStringKeys';
 
 export interface UpdateDepartment {
   id: Department['id'];
@@ -24,7 +25,7 @@ export const updateDepartment = async ({ data, id }: UpdateDepartment) => {
   const response = await fetchApi.request({
     method: 'PUT',
     url: `/organizations/${id}`,
-    data,
+    data: removeEmptyStringKeys(data),
   });
   return response.data;
 };
