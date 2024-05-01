@@ -1,7 +1,7 @@
 import { DatePicker, Input } from 'antd';
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { DeepPartial } from 'typescript-utilities';
-import { dayjs } from 'utilities';
 import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';

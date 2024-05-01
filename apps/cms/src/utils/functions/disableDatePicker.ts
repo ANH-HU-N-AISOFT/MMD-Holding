@@ -1,5 +1,5 @@
 import { DatePickerProps } from 'antd';
-import { dayjs, Dayjs } from 'utilities';
+import dayjs, { Dayjs } from 'dayjs';
 
 export const disablePast: DatePickerProps<Dayjs>['disabledDate'] = date => {
   return date.isBefore(dayjs().startOf('day'));

@@ -1,8 +1,8 @@
 import { DatePicker, Input } from 'antd';
+import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
-import { dayjs } from 'utilities';
 import { BusinessStatusEnum } from '../../models/Department';
 import { getFormMutationResolver } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
