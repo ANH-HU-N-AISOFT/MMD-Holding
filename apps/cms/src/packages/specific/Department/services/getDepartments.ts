@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { BusinessStatusEnum, Department } from '../models/Department';
+import { Department } from '../models/Department';
+import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {

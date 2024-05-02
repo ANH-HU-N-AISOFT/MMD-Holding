@@ -18,13 +18,13 @@ import {
   useNavigation,
 } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
+import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Edit } from '~/packages/specific/Department/components/Edit/Edit';
 import { FormValues } from '~/packages/specific/Department/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Department/components/FormMutation/zodResolver';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartment } from '~/packages/specific/Department/services/getDepartment';
 import { updateDepartment } from '~/packages/specific/Department/services/updateDepartment';
-import { Role } from '~/packages/specific/Employee/models/Employee';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';

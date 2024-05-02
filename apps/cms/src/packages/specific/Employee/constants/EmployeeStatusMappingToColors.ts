@@ -1,5 +1,5 @@
 import { TagProps } from 'antd';
-import { EmployeeStatus } from '../models/Employee';
+import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
 
 export const EmployeeStatusMappingToColors: Record<EmployeeStatus, TagProps['color']> = {
   [EmployeeStatus.WORKING]: 'success',

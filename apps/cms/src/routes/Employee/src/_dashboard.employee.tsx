@@ -25,11 +25,13 @@ import {
 } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
+import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
+import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormSearchNFilter } from '~/packages/specific/Employee/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Employee/components/Listing/Header';
 import { Table } from '~/packages/specific/Employee/components/Listing/Table';
 import { FormValues, ResetPassword } from '~/packages/specific/Employee/components/ResetPassword/ResetPassword';
-import { Employee, EmployeeStatus, Role } from '~/packages/specific/Employee/models/Employee';
+import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployees } from '~/packages/specific/Employee/services/getEmployees';
 import { ListingSearchParams } from '~/packages/specific/Employee/types/ListingSearchParams';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Employee/utils/lisitngUrlSearchParamsUtils';

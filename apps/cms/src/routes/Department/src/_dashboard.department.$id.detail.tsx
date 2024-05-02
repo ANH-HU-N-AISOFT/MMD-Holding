@@ -18,10 +18,10 @@ import {
   useLoaderData,
   useNavigate,
 } from '~/overrides/@remix';
+import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Detail } from '~/packages/specific/Department/components/Detail/Detail';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartment } from '~/packages/specific/Department/services/getDepartment';
-import { Role } from '~/packages/specific/Employee/models/Employee';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 

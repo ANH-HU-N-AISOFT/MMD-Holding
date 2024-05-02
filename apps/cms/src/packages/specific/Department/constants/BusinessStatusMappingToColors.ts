@@ -1,5 +1,5 @@
 import { TagProps } from 'antd';
-import { BusinessStatusEnum } from '../models/Department';
+import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
 
 export const BusinessStatusMappingToColors: Record<BusinessStatusEnum, TagProps['color']> = {
   [BusinessStatusEnum.ACTIVE]: 'success',

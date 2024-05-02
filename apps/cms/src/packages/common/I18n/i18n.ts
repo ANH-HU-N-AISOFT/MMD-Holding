@@ -19,6 +19,8 @@ i18n
       'page500',
 
       // Specific
+      'enum',
+      'employee',
       'department',
       'location',
     ],

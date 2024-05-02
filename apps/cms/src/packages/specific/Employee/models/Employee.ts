@@ -1,36 +1,9 @@
-export enum EmployeeStatus {
-  WORKING = 'working',
-  UNPAID_LEAVE = 'unpaid-leave',
-  MATERNITY_LEAVE = 'maternity-leave',
-  TERMINATED = 'terminated',
-}
-
-export enum JobTitleEnum {
-  CONSULTANT = 'consultant',
-  SALES_PERSONNEL = 'sale',
-  LECTURER = 'lecturer',
-}
-export enum EmploymentContractType {
-  FULL_TIME = 'full-time',
-  PART_TIME = 'part-time',
-}
-
-export enum GenderEnum {
-  MALE = 'male',
-  FEMALE = 'fe-male',
-}
-export enum EmployeeAccessStatus {
-  GRANTED = 'granted', // Employee has access
-  BLOCKED = 'blocked', // Employee's access is blocked
-}
-
-export enum Role {
-  Admin = 'admin',
-  Sale = 'sale',
-  Lecturer = 'lecturer',
-  Student = 'student',
-  Consultant = 'consultant',
-}
+import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
+import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
+import { EmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/constants/EmploymentContractType';
+import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
+import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
+import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 
 export interface Employee {
   id: string;

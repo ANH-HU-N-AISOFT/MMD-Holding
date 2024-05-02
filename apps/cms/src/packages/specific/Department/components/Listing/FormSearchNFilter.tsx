@@ -1,14 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { Field, useDeepCompareEffect } from 'reactjs';
-import { BusinessStatusEnum } from '../../models/Department';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
-import { SelectBusinessStatus } from '~/packages/common/SelectVariants/SelectBusinessStatus';
+import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
+import { SelectBusinessStatus } from '~/packages/common/SelectVariants/BusinessStatus/SelectBusinessStatus';
 
 export interface FormFilterValues extends Pick<ListingSearchParams, 'businessStatus'> {}
 
@@ -77,6 +77,7 @@ export const FormSearchNFilter = ({
           <Form method="GET" id={UID} onSubmit={handleSubmit}>
             <Field label={t('department:status')} error={errors.businessStatus?.message}>
               <SelectBusinessStatus
+                placeholder={t('department:status')}
                 businessStatus={businessStatus as BusinessStatusEnum | undefined}
                 onChange={value => {
                   setValue('businessStatus', value);

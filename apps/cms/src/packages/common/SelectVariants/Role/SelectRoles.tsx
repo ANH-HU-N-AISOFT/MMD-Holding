@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Role } from './constants/Role';
 import { SelectMultiple, SelectMultipleProps } from '~/components/AntCustom/Select';
-import { getRoleMappingToLabels } from '~/packages/specific/Employee/constants/RoleMappingToLabels';
-import { Role } from '~/packages/specific/Employee/models/Employee';
+import { getRoleMappingToLabels } from '~/packages/common/SelectVariants/Role/constants/RoleMappingToLabels';
 
 interface Props {
   roles?: Role[];
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const SelectRoles = ({ roles, disabled, allowClear, onChange }: Props) => {
-  const { t } = useTranslation(['common', 'employee']);
+  const { t } = useTranslation(['common', 'enum']);
   const roleMappingToLabels = useMemo(() => {
     return getRoleMappingToLabels(t);
   }, [t]);
@@ -22,7 +22,7 @@ export const SelectRoles = ({ roles, disabled, allowClear, onChange }: Props) =>
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={t('employee:role')}
+      placeholder={t('enum:role.label')}
       value={roles}
       onChange={onChange}
       options={Object.values(Role).map(item => {

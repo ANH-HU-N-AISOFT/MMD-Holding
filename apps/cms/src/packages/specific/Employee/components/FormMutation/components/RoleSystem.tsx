@@ -1,13 +1,13 @@
 import { Input, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { DeepPartial } from 'typescript-utilities';
-import { Role } from '../../../models/Employee';
 import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { SelectEmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/SelectEmployeeAccessStatus';
+import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { SelectRoles } from '~/packages/common/SelectVariants/Role/SelectRoles';
 import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
-import { SelectEmployeeAccessStatus } from '~/packages/common/SelectVariants/SelectEmployeeAccessStatus';
-import { SelectRoles } from '~/packages/common/SelectVariants/SelectRoles';
 
 interface Props {
   onResetPassword?: () => void;

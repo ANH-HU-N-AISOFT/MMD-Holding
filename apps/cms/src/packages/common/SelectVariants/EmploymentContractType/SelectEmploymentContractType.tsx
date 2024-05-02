@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { EmploymentContractType } from './constants/EmploymentContractType';
 import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
-import { getEmploymentContractTypeMappingToLabels } from '~/packages/specific/Employee/constants/EmploymentContractTypeMappingToLabels';
-import { EmploymentContractType } from '~/packages/specific/Employee/models/Employee';
+import { getEmploymentContractTypeMappingToLabels } from '~/packages/common/SelectVariants/EmploymentContractType/constants/EmploymentContractTypeMappingToLabels';
 
 interface Props {
   employmentContractType?: EmploymentContractType;
@@ -12,7 +12,8 @@ interface Props {
 }
 
 export const SelectEmploymentContractType = ({ employmentContractType, disabled, allowClear, onChange }: Props) => {
-  const { t } = useTranslation(['common', 'employee']);
+  const { t } = useTranslation(['common', 'enum']);
+
   const employmentContractTypeMappingToLabels = useMemo(() => {
     return getEmploymentContractTypeMappingToLabels(t);
   }, [t]);
@@ -22,7 +23,7 @@ export const SelectEmploymentContractType = ({ employmentContractType, disabled,
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={t('employee:employment_contract_type')}
+      placeholder={t('enum:contractType.label')}
       value={employmentContractType}
       onChange={onChange}
       options={Object.values(EmploymentContractType).map(item => {

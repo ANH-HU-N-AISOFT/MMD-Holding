@@ -22,15 +22,16 @@ import {
 } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
+import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
+import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormSearchNFilter } from '~/packages/specific/Department/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Department/components/Listing/Header';
 import { Table } from '~/packages/specific/Department/components/Listing/Table';
 import { TableForTreeLayout } from '~/packages/specific/Department/components/Listing/TableForTreeLayout';
-import { BusinessStatusEnum, Department } from '~/packages/specific/Department/models/Department';
+import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 import { ListingSearchParams } from '~/packages/specific/Department/types/ListingSearchParams';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Department/utils/lisitngUrlSearchParamsUtils';
-import { Role } from '~/packages/specific/Employee/models/Employee';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalidateOnListingPage';

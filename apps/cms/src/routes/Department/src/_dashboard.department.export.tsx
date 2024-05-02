@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import { SimpleActionResponse } from '~/@types/SimpleActionResponse';
 import { ActionFunctionArgs, json } from '~/overrides/@remix';
-import { BusinessStatusEnum } from '~/packages/specific/Department/models/Department';
+import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
 import { exportDepartments } from '~/packages/specific/Department/services/exportDepartments';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Department/utils/lisitngUrlSearchParamsUtils';
 import { downloadAxiosResponseAsCSV } from '~/utils/functions/downloadAxiosResponseAsCSV';

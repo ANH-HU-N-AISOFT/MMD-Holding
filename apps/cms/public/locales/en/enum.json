@@ -1,0 +1,68 @@
+{
+  "workStatus": {
+    "label": "Trạng thái làm việc",
+    "options": {
+      "WORKING": "Đang làm việc",
+      "MATERNITY_LEAVE": "Đang nghỉ thai sản",
+      "UNPAID_LEAVE": "Đang nghỉ không lương",
+      "TERMINATED": "Đã nghỉ việc"
+    }
+  },
+  "gender": {
+    "label": "Giới tính",
+    "options": {
+      "male": "Nam",
+      "female": "Nữ"
+    }
+  },
+  "jobTitle": {
+    "label": "Chức vụ",
+    "options": {
+      "CONSULTANT": "Tư vấn viên",
+      "SALES_PERSONNEL": "Nhân viên Sales",
+      "LECTURER": "Giảng viên"
+    }
+  },
+  "contractType": {
+    "label": "Loại hợp đồng",
+    "options": {
+      "FULL_TIME": "Toàn thời gian",
+      "PART_TIME": "Bán thời gian"
+    }
+  },
+  "role": {
+    "label": "Phân quyền",
+    "options": {
+      "Admin": "Admin",
+      "Sale": "Nhân viên sales",
+      "Lecturer": "Giảng viên",
+      "Student": "Học viên",
+      "Consultant": "Tư vấn viên"
+    }
+  },
+  "employeeAccessStatus": {
+    "label": "Trạng thái truy cập",
+    "options": {
+      "GRANTED": "Được quyền truy cập",
+      "BLOCKED": "Khóa truy cập"
+    }
+  },
+  "businessStatus": {
+    "label": "Trạng thái kinh doanh",
+    "options": {
+      "ACTIVE": "Đang hoạt động",
+      "COMING_SOON": "Sắp khai trương",
+      "PERMANENTLY_CLOSED": "Đóng cửa vĩnh viễn",
+      "TEMPORARILY_CLOSED": "Tạm ngừng hoạt động"
+    }
+  },
+  "source": {
+    "label": "",
+    "options": {
+      "HotWarm": "hot-warm",
+      "Cold": "cold",
+      "Communication": "communication",
+      "HumanResources": "human-resources"
+    }
+  }
+}

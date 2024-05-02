@@ -1,7 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
-import { EmployeeStatus, Role } from '../../models/Employee';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
 import { Field } from '~/components/Field/Field';
@@ -9,9 +8,11 @@ import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
+import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
+import { SelectEmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/SelectEmployeeStatus';
+import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { SelectRoles } from '~/packages/common/SelectVariants/Role/SelectRoles';
 import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
-import { SelectEmployeeStatus } from '~/packages/common/SelectVariants/SelectEmployeeStatus';
-import { SelectRoles } from '~/packages/common/SelectVariants/SelectRoles';
 
 export interface FormFilterValues extends Pick<ListingSearchParams, 'status' | 'department' | 'roles'> {}
 

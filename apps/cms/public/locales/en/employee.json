@@ -71,35 +71,5 @@
   "emergency_contact_relationship_invalid": "Chỉ cho phép nhập ký tự và dấu cách",
   "username_invalid": "Chỉ cho phép nhập ký tự và số",
   "password_invalid": "Trường thông tin yêu cầu bao gồm chữ cái, số và ký tư đặc biệt",
-  "employee_with_name_n_code": "Nhân viên - {{ name }} - {{ code }}",
-  "workStatusLabels": {
-    "WORKING": "Đang làm việc",
-    "MATERNITY_LEAVE": "Đang nghỉ thai sản",
-    "UNPAID_LEAVE": "Đang nghỉ không lương",
-    "TERMINATED": "Đã nghỉ việc"
-  },
-  "genderLabels": {
-    "male": "Nam",
-    "female": "Nữ"
-  },
-  "jobTitleLabels": {
-    "CONSULTANT": "Tư vấn viên",
-    "SALES_PERSONNEL": "Nhân viên Sales",
-    "LECTURER": "Giảng viên"
-  },
-  "contractTypeLabels": {
-    "FULL_TIME": "Toàn thời gian",
-    "PART_TIME": "Bán thời gian"
-  },
-  "roleLabels": {
-    "Admin": "Admin",
-    "Sale": "Nhân viên sales",
-    "Lecturer": "Giảng viên",
-    "Student": "Học viên",
-    "Consultant": "Tư vấn viên"
-  },
-  "employeeAccessStatusLabels": {
-    "GRANTED": "Được quyền truy cập",
-    "BLOCKED": "Khóa truy cập"
-  }
+  "employee_with_name_n_code": "Nhân viên - {{ name }} - {{ code }}"
 }

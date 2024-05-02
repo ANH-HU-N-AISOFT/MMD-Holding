@@ -24,6 +24,7 @@ import {
   useNavigation,
 } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
+import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Edit } from '~/packages/specific/Employee/components/Edit/Edit';
 import { FormValues } from '~/packages/specific/Employee/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Employee/components/FormMutation/zodResolver';
@@ -31,7 +32,7 @@ import {
   ResetPassword,
   FormValues as FormResetPasswordValues,
 } from '~/packages/specific/Employee/components/ResetPassword/ResetPassword';
-import { Employee, Role } from '~/packages/specific/Employee/models/Employee';
+import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployee } from '~/packages/specific/Employee/services/getEmployee';
 import { updateEmployee } from '~/packages/specific/Employee/services/updateEmployee';
 import { fetcherFormData } from '~/utils/functions/formData/fetcherFormData';

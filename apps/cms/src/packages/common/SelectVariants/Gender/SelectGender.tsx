@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { GenderEnum } from './constants/GenderEnum';
 import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
-import { GenderEnum } from '~/packages/specific/Employee/models/Employee';
 
 interface Props {
   gender?: GenderEnum;
@@ -11,11 +11,11 @@ interface Props {
 }
 
 export const SelectGender = ({ gender, disabled, allowClear, onChange }: Props) => {
-  const { t } = useTranslation(['common', 'employee']);
+  const { t } = useTranslation(['common', 'enum']);
   const genderMappingToLabels = useMemo(() => {
     return {
-      [GenderEnum.MALE]: t('employee:genderLabels.male'),
-      [GenderEnum.FEMALE]: t('employee:genderLabels.female'),
+      [GenderEnum.MALE]: t('enum:gender.options.male'),
+      [GenderEnum.FEMALE]: t('enum:gender.options.female'),
     };
   }, [t]);
 
@@ -24,7 +24,7 @@ export const SelectGender = ({ gender, disabled, allowClear, onChange }: Props) 
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={t('employee:gender')}
+      placeholder={t('enum:gender.label')}
       value={gender}
       onChange={onChange}
       options={Object.values(GenderEnum).map(item => {

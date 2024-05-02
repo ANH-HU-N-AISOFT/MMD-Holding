@@ -4,14 +4,6 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
-import {
-  EmployeeAccessStatus,
-  EmployeeStatus,
-  EmploymentContractType,
-  GenderEnum,
-  JobTitleEnum,
-  Role,
-} from '../../models/Employee';
 import { PersonalInformation } from './components/PersonalInformation';
 import { PersonnelRecord } from './components/PersonnelRecord';
 import { RoleSystem } from './components/RoleSystem';
@@ -19,6 +11,12 @@ import { getFormMutationResolver } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
+import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
+import { EmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/constants/EmploymentContractType';
+import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
+import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
+import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Department } from '~/packages/specific/Department/models/Department';
 
 export interface FormValues {

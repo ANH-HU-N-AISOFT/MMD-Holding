@@ -5,11 +5,11 @@ import { DeepPartial } from 'typescript-utilities';
 import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { SelectEmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/SelectEmployeeStatus';
+import { SelectEmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/SelectEmploymentContractType';
+import { SelectJobTitle } from '~/packages/common/SelectVariants/JobTitle/SelectJobTitle';
 import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
 import { SelectDirectionManager } from '~/packages/common/SelectVariants/SelectDirectionManager';
-import { SelectEmployeeStatus } from '~/packages/common/SelectVariants/SelectEmployeeStatus';
-import { SelectEmploymentContractType } from '~/packages/common/SelectVariants/SelectEmploymentContractType';
-import { SelectJobTitle } from '~/packages/common/SelectVariants/SelectJobTitle';
 import { disableBeforeCheckpoint } from '~/utils/functions/disableDatePicker';
 
 interface Props {

@@ -1,6 +1,6 @@
 import { redirect } from '~/overrides/@remix';
 import { destroySession, getSession } from '~/packages/common/Auth/sessionStorage';
-import { Role } from '~/packages/specific/Employee/models/Employee';
+import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 
 interface IsCanAccess {
   accept: Role[];

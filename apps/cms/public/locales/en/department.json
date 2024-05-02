@@ -36,11 +36,5 @@
   "student": "Học viện",
   "field_code_invalid": "Giá trị không được phép chứa dấu cách và ký tự đặc biệt",
   "update_failure": "Cập nhật thất bại",
-  "update_success": "Cập nhật thành công",
-  "businessStatus_labels": {
-    "ACTIVE": "Đang hoạt động",
-    "COMING_SOON": "Sắp khai trương",
-    "PERMANENTLY_CLOSED": "Đóng cửa vĩnh viễn",
-    "TEMPORARILY_CLOSED": "Tạm ngừng hoạt động"
-  }
+  "update_success": "Cập nhật thành công"
 }

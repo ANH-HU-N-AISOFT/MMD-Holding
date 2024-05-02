@@ -18,8 +18,9 @@ import {
   useLoaderData,
   useNavigate,
 } from '~/overrides/@remix';
+import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Detail } from '~/packages/specific/Employee/components/Detail/Detail';
-import { Employee, Role } from '~/packages/specific/Employee/models/Employee';
+import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployee } from '~/packages/specific/Employee/services/getEmployee';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';

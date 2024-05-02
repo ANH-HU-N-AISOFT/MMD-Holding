@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { JobTitleEnum } from './constants/JobTitleEnum';
 import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
-import { getJobTitleMappingToLabels } from '~/packages/specific/Employee/constants/JobTitleMappingToLabels';
-import { JobTitleEnum } from '~/packages/specific/Employee/models/Employee';
+import { getJobTitleMappingToLabels } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleMappingToLabels';
 
 interface Props {
   jobTitle?: JobTitleEnum;
@@ -12,7 +12,8 @@ interface Props {
 }
 
 export const SelectJobTitle = ({ jobTitle, disabled, allowClear, onChange }: Props) => {
-  const { t } = useTranslation(['common', 'employee']);
+  const { t } = useTranslation(['common', 'enum']);
+
   const jobTitleMappingToLabels = useMemo(() => {
     return getJobTitleMappingToLabels(t);
   }, [t]);
@@ -22,7 +23,7 @@ export const SelectJobTitle = ({ jobTitle, disabled, allowClear, onChange }: Pro
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={t('employee:job_title')}
+      placeholder={t('enum:jobTitle.label')}
       value={jobTitle}
       onChange={onChange}
       options={Object.values(JobTitleEnum).map(item => {

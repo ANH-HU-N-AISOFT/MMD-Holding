@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { Employee, EmployeeStatus } from '../models/Employee';
+import { Employee } from '../models/Employee';
+import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {

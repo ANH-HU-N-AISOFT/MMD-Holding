@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { EmployeeAccessStatus } from './constants/EmployeeAccessStatus';
 import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
-import { getEmployeeAccessStatusMappingToLabels } from '~/packages/specific/Employee/constants/EmployeeAccessStatusMappingToLabels';
-import { EmployeeAccessStatus } from '~/packages/specific/Employee/models/Employee';
+import { getEmployeeAccessStatusMappingToLabels } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatusMappingToLabels';
 
 interface Props {
   employeeAccessStatus?: EmployeeAccessStatus;
@@ -12,7 +12,8 @@ interface Props {
 }
 
 export const SelectEmployeeAccessStatus = ({ employeeAccessStatus, disabled, allowClear, onChange }: Props) => {
-  const { t } = useTranslation(['common', 'employee']);
+  const { t } = useTranslation(['common', 'enum']);
+
   const employeeAccessStatusMappingToLabels = useMemo(() => {
     return getEmployeeAccessStatusMappingToLabels(t);
   }, [t]);
@@ -22,7 +23,7 @@ export const SelectEmployeeAccessStatus = ({ employeeAccessStatus, disabled, all
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={t('employee:employee_access_status')}
+      placeholder={t('enum:employeeAccessStatus.label')}
       value={employeeAccessStatus}
       onChange={onChange}
       options={Object.values(EmployeeAccessStatus).map(item => {

@@ -3,13 +3,13 @@ import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
-import { BusinessStatusEnum } from '../../models/Department';
 import { getFormMutationResolver } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { SelectBusinessStatus } from '~/packages/common/SelectVariants/SelectBusinessStatus';
+import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
+import { SelectBusinessStatus } from '~/packages/common/SelectVariants/BusinessStatus/SelectBusinessStatus';
 import { SelectCity } from '~/packages/common/SelectVariants/SelectCity';
 import { SelectManagementUnit } from '~/packages/common/SelectVariants/SelectManagementUnit';
 import { SelectPresentDepartment } from '~/packages/common/SelectVariants/SelectPresentDepartment';
@@ -144,6 +144,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <SelectBusinessStatus
                 allowClear
                 businessStatus={businessStatus}
+                placeholder={t('department:business_status')}
                 onChange={value => {
                   setValue('businessStatus', value);
                   if (errors.businessStatus) {

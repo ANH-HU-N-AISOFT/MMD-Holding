@@ -1,12 +1,10 @@
-import {
-  Employee,
-  EmployeeAccessStatus,
-  EmployeeStatus,
-  EmploymentContractType,
-  GenderEnum,
-  JobTitleEnum,
-  Role,
-} from '../models/Employee';
+import { Employee } from '../models/Employee';
+import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
+import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
+import { EmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/constants/EmploymentContractType';
+import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
+import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
+import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { fetchApi } from '~/utils/functions/fetchApi';
 import { removeEmptyStringKeys } from '~/utils/functions/removeEmptyStringKeys';
 
