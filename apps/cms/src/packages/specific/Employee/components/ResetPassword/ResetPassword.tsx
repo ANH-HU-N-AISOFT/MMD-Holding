@@ -70,7 +70,7 @@ export const ResetPassword = ({ isSubmiting, uid, defaultValues, disabled, field
           value={newPassword}
           placeholder={t('employee:new_password')}
           onChange={event => {
-            setValue('newPassword', event.target.value || undefined);
+            setValue('newPassword', event.target.value);
             if (errors.newPassword) {
               trigger('newPassword');
             }
@@ -83,7 +83,7 @@ export const ResetPassword = ({ isSubmiting, uid, defaultValues, disabled, field
           value={confirmPassword}
           placeholder={t('employee:confirm_password')}
           onChange={event => {
-            setValue('confirmPassword', event.target.value || undefined);
+            setValue('confirmPassword', event.target.value);
             if (errors.confirmPassword) {
               trigger('confirmPassword');
             }

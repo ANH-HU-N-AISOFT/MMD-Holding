@@ -12,6 +12,7 @@ import type location from 'public/locales/en/location.json';
 import type page403 from 'public/locales/en/page403.json';
 import type page404 from 'public/locales/en/page404.json';
 import type page500 from 'public/locales/en/page500.json';
+import type student from 'public/locales/en/student.json';
 
 declare module 'i18next' {
   interface CustomTypeOptions {
@@ -29,6 +30,7 @@ declare module 'i18next' {
       error_message: typeof error_message;
       location: typeof location;
       employee: typeof employee;
+      student: typeof student;
     };
   }
 }

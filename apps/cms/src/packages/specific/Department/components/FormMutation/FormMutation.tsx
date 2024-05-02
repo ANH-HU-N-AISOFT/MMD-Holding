@@ -101,7 +101,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <Input
                 value={name}
                 onChange={event => {
-                  setValue('name', event.target.value || undefined);
+                  setValue('name', event.target.value);
                   if (errors.name) {
                     trigger('name');
                   }
@@ -114,7 +114,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <Input
                 value={code}
                 onChange={event => {
-                  setValue('code', event.target.value || undefined);
+                  setValue('code', event.target.value);
                   if (errors.code) {
                     trigger('code');
                   }
@@ -158,7 +158,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <Input
                 value={address}
                 onChange={event => {
-                  setValue('address', event.target.value || undefined);
+                  setValue('address', event.target.value);
                   if (errors.address) {
                     trigger('address');
                   }
@@ -184,7 +184,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <Input
                 value={phone}
                 onChange={event => {
-                  setValue('phone', event.target.value || undefined);
+                  setValue('phone', event.target.value);
                   if (errors.phone) {
                     trigger('phone');
                   }
@@ -199,7 +199,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <Input
                 value={email}
                 onChange={event => {
-                  setValue('email', event.target.value || undefined);
+                  setValue('email', event.target.value);
                   if (errors.email) {
                     trigger('email');
                   }

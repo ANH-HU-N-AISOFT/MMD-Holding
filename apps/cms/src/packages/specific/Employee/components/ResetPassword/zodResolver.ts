@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TFunction } from 'i18next';
-import { object, string } from 'zod';
+import { literal, object, string } from 'zod';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessage } from '~/utils/functions/getRequiredMessage';
 
@@ -16,7 +16,7 @@ export const getFormResetPasswordResolver = (t: TFunction<['common', 'employee']
         .min(8, password.length)
         .max(12, password.length)
         .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&\s'-])[A-Za-z\d@$!%*?&\s'-]+$/, password.invalid),
-      confirmPassword: string().optional(),
+      confirmPassword: string().optional().or(literal('')).nullable(),
     }).refine(data => data.newPassword === data.confirmPassword, {
       message: t('employee:confirm_password_not_match'),
       path: ['confirmPassword'],

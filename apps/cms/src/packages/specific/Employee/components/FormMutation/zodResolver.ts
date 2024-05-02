@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { object, string, enum as enum_, array } from 'zod';
+import { object, string, enum as enum_, array, literal } from 'zod';
 
 import type { TFunction } from 'i18next';
 import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
@@ -128,26 +128,34 @@ export const getFormMutationResolver = ({
           .max(96, currentAddress.length)
           .regex(/^[\p{L}0-9\s/]*$/u, currentAddress.invalid)
           .trim()
-          .optional(),
+          .optional()
+          .or(literal(''))
+          .nullable(),
         residenceAddress: string()
           .min(3, residenceAddress.length)
           .max(96, residenceAddress.length)
           .regex(/^[\p{L}0-9\s/]*$/u, residenceAddress.invalid)
           .trim()
-          .optional(),
-        region: string().trim().optional(),
+          .optional()
+          .or(literal(''))
+          .nullable(),
+        region: string().trim().optional().or(literal('')).nullable(),
         citizenIdCard: string()
           .min(8, citizenIdCard.length)
           .max(16, citizenIdCard.length)
           .regex(/^[\p{L}0-9\s-]*$/u, citizenIdCard.invalid)
           .trim()
-          .optional(),
+          .optional()
+          .or(literal(''))
+          .nullable(),
         emergencyContactName: string()
           .min(1, emergencyContactName.length)
           .max(100, emergencyContactName.length)
           .regex(/^[\p{L}0-9\s'-]*$/u, emergencyContactName.invalid)
           .trim()
-          .optional(),
+          .optional()
+          .or(literal(''))
+          .nullable(),
         emergencyContactPhone: string()
           .trim()
           .refine(
@@ -159,22 +167,26 @@ export const getFormMutationResolver = ({
             },
             { message: emergencyContactPhone.invalid },
           )
-          .optional(),
+          .optional()
+          .or(literal(''))
+          .nullable(),
         emergencyContactRelationship: string()
           .min(1, emergencyContactRelationship.length)
           .max(100, emergencyContactRelationship.length)
           .regex(/^[a-zA-Z\s]*$/u, emergencyContactRelationship.invalid)
           .trim()
-          .optional(),
-        notes: string().min(0, notes.length).max(256, notes.length).trim().optional(),
+          .optional()
+          .or(literal(''))
+          .nullable(),
+        notes: string().min(0, notes.length).max(256, notes.length).trim().optional().or(literal('')).nullable(),
       }),
       personnelRecord: object({
-        code: string().optional(),
+        code: string().optional().or(literal('')).nullable(),
         department: string({ required_error: personnelRecordDepartment.required }),
         jobTitle: enum_([JobTitleEnum.CONSULTANT, JobTitleEnum.LECTURER, JobTitleEnum.SALES_PERSONNEL], {
           required_error: jobTitle.required,
         }),
-        directionManager: string().optional(),
+        directionManager: string().optional().or(literal('')).nullable(),
         workStatus: enum_(
           [
             EmployeeStatus.MATERNITY_LEAVE,
@@ -184,9 +196,12 @@ export const getFormMutationResolver = ({
           ],
           { required_error: workStatus.required },
         ),
-        contractType: enum_([EmploymentContractType.FULL_TIME, EmploymentContractType.PART_TIME]).optional(),
-        contractStartEffectDate: string().optional(),
-        contractEndEffectDate: string().optional(),
+        contractType: enum_([EmploymentContractType.FULL_TIME, EmploymentContractType.PART_TIME])
+          .optional()
+          .or(literal(''))
+          .nullable(),
+        contractStartEffectDate: string().optional().or(literal('')).nullable(),
+        contractEndEffectDate: string().optional().or(literal('')).nullable(),
       }),
       roleSystem: needPassword
         ? roleSystemSchema.extend({

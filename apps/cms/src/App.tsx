@@ -22,6 +22,7 @@ import * as RootLayout from './routes/_index';
 import DepartmentRoutes from './routes/Department';
 import EmployeeRoutes from './routes/Employee';
 import * as Logout from './routes/logout';
+import StudentRoutes from './routes/Student';
 
 const router = createBrowserRouter([
   {
@@ -164,6 +165,7 @@ const router = createBrowserRouter([
           },
           ...DepartmentRoutes,
           ...EmployeeRoutes,
+          ...StudentRoutes,
         ],
       },
     ],

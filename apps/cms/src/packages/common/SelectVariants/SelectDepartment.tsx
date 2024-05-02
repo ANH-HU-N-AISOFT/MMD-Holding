@@ -12,9 +12,19 @@ interface Props {
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
+  fieldValue?: keyof Pick<Department, 'id' | 'code'>;
+  fieldLabel?: keyof Pick<Department, 'name' | 'code'>;
 }
 
-export const SelectDepartment = ({ disabled, department, allowClear, placeholder, onChange }: Props) => {
+export const SelectDepartment = ({
+  disabled,
+  department,
+  allowClear,
+  placeholder,
+  onChange,
+  fieldValue = 'id',
+  fieldLabel = 'name',
+}: Props) => {
   const { t } = useTranslation(['employee']);
 
   return (
@@ -31,7 +41,7 @@ export const SelectDepartment = ({ disabled, department, allowClear, placeholder
           items: response.items,
         };
       }}
-      transformToOption={department => ({ label: department.name, value: department.id })}
+      transformToOption={department => ({ label: department[fieldLabel], value: department[fieldValue] })}
       className="w-full"
     />
   );

@@ -21,6 +21,7 @@ i18n
       // Specific
       'enum',
       'employee',
+      'student',
       'department',
       'location',
     ],

@@ -78,7 +78,7 @@ export const RoleSystem = ({
         <Input
           value={username}
           onChange={event => {
-            setValue('roleSystem.username', event.target.value || undefined);
+            setValue('roleSystem.username', event.target.value);
             if (errors.roleSystem?.username) {
               trigger('roleSystem.username');
             }
@@ -117,7 +117,7 @@ export const RoleSystem = ({
           <Input.Password
             value={password}
             onChange={event => {
-              setValue('roleSystem.password', event.target.value || undefined);
+              setValue('roleSystem.password', event.target.value);
               if (errors.roleSystem?.password) {
                 trigger('roleSystem.password');
               }

@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { object, string } from 'zod';
+import { literal, object, string } from 'zod';
 import type { TFunction } from 'i18next';
 import { getInvalidMessage } from '~/utils/functions/getInvalidMessage';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
@@ -46,8 +46,8 @@ export const getFormMutationResolver = (t: TFunction<['common', 'department']>) 
         ),
       manageDepartmentId: string({ required_error: manageDepartmentId.required }),
       businessStatus: string(),
-      address: string().trim().min(3, address.length).max(64, address.length).optional(),
-      city: string().optional(),
+      address: string().min(3, address.length).max(64, address.length).optional().or(literal('')).nullable(),
+      city: string().optional().or(literal('')).nullable(),
       phone: string()
         .trim()
         .refine(
@@ -59,7 +59,9 @@ export const getFormMutationResolver = (t: TFunction<['common', 'department']>) 
           },
           { message: phone.invalid },
         )
-        .optional(),
+        .optional()
+        .or(literal(''))
+        .nullable(),
       email: string()
         .trim()
         .refine(
@@ -71,9 +73,11 @@ export const getFormMutationResolver = (t: TFunction<['common', 'department']>) 
           },
           { message: email.invalid },
         )
-        .optional(),
-      presentDepartmentId: string().optional(),
-      foundationDate: string().optional(),
+        .optional()
+        .or(literal(''))
+        .nullable(),
+      presentDepartmentId: string().optional().or(literal('')).nullable(),
+      foundationDate: string().optional().or(literal('')).nullable(),
     }),
   );
 };

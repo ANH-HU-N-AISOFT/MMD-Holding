@@ -45,7 +45,7 @@ export const FormLogin = ({ isSubmitting }: FormLoginProps) => {
           placeholder={t('auth:username')}
           prefix={<UserOutlined />}
           onChange={event => {
-            setValue('username', event.target.value || undefined);
+            setValue('username', event.target.value);
             trigger('username');
           }}
         />
@@ -57,7 +57,7 @@ export const FormLogin = ({ isSubmitting }: FormLoginProps) => {
           value={password}
           placeholder={t('auth:password')}
           onChange={event => {
-            setValue('password', event.target.value || undefined);
+            setValue('password', event.target.value);
             trigger('password');
           }}
         />

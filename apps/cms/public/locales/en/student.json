@@ -1,0 +1,28 @@
+{
+  "action": "Action",
+  "edit": "Cập nhật",
+  "view": "Xem chi tiết",
+  "delete": "Xoá",
+  "total_records_selected": "Đã chọn {{ total }} bản ghi",
+  "add_new": "Thêm mới",
+  "export": "Export",
+  "import": "Import",
+  "delete_success": "Xoá thành công !",
+  "delete_failure": "Xoá thất bại !",
+  "delete_title": "Xoá học viên",
+  "delete_description": "Bạn có chắc chắn muốn xoá học viên này?",
+  "export_failure": "Export thất bại",
+  "create_success": "Tạo thành công !",
+  "create_failure": "Tạo thất bại",
+  "update_failure": "Cập nhật thất bại",
+  "update_success": "Cập nhật thành công",
+  "search_placeholder": "Tìm theo mã học viên, tên học viên, số điện thoại hoặc mã đơn vị",
+  "department_code": "Mã đơn vị",
+
+  "add_student": "Thêm học viên",
+  "students": "Danh sách học viên",
+  "code": "Mã học viên",
+  "name": "Tên học viên",
+  "phone": "Số điện thoại",
+  "date_of_birth": "Ngày sinh"
+}

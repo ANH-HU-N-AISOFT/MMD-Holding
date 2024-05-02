@@ -41,7 +41,7 @@ export const PersonnelRecord = ({ form, disabledField }: Props) => {
         <Input
           value={code}
           onChange={event => {
-            setValue('personnelRecord.code', event.target.value || undefined);
+            setValue('personnelRecord.code', event.target.value);
             if (errors.personnelRecord?.code) {
               trigger('personnelRecord.code');
             }

@@ -37,7 +37,7 @@ export const OrganizationStructure = ({ data, selectedKey, onChange }: Organizat
     setAutoExpandParent(false);
   };
 
-  // const handleSearch: InputProps['onChange'] = event => setSearchValue(event.target.value || undefined);
+  // const handleSearch: InputProps['onChange'] = event => setSearchValue(event.target.value);
 
   const handleSelect: TreeProps['onSelect'] = keys => {
     const key = nth(0, keys);

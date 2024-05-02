@@ -1,22 +1,43 @@
-import { City } from '../../Location/models/Location';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
 import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
 
 export interface Student {
+  id: string;
   fullName: string;
   phoneNumber: string;
   userId: string;
   email?: string;
   address?: string;
-  province?: City;
-  district?: City;
-  birthday?: Date;
+  province?: {
+    id: string;
+    name: string;
+    code: string;
+  };
+  district?: {
+    id: string;
+    name: string;
+    code: string;
+  };
+  birthday?: string;
   school?: string;
   gender?: GenderEnum;
-  parentPhoneNumber?: string;
-  notifyParentsOfResults?: boolean;
+  notifyParentsOfResults?: true;
   source?: SourceEnum;
-  organizationIds: string[];
+  parentPhoneNumber?: string;
+  organizationIds?: string[];
   supporterIds?: string[];
   code: string;
+  organizations?: Array<{
+    id: string;
+    name: string;
+    code: string;
+    level: 2;
+  }>;
+  supporters?: Array<{
+    id: string;
+    employeeId: string;
+    fullName: string;
+    workEmail: string;
+    phoneNumber: string;
+  }>;
 }

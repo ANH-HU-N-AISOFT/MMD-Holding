@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { removeEmptyStringKeys } from './utils/removeEmptyStringKeys';
 
 /**
  * Configuration for initializing FetchAPI
@@ -155,6 +156,7 @@ export class FetchAPI {
     this.request = (requestConfig: AxiosRequestConfig): Promise<AxiosResponse> => {
       const axiosCancelToken = axios.CancelToken.source();
       const controller = new AbortController();
+      const method = requestConfig.method ?? baseConfig.method;
 
       const request = this._axiosInstance({
         cancelToken: axiosCancelToken.token,
@@ -166,8 +168,12 @@ export class FetchAPI {
           ...requestConfig.headers,
         },
         params: {
-          ...baseConfig.params,
-          ...requestConfig.params,
+          ...removeEmptyStringKeys(baseConfig.params),
+          ...removeEmptyStringKeys(requestConfig.params),
+        },
+        data: {
+          ...removeEmptyStringKeys(baseConfig.data, method === 'PUT'),
+          ...removeEmptyStringKeys(requestConfig.data, method === 'PUT'),
         },
       });
 

@@ -1,32 +1,27 @@
 import { AxiosResponse } from 'axios';
-import { Employee } from '../models/Employee';
+import { Student } from '../models/Student';
 import { ServiceHeaderResponse } from '~/@types/ServiceHeaderResponse';
-import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {
-  items: Employee[];
+  items: Student[];
   headers: ServiceHeaderResponse;
 }
 
-interface GetEmployees {
+interface GetStudents {
   query?: string;
   page?: number;
   perPage?: number;
-  organizationId?: string;
-  role?: string;
-  workStatus?: EmployeeStatus;
+  orgCodes?: string;
 }
-export const getEmployees = async ({ page, query, perPage, organizationId, role, workStatus }: GetEmployees) => {
+export const getStudents = async ({ page, query, perPage, orgCodes }: GetStudents) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
-    url: '/employees',
+    url: '/students',
     params: {
       page,
       query,
       perPage,
-      organizationId,
-      role,
-      workStatus,
+      orgCodes,
     },
   });
 

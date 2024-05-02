@@ -8,13 +8,9 @@ import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
-import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
-import { SelectEmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/SelectEmployeeStatus';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
-import { SelectRoles } from '~/packages/common/SelectVariants/Role/SelectRoles';
 import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
 
-export interface FormFilterValues extends Pick<ListingSearchParams, 'status' | 'department' | 'roles'> {}
+export interface FormFilterValues extends Pick<ListingSearchParams, 'department'> {}
 
 interface FormFilterProps {
   onFilter?: (formFilterValues: FormFilterValues) => void;
@@ -36,7 +32,7 @@ export const FormSearchNFilter = ({
   onFilter,
   containerClassName,
 }: FormFilterProps) => {
-  const { t } = useTranslation(['common', 'employee']);
+  const { t } = useTranslation(['common', 'student']);
 
   const { handleSubmit, reset, watch, setValue } = useRemixForm<FormFilterValues>({
     mode: 'onSubmit',
@@ -46,9 +42,7 @@ export const FormSearchNFilter = ({
       onValid: onFilter,
     },
   });
-  const status = watch('status');
   const department = watch('department');
-  const roles = watch('roles');
 
   const handleResetFormFilterValues = () => {
     reset({});
@@ -64,45 +58,25 @@ export const FormSearchNFilter = ({
       containerClassName={containerClassName}
       isSubmiting={isSubmiting}
       search={{
-        placeholder: t('employee:search_placeholder'),
+        placeholder: t('student:search_placeholder'),
         searchValue: searchValue,
         onSearch: onSearch,
       }}
       filter={{
         uid: UID,
         onReset: handleResetFormFilterValues,
-        count: getCountForFilterDrawer({ fieldKeys: ['department', 'roles', 'status'], formFilterValues }),
+        count: getCountForFilterDrawer({ fieldKeys: ['department'], formFilterValues }),
         form: (
           <Form method="GET" id={UID} onSubmit={handleSubmit}>
-            <Field label={t('employee:status')}>
-              <SelectEmployeeStatus
-                placeholder={t('employee:status')}
-                employeeStatus={status as EmployeeStatus | undefined}
-                onChange={value => {
-                  setValue('status', value);
-                }}
-              />
-            </Field>
-            <Field label={t('employee:department_code')}>
+            <Field label={t('student:department_code')}>
               <SelectDepartment
                 allowClear
+                placeholder={t('student:department_code')}
+                department={department}
                 fieldValue="code"
                 fieldLabel="code"
-                placeholder={t('employee:department_code')}
-                department={department}
                 onChange={value => {
                   setValue('department', value);
-                }}
-              />
-            </Field>
-            <Field label={t('employee:role')}>
-              <SelectRoles
-                allowClear
-                roles={roles?.split(',').filter((item): item is Role => {
-                  return !!Role[item as keyof typeof Role];
-                })}
-                onChange={value => {
-                  setValue('roles', value?.join(','));
                 }}
               />
             </Field>
