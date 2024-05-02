@@ -4,7 +4,6 @@ import type { TFunction } from 'i18next';
 import { getInvalidMessage } from '~/utils/functions/getInvalidMessage';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessage } from '~/utils/functions/getRequiredMessage';
-import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMessageSelectField';
 import { isEmail, isPhone } from '~/utils/regexes';
 
 export const getFormMutationResolver = (t: TFunction<['common', 'department']>) => {
@@ -19,7 +18,7 @@ export const getFormMutationResolver = (t: TFunction<['common', 'department']>) 
     invalid: t('department:field_code_invalid'),
   };
   const manageDepartmentId = {
-    required: getRequiredMessageSelectField(t, 'department:manage_department'),
+    required: t('department:manage_department_invalid'),
   };
   const address = {
     length: getRangeLengthMessage(t, 'department:address', 3, 64),
