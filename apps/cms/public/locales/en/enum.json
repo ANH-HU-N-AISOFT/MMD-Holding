@@ -59,10 +59,10 @@
   "source": {
     "label": "",
     "options": {
-      "HotWarm": "hot-warm",
-      "Cold": "cold",
-      "Communication": "communication",
-      "HumanResources": "human-resources"
+      "HotWarm": "Ấm - Nóng",
+      "Cold": "Lạnh",
+      "Communication": "Truyền thông",
+      "HumanResources": "Nhân - Tái"
     }
   }
 }

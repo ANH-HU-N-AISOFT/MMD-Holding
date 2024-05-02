@@ -1,8 +1,9 @@
-import { DatePicker, Divider, Input } from 'antd';
+import { Divider, Input } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { DeepPartial } from 'typescript-utilities';
 import { FormValues } from '../FormMutation';
+import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';

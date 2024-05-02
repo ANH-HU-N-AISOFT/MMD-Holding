@@ -1,4 +1,4 @@
-import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, EyeOutlined, LockOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import dayjs from 'dayjs';
 import { useState } from 'react';
@@ -18,8 +18,10 @@ export interface Props
   onDelete?: (recordKeys: string) => void;
   onDeleteMany?: (recordKeys: string[]) => void;
   onView?: (record: Student) => void;
+  onResetPassword?: (record: Student) => void;
   editable?: boolean;
   deletable?: boolean;
+  passwordResetable?: boolean;
 }
 
 export const Table = ({
@@ -32,8 +34,10 @@ export const Table = ({
   onDelete,
   onDeleteMany,
   onView,
+  onResetPassword,
   deletable,
   editable,
+  passwordResetable,
   ...props
 }: Props) => {
   const { t } = useTranslation(['common', 'student']);
@@ -90,6 +94,7 @@ export const Table = ({
       title: '#',
       render: (_, __, index) => pageSize * (currentPage - 1) + index + 1,
     },
+
     {
       width: 140,
       title: t('student:code'),
@@ -145,11 +150,18 @@ export const Table = ({
                 onClick: () => onView?.(record),
               },
               {
+                key: '4',
+                label: t('student:reset_password'),
+                icon: <LockOutlined />,
+                onClick: () => onResetPassword?.(record),
+                hidden: !passwordResetable,
+              },
+              {
                 key: '3',
                 label: t('student:delete'),
                 icon: <DeleteOutlined />,
                 danger: true,
-                onClick: () => onDelete?.(record.userId),
+                onClick: () => onDelete?.(record.id),
                 hidden: !deletable,
               },
             ]}

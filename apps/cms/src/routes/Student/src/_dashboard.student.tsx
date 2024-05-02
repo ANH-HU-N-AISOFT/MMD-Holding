@@ -2,11 +2,15 @@ import { notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { updateURLSearchParamsOfBrowserWithoutNavigation } from 'utilities';
-
 import {
   ActionResponse as ActionDeleteStudentResponse,
   action as actionDeleteStudent,
 } from './_dashboard.student.$id.delete';
+import {
+  ActionResponse as ActionResetPasswordResponse,
+  action as actionResetPassword,
+} from './_dashboard.student.$id.reset-password';
+import { Modal } from '~/components/AntCustom/Modal';
 import { ModalImport } from '~/components/Listing/ModalImport/ModalImport';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
@@ -25,10 +29,12 @@ import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormSearchNFilter } from '~/packages/specific/Student/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Student/components/Listing/Header';
 import { Table } from '~/packages/specific/Student/components/Listing/Table';
+import { FormValues, ResetPassword } from '~/packages/specific/Student/components/ResetPassword/ResetPassword';
 import { Student } from '~/packages/specific/Student/models/Student';
 import { getStudents } from '~/packages/specific/Student/services/getStudents';
 import { ListingSearchParams } from '~/packages/specific/Student/types/ListingSearchParams';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Student/utils/lisitngUrlSearchParamsUtils';
+import { fetcherFormData } from '~/utils/functions/formData/fetcherFormData';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalidateOnListingPage';
@@ -61,6 +67,7 @@ export const loader = async ({
   }
 };
 
+const FormResetPassword = 'FormResetPassword';
 export const Page = () => {
   const navigate = useNavigate();
   const { t } = useTranslation(['student']);
@@ -153,6 +160,40 @@ export const Page = () => {
   }, [deleteStudentFetcher.state]);
   //#endregion
 
+  //#region Reset password
+  const resetPasswordFetcher = useFetcher<typeof actionResetPassword>();
+
+  const isReseting = useMemo(() => {
+    return resetPasswordFetcher.state === 'loading' || resetPasswordFetcher.state === 'submitting';
+  }, [resetPasswordFetcher]);
+  const [isOpenModalResetPassword, setIsOpenModalResetPassword] = useState<Student | false>(false);
+
+  const handleReset = (values: FormValues) => {
+    if (isOpenModalResetPassword) {
+      resetPasswordFetcher.submit(fetcherFormData.encrypt(values), {
+        method: 'DELETE',
+        action: `/student/${isOpenModalResetPassword.id}/reset-password`,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (resetPasswordFetcher.data && resetPasswordFetcher.state === 'idle') {
+      const response = resetPasswordFetcher.data as ActionResetPasswordResponse;
+      if (response.hasError) {
+        notification.error({
+          message: t('student:reset_failure'),
+          description: handleGetMessageToToast(t, response),
+        });
+      } else {
+        notification.success({ message: t('student:reset_success') });
+        setIsOpenModalResetPassword(false);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetPasswordFetcher.state]);
+  //#endregion
+
   return (
     <>
       <div className="flex flex-col h-full">
@@ -178,6 +219,7 @@ export const Page = () => {
         <Table
           deletable={isCanShow({ accept: [Role.Admin] })}
           editable={isCanShow({ accept: [Role.Admin] })}
+          passwordResetable={isCanShow({ accept: [Role.Admin] })}
           loading={isFetchingList}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}
@@ -185,6 +227,7 @@ export const Page = () => {
           dataSource={data.info.hits}
           onChange={page => handleRequest({ page })}
           onDelete={data => setIsOpenModalDeleteStudent(data)}
+          onResetPassword={record => setIsOpenModalResetPassword(record)}
           onEdit={record => navigate(`/student/${record.id}/edit`)}
           onView={record => navigate(`/student/${record.id}/detail`)}
         />
@@ -203,6 +246,15 @@ export const Page = () => {
         description={t('student:delete_description')}
         loading={isDeleting}
       />
+      <Modal
+        title={t('student:reset_password')}
+        open={!!isOpenModalResetPassword}
+        onCancel={() => setIsOpenModalResetPassword(false)}
+        okButtonProps={{ htmlType: 'submit', form: FormResetPassword }}
+        destroyOnClose
+      >
+        <ResetPassword isSubmiting={isReseting} uid={FormResetPassword} onSubmit={handleReset} defaultValues={{}} />
+      </Modal>
     </>
   );
 };

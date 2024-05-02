@@ -1,9 +1,10 @@
-import { DatePicker, Input } from 'antd';
+import { Input } from 'antd';
 import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
 import { getFormMutationResolver } from './zodResolver';
+import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
 import { Form } from '~/overrides/@remix';

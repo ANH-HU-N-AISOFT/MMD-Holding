@@ -1,4 +1,6 @@
+import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
+import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
 
 export interface Student {
@@ -40,4 +42,9 @@ export interface Student {
     workEmail: string;
     phoneNumber: string;
   }>;
+  user?: {
+    userName: string;
+    roles: Role[];
+    accessStatus: EmployeeAccessStatus;
+  };
 }

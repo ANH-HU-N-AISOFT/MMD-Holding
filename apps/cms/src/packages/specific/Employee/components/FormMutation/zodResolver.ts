@@ -71,7 +71,7 @@ export const getFormMutationResolver = ({
     length: getRangeLengthMessage(t, 'employee:note', 0, 256),
   };
   const personnelRecordDepartment = {
-    required: getRequiredMessageSelectField(t, 'employee:department'),
+    required: t('employee:department_invalid'),
   };
   const jobTitle = {
     required: getRequiredMessageSelectField(t, 'employee:job_title'),

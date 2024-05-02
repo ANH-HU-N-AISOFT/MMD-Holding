@@ -11,7 +11,7 @@ interface ExpectServiceResponse<Model extends AnyRecord> {
   loadmorable: boolean;
 }
 
-export interface Props<Model extends AnyRecord, ModelId extends Array<string | number>>
+export interface SelectMultipleDecouplingProps<Model extends AnyRecord, ModelId extends Array<string | number>>
   extends Omit<SelectMultipleProps<ModelId>, 'options' | 'onChange'> {
   service: (params: {
     page: number;
@@ -28,7 +28,7 @@ export const SelectMultipleDecoupling = <Model extends AnyRecord, ModelId extend
   loading,
   showSearch = true,
   ...props
-}: Props<Model, ModelId>) => {
+}: SelectMultipleDecouplingProps<Model, ModelId>) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -41,7 +41,7 @@ export const SelectMultipleDecoupling = <Model extends AnyRecord, ModelId extend
   const debouncedPage = useDebouncedValue(page, { timeoutMs: 300 });
 
   const handleFetch =
-    (variant: 'FETCH' | 'LOAD_MORE'): Props<Model, ModelId>['service'] =>
+    (variant: 'FETCH' | 'LOAD_MORE'): SelectMultipleDecouplingProps<Model, ModelId>['service'] =>
     async ({ page, search }) => {
       const response = await service({ page, search });
       const { items, loadmorable } = response;

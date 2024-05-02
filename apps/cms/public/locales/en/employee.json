@@ -31,12 +31,12 @@
   "department_help_text": "Đơn vị quy định quyền truy cập dữ liệu trên hệ thống của nhân viên",
   "role_system": "Phân quyền hệ thống",
   "role_help_text": "Cấp quyền để nhân viên sử dụng hệ thống",
+  "role": "Phân quyền",
   "username": "Tên đăng nhập",
   "password": "Mật khẩu",
   "phone": "Số điện thoại",
   "date_of_birth": "Ngày sinh",
   "gender": "Giới tính",
-  "role": "Phân quyền",
   "job_title": "Chức vụ",
   "employment_contract_type": "Loại hợp đồng",
   "current_address": "Địa chỉ hiện tại",
@@ -71,5 +71,6 @@
   "emergency_contact_relationship_invalid": "Chỉ cho phép nhập ký tự và dấu cách",
   "username_invalid": "Chỉ cho phép nhập ký tự và số",
   "password_invalid": "Trường thông tin yêu cầu bao gồm chữ cái, số và ký tư đặc biệt",
-  "employee_with_name_n_code": "Nhân viên - {{ name }} - {{ code }}"
+  "employee_with_name_n_code": "Nhân viên - {{ name }} - {{ code }}",
+  "department_invalid": "Chọn đơn vị để tiếp tục"
 }
