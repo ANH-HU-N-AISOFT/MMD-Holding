@@ -133,10 +133,11 @@ export const TableForTreeLayout = ({
     return null;
   };
 
-  const tree = leavesToTreeDataNode(dataSource as Department[], searchParams);
-  const shakedTree = shakeUnmatchedBranches(tree);
-
-  console.log({ tree, shakedTree, dataSource });
+  const tree = useMemo(() => {
+    const result = leavesToTreeDataNode(dataSource as Department[], searchParams);
+    shakeUnmatchedBranches(result);
+    return result;
+  }, [dataSource, searchParams]);
 
   useEffect(() => {
     // Default mở nút root ra

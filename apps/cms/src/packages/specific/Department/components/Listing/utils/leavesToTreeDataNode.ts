@@ -27,9 +27,15 @@ export const leavesToTreeDataNode = (data: Department[], searchParams: ListingSe
     if (searchParams.businessStatus && treeNode.generalInformation.businessStatus === searchParams.businessStatus) {
       treeNode.matched = true;
     }
+    if (
+      searchParams.search &&
+      (treeNode.generalInformation.name.includes(searchParams.search) ||
+        treeNode.generalInformation.code.includes(searchParams.search))
+    ) {
+      treeNode.matched = true;
+    }
 
-    // Push nút đang xét vào nút cha
-    if (!node.managementUnit?.id) {
+    if (!node.managementUnit?.id || node.code === 'ROOT') {
       treeData.push(treeNode); // Add root nodes directly to treeData
     } else {
       const parentTreeNode = map[node.managementUnit?.id];

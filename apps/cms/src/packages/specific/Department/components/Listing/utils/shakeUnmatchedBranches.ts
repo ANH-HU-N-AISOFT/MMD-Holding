@@ -1,5 +1,6 @@
 import { TreeNodeData } from './leavesToTreeDataNode';
 
+// Quả này hơi khó nên bắt buộc phải mutate
 export const shakeUnmatchedBranches = (tree: TreeNodeData[]): TreeNodeData[] => {
   const shakeBranch = (node: TreeNodeData): TreeNodeData | null => {
     // Recursively check and shake children
