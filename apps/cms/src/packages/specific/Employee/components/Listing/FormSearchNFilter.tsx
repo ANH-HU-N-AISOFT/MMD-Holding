@@ -85,7 +85,6 @@ export const FormSearchNFilter = ({
             </Field>
             <Field label={t('employee:department_code')}>
               <SelectDepartment
-                allowClear
                 fieldValue="code"
                 fieldLabel="code"
                 placeholder={t('employee:department_code')}
@@ -97,7 +96,6 @@ export const FormSearchNFilter = ({
             </Field>
             <Field label={t('employee:role')}>
               <SelectRoles
-                allowClear
                 roles={roles?.split(',').filter((item): item is Role => {
                   return !!Role[item as keyof typeof Role];
                 })}

@@ -11,7 +11,12 @@ interface Props {
   allowClear?: boolean;
 }
 
-export const SelectEmploymentContractType = ({ employmentContractType, disabled, allowClear, onChange }: Props) => {
+export const SelectEmploymentContractType = ({
+  employmentContractType,
+  disabled,
+  allowClear = true,
+  onChange,
+}: Props) => {
   const { t } = useTranslation(['common', 'enum']);
 
   const employmentContractTypeMappingToLabels = useMemo(() => {
@@ -30,6 +35,7 @@ export const SelectEmploymentContractType = ({ employmentContractType, disabled,
         return {
           label: employmentContractTypeMappingToLabels[item],
           value: item,
+          rawData: item,
         };
       })}
     />

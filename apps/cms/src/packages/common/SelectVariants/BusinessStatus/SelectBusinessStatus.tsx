@@ -12,7 +12,7 @@ interface Props {
   placeholder?: string;
 }
 
-export const SelectBusinessStatus = ({ businessStatus, disabled, allowClear, placeholder, onChange }: Props) => {
+export const SelectBusinessStatus = ({ businessStatus, disabled, allowClear = true, placeholder, onChange }: Props) => {
   const { t } = useTranslation(['common', 'enum']);
 
   const businessStatusMappingToLabels = useMemo(() => {
@@ -31,6 +31,7 @@ export const SelectBusinessStatus = ({ businessStatus, disabled, allowClear, pla
         return {
           label: businessStatusMappingToLabels[item],
           value: item,
+          rawData: item,
         };
       })}
     />

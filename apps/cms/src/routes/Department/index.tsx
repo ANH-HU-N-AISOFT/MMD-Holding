@@ -29,6 +29,7 @@ const DepartmentRoutes: RouteObject[] = [
     path: '/department/:id/edit',
     loader: EditDepartment.loader,
     action: EditDepartment.action,
+    shouldRevalidate: EditDepartment.shouldRevalidate,
     element: <EditDepartment.Page />,
     errorElement: <EditDepartment.ErrorBoundary />,
   },

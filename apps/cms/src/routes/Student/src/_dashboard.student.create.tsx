@@ -36,7 +36,7 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
         fullName: data.personalInformation.fullName,
         gender: data.personalInformation.gender,
         notifyParentsOfResults: data.personalInformation.notifyResultToParent,
-        organizationIds: [data.personalInformation.department],
+        organizationIds: data.personalInformation.departments,
         parentPhone: data.personalInformation.parentPhone,
         password: data.roleSystem.password,
         phoneNumber: data.personalInformation.phone,

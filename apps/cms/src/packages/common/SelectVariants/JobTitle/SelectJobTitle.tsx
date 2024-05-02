@@ -11,7 +11,7 @@ interface Props {
   allowClear?: boolean;
 }
 
-export const SelectJobTitle = ({ jobTitle, disabled, allowClear, onChange }: Props) => {
+export const SelectJobTitle = ({ jobTitle, disabled, allowClear = true, onChange }: Props) => {
   const { t } = useTranslation(['common', 'enum']);
 
   const jobTitleMappingToLabels = useMemo(() => {
@@ -30,6 +30,7 @@ export const SelectJobTitle = ({ jobTitle, disabled, allowClear, onChange }: Pro
         return {
           label: jobTitleMappingToLabels[item],
           value: item,
+          rawData: item,
         };
       })}
     />

@@ -1,5 +1,4 @@
 import { Select, Spin } from 'antd';
-import { SelectProps } from 'antd/es/select';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { useDeepCompareEffect } from 'reactjs';
@@ -7,11 +6,11 @@ import { OmitRawProps } from './types/OmitRawProps';
 import { Option } from './types/Option';
 import { OptionValueType } from './types/OptionValueType';
 
-export interface Props<ValueType extends OptionValueType[]> extends OmitRawProps<ValueType> {
-  options: Option[];
+export interface Props<ValueType extends OptionValueType[], RawData = any> extends OmitRawProps<ValueType> {
+  options: Option<RawData>[];
   value?: ValueType;
   defaultValue?: ValueType;
-  onChange?: SelectProps<ValueType | undefined, Option>['onChange'];
+  onChange?: (value: ValueType, option?: Option<RawData>[]) => void;
 }
 
 export const SelectMultiple = <ValueType extends OptionValueType[] = OptionValueType[]>({
@@ -57,7 +56,7 @@ export const SelectMultiple = <ValueType extends OptionValueType[] = OptionValue
       disabled={disabled}
       placeholder={!valueState?.length && disabled ? null : placeholder}
       onClick={handleClick}
-      onChange={handleChange}
+      onChange={handleChange as any}
       value={valueState as any}
       notFoundContent={loading ? renderLoadingAtDropdown() : notFoundContent}
       options={loading ? [] : options}

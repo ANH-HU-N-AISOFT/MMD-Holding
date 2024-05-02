@@ -14,3 +14,12 @@ export interface Country {
   iso3: string;
   id: string;
 }
+
+export interface District {
+  name: string;
+  slug: string;
+  type: string;
+  name_with_type: string;
+  code: string;
+  id: string;
+}

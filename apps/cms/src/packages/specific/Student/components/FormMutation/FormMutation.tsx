@@ -30,7 +30,7 @@ export interface FormValues {
     parentPhone?: string;
     notifyResultToParent?: boolean;
     source?: SourceEnum;
-    department: Department['id'];
+    departments: Array<Department['id']>;
     saleEmployees?: Array<Employee['employeeId']>;
   };
   roleSystem: {
@@ -38,14 +38,19 @@ export interface FormValues {
     password: string;
     accessStatus: EmployeeAccessStatus;
   };
+  // Những field lưu lại giá trị của Select, Input, ... tạm để truyền vào 1 field khác để filter, search, ...
+  // Những field này k bắt buộc trong "defaultValues"
+  temporaryOptional?: {
+    cityCode?: string;
+  };
 }
 
 interface Props {
   uid: string;
   isSubmiting: boolean;
-  defaultValues?: DeepPartial<FormValues>;
-  fieldsError?: DeepPartial<Record<keyof FormValues, string>>;
-  onSubmit?: (values: FormValues) => void;
+  defaultValues?: DeepPartial<Omit<FormValues, 'temporaryOptional' | 'temporaryRequired'>>;
+  fieldsError?: DeepPartial<Record<keyof Omit<FormValues, 'temporaryOptional' | 'temporaryRequired'>, string>>;
+  onSubmit?: (values: Omit<FormValues, 'temporaryOptional' | 'temporaryRequired'>) => void;
   disabled?: boolean;
   hidePasswordField?: boolean;
   needPasswordValidation?: boolean;
@@ -89,7 +94,7 @@ export const FormMutation = ({
         }
       },
     },
-    defaultValues: {},
+    defaultValues,
     resolver: getFormMutationResolver({
       t: t as TFunction<['common', 'student']>,
       needPassword: hidePasswordField ? false : needPasswordValidation,

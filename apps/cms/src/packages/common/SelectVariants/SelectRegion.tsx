@@ -6,12 +6,12 @@ import { getCountries } from '~/packages/specific/Location/services/getCountries
 
 interface Props {
   region?: Country['id'];
-  onChange?: SelectSingleProps<Country['id']>['onChange'];
+  onChange?: SelectSingleProps<Country['id'], Country>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
 }
 
-export const SelectRegion = ({ region, disabled, allowClear, onChange }: Props) => {
+export const SelectRegion = ({ region, disabled, allowClear = true, onChange }: Props) => {
   const { t } = useTranslation(['location']);
   const [isFetching, setIsFetching] = useState(false);
   const [options, setOptions] = useState<Option[]>([]);
@@ -25,6 +25,7 @@ export const SelectRegion = ({ region, disabled, allowClear, onChange }: Props) 
         response.items.map(item => ({
           label: item.name,
           value: item.name,
+          rawData: item,
         })),
       );
     } catch (error) {

@@ -1,5 +1,5 @@
 import { Spin } from 'antd';
-import { useEffect, useState } from 'react';
+import { DependencyList, useEffect, useState } from 'react';
 import { useDebouncedValue } from 'reactjs';
 import { AnyRecord } from 'typescript-utilities';
 import { Option, SelectMultiple, SelectMultipleProps } from '../AntCustom/Select';
@@ -19,6 +19,7 @@ export interface SelectMultipleDecouplingProps<Model extends AnyRecord, ModelId 
   }) => Promise<ExpectServiceResponse<Model>> | ExpectServiceResponse<Model>;
   transformToOption: (model: Model, index?: number) => Option;
   onChange?: (value: ModelId | undefined, option: OptionWithRawData<Model> | undefined) => void;
+  deps?: DependencyList;
 }
 
 export const SelectMultipleDecoupling = <Model extends AnyRecord, ModelId extends Array<string | number>>({
@@ -135,6 +136,7 @@ export const SelectMultipleDecoupling = <Model extends AnyRecord, ModelId extend
                 ),
                 value: '',
                 disabled: true,
+                rawData: undefined as any,
               },
             ]
           : options

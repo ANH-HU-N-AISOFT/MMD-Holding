@@ -8,7 +8,7 @@ import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
-import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
+import { SelectDepartments } from '~/packages/common/SelectVariants/SelectDepartments';
 
 export interface FormFilterValues extends Pick<ListingSearchParams, 'department'> {}
 
@@ -69,14 +69,13 @@ export const FormSearchNFilter = ({
         form: (
           <Form method="GET" id={UID} onSubmit={handleSubmit}>
             <Field label={t('student:department_code')}>
-              <SelectDepartment
-                allowClear
+              <SelectDepartments
                 placeholder={t('student:department_code')}
-                department={department}
+                departments={department?.split(',')}
                 fieldValue="code"
                 fieldLabel="code"
                 onChange={value => {
-                  setValue('department', value);
+                  setValue('department', value?.join(','));
                 }}
               />
             </Field>

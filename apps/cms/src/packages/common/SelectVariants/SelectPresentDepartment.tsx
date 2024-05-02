@@ -13,7 +13,7 @@ interface Props {
   allowClear?: boolean;
 }
 
-export const SelectPresentDepartment = ({ disabled, allowClear, presentDepartment, onChange }: Props) => {
+export const SelectPresentDepartment = ({ disabled, allowClear = true, presentDepartment, onChange }: Props) => {
   const { t } = useTranslation(['department']);
 
   return (
@@ -30,7 +30,11 @@ export const SelectPresentDepartment = ({ disabled, allowClear, presentDepartmen
           items: response.items,
         };
       }}
-      transformToOption={employee => ({ label: employee.fullName, value: employee.employeeId })}
+      transformToOption={employee => ({
+        label: employee.fullName,
+        value: employee.employeeId,
+        rawData: employee,
+      })}
       className="w-full"
     />
   );

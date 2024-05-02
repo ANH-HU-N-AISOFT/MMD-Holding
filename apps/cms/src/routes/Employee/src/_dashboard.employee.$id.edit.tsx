@@ -29,8 +29,8 @@ import { Edit } from '~/packages/specific/Employee/components/Edit/Edit';
 import { FormValues } from '~/packages/specific/Employee/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Employee/components/FormMutation/zodResolver';
 import {
-  ResetPassword,
   FormValues as FormResetPasswordValues,
+  ResetPassword,
 } from '~/packages/specific/Employee/components/ResetPassword/ResetPassword';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployee } from '~/packages/specific/Employee/services/getEmployee';
@@ -40,6 +40,7 @@ import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCa
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
+import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidateOnEditPage';
 
 export type ActionResponse = SimpleActionResponse<undefined, undefined>;
 export const action = async ({ request, params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
@@ -211,5 +212,7 @@ export const Page = () => {
 };
 
 export const ErrorBoundary = PageErrorBoundary;
+
+export const shouldRevalidate = preventRevalidateOnEditPage;
 
 export default Page;

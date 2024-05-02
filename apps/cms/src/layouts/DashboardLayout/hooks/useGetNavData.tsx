@@ -112,7 +112,7 @@ export const useGetNavData = () => {
     {
       key: '/student',
       icon: <UserOutlined />,
-      label: t('dashboard_layout:menu.customer_management'),
+      label: t('dashboard_layout:menu.student'),
       onClick: () => navigate('/student'),
     },
   ];

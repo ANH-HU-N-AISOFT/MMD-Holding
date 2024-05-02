@@ -30,6 +30,7 @@ const StudentRoutes: RouteObject[] = [
     path: '/student/:id/edit',
     loader: EditStudent.loader,
     action: EditStudent.action,
+    shouldRevalidate: EditStudent.shouldRevalidate,
     element: <EditStudent.Page />,
     errorElement: <EditStudent.ErrorBoundary />,
   },

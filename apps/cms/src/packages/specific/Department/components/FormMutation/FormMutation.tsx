@@ -130,7 +130,6 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               error={errors.manageDepartmentId?.message}
             >
               <SelectManagementUnit
-                allowClear
                 managementUnit={manageDepartmentId}
                 onChange={value => {
                   setValue('manageDepartmentId', value);
@@ -143,7 +142,6 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </Field>
             <Field label={t('department:business_status')} error={errors.businessStatus?.message}>
               <SelectBusinessStatus
-                allowClear
                 businessStatus={businessStatus}
                 placeholder={t('department:business_status')}
                 onChange={value => {
@@ -170,7 +168,6 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </Field>
             <Field label={t('department:city')} error={errors.city?.message}>
               <SelectCity
-                allowClear
                 city={city}
                 onChange={value => {
                   setValue('city', value);
@@ -211,7 +208,6 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </Field>
             <Field label={t('department:present_department')} error={errors.presentDepartmentId?.message}>
               <SelectPresentDepartment
-                allowClear
                 presentDepartment={presentDepartmentId}
                 onChange={value => {
                   setValue('presentDepartmentId', value);

@@ -11,7 +11,7 @@ interface Props {
   allowClear?: boolean;
 }
 
-export const SelectEmployeeAccessStatus = ({ employeeAccessStatus, disabled, allowClear, onChange }: Props) => {
+export const SelectEmployeeAccessStatus = ({ employeeAccessStatus, disabled, allowClear = true, onChange }: Props) => {
   const { t } = useTranslation(['common', 'enum']);
 
   const employeeAccessStatusMappingToLabels = useMemo(() => {
@@ -30,6 +30,7 @@ export const SelectEmployeeAccessStatus = ({ employeeAccessStatus, disabled, all
         return {
           label: employeeAccessStatusMappingToLabels[item],
           value: item,
+          rawData: item,
         };
       })}
     />

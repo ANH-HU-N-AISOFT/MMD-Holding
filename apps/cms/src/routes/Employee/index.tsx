@@ -30,6 +30,7 @@ const EmployeeRoutes: RouteObject[] = [
     path: '/employee/:id/edit',
     loader: EditEmployee.loader,
     action: EditEmployee.action,
+    shouldRevalidate: EditEmployee.shouldRevalidate,
     element: <EditEmployee.Page />,
     errorElement: <EditEmployee.ErrorBoundary />,
   },

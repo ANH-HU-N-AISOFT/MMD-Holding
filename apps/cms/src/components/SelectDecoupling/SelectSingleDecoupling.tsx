@@ -35,7 +35,7 @@ export const SelectSingleDecoupling = <Model extends AnyRecord, ModelId extends 
   const [searchValue, setSearchValue] = useState('');
   const [page, setPage] = useState(1);
   const [loadmoreable, setLoadmorable] = useState(false);
-  const [options, setOptions] = useState<Option[]>([]);
+  const [options, setOptions] = useState<OptionWithRawData<Model>[]>([]);
 
   const debouncedSearchValue = useDebouncedValue(searchValue, { timeoutMs: 300 });
   const debouncedPage = useDebouncedValue(page, { timeoutMs: 300 });
@@ -115,7 +115,7 @@ export const SelectSingleDecoupling = <Model extends AnyRecord, ModelId extends 
   }, []);
 
   return (
-    <SelectSingle
+    <SelectSingle<ModelId, Model>
       {...props}
       filterOption={() => true}
       showSearch={showSearch}
@@ -135,6 +135,7 @@ export const SelectSingleDecoupling = <Model extends AnyRecord, ModelId extends 
                 ),
                 value: '',
                 disabled: true,
+                rawData: undefined as any,
               },
             ]
           : options

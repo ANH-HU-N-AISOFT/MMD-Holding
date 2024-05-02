@@ -1,4 +1,3 @@
-import { nth } from 'ramda';
 import { Student } from '../../models/Student';
 import { FormMutation } from '../FormMutation/FormMutation';
 
@@ -18,7 +17,7 @@ export const Detail = ({ student }: Props) => {
           city: student.province?.id,
           currentAddress: student.address,
           dateOfBirth: student.birthday,
-          department: nth(0, student.organizationIds ?? []),
+          departments: student.organizationIds,
           district: student.district?.id,
           email: student.email,
           fullName: student.fullName,

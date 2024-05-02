@@ -10,7 +10,7 @@ interface Props {
   allowClear?: boolean;
 }
 
-export const SelectGender = ({ gender, disabled, allowClear, onChange }: Props) => {
+export const SelectGender = ({ gender, disabled, allowClear = true, onChange }: Props) => {
   const { t } = useTranslation(['common', 'enum']);
   const genderMappingToLabels = useMemo(() => {
     return {
@@ -31,6 +31,7 @@ export const SelectGender = ({ gender, disabled, allowClear, onChange }: Props) 
         return {
           label: genderMappingToLabels[item],
           value: item,
+          rawData: item,
         };
       })}
     />

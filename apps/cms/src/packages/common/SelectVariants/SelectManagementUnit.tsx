@@ -13,7 +13,7 @@ interface Props {
   allowClear?: boolean;
 }
 
-export const SelectManagementUnit = ({ disabled, managementUnit, allowClear, onChange }: Props) => {
+export const SelectManagementUnit = ({ disabled, managementUnit, allowClear = true, onChange }: Props) => {
   const { t } = useTranslation(['department']);
 
   return (
@@ -30,7 +30,11 @@ export const SelectManagementUnit = ({ disabled, managementUnit, allowClear, onC
           items: response.items,
         };
       }}
-      transformToOption={department => ({ label: department.name, value: department.id })}
+      transformToOption={department => ({
+        label: department.name,
+        value: department.id,
+        rawData: department,
+      })}
       className="w-full"
     />
   );

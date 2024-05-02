@@ -1,14 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import {
-  SelectSingleDecoupling,
-  SelectSingleDecouplingProps,
-} from '~/components/SelectDecoupling/SelectSingleDecoupling';
+  SelectMultipleDecoupling,
+  SelectMultipleDecouplingProps,
+} from '~/components/SelectDecoupling/SelectMultipleDecoupling';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 
 interface Props {
-  department?: Department['id'];
-  onChange?: SelectSingleDecouplingProps<Department, Department['id']>['onChange'];
+  departments?: Array<Department['id']>;
+  onChange?: SelectMultipleDecouplingProps<Department, Array<Department['id']>>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
@@ -16,9 +16,9 @@ interface Props {
   fieldLabel?: keyof Pick<Department, 'name' | 'code'>;
 }
 
-export const SelectDepartment = ({
+export const SelectDepartments = ({
   disabled,
-  department,
+  departments,
   allowClear = true,
   placeholder,
   onChange,
@@ -28,11 +28,11 @@ export const SelectDepartment = ({
   const { t } = useTranslation(['employee']);
 
   return (
-    <SelectSingleDecoupling<Department, Department['id']>
+    <SelectMultipleDecoupling
       allowClear={allowClear}
       placeholder={placeholder ?? t('employee:department')}
       disabled={disabled}
-      value={department}
+      value={departments}
       onChange={onChange}
       service={async ({ page, search }) => {
         const response = await getDepartments({ page, query: search });

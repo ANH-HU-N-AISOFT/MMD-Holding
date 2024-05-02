@@ -11,7 +11,7 @@ interface Props {
   allowClear?: boolean;
 }
 
-export const SelectRoles = ({ roles, disabled, allowClear, onChange }: Props) => {
+export const SelectRoles = ({ roles, disabled, allowClear = true, onChange }: Props) => {
   const { t } = useTranslation(['common', 'enum']);
   const roleMappingToLabels = useMemo(() => {
     return getRoleMappingToLabels(t);
@@ -29,6 +29,7 @@ export const SelectRoles = ({ roles, disabled, allowClear, onChange }: Props) =>
         return {
           label: roleMappingToLabels[item],
           value: item,
+          rawData: item,
         };
       })}
     />

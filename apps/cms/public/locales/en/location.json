@@ -1,4 +1,6 @@
 {
   "city": "Tỉnh / thành phố",
-  "region": "Quốc tịch"
+  "district": "Quận / huyện",
+  "region": "Quốc tịch",
+  "must_select_city": "Vui lòng chọn tỉnh / thành phố để tiếp tục"
 }

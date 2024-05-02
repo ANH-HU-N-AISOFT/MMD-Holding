@@ -60,7 +60,7 @@ export const getFormMutationResolver = ({
   const parentPhone = {
     invalid: getInvalidMessage(t, 'student:parent_phone'),
   };
-  const department = {
+  const departments = {
     required: t('student:department_invalid'),
   };
 
@@ -118,7 +118,7 @@ export const getFormMutationResolver = ({
         source: enum_([SourceEnum.Cold, SourceEnum.Communication, SourceEnum.HotWarm, SourceEnum.HumanResources])
           .optional()
           .nullable(),
-        department: string({ required_error: department.required }),
+        departments: array(string(), { required_error: departments.required }).min(1, departments.required),
         saleEmployees: array(string()).optional().nullable(),
       }),
       roleSystem: needPassword

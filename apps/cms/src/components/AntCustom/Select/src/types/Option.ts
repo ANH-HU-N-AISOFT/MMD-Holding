@@ -1,7 +1,7 @@
 import { DefaultOptionType } from 'antd/es/select';
 import { ReactNode } from 'react';
 
-export interface Option {
+export interface Option<RawData = any> {
   value: string | number;
   label: DefaultOptionType['label'];
   disabled?: DefaultOptionType['disabled'];
@@ -9,5 +9,5 @@ export interface Option {
   displayLabel?: ReactNode;
   /** Dùng để filter option */
   searchValue?: string;
-  [name: string]: any;
+  rawData: RawData;
 }

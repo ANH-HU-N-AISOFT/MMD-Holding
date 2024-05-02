@@ -6,12 +6,12 @@ import { getCities } from '~/packages/specific/Location/services/getCities';
 
 interface Props {
   city?: City['id'];
-  onChange?: SelectSingleProps<City['id']>['onChange'];
+  onChange?: SelectSingleProps<City['id'], City>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
 }
 
-export const SelectCity = ({ city, disabled, allowClear, onChange }: Props) => {
+export const SelectCity = ({ city, disabled, allowClear = true, onChange }: Props) => {
   const { t } = useTranslation(['location']);
   const [isFetching, setIsFetching] = useState(false);
   const [options, setOptions] = useState<Option[]>([]);
@@ -25,6 +25,7 @@ export const SelectCity = ({ city, disabled, allowClear, onChange }: Props) => {
         response.items.map(item => ({
           label: item.name,
           value: item.name,
+          rawData: item,
         })),
       );
     } catch (error) {

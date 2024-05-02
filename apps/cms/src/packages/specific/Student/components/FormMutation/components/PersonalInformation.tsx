@@ -8,7 +8,8 @@ import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
 import { SelectCity } from '~/packages/common/SelectVariants/SelectCity';
-import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
+import { SelectDepartments } from '~/packages/common/SelectVariants/SelectDepartments';
+import { SelectDistrict } from '~/packages/common/SelectVariants/SelectDistrict';
 import { SelectSaleEmployees } from '~/packages/common/SelectVariants/SelectSaleEmployees';
 import { SelectSourceEnum } from '~/packages/common/SelectVariants/SourceEnum/SelectSourceEnum';
 import { disableFuture } from '~/utils/functions/disableDatePicker';
@@ -39,8 +40,10 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
   const parentPhone = watch('personalInformation.parentPhone');
   const notifyResultToParent = watch('personalInformation.notifyResultToParent');
   const source = watch('personalInformation.source');
-  const department = watch('personalInformation.department');
+  const departments = watch('personalInformation.departments')?.filter((item): item is string => Boolean(item));
   const saleEmployees = watch('personalInformation.saleEmployees');
+
+  const cityCode = watch('temporaryOptional.cityCode');
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -101,8 +104,10 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       <Field label={t('student:city')} error={errors.personalInformation?.city?.message}>
         <SelectCity
           city={city}
-          onChange={value => {
+          onChange={(value, option) => {
             setValue('personalInformation.city', value);
+            setValue('personalInformation.district', undefined);
+            setValue('temporaryOptional.cityCode', option?.rawData.code);
             if (errors.personalInformation?.city) {
               trigger('personalInformation.city');
             }
@@ -111,9 +116,9 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         />
       </Field>
       <Field label={t('student:district')} error={errors.personalInformation?.district?.message}>
-        {/* FIXME: SelectDistrict */}
-        <SelectCity
-          city={district}
+        <SelectDistrict
+          cityCode={cityCode}
+          district={district}
           onChange={value => {
             setValue('personalInformation.district', value);
             if (errors.personalInformation?.district) {
@@ -217,14 +222,15 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         withRequiredMark
         label={t('student:department')}
         help={t('student:department_help_text')}
-        error={errors.personalInformation?.department?.message}
+        error={errors.personalInformation?.departments?.message}
       >
-        <SelectDepartment
-          department={department}
+        <SelectDepartments
+          departments={departments}
           onChange={value => {
-            setValue('personalInformation.department', value);
-            if (errors.personalInformation?.department) {
-              trigger('personalInformation.department');
+            setValue('personalInformation.departments', value);
+            setValue('personalInformation.saleEmployees', []);
+            if (errors.personalInformation?.departments) {
+              trigger('personalInformation.departments');
             }
           }}
           disabled={disabledField}
@@ -232,6 +238,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       </Field>
       <Field label={t('student:sale_employees')} error={errors.personalInformation?.saleEmployees?.message}>
         <SelectSaleEmployees
+          organizations={departments ?? []}
           saleEmployees={saleEmployees?.filter((item): item is string => Boolean(item))}
           onChange={value => {
             setValue('personalInformation.saleEmployees', value);

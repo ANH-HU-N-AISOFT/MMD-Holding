@@ -12,7 +12,7 @@ interface Props {
   placeholder?: string;
 }
 
-export const SelectEmployeeStatus = ({ employeeStatus, disabled, allowClear, placeholder, onChange }: Props) => {
+export const SelectEmployeeStatus = ({ employeeStatus, disabled, allowClear = true, placeholder, onChange }: Props) => {
   const { t } = useTranslation(['common', 'enum']);
   const employeeStatusMappingToLabels = useMemo(() => {
     return getEmployeeStatusMappingToLabels(t);
@@ -30,6 +30,7 @@ export const SelectEmployeeStatus = ({ employeeStatus, disabled, allowClear, pla
         return {
           label: employeeStatusMappingToLabels[item],
           value: item,
+          rawData: item,
         };
       })}
     />

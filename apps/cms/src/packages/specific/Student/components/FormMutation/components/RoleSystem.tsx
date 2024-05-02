@@ -7,7 +7,7 @@ import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectEmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/SelectEmployeeAccessStatus';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectRoles } from '~/packages/common/SelectVariants/Role/SelectRoles';
-import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
+import { SelectDepartments } from '~/packages/common/SelectVariants/SelectDepartments';
 
 interface Props {
   onResetPassword?: () => void;
@@ -32,7 +32,7 @@ export const RoleSystem = ({
     watch,
     formState: { errors },
   } = form;
-  const department = watch('personalInformation.department');
+  const departments = watch('personalInformation.departments');
   const username = watch('roleSystem.username');
   const accessStatus = watch('roleSystem.accessStatus');
   const password = watch('roleSystem.password');
@@ -43,14 +43,14 @@ export const RoleSystem = ({
         withRequiredMark
         label={t('employee:department')}
         help={t('employee:department_help_text')}
-        error={errors.personalInformation?.department?.message}
+        error={errors.personalInformation?.departments?.message}
       >
-        <SelectDepartment
-          department={department}
+        <SelectDepartments
+          departments={departments?.filter((item): item is string => Boolean(item))}
           onChange={value => {
-            setValue('personalInformation.department', value);
-            if (errors.personalInformation?.department) {
-              trigger('personalInformation.department');
+            setValue('personalInformation.departments', value);
+            if (errors.personalInformation?.departments) {
+              trigger('personalInformation.departments');
             }
           }}
           disabled={disabledField}

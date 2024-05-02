@@ -29,6 +29,7 @@ import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCa
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
+import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidateOnEditPage';
 
 export type ActionResponse = SimpleActionResponse<undefined, undefined>;
 export const action = async ({ request, params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
@@ -130,5 +131,7 @@ export const Page = () => {
 };
 
 export const ErrorBoundary = PageErrorBoundary;
+
+export const shouldRevalidate = preventRevalidateOnEditPage;
 
 export default Page;

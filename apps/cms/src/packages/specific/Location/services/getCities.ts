@@ -12,6 +12,9 @@ interface GetCities {}
 export const getCities = async (_: GetCities) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     url: '/locations/provinces',
+    params: {
+      perPage: 1000,
+    },
   });
 
   return response.data;

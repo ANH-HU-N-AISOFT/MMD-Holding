@@ -13,7 +13,7 @@ interface Props {
   allowClear?: boolean;
 }
 
-export const SelectDirectionManager = ({ disabled, allowClear, directionManager, onChange }: Props) => {
+export const SelectDirectionManager = ({ disabled, allowClear = true, directionManager, onChange }: Props) => {
   const { t } = useTranslation(['employee']);
 
   return (
@@ -30,7 +30,11 @@ export const SelectDirectionManager = ({ disabled, allowClear, directionManager,
           items: response.items,
         };
       }}
-      transformToOption={employee => ({ label: employee.fullName, value: employee.employeeId })}
+      transformToOption={employee => ({
+        label: employee.fullName,
+        value: employee.employeeId,
+        rawData: employee,
+      })}
       className="w-full"
     />
   );

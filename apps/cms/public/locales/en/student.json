@@ -58,5 +58,6 @@
   "full_name_invalid": "Chỉ cho phép nhập ký tự, số, dấu cách, dấu ' và dấu -",
   "current_address_invalid": "Chỉ cho phép nhập ký tự, số, dấu cách và dấu /",
   "department_invalid": "Chọn đơn vị để tiếp tục",
-  "student_with_name_n_code": "Học Viên - Mã {{ code }}"
+  "student_with_name_n_code": "Học Viên - Mã {{ code }}",
+  "must_select_department": "Chọn đơn vị để tiếp tục"
 }

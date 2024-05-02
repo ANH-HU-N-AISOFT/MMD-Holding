@@ -11,7 +11,7 @@ interface Props {
   allowClear?: boolean;
 }
 
-export const SelectSourceEnum = ({ sourceEnum, disabled, allowClear, onChange }: Props) => {
+export const SelectSourceEnum = ({ sourceEnum, disabled, allowClear = true, onChange }: Props) => {
   const { t } = useTranslation(['common', 'enum']);
 
   const sourceEnumMappingToLabels = useMemo(() => {
@@ -30,6 +30,7 @@ export const SelectSourceEnum = ({ sourceEnum, disabled, allowClear, onChange }:
         return {
           label: sourceEnumMappingToLabels[item],
           value: item,
+          rawData: item,
         };
       })}
     />
