@@ -34,6 +34,7 @@ export const SelectEmploymentContractType = ({
       options={Object.values(EmploymentContractType).map(item => {
         return {
           label: employmentContractTypeMappingToLabels[item],
+          searchValue: employmentContractTypeMappingToLabels[item],
           value: item,
           rawData: item,
         };

@@ -169,6 +169,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             <Field label={t('department:city')} error={errors.city?.message}>
               <SelectCity
                 city={city}
+                fieldKey="name"
                 onChange={value => {
                   setValue('city', value);
                   if (errors.city) {

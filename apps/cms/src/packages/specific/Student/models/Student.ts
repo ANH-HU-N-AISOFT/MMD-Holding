@@ -21,7 +21,12 @@ export interface Student {
     code: string;
   };
   birthday?: string;
-  school?: string;
+  schoolId?: string;
+  school?: {
+    id: string;
+    name: string;
+    code: string;
+  };
   gender?: GenderEnum;
   notifyParentsOfResults?: true;
   source?: SourceEnum;

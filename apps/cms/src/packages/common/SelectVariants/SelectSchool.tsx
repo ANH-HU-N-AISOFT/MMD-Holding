@@ -2,18 +2,18 @@ import { Empty } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Option, SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
-import { District } from '~/packages/specific/Location/models/Location';
-import { getDistricts } from '~/packages/specific/Location/services/getDistricts';
+import { School } from '~/packages/specific/Location/models/Location';
+import { getSchools } from '~/packages/specific/Location/services/getSchools';
 
 interface Props {
-  district?: District['id'];
-  onChange?: SelectSingleProps<District['id'], District>['onChange'];
+  school?: School['id'];
+  onChange?: SelectSingleProps<School['id'], School>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
   cityCode: string | undefined;
 }
 
-export const SelectDistrict = ({ district, disabled, allowClear = true, cityCode, onChange }: Props) => {
+export const SelectSchool = ({ school, disabled, allowClear = true, cityCode, onChange }: Props) => {
   const { t } = useTranslation(['location']);
   const [isFetching, setIsFetching] = useState(false);
   const [options, setOptions] = useState<Option[]>([]);
@@ -25,7 +25,7 @@ export const SelectDistrict = ({ district, disabled, allowClear = true, cityCode
     setIsFetching(true);
     try {
       if (cityCode) {
-        const response = await getDistricts({
+        const response = await getSchools({
           provinceCode: cityCode,
         });
         setOptions(
@@ -55,10 +55,10 @@ export const SelectDistrict = ({ district, disabled, allowClear = true, cityCode
     <SelectSingle
       notFoundContent={needWarning ? <Empty description={t('location:must_select_city')} /> : undefined}
       allowClear={allowClear}
-      value={district}
+      value={school}
       onChange={onChange}
       disabled={disabled}
-      placeholder={t('location:district')}
+      placeholder={t('location:school')}
       className="w-full"
       loading={isFetching}
       showSearch

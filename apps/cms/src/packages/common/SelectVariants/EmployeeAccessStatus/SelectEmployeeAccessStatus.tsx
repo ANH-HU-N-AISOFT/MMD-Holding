@@ -29,6 +29,7 @@ export const SelectEmployeeAccessStatus = ({ employeeAccessStatus, disabled, all
       options={Object.values(EmployeeAccessStatus).map(item => {
         return {
           label: employeeAccessStatusMappingToLabels[item],
+          searchValue: employeeAccessStatusMappingToLabels[item],
           value: item,
           rawData: item,
         };

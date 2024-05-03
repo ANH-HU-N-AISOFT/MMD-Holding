@@ -29,6 +29,7 @@ export const SelectEmployeeStatus = ({ employeeStatus, disabled, allowClear = tr
       options={Object.values(EmployeeStatus).map(item => {
         return {
           label: employeeStatusMappingToLabels[item],
+          searchValue: employeeStatusMappingToLabels[item],
           value: item,
           rawData: item,
         };

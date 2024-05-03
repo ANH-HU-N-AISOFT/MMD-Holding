@@ -5,5 +5,6 @@ export const getRequiredMessage = <NameSpace extends ['common', ...any[]]>(
   key: ParseKeys<NameSpace>,
 ) => {
   const t_ = t as TFunction<['common']>;
-  return t_('common:type_required', { type: t(key as any) }).toString();
+  const type: any = t(key as any);
+  return t_('common:type_required', { type: type?.toLowerCase?.() }).toString();
 };

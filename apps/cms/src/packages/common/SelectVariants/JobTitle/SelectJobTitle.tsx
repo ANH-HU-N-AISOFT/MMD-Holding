@@ -29,6 +29,7 @@ export const SelectJobTitle = ({ jobTitle, disabled, allowClear = true, onChange
       options={Object.values(JobTitleEnum).map(item => {
         return {
           label: jobTitleMappingToLabels[item],
+          searchValue: jobTitleMappingToLabels[item],
           value: item,
           rawData: item,
         };

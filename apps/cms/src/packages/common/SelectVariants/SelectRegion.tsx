@@ -25,6 +25,7 @@ export const SelectRegion = ({ region, disabled, allowClear = true, onChange }: 
         response.items.map(item => ({
           label: item.name,
           value: item.name,
+          searchValue: item.name,
           rawData: item,
         })),
       );

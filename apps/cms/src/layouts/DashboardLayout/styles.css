@@ -1,0 +1,7 @@
+.Sidebar__container .ant-layout-sider-children {
+  @apply flex flex-col;
+}
+
+.Sidebar__container .ant-layout-sider-children .ant-menu-root {
+  @apply flex-auto overflow-y-auto;
+}

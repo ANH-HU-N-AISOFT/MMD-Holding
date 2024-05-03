@@ -14,10 +14,10 @@ interface GetEmployees {
   page?: number;
   perPage?: number;
   organizationId?: string;
-  role?: string;
+  roles?: string;
   workStatus?: EmployeeStatus;
 }
-export const getEmployees = async ({ page, query, perPage, organizationId, role, workStatus }: GetEmployees) => {
+export const getEmployees = async ({ page, query, perPage, organizationId, roles, workStatus }: GetEmployees) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     url: '/employees',
     params: {
@@ -25,7 +25,7 @@ export const getEmployees = async ({ page, query, perPage, organizationId, role,
       query,
       perPage,
       organizationId,
-      role,
+      roles,
       workStatus,
     },
   });

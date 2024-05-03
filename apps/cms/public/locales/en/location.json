@@ -2,5 +2,6 @@
   "city": "Tỉnh / thành phố",
   "district": "Quận / huyện",
   "region": "Quốc tịch",
+  "school": "Trường",
   "must_select_city": "Vui lòng chọn tỉnh / thành phố để tiếp tục"
 }

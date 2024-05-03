@@ -9,9 +9,10 @@ interface Props {
   onChange?: SelectSingleProps<City['id'], City>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
+  fieldKey?: keyof City;
 }
 
-export const SelectCity = ({ city, disabled, allowClear = true, onChange }: Props) => {
+export const SelectCity = ({ city, disabled, allowClear = true, onChange, fieldKey = 'id' }: Props) => {
   const { t } = useTranslation(['location']);
   const [isFetching, setIsFetching] = useState(false);
   const [options, setOptions] = useState<Option[]>([]);
@@ -24,7 +25,8 @@ export const SelectCity = ({ city, disabled, allowClear = true, onChange }: Prop
       setOptions(
         response.items.map(item => ({
           label: item.name,
-          value: item.name,
+          value: item[fieldKey],
+          searchValue: item.name,
           rawData: item,
         })),
       );
@@ -37,6 +39,7 @@ export const SelectCity = ({ city, disabled, allowClear = true, onChange }: Prop
 
   useEffect(() => {
     handleFetchOption();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

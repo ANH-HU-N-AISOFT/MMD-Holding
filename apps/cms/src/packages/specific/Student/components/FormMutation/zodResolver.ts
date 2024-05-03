@@ -70,7 +70,7 @@ export const getFormMutationResolver = ({
         fullName: string({ required_error: fullName.required })
           .min(1, fullName.length)
           .max(100, fullName.length)
-          .regex(/^[\p{L}0-9\- ]*$/u, fullName.invalid)
+          .regex(/^[\p{L}\-'\s]*$/u, fullName.invalid)
           .trim(),
         phone: string({ required_error: phone.required }).regex(isPhone, phone.invalid).trim(),
         email: string()

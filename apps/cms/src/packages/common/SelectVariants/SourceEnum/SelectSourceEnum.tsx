@@ -30,6 +30,7 @@ export const SelectSourceEnum = ({ sourceEnum, disabled, allowClear = true, onCh
         return {
           label: sourceEnumMappingToLabels[item],
           value: item,
+          searchValue: sourceEnumMappingToLabels[item],
           rawData: item,
         };
       })}

@@ -30,6 +30,7 @@ export const SelectBusinessStatus = ({ businessStatus, disabled, allowClear = tr
       options={Object.values(BusinessStatusEnum).map(item => {
         return {
           label: businessStatusMappingToLabels[item],
+          searchValue: businessStatusMappingToLabels[item],
           value: item,
           rawData: item,
         };

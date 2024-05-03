@@ -38,7 +38,7 @@ export const SelectSaleEmployees = ({ disabled, allowClear = true, saleEmployees
           const response = await getEmployees({
             page,
             query: search,
-            role: Role.Sale,
+            roles: Role.Sale,
             organizationId: organizations.join(','),
             workStatus: EmployeeStatus.WORKING,
           });

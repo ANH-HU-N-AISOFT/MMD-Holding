@@ -72,5 +72,6 @@
   "username_invalid": "Chỉ cho phép nhập ký tự và số",
   "password_invalid": "Trường thông tin yêu cầu bao gồm chữ cái, số và ký tư đặc biệt",
   "employee_with_name_n_code": "Nhân viên - {{ name }} - {{ code }}",
-  "department_invalid": "Chọn đơn vị để tiếp tục"
+  "department_invalid": "Chọn đơn vị để tiếp tục",
+  "date_of_birth_required": "Nhập ngày sinh để tiếp tục"
 }

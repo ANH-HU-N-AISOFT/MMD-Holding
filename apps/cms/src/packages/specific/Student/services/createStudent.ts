@@ -12,7 +12,7 @@ export interface CreateStudent {
   districtId?: string;
   email?: string;
   birthday?: string;
-  school?: string;
+  schoolId?: string;
   gender?: GenderEnum;
   parentPhone?: string;
   notifyParentsOfResults?: boolean;

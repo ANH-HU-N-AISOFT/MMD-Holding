@@ -31,7 +31,7 @@ export const Edit = ({ student, onResetPassword, ...formProps }: Props) => {
           parentPhone: student.parentPhoneNumber,
           phone: student.phoneNumber,
           saleEmployees: student.supporterIds ?? [],
-          school: student.school,
+          school: student.schoolId,
           source: student.source,
         },
         roleSystem: {

@@ -18,7 +18,7 @@ export interface SelectMultipleDecouplingProps<Model extends AnyRecord, ModelId 
     search: string;
   }) => Promise<ExpectServiceResponse<Model>> | ExpectServiceResponse<Model>;
   transformToOption: (model: Model, index?: number) => Option;
-  onChange?: (value: ModelId | undefined, option: OptionWithRawData<Model> | undefined) => void;
+  onChange?: (value: ModelId | undefined, option: OptionWithRawData<Model>[] | undefined) => void;
   deps?: DependencyList;
 }
 
@@ -123,7 +123,7 @@ export const SelectMultipleDecoupling = <Model extends AnyRecord, ModelId extend
       searchValue={searchValue}
       onSearch={handleSearchDropdown}
       onPopupScroll={handleScroll}
-      onChange={onChange as any}
+      onChange={onChange}
       options={
         loadmoreable
           ? [

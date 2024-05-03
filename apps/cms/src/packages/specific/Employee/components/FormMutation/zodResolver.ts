@@ -31,7 +31,7 @@ export const getFormMutationResolver = ({
     invalid: getInvalidMessage(t, 'employee:phone'),
   };
   const dateOfBirth = {
-    required: getRequiredMessage(t, 'employee:date_of_birth'),
+    required: t('employee:date_of_birth_required'),
   };
   const gender = {
     required: getRequiredMessageSelectField(t, 'employee:gender'),
@@ -114,7 +114,7 @@ export const getFormMutationResolver = ({
         fullName: string({ required_error: fullName.required })
           .min(1, fullName.length)
           .max(100, fullName.length)
-          .regex(/^[\p{L}0-9\- ]*$/u, fullName.invalid)
+          .regex(/^[\p{L}\-'\s]*$/u, fullName.invalid)
           .trim(),
         phone: string({ required_error: phone.required }).regex(isPhone, phone.invalid).trim(),
         dateOfBirth: string({ required_error: dateOfBirth.required }),
@@ -143,7 +143,7 @@ export const getFormMutationResolver = ({
         citizenIdCard: string()
           .min(8, citizenIdCard.length)
           .max(16, citizenIdCard.length)
-          .regex(/^[\p{L}0-9\s-]*$/u, citizenIdCard.invalid)
+          .regex(/^[\p{L}0-9\-\s]*$/u, citizenIdCard.invalid)
           .trim()
           .optional()
           .or(literal(''))
@@ -151,7 +151,7 @@ export const getFormMutationResolver = ({
         emergencyContactName: string()
           .min(1, emergencyContactName.length)
           .max(100, emergencyContactName.length)
-          .regex(/^[\p{L}0-9\s'-]*$/u, emergencyContactName.invalid)
+          .regex(/^[\p{L}\-'\s]*$/u, emergencyContactName.invalid)
           .trim()
           .optional()
           .or(literal(''))
@@ -182,7 +182,9 @@ export const getFormMutationResolver = ({
       }),
       personnelRecord: object({
         code: string().optional().or(literal('')).nullable(),
-        department: string({ required_error: personnelRecordDepartment.required }),
+        department: string({
+          required_error: personnelRecordDepartment.required,
+        }),
         jobTitle: enum_([JobTitleEnum.CONSULTANT, JobTitleEnum.LECTURER, JobTitleEnum.SALES_PERSONNEL], {
           required_error: jobTitle.required,
         }),

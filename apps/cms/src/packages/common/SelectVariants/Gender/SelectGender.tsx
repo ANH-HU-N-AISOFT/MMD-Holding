@@ -30,6 +30,7 @@ export const SelectGender = ({ gender, disabled, allowClear = true, onChange }: 
       options={Object.values(GenderEnum).map(item => {
         return {
           label: genderMappingToLabels[item],
+          searchValue: genderMappingToLabels[item],
           value: item,
           rawData: item,
         };

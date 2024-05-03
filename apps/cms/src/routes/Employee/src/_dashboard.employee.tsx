@@ -49,7 +49,7 @@ export const loader = async ({
       page,
       query: search,
       organizationId: department,
-      role: roles,
+      roles,
       workStatus: status as EmployeeStatus | undefined,
     });
 

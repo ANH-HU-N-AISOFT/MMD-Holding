@@ -23,3 +23,13 @@ export interface District {
   code: string;
   id: string;
 }
+
+export interface School {
+  provinceCode: string;
+  districtCode: string;
+  schoolCode: string;
+  name: string;
+  address: string;
+  level: 3;
+  id: string;
+}

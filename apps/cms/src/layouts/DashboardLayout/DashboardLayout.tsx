@@ -9,6 +9,7 @@ import { UserDropdown } from './components/UserDropdown';
 import { useGetNavData } from './hooks/useGetNavData';
 import { getTabActiveWithLocation } from './utils/getTabActiveWithLocation';
 import { Link, Outlet, useLocation } from '~/overrides/@remix';
+import './styles.css';
 
 const { Header, Content, Sider } = Layout;
 
@@ -52,7 +53,7 @@ export const DashboardLayout = () => {
         trigger={null}
         collapsible
         collapsed={collapsed}
-        className="py-4 border border-solid border-l-transparent border-t-transparent border-b-transparent border-r-neutral-200"
+        className="Sidebar__container py-4 border border-solid border-l-transparent border-t-transparent border-b-transparent border-r-neutral-200"
         theme="light"
       >
         <div className="px-2 mb-4 text-center">

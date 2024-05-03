@@ -11,6 +11,7 @@ import { SelectCity } from '~/packages/common/SelectVariants/SelectCity';
 import { SelectDepartments } from '~/packages/common/SelectVariants/SelectDepartments';
 import { SelectDistrict } from '~/packages/common/SelectVariants/SelectDistrict';
 import { SelectSaleEmployees } from '~/packages/common/SelectVariants/SelectSaleEmployees';
+import { SelectSchool } from '~/packages/common/SelectVariants/SelectSchool';
 import { SelectSourceEnum } from '~/packages/common/SelectVariants/SourceEnum/SelectSourceEnum';
 import { disableFuture } from '~/utils/functions/disableDatePicker';
 
@@ -107,6 +108,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
           onChange={(value, option) => {
             setValue('personalInformation.city', value);
             setValue('personalInformation.district', undefined);
+            setValue('personalInformation.school', undefined);
             setValue('temporaryOptional.cityCode', option?.rawData.code);
             if (errors.personalInformation?.city) {
               trigger('personalInformation.city');
@@ -145,9 +147,9 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         />
       </Field>
       <Field label={t('student:school')} error={errors.personalInformation?.school?.message}>
-        {/* FIXME: SelectSchool */}
-        <SelectCity
-          city={school}
+        <SelectSchool
+          school={school}
+          cityCode={cityCode}
           onChange={value => {
             setValue('personalInformation.school', value);
             if (errors.personalInformation?.school) {

@@ -5,6 +5,7 @@ import { useDeepCompareEffect } from 'reactjs';
 import { OmitRawProps } from './types/OmitRawProps';
 import { Option } from './types/Option';
 import { OptionValueType } from './types/OptionValueType';
+import { baseFilterOption } from '~/utils/functions/baseFilterOption';
 
 export interface Props<ValueType extends OptionValueType[], RawData = any> extends OmitRawProps<ValueType> {
   options: Option<RawData>[];
@@ -23,6 +24,8 @@ export const SelectMultiple = <ValueType extends OptionValueType[] = OptionValue
   allowClear,
   placeholder,
   disabled,
+  autoClearSearchValue = true,
+  filterOption = baseFilterOption,
   ...props
 }: Props<ValueType>) => {
   const [valueState, setValueState] = useState(value ?? defaultValue);
@@ -52,6 +55,8 @@ export const SelectMultiple = <ValueType extends OptionValueType[] = OptionValue
   return (
     <Select
       {...props}
+      filterOption={filterOption}
+      autoClearSearchValue={autoClearSearchValue}
       mode="multiple"
       disabled={disabled}
       placeholder={!valueState?.length && disabled ? null : placeholder}

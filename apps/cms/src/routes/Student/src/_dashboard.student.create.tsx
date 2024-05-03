@@ -40,7 +40,7 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
         parentPhone: data.personalInformation.parentPhone,
         password: data.roleSystem.password,
         phoneNumber: data.personalInformation.phone,
-        school: data.personalInformation.school,
+        schoolId: data.personalInformation.school,
         source: data.personalInformation.source,
         supporterIds: data.personalInformation.saleEmployees,
         username: data.roleSystem.username,
