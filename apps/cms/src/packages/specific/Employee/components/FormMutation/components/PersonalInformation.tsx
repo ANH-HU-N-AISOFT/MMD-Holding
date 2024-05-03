@@ -9,6 +9,7 @@ import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
 import { SelectRegion } from '~/packages/common/SelectVariants/SelectRegion';
 import { disableFuture } from '~/utils/functions/disableDatePicker';
+import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
 interface Props {
   form: ReturnType<typeof useRemixForm<DeepPartial<FormValues>>>;
@@ -58,12 +59,11 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         <Input
           value={phone}
           onChange={event => {
-            setValue('personalInformation.phone', event.target.value);
+            setValue('personalInformation.phone', takeOnlyNumber(event));
             if (errors.personalInformation?.phone) {
               trigger('personalInformation.phone');
             }
           }}
-          type="number"
           addonBefore={<div>+84</div>}
           disabled={disabledField}
           placeholder={t('employee:phone')}
@@ -212,12 +212,11 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         <Input
           value={emergencyContactPhone}
           onChange={event => {
-            setValue('personalInformation.emergencyContactPhone', event.target.value);
+            setValue('personalInformation.emergencyContactPhone', takeOnlyNumber(event));
             if (errors.personalInformation?.emergencyContactPhone) {
               trigger('personalInformation.emergencyContactPhone');
             }
           }}
-          type="number"
           addonBefore={<div>+84</div>}
           disabled={disabledField}
           placeholder={t('employee:emergency_contact_phone')}

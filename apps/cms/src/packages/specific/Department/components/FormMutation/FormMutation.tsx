@@ -14,6 +14,7 @@ import { SelectBusinessStatus } from '~/packages/common/SelectVariants/BusinessS
 import { SelectCity } from '~/packages/common/SelectVariants/SelectCity';
 import { SelectManagementUnit } from '~/packages/common/SelectVariants/SelectManagementUnit';
 import { SelectPresentDepartment } from '~/packages/common/SelectVariants/SelectPresentDepartment';
+import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
 export interface FormValues {
   name: string;
@@ -183,12 +184,11 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <Input
                 value={phone}
                 onChange={event => {
-                  setValue('phone', event.target.value);
+                  setValue('phone', takeOnlyNumber(event));
                   if (errors.phone) {
                     trigger('phone');
                   }
                 }}
-                type="number"
                 addonBefore={<div>+84</div>}
                 disabled={disabledField}
                 placeholder={t('department:phone')}

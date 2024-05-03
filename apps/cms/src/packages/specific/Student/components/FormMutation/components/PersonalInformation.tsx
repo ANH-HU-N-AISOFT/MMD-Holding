@@ -14,6 +14,7 @@ import { SelectSaleEmployees } from '~/packages/common/SelectVariants/SelectSale
 import { SelectSchool } from '~/packages/common/SelectVariants/SelectSchool';
 import { SelectSourceEnum } from '~/packages/common/SelectVariants/SourceEnum/SelectSourceEnum';
 import { disableFuture } from '~/utils/functions/disableDatePicker';
+import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
 interface Props {
   form: ReturnType<typeof useRemixForm<DeepPartial<FormValues>>>;
@@ -65,12 +66,11 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         <Input
           value={phone}
           onChange={event => {
-            setValue('personalInformation.phone', event.target.value);
+            setValue('personalInformation.phone', takeOnlyNumber(event));
             if (errors.personalInformation?.phone) {
               trigger('personalInformation.phone');
             }
           }}
-          type="number"
           addonBefore={<div>+84</div>}
           disabled={disabledField}
           placeholder={t('student:phone')}
