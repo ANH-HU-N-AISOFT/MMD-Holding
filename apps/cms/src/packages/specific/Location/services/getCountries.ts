@@ -8,13 +8,14 @@ export interface ResponseSuccess {
   headers: ServiceHeaderResponse;
 }
 
-interface GetCountries {}
-export const getCountries = async (_: GetCountries) => {
+interface GetCountries {
+  perPage?: number;
+  page?: number;
+}
+export const getCountries = async ({ page, perPage }: GetCountries) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     url: '/locations/countries',
-    params: {
-      perPage: 1000,
-    },
+    params: { page, perPage },
   });
 
   return response.data;

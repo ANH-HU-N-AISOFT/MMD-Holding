@@ -63,7 +63,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
               trigger('personalInformation.phone');
             }
           }}
-          type="tel"
+          type="number"
           addonBefore={<div>+84</div>}
           disabled={disabledField}
           placeholder={t('employee:phone')}
@@ -217,7 +217,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
               trigger('personalInformation.emergencyContactPhone');
             }
           }}
-          type="tel"
+          type="number"
           addonBefore={<div>+84</div>}
           disabled={disabledField}
           placeholder={t('employee:emergency_contact_phone')}

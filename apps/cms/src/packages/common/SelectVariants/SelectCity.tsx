@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Option, SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
+import { GetAllParams } from '~/constants/GetAllParams';
 import { City } from '~/packages/specific/Location/models/Location';
 import { getCities } from '~/packages/specific/Location/services/getCities';
 
@@ -21,7 +22,9 @@ export const SelectCity = ({ city, disabled, allowClear = true, onChange, fieldK
   const handleFetchOption = async () => {
     setIsFetching(true);
     try {
-      const response = await getCities({});
+      const response = await getCities({
+        ...GetAllParams,
+      });
       setOptions(
         response.items.map(item => ({
           label: item.name,

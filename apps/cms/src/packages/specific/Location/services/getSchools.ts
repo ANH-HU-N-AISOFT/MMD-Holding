@@ -10,13 +10,16 @@ export interface ResponseSuccess {
 
 interface GetSchools {
   provinceCode: string;
+  perPage?: number;
+  page?: number;
 }
-export const getSchools = async ({ provinceCode }: GetSchools) => {
+export const getSchools = async ({ provinceCode, page, perPage }: GetSchools) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     url: '/schools',
     params: {
       provinceCode,
-      perPage: 1000,
+      page,
+      perPage,
     },
   });
 

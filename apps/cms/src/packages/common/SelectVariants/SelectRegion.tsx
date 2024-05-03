@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Option, SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
+import { GetAllParams } from '~/constants/GetAllParams';
 import { Country } from '~/packages/specific/Location/models/Location';
 import { getCountries } from '~/packages/specific/Location/services/getCountries';
 
@@ -20,7 +21,9 @@ export const SelectRegion = ({ region, disabled, allowClear = true, onChange }: 
   const handleFetchOption = async () => {
     setIsFetching(true);
     try {
-      const response = await getCountries({});
+      const response = await getCountries({
+        ...GetAllParams,
+      });
       setOptions(
         response.items.map(item => ({
           label: item.name,

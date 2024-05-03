@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+import { SEPARATOR } from './handleAxiosError';
 import type { TFunction } from 'i18next';
 import type { SimpleActionResponse } from '~/@types/SimpleActionResponse';
 import { SerializeFrom } from '~/overrides/@remix';
@@ -48,14 +50,27 @@ const StatusCodeMappingToString: TStatusCode = Object.fromEntries(
 export const handleGetMessageToToast = (
   t: TFunction<any[]>,
   actionResponse: SimpleActionResponse<any, any> | SerializeFrom<SimpleActionResponse<any, any>>,
-) => {
-  const { hasError, errorCode } = actionResponse;
-  if (!hasError || !errorCode) {
+): ReactNode => {
+  const { hasError, errorCode, error } = actionResponse;
+
+  if (!hasError) {
     return undefined;
+  }
+  if (!errorCode && error) {
+    return (
+      <div className="list-disc">
+        {error.split(SEPARATOR).map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </div>
+    );
+  }
+  if (!errorCode) {
+    return t('error_message:UNKNOWN');
   }
   const errorType = StatusCodeMappingToString[errorCode as keyof typeof StatusCodeMappingToString];
   if (!errorType) {
-    return t('error_message:UNKNOWN');
+    return error ?? t('error_message:UNKNOWN');
   }
   return t(`error_message:${errorType}`);
 };

@@ -2,6 +2,7 @@ import { Empty } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Option, SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
+import { GetAllParams } from '~/constants/GetAllParams';
 import { School } from '~/packages/specific/Location/models/Location';
 import { getSchools } from '~/packages/specific/Location/services/getSchools';
 
@@ -26,6 +27,7 @@ export const SelectSchool = ({ school, disabled, allowClear = true, cityCode, on
     try {
       if (cityCode) {
         const response = await getSchools({
+          ...GetAllParams,
           provinceCode: cityCode,
         });
         setOptions(

@@ -188,7 +188,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                     trigger('phone');
                   }
                 }}
-                type="tel"
+                type="number"
                 addonBefore={<div>+84</div>}
                 disabled={disabledField}
                 placeholder={t('department:phone')}

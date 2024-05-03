@@ -2,6 +2,7 @@ import { Empty } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Option, SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
+import { GetAllParams } from '~/constants/GetAllParams';
 import { District } from '~/packages/specific/Location/models/Location';
 import { getDistricts } from '~/packages/specific/Location/services/getDistricts';
 
@@ -26,6 +27,7 @@ export const SelectDistrict = ({ district, disabled, allowClear = true, cityCode
     try {
       if (cityCode) {
         const response = await getDistricts({
+          ...GetAllParams,
           provinceCode: cityCode,
         });
         setOptions(
