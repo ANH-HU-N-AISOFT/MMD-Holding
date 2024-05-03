@@ -98,7 +98,7 @@ export const Table = ({
     //   },
     // },
     {
-      width: 48,
+      width: 54,
       align: 'center',
       title: '#',
       render: (_, __, index) => pageSize * (currentPage - 1) + index + 1,
@@ -136,7 +136,7 @@ export const Table = ({
     {
       width: 160,
       title: t('employee:department_code_short'),
-      render: (_, record) => record.organization?.fullName,
+      render: (_, record) => record.organization?.code,
     },
     {
       width: 160,

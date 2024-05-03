@@ -12,10 +12,7 @@ export interface SelectMultipleDecouplingProps<Model extends AnyRecord, ModelId 
   deps?: DependencyList;
 }
 
-export const SelectMultipleDecouplingWithPagination = <
-  Model extends AnyRecord,
-  ModelId extends Array<string | number>,
->({
+export const SelectMultipleDecoupling = <Model extends AnyRecord, ModelId extends Array<string | number>>({
   transformToOption,
   service,
   onChange,
@@ -47,7 +44,6 @@ export const SelectMultipleDecouplingWithPagination = <
   return (
     <SelectMultiple
       {...props}
-      filterOption={() => true}
       showSearch={showSearch}
       onChange={onChange}
       options={options}

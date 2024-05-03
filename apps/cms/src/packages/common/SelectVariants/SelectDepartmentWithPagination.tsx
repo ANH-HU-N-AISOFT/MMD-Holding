@@ -1,15 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import {
-  SelectSingleDecoupling,
-  SelectSingleDecouplingProps,
-} from '~/components/SelectDecoupling/SelectSingleDecoupling';
-import { GetAllParams } from '~/constants/GetAllParams';
+  SelectSingleDecouplingWithPagination,
+  SelectSingleDecouplingWithPaginationProps,
+} from '~/components/SelectDecoupling/SelectSingleDecouplingWithPagination';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 
 interface Props {
   department?: Department['id'];
-  onChange?: SelectSingleDecouplingProps<Department, Department['id']>['onChange'];
+  onChange?: SelectSingleDecouplingWithPaginationProps<Department, Department['id']>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
@@ -17,7 +16,7 @@ interface Props {
   fieldLabel?: keyof Pick<Department, 'name' | 'code'>;
 }
 
-export const SelectDepartment = ({
+export const SelectDepartmentWithPagination = ({
   disabled,
   department,
   allowClear = true,
@@ -29,19 +28,21 @@ export const SelectDepartment = ({
   const { t } = useTranslation(['employee']);
 
   return (
-    <SelectSingleDecoupling<Department, Department['id']>
+    <SelectSingleDecouplingWithPagination<Department, Department['id']>
       allowClear={allowClear}
       placeholder={placeholder ?? t('employee:department')}
       disabled={disabled}
       value={department}
       onChange={onChange}
-      service={async () => {
-        const response = await getDepartments(GetAllParams);
-        return response.items;
+      service={async ({ page, search }) => {
+        const response = await getDepartments({ page, query: search });
+        return {
+          loadmorable: page < response.headers['x-pages-count'],
+          items: response.items,
+        };
       }}
       transformToOption={department => ({
         label: department[fieldLabel],
-        searchValue: department[fieldLabel],
         value: department[fieldValue],
         rawData: department,
       })}

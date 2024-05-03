@@ -1,5 +1,6 @@
 import { Select, Spin } from 'antd';
 import classNames from 'classnames';
+import { isEmpty } from 'ramda';
 import { useState } from 'react';
 import { useDeepCompareEffect } from 'reactjs';
 import { OmitRawProps } from './types/OmitRawProps';
@@ -11,7 +12,7 @@ export interface Props<ValueType extends OptionValueType[], RawData = any> exten
   options: Option<RawData>[];
   value?: ValueType;
   defaultValue?: ValueType;
-  onChange?: (value: ValueType, option?: Option<RawData>[]) => void;
+  onChange?: (value: ValueType | undefined, option?: Option<RawData>[]) => void;
 }
 
 export const SelectMultiple = <ValueType extends OptionValueType[] = OptionValueType[]>({
@@ -31,8 +32,9 @@ export const SelectMultiple = <ValueType extends OptionValueType[] = OptionValue
   const [valueState, setValueState] = useState(value ?? defaultValue);
 
   const handleChange: Props<ValueType>['onChange'] = (value, option) => {
-    setValueState(value);
-    onChange?.(value, option);
+    const isUndefined = isEmpty(value);
+    setValueState(isUndefined ? undefined : value);
+    onChange?.(isUndefined ? undefined : value, option);
   };
 
   const handleClick: Props<ValueType>['onClick'] = event => {

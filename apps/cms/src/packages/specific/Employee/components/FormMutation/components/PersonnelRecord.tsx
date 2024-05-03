@@ -9,7 +9,7 @@ import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectEmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/SelectEmployeeStatus';
 import { SelectEmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/SelectEmploymentContractType';
 import { SelectJobTitle } from '~/packages/common/SelectVariants/JobTitle/SelectJobTitle';
-import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
+import { SelectDepartmentWithPagination } from '~/packages/common/SelectVariants/SelectDepartmentWithPagination';
 import { SelectDirectionManager } from '~/packages/common/SelectVariants/SelectDirectionManager';
 import { disableBeforeCheckpoint } from '~/utils/functions/disableDatePicker';
 
@@ -58,7 +58,7 @@ export const PersonnelRecord = ({ form, disabledField }: Props) => {
         help={t('employee:department_help_text')}
         error={errors.personnelRecord?.department?.message}
       >
-        <SelectDepartment
+        <SelectDepartmentWithPagination
           department={department}
           onChange={value => {
             setValue('personnelRecord.department', value);

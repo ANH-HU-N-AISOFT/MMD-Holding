@@ -89,7 +89,7 @@ export const Table = ({
     //   },
     // },
     {
-      width: 48,
+      width: 54,
       align: 'center',
       title: '#',
       render: (_, __, index) => pageSize * (currentPage - 1) + index + 1,

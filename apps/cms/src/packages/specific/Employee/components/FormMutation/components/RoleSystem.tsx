@@ -7,7 +7,7 @@ import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectEmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/SelectEmployeeAccessStatus';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectRoles } from '~/packages/common/SelectVariants/Role/SelectRoles';
-import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
+import { SelectDepartmentWithPagination } from '~/packages/common/SelectVariants/SelectDepartmentWithPagination';
 
 interface Props {
   onResetPassword?: () => void;
@@ -46,7 +46,7 @@ export const RoleSystem = ({
         help={t('employee:department_help_text')}
         error={errors.personnelRecord?.department?.message}
       >
-        <SelectDepartment
+        <SelectDepartmentWithPagination
           department={department}
           onChange={value => {
             setValue('personnelRecord.department', value);
