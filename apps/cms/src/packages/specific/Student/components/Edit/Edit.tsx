@@ -31,13 +31,16 @@ export const Edit = ({ student, onResetPassword, ...formProps }: Props) => {
           parentPhone: student.parentPhoneNumber,
           phone: student.phoneNumber,
           saleEmployees: student.supporterIds ?? [],
-          school: student.schoolId,
+          school: student.school?.id,
           source: student.source,
         },
         roleSystem: {
           accessStatus: student.user?.accessStatus,
           username: student.user?.userName,
           password: '********',
+        },
+        temporaryOptional: {
+          cityCode: student.province?.code,
         },
       }}
     />

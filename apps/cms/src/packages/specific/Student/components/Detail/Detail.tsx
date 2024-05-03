@@ -26,12 +26,15 @@ export const Detail = ({ student }: Props) => {
           parentPhone: student.parentPhoneNumber,
           phone: student.phoneNumber,
           saleEmployees: student.supporterIds ?? [],
-          school: student.schoolId,
+          school: student.school?.id,
           source: student.source,
         },
         roleSystem: {
           accessStatus: student.user?.accessStatus,
           username: student.user?.userName,
+        },
+        temporaryOptional: {
+          cityCode: student.province?.code,
         },
       }}
     />

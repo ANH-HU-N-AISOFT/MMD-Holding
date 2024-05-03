@@ -39,7 +39,6 @@ export interface FormValues {
     accessStatus: EmployeeAccessStatus;
   };
   // Những field lưu lại giá trị của Select, Input, ... tạm để truyền vào 1 field khác để filter, search, ...
-  // Những field này k bắt buộc trong "defaultValues"
   temporaryOptional?: {
     cityCode?: string;
   };
@@ -48,9 +47,9 @@ export interface FormValues {
 interface Props {
   uid: string;
   isSubmiting: boolean;
-  defaultValues?: DeepPartial<Omit<FormValues, 'temporaryOptional' | 'temporaryRequired'>>;
-  fieldsError?: DeepPartial<Record<keyof Omit<FormValues, 'temporaryOptional' | 'temporaryRequired'>, string>>;
-  onSubmit?: (values: Omit<FormValues, 'temporaryOptional' | 'temporaryRequired'>) => void;
+  defaultValues?: DeepPartial<FormValues>;
+  fieldsError?: DeepPartial<Record<keyof FormValues, string>>;
+  onSubmit?: (values: FormValues) => void;
   disabled?: boolean;
   hidePasswordField?: boolean;
   needPasswordValidation?: boolean;

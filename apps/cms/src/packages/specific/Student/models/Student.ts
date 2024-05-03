@@ -21,7 +21,6 @@ export interface Student {
     code: string;
   };
   birthday?: string;
-  schoolId?: string;
   school?: {
     id: string;
     name: string;
