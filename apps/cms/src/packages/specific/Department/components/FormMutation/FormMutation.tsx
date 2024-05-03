@@ -20,12 +20,12 @@ export interface FormValues {
   code: string;
   manageDepartmentId: string;
   businessStatus: BusinessStatusEnum;
-  address: string;
-  city: string;
-  phone: string;
-  email: string;
-  presentDepartmentId: string;
-  foundationDate: string;
+  address?: string;
+  city?: string;
+  phone?: string;
+  email?: string;
+  presentDepartmentId?: string;
+  foundationDate?: string;
 }
 
 interface Props {
@@ -223,7 +223,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                 format="DD/MM/YYYY"
                 value={foundationDate ? dayjs(foundationDate) : undefined}
                 onChange={value => {
-                  setValue('foundationDate', value?.toISOString());
+                  setValue('foundationDate', value?.startOf('day')?.toISOString());
                   if (errors.foundationDate) {
                     trigger('foundationDate');
                   }

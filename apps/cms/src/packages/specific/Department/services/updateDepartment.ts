@@ -8,12 +8,12 @@ export interface UpdateDepartment {
     code: string;
     managementUnitId: string;
     businessStatus: string;
-    address: string;
-    province: string;
-    phoneNumber: string;
-    email: string;
-    unitManagerId: string;
-    foundationDate: string;
+    address?: string;
+    province?: string;
+    phoneNumber?: string;
+    email?: string;
+    unitManagerId?: string;
+    foundationDate?: string;
     id: string;
   };
 }

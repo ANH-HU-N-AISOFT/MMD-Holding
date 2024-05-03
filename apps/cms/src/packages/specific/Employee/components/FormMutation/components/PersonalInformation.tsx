@@ -79,7 +79,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
           format="DD/MM/YYYY"
           value={dateOfBirth ? dayjs(dateOfBirth) : undefined}
           onChange={value => {
-            setValue('personalInformation.dateOfBirth', value?.toISOString());
+            setValue('personalInformation.dateOfBirth', value?.startOf('day')?.toISOString());
             if (errors.personalInformation?.dateOfBirth) {
               trigger('personalInformation.dateOfBirth');
             }

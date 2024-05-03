@@ -1,11 +1,18 @@
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import localeData from 'dayjs/plugin/localeData';
+import weekday from 'dayjs/plugin/weekday';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
+import weekYear from 'dayjs/plugin/weekYear';
 import i18next from 'i18next';
 import { Provider } from 'jotai';
 import * as ReactDOM from 'react-dom/client';
 import { I18nextProvider } from 'react-i18next';
+import '~/packages/common/I18n/i18n';
 import { App } from './App';
 import './styles/reset.css';
 import './tailwind.css';
-import '~/packages/common/I18n/i18n';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -19,6 +26,14 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
+
+// Antd dayjs
+dayjs.extend(customParseFormat);
+dayjs.extend(advancedFormat);
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+dayjs.extend(weekOfYear);
+dayjs.extend(weekYear);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

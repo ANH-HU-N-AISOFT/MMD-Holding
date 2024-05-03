@@ -27,24 +27,24 @@ export interface FormValues {
     gender: GenderEnum;
     workEmail: string;
     personalEmail: string;
-    currentAddress: string;
-    residenceAddress: string;
-    region: string;
-    citizenIdCard: string;
-    emergencyContactName: string;
-    emergencyContactPhone: string;
-    emergencyContactRelationship: string;
-    notes: string;
+    currentAddress?: string;
+    residenceAddress?: string;
+    region?: string;
+    citizenIdCard?: string;
+    emergencyContactName?: string;
+    emergencyContactPhone?: string;
+    emergencyContactRelationship?: string;
+    notes?: string;
   };
   personnelRecord: {
     code: string;
     department: Department['id'];
     jobTitle: JobTitleEnum;
-    directionManager: string;
+    directionManager?: string;
     workStatus: EmployeeStatus;
-    contractType: EmploymentContractType;
-    contractStartEffectDate: string;
-    contractEndEffectDate: string;
+    contractType?: EmploymentContractType;
+    contractStartEffectDate?: string;
+    contractEndEffectDate?: string;
   };
   roleSystem: {
     roles: Role[];

@@ -6,12 +6,12 @@ export interface CreateDepartment {
   code: string;
   managementUnitId: string;
   businessStatus: string;
-  address: string;
-  province: string;
-  phoneNumber: string;
-  email: string;
-  unitManagerId: string;
-  foundationDate: string;
+  address?: string;
+  province?: string;
+  phoneNumber?: string;
+  email?: string;
+  unitManagerId?: string;
+  foundationDate?: string;
 }
 
 export type ResponseSuccess = Department;
