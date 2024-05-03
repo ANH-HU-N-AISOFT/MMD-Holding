@@ -66,7 +66,7 @@ export const SelectSingleDecoupling = <Model extends AnyRecord, ModelId extends 
     setIsLoadingMore(true);
     try {
       const loadmore = handleFetch('LOAD_MORE');
-      await loadmore({ page: page + 1, search: searchValue });
+      await loadmore({ page, search: searchValue });
     } catch (error) {
       console.log(error);
     } finally {
@@ -87,9 +87,8 @@ export const SelectSingleDecoupling = <Model extends AnyRecord, ModelId extends 
     }
     const dropdownEl = event.target as HTMLElement;
     if (dropdownEl.scrollTop + dropdownEl.offsetHeight >= dropdownEl.scrollHeight - 100) {
-      const nextPage = page + 1;
       setIsLoadingMore(true);
-      setPage(nextPage);
+      setPage(state => state + 1);
     }
   };
 

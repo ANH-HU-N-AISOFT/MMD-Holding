@@ -67,7 +67,7 @@ export const SelectMultipleDecoupling = <Model extends AnyRecord, ModelId extend
     setIsLoadingMore(true);
     try {
       const loadmore = handleFetch('LOAD_MORE');
-      await loadmore({ page: page + 1, search: searchValue });
+      await loadmore({ page, search: searchValue });
     } catch (error) {
       console.log(error);
     } finally {
