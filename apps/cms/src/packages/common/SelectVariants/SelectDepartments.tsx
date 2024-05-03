@@ -1,14 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import {
-  SelectMultipleDecoupling,
-  SelectMultipleDecouplingProps,
-} from '~/components/SelectDecoupling/SelectMultipleDecoupling';
+  SelectMultipleDecouplingWithPagination,
+  SelectMultipleDecouplingWithPaginationProps,
+} from '~/components/SelectDecoupling/SelectMultipleDecouplingWithPagination';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 
 interface Props {
   departments?: Array<Department['id']>;
-  onChange?: SelectMultipleDecouplingProps<Department, Array<Department['id']>>['onChange'];
+  onChange?: SelectMultipleDecouplingWithPaginationProps<Department, Array<Department['id']>>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
@@ -28,7 +28,7 @@ export const SelectDepartments = ({
   const { t } = useTranslation(['employee']);
 
   return (
-    <SelectMultipleDecoupling
+    <SelectMultipleDecouplingWithPagination
       allowClear={allowClear}
       placeholder={placeholder ?? t('employee:department')}
       disabled={disabled}

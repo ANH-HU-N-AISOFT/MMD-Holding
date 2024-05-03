@@ -1,14 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import {
-  SelectSingleDecoupling,
-  SelectSingleDecouplingProps,
-} from '~/components/SelectDecoupling/SelectSingleDecoupling';
+  SelectSingleDecouplingWithPagination,
+  SelectSingleDecouplingWithPaginationProps,
+} from '~/components/SelectDecoupling/SelectSingleDecouplingWithPagination';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployees } from '~/packages/specific/Employee/services/getEmployees';
 
 interface Props {
   directionManager?: Employee['employeeId'];
-  onChange?: SelectSingleDecouplingProps<Employee, Employee['employeeId']>['onChange'];
+  onChange?: SelectSingleDecouplingWithPaginationProps<Employee, Employee['employeeId']>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
 }
@@ -17,7 +17,7 @@ export const SelectDirectionManager = ({ disabled, allowClear = true, directionM
   const { t } = useTranslation(['employee']);
 
   return (
-    <SelectSingleDecoupling
+    <SelectSingleDecouplingWithPagination
       allowClear={allowClear}
       placeholder={t('employee:direction_manager')}
       disabled={disabled}
