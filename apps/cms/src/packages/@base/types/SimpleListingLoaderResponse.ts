@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { AnyRecord } from 'typescript-utilities';
 
 export interface SimpleListingLoaderResponse<T extends AnyRecord> {
@@ -10,4 +11,5 @@ export interface SimpleListingLoaderResponse<T extends AnyRecord> {
     };
   };
   page: number;
+  toastMessageError?: ReactNode;
 }

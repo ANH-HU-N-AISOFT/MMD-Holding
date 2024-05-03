@@ -1,5 +1,6 @@
 import { ClusterOutlined, TableOutlined } from '@ant-design/icons';
 import { Select, notification } from 'antd';
+import i18next from 'i18next';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { updateURLSearchParamsOfBrowserWithoutNavigation } from 'utilities';
@@ -11,15 +12,7 @@ import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { ModalImport } from '~/components/Listing/ModalImport/ModalImport';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
-import {
-  LoaderFunctionArgs,
-  TypedResponse,
-  json,
-  redirect,
-  useFetcher,
-  useLoaderData,
-  useNavigate,
-} from '~/overrides/@remix';
+import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
 import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
@@ -32,6 +25,7 @@ import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 import { ListingSearchParams } from '~/packages/specific/Department/types/ListingSearchParams';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Department/utils/lisitngUrlSearchParamsUtils';
+import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalidateOnListingPage';
@@ -39,6 +33,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Department>>> => {
+  const t = i18next.t;
   const { page = 1, search, businessStatus, layout } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
     const response = await getDepartments({
@@ -60,8 +55,14 @@ export const loader = async ({
       page: Math.min(page, response.headers['x-pages-count'] || 1),
     });
   } catch (error) {
-    console.log(error);
-    return redirect('/500', { reason: '' });
+    return json({
+      page,
+      info: {
+        hits: [],
+        pagination: { pageSize: 0, totalPages: 1, totalRecords: 0 },
+      },
+      toastMessage: handleGetMessageToToast(t, handleCatchClauseSimpleAtClient(error)),
+    });
   }
 };
 
@@ -187,6 +188,8 @@ export const Page = () => {
         onDelete={data => setIsOpenModalDeleteDepartment(data)}
         onEdit={record => navigate(`/department/${record.id}/edit`)}
         onView={record => navigate(`/department/${record.id}/detail`)}
+        onViewManageDepartment={record => navigate(`/department/${record.managementUnit?.id}/detail`)}
+        onViewPresentDepartment={record => navigate(`/employee/${record.unitManager?.id}/detail`)}
         deletable={isCanShow({ accept: [Role.Admin] })}
         editable={isCanShow({ accept: [Role.Admin] })}
       />

@@ -1,4 +1,5 @@
 import { notification } from 'antd';
+import i18next from 'i18next';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { updateURLSearchParamsOfBrowserWithoutNavigation } from 'utilities';
@@ -14,15 +15,7 @@ import { Modal } from '~/components/AntCustom/Modal';
 import { ModalImport } from '~/components/Listing/ModalImport/ModalImport';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
-import {
-  LoaderFunctionArgs,
-  TypedResponse,
-  json,
-  redirect,
-  useFetcher,
-  useLoaderData,
-  useNavigate,
-} from '~/overrides/@remix';
+import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
@@ -35,6 +28,7 @@ import { getStudents } from '~/packages/specific/Student/services/getStudents';
 import { ListingSearchParams } from '~/packages/specific/Student/types/ListingSearchParams';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Student/utils/lisitngUrlSearchParamsUtils';
 import { fetcherFormData } from '~/utils/functions/formData/fetcherFormData';
+import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalidateOnListingPage';
@@ -42,6 +36,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Student>>> => {
+  const t = i18next.t;
   const { page = 1, search, department } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
     const response = await getStudents({
@@ -62,8 +57,14 @@ export const loader = async ({
       page: Math.min(page, response.headers['x-pages-count'] || 1),
     });
   } catch (error) {
-    console.log(error);
-    return redirect('/500', { reason: '' });
+    return json({
+      page,
+      info: {
+        hits: [],
+        pagination: { pageSize: 0, totalPages: 1, totalRecords: 0 },
+      },
+      toastMessage: handleGetMessageToToast(t, handleCatchClauseSimpleAtClient(error)),
+    });
   }
 };
 

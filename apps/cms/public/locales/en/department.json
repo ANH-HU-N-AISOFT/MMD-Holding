@@ -37,5 +37,7 @@
   "field_code_invalid": "Giá trị không được phép chứa dấu cách và ký tự đặc biệt",
   "update_failure": "Cập nhật thất bại",
   "update_success": "Cập nhật thành công",
-  "manage_department_invalid": "Chọn một đơn vị quản lý để tiếp tục"
+  "manage_department_invalid": "Chọn một đơn vị quản lý để tiếp tục",
+  "not_found": "Không tìm thấy đơn vị",
+  "back_to_list": "Quay lại danh sách"
 }

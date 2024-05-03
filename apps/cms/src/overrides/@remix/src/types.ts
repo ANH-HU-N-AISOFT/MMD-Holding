@@ -30,20 +30,20 @@ export type TypedDeferredData<Data extends Record<string, unknown>> = Pick<Defer
   data: Data;
 };
 
-type UndefinedToOptional<T extends object> = {
+export type UndefinedToOptional<T extends object> = {
   [k in keyof T as undefined extends T[k] ? never : k]: T[k];
 } & {
   [k in keyof T as undefined extends T[k] ? k : never]?: Exclude<T[k], undefined>;
 };
 type IsAny<T> = 0 extends 1 & T ? true : false;
 type JsonPrimitive = string | number | boolean | String | Number | Boolean | null;
-type NonJsonPrimitive = undefined | Function | symbol;
+export type NonJsonPrimitive = undefined | Function | symbol;
 /** JSON serialize [tuples](https://www.typescriptlang.org/docs/handbook/2/objects.html#tuple-types) */
 type SerializeTuple<T extends [unknown, ...unknown[]]> = {
   [k in keyof T]: T[k] extends NonJsonPrimitive ? null : Serialize<T[k]>;
 };
 /** JSON serialize objects (not including arrays) and classes */
-type SerializeObject<T extends object> = {
+export type SerializeObject<T extends object> = {
   [k in keyof T as T[k] extends NonJsonPrimitive ? never : k]: Serialize<T[k]>;
 };
 type SerializeDeferred<T extends Record<string, unknown>> = {
@@ -59,7 +59,7 @@ type SerializeDeferred<T extends Record<string, unknown>> = {
 };
 export type AppData = any;
 type ArbitraryFunction = (...args: any[]) => unknown;
-type Serialize<T> = IsAny<T> extends true
+export type Serialize<T> = IsAny<T> extends true
   ? any
   : T extends TypedDeferredData<infer U>
     ? SerializeDeferred<U>

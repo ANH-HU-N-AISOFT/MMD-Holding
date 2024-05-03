@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { SEPARATOR } from './handleAxiosError';
 import type { TFunction } from 'i18next';
-import type { SimpleActionResponse } from '~/@types/SimpleActionResponse';
+import type { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { SerializeFrom } from '~/overrides/@remix';
 
 const StringMappingToStatusCode = {
@@ -49,7 +49,7 @@ const StatusCodeMappingToString: TStatusCode = Object.fromEntries(
 
 export const handleGetMessageToToast = (
   t: TFunction<any[]>,
-  actionResponse: SimpleActionResponse<any, any> | SerializeFrom<SimpleActionResponse<any, any>>,
+  actionResponse: SimpleResponse<any, any> | SerializeFrom<SimpleResponse<any, any>>,
 ): ReactNode => {
   const { hasError, errorCode, error } = actionResponse;
 

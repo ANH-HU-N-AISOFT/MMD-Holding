@@ -2,12 +2,12 @@ import { notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SimpleActionResponse } from '~/@types/SimpleActionResponse';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
+import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormMutation, FormValues } from '~/packages/specific/Employee/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Employee/components/FormMutation/zodResolver';
@@ -17,7 +17,7 @@ import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFo
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
-export type ActionResponse = SimpleActionResponse<undefined, undefined>;
+export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
   isCanAccessRoute({ accept: [Role.Admin] });
   const t = i18next.t;
@@ -54,7 +54,11 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
         workEmail: data.personalInformation.workEmail,
         workStatus: data.personnelRecord.workStatus,
       });
-      return json({ hasError: false, message: 'Created' });
+      return json({
+        hasError: false,
+        message: 'Created',
+        info: undefined,
+      });
     }
     return json(...handleFormResolverError<FormValues>(errors));
   } catch (error) {

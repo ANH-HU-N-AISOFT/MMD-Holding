@@ -26,5 +26,5 @@
   "USER_NAME_IS_EXISTED": "Tên người dùng đã tồn tại.",
   "EMPLOYEE_NOT_FOUND": "Không tìm thấy nhân viên.",
   "NOT_VALID_OBJECT_ID": "ID không hợp lệ.",
-  "UNKNOWN": "Lỗi không xác định."
+  "UNKNOWN": "Lỗi không xác định. Vui lòng thử lại sau"
 }

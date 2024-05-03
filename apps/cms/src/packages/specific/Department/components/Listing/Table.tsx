@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button, Tag } from 'antd';
+import { Button, Tag, Typography } from 'antd';
 import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
@@ -21,6 +21,8 @@ export interface Props
   onDelete?: (recordKeys: string) => void;
   onDeleteMany?: (recordKeys: string[]) => void;
   onView?: (record: Department) => void;
+  onViewManageDepartment?: (record: Department) => void;
+  onViewPresentDepartment?: (record: Department) => void;
 }
 
 export const Table = ({
@@ -33,6 +35,8 @@ export const Table = ({
   onDelete,
   onDeleteMany,
   onView,
+  onViewManageDepartment,
+  onViewPresentDepartment,
   deletable,
   editable,
   ...props
@@ -97,12 +101,18 @@ export const Table = ({
     {
       width: 200,
       title: t('department:name'),
-      render: (_, record) => [record.name, record.code].join(' - '),
+      render: (_, record) => [record.name, record.code].filter(Boolean).join(' - '),
     },
     {
       width: 200,
       title: t('department:manage_department'),
-      render: (_, record) => record.managementUnit?.fullName,
+      render: (_, record) => {
+        return (
+          <Typography.Link onClick={() => onViewManageDepartment?.(record)}>
+            {[record.managementUnit?.fullName, record.managementUnit?.code].filter(Boolean).join(' - ')}
+          </Typography.Link>
+        );
+      },
     },
     {
       width: 180,
@@ -119,7 +129,14 @@ export const Table = ({
     {
       width: 200,
       title: t('department:present_department'),
-      render: (_, record) => record.unitManager?.fullName,
+      // FIXME: Full name + code
+      render: (_, record) => {
+        return (
+          <Typography.Link onClick={() => onViewPresentDepartment?.(record)}>
+            {record.unitManager?.fullName}
+          </Typography.Link>
+        );
+      },
     },
     {
       width: 80,
@@ -189,7 +206,9 @@ export const Table = ({
       <SickyAction isVisible={!!selectedRows.length}>
         <div className="min-w-[400px] flex items-center justify-between">
           <Highlighter
-            textToHighlight={t('department:total_records_selected', { total: selectedRows.length })}
+            textToHighlight={t('department:total_records_selected', {
+              total: selectedRows.length,
+            })}
             searchWords={[selectedRows.length.toString()]}
             highlightClassName="bg-transparent font-semibold"
           />

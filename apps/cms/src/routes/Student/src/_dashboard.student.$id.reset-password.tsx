@@ -1,7 +1,7 @@
 import i18next from 'i18next';
-import { SimpleActionResponse } from '~/@types/SimpleActionResponse';
 import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/@remix';
 import { validateFormData } from '~/overrides/@remix-hook-form';
+import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormValues } from '~/packages/specific/Student/components/ResetPassword/ResetPassword';
 import { getFormResetPasswordResolver } from '~/packages/specific/Student/components/ResetPassword/zodResolver';
@@ -11,7 +11,7 @@ import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCa
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
-export type ActionResponse = SimpleActionResponse<undefined, undefined>;
+export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ params, request }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
   isCanAccessRoute({ accept: [Role.Admin] });
 
@@ -32,6 +32,7 @@ export const action = async ({ params, request }: ActionFunctionArgs): Promise<T
       return json({
         hasError: false,
         message: 'Reseted',
+        info: undefined,
       });
     }
     return json(...handleFormResolverError(errors));

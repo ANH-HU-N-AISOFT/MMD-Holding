@@ -18,6 +18,8 @@
   "update_success": "Cập nhật thành công",
   "search_placeholder": "Tìm theo mã học viên, tên học viên, số điện thoại hoặc mã đơn vị",
   "department_code": "Mã đơn vị",
+  "not_found": "Không tìm thấy học viên",
+  "back_to_list": "Quay lại danh sách",
 
   "add_student": "Thêm học viên",
   "students": "Danh sách học viên",

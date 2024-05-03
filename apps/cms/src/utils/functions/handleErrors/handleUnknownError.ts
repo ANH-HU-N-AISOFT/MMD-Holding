@@ -1,9 +1,9 @@
 import { RTHandleError } from './@types/RemixJsonFunction';
-import type { SimpleActionResponse } from '~/@types/SimpleActionResponse';
+import type { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 
 export const handleUnknownError = <Model = any, FieldsError = any>(
   error: unknown,
-): RTHandleError<SimpleActionResponse<Model, FieldsError>> => {
+): RTHandleError<SimpleResponse<Model, FieldsError>> => {
   console.log('handleUnknownError', error);
   let instanceName = 'Unable to determine the instance name';
   try {
@@ -23,6 +23,7 @@ export const handleUnknownError = <Model = any, FieldsError = any>(
       message: 'UnknownError',
       hasError: true,
       error: instanceName,
+      info: undefined,
     },
     { status: 400 },
   ];

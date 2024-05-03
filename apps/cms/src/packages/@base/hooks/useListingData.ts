@@ -1,13 +1,14 @@
+import { notification } from 'antd';
 import { isEmpty } from 'ramda';
-import { useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { AnyRecord } from 'typescript-utilities';
 import { UrlSearchParamsUtils } from 'utilities';
 import { SimpleListingLoaderResponse } from '../types/SimpleListingLoaderResponse';
-import { FetcherWithComponents } from '~/overrides/@remix';
+import { FetcherWithComponents, SerializeObject, UndefinedToOptional } from '~/overrides/@remix';
 
 interface UseListingData<T extends AnyRecord, SearchParams extends AnyRecord & { page?: number }> {
-  loaderData: SimpleListingLoaderResponse<T>;
-  fetcherData: FetcherWithComponents<SimpleListingLoaderResponse<T>>;
+  loaderData: SerializeObject<UndefinedToOptional<SimpleListingLoaderResponse<T>>>;
+  fetcherData: FetcherWithComponents<SerializeObject<UndefinedToOptional<SimpleListingLoaderResponse<T>>>>;
   getNearestPageAvailable: (page: number) => void;
   urlSearchParamsUtils: UrlSearchParamsUtils<SearchParams>;
 }
@@ -48,6 +49,11 @@ export const useListingData = <T extends AnyRecord, SearchParams extends AnyReco
       } else {
         setData(loaderData);
       }
+    }
+    if (loaderData.toastMessageError) {
+      notification.error({
+        message: loaderData.toastMessageError as ReactNode,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaderData]);

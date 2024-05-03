@@ -49,7 +49,7 @@ export const DashboardLayout = () => {
   return (
     <Layout className="!h-screen overflow-hidden">
       <Sider
-        width={210}
+        width={240}
         trigger={null}
         collapsible
         collapsed={collapsed}
@@ -62,6 +62,7 @@ export const DashboardLayout = () => {
           </Link>
         </div>
         <Menu
+          inlineIndent={23}
           selectedKeys={[getTabActiveWithLocation(location)]}
           theme="light"
           mode="inline"

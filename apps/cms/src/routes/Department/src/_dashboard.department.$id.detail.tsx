@@ -1,4 +1,5 @@
-import { notification } from 'antd';
+import { HomeOutlined } from '@ant-design/icons';
+import { Button, Result, notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -18,30 +19,36 @@ import {
   useLoaderData,
   useNavigate,
 } from '~/overrides/@remix';
+import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Detail } from '~/packages/specific/Department/components/Detail/Detail';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartment } from '~/packages/specific/Department/services/getDepartment';
+import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
-export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<{ department: Department }>> => {
+type LoaderResponse = SimpleResponse<{ department: Department }, undefined>;
+export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
   if (!params['id']) {
     return redirect('/department', {});
   }
   try {
     const response = await getDepartment({ id: params['id'] });
     return json({
-      department: response,
+      hasError: false,
+      message: '',
+      info: {
+        department: response,
+      },
     });
   } catch (error) {
-    console.log(error);
-    return redirect('/500', { reason: '' });
+    return handleCatchClauseSimple(error);
   }
 };
 
 export const Page = () => {
-  const { t } = useTranslation(['department']);
+  const { t } = useTranslation(['department', 'page404']);
   const navigate = useNavigate();
 
   const loaderData = useLoaderData<typeof loader>();
@@ -79,20 +86,34 @@ export const Page = () => {
   }, [deleteDepartmentFetcher.state]);
   //#endregion
 
+  if (!loaderData.info) {
+    return (
+      <Result
+        status="404"
+        title={t('department:not_found')}
+        extra={
+          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/department')}>
+            {t('department:back_to_list')}
+          </Button>
+        }
+      />
+    );
+  }
+
   return (
     <>
       <div className="flex flex-col h-full">
         <Header
-          title={t('department_with_name', { name: loaderData.department.name })}
+          title={t('department_with_name', { name: loaderData.info?.department.name })}
           onBack={() => navigate('/department')}
         />
         <div className="flex-1">
-          <Detail department={loaderData.department} />
+          <Detail department={loaderData.info?.department} />
         </div>
         {isCanShow({ accept: [Role.Admin] }) && (
           <Footer
-            onDelete={() => setIsOpenModalDeleteDepartment(loaderData.department.id)}
-            onEdit={() => navigate(`/department/${loaderData.department.id}/edit`)}
+            onDelete={() => setIsOpenModalDeleteDepartment(loaderData.info?.department.id ?? false)}
+            onEdit={() => navigate(`/department/${loaderData.info?.department.id}/edit`)}
           />
         )}
       </div>

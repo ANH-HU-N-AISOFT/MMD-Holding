@@ -1,4 +1,5 @@
-import { notification } from 'antd';
+import { HomeOutlined } from '@ant-design/icons';
+import { Button, Result, notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,7 +7,6 @@ import {
   ActionResponse as ActionResetPasswordResponse,
   action as actionResetPassword,
 } from './_dashboard.student.$id.reset-password';
-import { SimpleActionResponse } from '~/@types/SimpleActionResponse';
 import { Modal } from '~/components/AntCustom/Modal';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
@@ -24,13 +24,14 @@ import {
   useNavigation,
 } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
+import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Edit } from '~/packages/specific/Student/components/Edit/Edit';
 import { FormValues } from '~/packages/specific/Student/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Student/components/FormMutation/zodResolver';
 import {
-  ResetPassword,
   FormValues as FormResetPasswordValues,
+  ResetPassword,
 } from '~/packages/specific/Student/components/ResetPassword/ResetPassword';
 import { Student } from '~/packages/specific/Student/models/Student';
 import { getStudent } from '~/packages/specific/Student/services/getStudent';
@@ -42,7 +43,7 @@ import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGe
 import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidateOnEditPage';
 
-export type ActionResponse = SimpleActionResponse<undefined, undefined>;
+export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request, params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
   isCanAccessRoute({ accept: [Role.Admin] });
 
@@ -79,7 +80,11 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
           provinceId: data.personalInformation.city,
         },
       });
-      return json({ hasError: false, message: 'Updated' });
+      return json({
+        hasError: false,
+        message: 'Updated',
+        info: undefined,
+      });
     }
     return json(...handleFormResolverError<FormValues>(errors));
   } catch (error) {
@@ -87,7 +92,8 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
   }
 };
 
-export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<{ student: Student }>> => {
+type LoaderResponse = SimpleResponse<{ student: Student }, undefined>;
+export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
   isCanAccessRoute({ accept: [Role.Admin] });
 
   if (!params['id']) {
@@ -96,11 +102,14 @@ export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedRespo
   try {
     const response = await getStudent({ id: params['id'] });
     return json({
-      student: response,
+      hasError: false,
+      info: {
+        student: response,
+      },
+      message: '',
     });
   } catch (error) {
-    console.log(error);
-    return redirect('/500', { reason: '' });
+    return handleCatchClauseSimple(error);
   }
 };
 
@@ -167,22 +176,37 @@ export const Page = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actionData]);
+
+  if (!loaderData.info) {
+    return (
+      <Result
+        status="404"
+        title={t('student:not_found')}
+        extra={
+          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/student')}>
+            {t('student:back_to_list')}
+          </Button>
+        }
+      />
+    );
+  }
+
   return (
     <>
       <div className="flex flex-col h-full">
         <Header
           title={t('student_with_name_n_code', {
-            name: loaderData.student.fullName,
-            code: loaderData.student?.code,
+            name: loaderData.info?.student.fullName,
+            code: loaderData.info?.student?.code,
           })}
           onBack={() => navigate('/student')}
         />
         <div className="flex-1">
           <Edit
-            onResetPassword={() => setIsOpenModalResetPassword(loaderData.student)}
+            onResetPassword={() => setIsOpenModalResetPassword(loaderData.info?.student ?? false)}
             isSubmiting={isSubmiting}
             uid={FormUpdate}
-            student={loaderData.student}
+            student={loaderData.info?.student}
           />
         </div>
         <Footer

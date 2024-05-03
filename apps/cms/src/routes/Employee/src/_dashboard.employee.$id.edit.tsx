@@ -1,4 +1,5 @@
-import { notification } from 'antd';
+import { HomeOutlined } from '@ant-design/icons';
+import { Button, Result, notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,7 +7,6 @@ import {
   ActionResponse as ActionResetPasswordResponse,
   action as actionResetPassword,
 } from './_dashboard.employee.$id.reset-password';
-import { SimpleActionResponse } from '~/@types/SimpleActionResponse';
 import { Modal } from '~/components/AntCustom/Modal';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
@@ -24,6 +24,7 @@ import {
   useNavigation,
 } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
+import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Edit } from '~/packages/specific/Employee/components/Edit/Edit';
 import { FormValues } from '~/packages/specific/Employee/components/FormMutation/FormMutation';
@@ -42,7 +43,7 @@ import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGe
 import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidateOnEditPage';
 
-export type ActionResponse = SimpleActionResponse<undefined, undefined>;
+export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request, params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
   isCanAccessRoute({ accept: [Role.Admin] });
 
@@ -85,7 +86,11 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
           workStatus: data.personnelRecord.workStatus,
         },
       });
-      return json({ hasError: false, message: 'Updated' });
+      return json({
+        hasError: false,
+        message: 'Updated',
+        info: undefined,
+      });
     }
     return json(...handleFormResolverError<FormValues>(errors));
   } catch (error) {
@@ -93,7 +98,8 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
   }
 };
 
-export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<{ employee: Employee }>> => {
+type LoaderResponse = SimpleResponse<{ employee: Employee }, undefined>;
+export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
   isCanAccessRoute({ accept: [Role.Admin] });
 
   if (!params['id']) {
@@ -102,11 +108,14 @@ export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedRespo
   try {
     const response = await getEmployee({ id: params['id'] });
     return json({
-      employee: response,
+      hasError: false,
+      info: {
+        employee: response,
+      },
+      message: '',
     });
   } catch (error) {
-    console.log(error);
-    return redirect('/500', { reason: '' });
+    return handleCatchClauseSimple(error);
   }
 };
 
@@ -173,22 +182,37 @@ export const Page = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actionData]);
+
+  if (!loaderData.info) {
+    return (
+      <Result
+        status="404"
+        title={t('employee:not_found')}
+        extra={
+          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/employee')}>
+            {t('employee:back_to_list')}
+          </Button>
+        }
+      />
+    );
+  }
+
   return (
     <>
       <div className="flex flex-col h-full">
         <Header
           title={t('employee_with_name_n_code', {
-            name: loaderData.employee.fullName,
-            code: loaderData.employee.employee?.code,
+            name: loaderData.info?.employee.fullName,
+            code: loaderData.info?.employee.employee?.code,
           })}
           onBack={() => navigate('/employee')}
         />
         <div className="flex-1">
           <Edit
-            onResetPassword={() => setIsOpenModalResetPassword(loaderData.employee)}
+            onResetPassword={() => setIsOpenModalResetPassword(loaderData.info?.employee ?? false)}
             isSubmiting={isSubmiting}
             uid={FormUpdate}
-            employee={loaderData.employee}
+            employee={loaderData.info?.employee}
           />
         </div>
         <Footer

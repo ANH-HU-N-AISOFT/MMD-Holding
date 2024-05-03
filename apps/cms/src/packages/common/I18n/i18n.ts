@@ -9,21 +9,20 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     ns: [
-      // Common
-      'common',
-      'error_message',
       'auth',
+      'common',
       'components',
-      'page403',
-      'page404',
-      'page500',
-
-      // Specific
       'enum',
+      'page404',
+      'page403',
+      'page500',
+      'dashboard_layout',
+      'customer_management',
+      'department',
+      'error_message',
+      'location',
       'employee',
       'student',
-      'department',
-      'location',
     ],
     supportedLngs: ['en'],
     fallbackNS: 'en',

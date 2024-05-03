@@ -28,5 +28,10 @@
   "Detail": {
     "edit": "Cập nhật",
     "delete": "Xoá"
+  },
+  "Listing": {
+    "Table": {
+      "empty": "Không có dữ liệu"
+    }
   }
 }

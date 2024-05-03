@@ -1,4 +1,5 @@
-import { notification } from 'antd';
+import { HomeOutlined } from '@ant-design/icons';
+import { Button, Result, notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -18,25 +19,31 @@ import {
   useLoaderData,
   useNavigate,
 } from '~/overrides/@remix';
+import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Detail } from '~/packages/specific/Employee/components/Detail/Detail';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployee } from '~/packages/specific/Employee/services/getEmployee';
+import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
-export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<{ employee: Employee }>> => {
+type LoaderResponse = SimpleResponse<{ employee: Employee }, undefined>;
+export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
   if (!params['id']) {
     return redirect('/employee', {});
   }
   try {
     const response = await getEmployee({ id: params['id'] });
     return json({
-      employee: response,
+      hasError: false,
+      message: '',
+      info: {
+        employee: response,
+      },
     });
   } catch (error) {
-    console.log(error);
-    return redirect('/500', { reason: '' });
+    return handleCatchClauseSimple(error);
   }
 };
 
@@ -76,23 +83,37 @@ export const Page = () => {
   }, [deleteEmployeeFetcher.state]);
   //#endregion
 
+  if (!loaderData.info) {
+    return (
+      <Result
+        status="404"
+        title={t('employee:not_found')}
+        extra={
+          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/employee')}>
+            {t('employee:back_to_list')}
+          </Button>
+        }
+      />
+    );
+  }
+
   return (
     <>
       <div className="flex flex-col h-full">
         <Header
           title={t('employee:employee_with_name_n_code', {
-            name: loaderData.employee.fullName,
-            code: loaderData.employee.employee?.code,
+            name: loaderData.info?.employee.fullName,
+            code: loaderData.info?.employee.employee?.code,
           })}
           onBack={() => navigate('/employee')}
         />
         <div className="flex-1">
-          <Detail employee={loaderData.employee} />
+          <Detail employee={loaderData.info?.employee} />
         </div>
         {isCanShow({ accept: [Role.Admin] }) && (
           <Footer
-            onDelete={() => setIsOpenModalDeleteEmployee(loaderData.employee.employeeId)}
-            onEdit={() => navigate(`/employee/${loaderData.employee.employeeId}/edit`)}
+            onDelete={() => setIsOpenModalDeleteEmployee(loaderData.info?.employee.employeeId ?? false)}
+            onEdit={() => navigate(`/employee/${loaderData.info?.employee.employeeId}/edit`)}
           />
         )}
       </div>

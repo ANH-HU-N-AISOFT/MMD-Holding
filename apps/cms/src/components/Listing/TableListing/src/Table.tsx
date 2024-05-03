@@ -1,9 +1,10 @@
-import { Table, TableProps } from 'antd';
+import { Empty, Table, TableProps } from 'antd';
 import { ColumnGroupType, ColumnType } from 'antd/es/table';
 import classNames from 'classnames';
 import { sum } from 'ramda';
 import { ReactNode, useMemo } from 'react';
 import Highlighter from 'react-highlight-words';
+import { useTranslation } from 'react-i18next';
 import { AnyRecord } from 'typescript-utilities';
 import { pluralize } from 'utilities';
 import './styles.css';
@@ -48,6 +49,7 @@ export const TableListing = <RecordType extends AnyRecord>({
   nonePagination,
   ...props
 }: TableListingProps<RecordType>): ReactNode => {
+  const { t } = useTranslation(['components']);
   const from = Math.max((currentPage - 1) * pageSize, 0) + 1;
   const to = Math.min(currentPage * pageSize, totalRecords);
 
@@ -58,6 +60,7 @@ export const TableListing = <RecordType extends AnyRecord>({
   return (
     <Table
       {...props}
+      locale={{ emptyText: () => <Empty description={t('components:Listing.Table.empty')} /> }}
       columns={columns_}
       className={classNames(
         'TableListing__container',
