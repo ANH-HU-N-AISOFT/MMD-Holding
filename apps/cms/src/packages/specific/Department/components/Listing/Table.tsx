@@ -129,11 +129,10 @@ export const Table = ({
     {
       width: 200,
       title: t('department:present_department'),
-      // FIXME: Full name + code
       render: (_, record) => {
         return (
           <Typography.Link onClick={() => onViewPresentDepartment?.(record)}>
-            {record.unitManager?.fullName}
+            {[record.unitManager?.fullName, record.unitManager?.code].filter(Boolean).join(' - ')}
           </Typography.Link>
         );
       },

@@ -18,6 +18,7 @@ export interface UnitManager {
   fullName: string;
   phoneNumber: string;
   workEmail: string;
+  code: string;
 }
 export interface Department {
   address: string;
