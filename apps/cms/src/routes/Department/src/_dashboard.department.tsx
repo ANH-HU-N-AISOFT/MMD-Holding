@@ -12,6 +12,7 @@ import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { ModalImport } from '~/components/Listing/ModalImport/ModalImport';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
+import { GetAllParams } from '~/constants/GetAllParams';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
@@ -38,9 +39,9 @@ export const loader = async ({
   try {
     const response = await getDepartments({
       businessStatus: layout === 'tree' ? undefined : (businessStatus as BusinessStatusEnum | undefined),
-      page,
+      page: layout === 'tree' ? GetAllParams.page : page,
       query: layout === 'tree' ? undefined : search,
-      perPage: layout === 'tree' ? 10000 : undefined,
+      perPage: layout === 'tree' ? GetAllParams.perPage : undefined,
     });
 
     return json({
