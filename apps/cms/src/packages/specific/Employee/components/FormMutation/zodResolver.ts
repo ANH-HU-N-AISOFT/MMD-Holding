@@ -57,10 +57,12 @@ export const getFormMutationResolver = ({
     invalid: t('employee:citizen_id_card_invalid'),
   };
   const emergencyContactName = {
+    required: getRequiredMessage(t, 'employee:emergency_contact_name'),
     length: getRangeLengthMessage(t, 'employee:emergency_contact_name', 1, 100),
     invalid: t('employee:emergency_contact_name_invalid'),
   };
   const emergencyContactPhone = {
+    required: getRequiredMessage(t, 'employee:emergency_contact_phone'),
     invalid: getInvalidMessage(t, 'employee:emergency_contact_phone'),
   };
   const emergencyContactRelationship = {
@@ -116,7 +118,7 @@ export const getFormMutationResolver = ({
           .max(100, fullName.length)
           .regex(/^[\p{L}\-'\s]*$/u, fullName.invalid)
           .trim(),
-        phone: string({ required_error: phone.required }).regex(isPhone, phone.invalid).trim(),
+        phone: string({ required_error: phone.required }).min(1, phone.required).regex(isPhone, phone.invalid).trim(),
         dateOfBirth: string({ required_error: dateOfBirth.required }),
         gender: enum_([GenderEnum.FEMALE, GenderEnum.MALE], {
           required_error: gender.required,
@@ -148,15 +150,13 @@ export const getFormMutationResolver = ({
           .optional()
           .or(literal(''))
           .nullable(),
-        emergencyContactName: string()
+        emergencyContactName: string({ required_error: emergencyContactName.required })
           .min(1, emergencyContactName.length)
           .max(100, emergencyContactName.length)
           .regex(/^[\p{L}\-'\s]*$/u, emergencyContactName.invalid)
-          .trim()
-          .optional()
-          .or(literal(''))
-          .nullable(),
-        emergencyContactPhone: string()
+          .trim(),
+        emergencyContactPhone: string({ required_error: emergencyContactPhone.required })
+          .min(1, emergencyContactPhone.required)
           .trim()
           .refine(
             value => {
@@ -166,10 +166,7 @@ export const getFormMutationResolver = ({
               return true;
             },
             { message: emergencyContactPhone.invalid },
-          )
-          .optional()
-          .or(literal(''))
-          .nullable(),
+          ),
         emergencyContactRelationship: string()
           .min(1, emergencyContactRelationship.length)
           .max(100, emergencyContactRelationship.length)

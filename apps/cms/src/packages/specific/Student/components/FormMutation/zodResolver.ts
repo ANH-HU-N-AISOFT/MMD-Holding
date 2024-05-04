@@ -72,7 +72,7 @@ export const getFormMutationResolver = ({
           .max(100, fullName.length)
           .regex(/^[\p{L}\-'\s]*$/u, fullName.invalid)
           .trim(),
-        phone: string({ required_error: phone.required }).regex(isPhone, phone.invalid).trim(),
+        phone: string({ required_error: phone.required }).min(1, phone.required).regex(isPhone, phone.invalid).trim(),
         email: string()
           .trim()
           .refine(
@@ -118,7 +118,9 @@ export const getFormMutationResolver = ({
         source: enum_([SourceEnum.Cold, SourceEnum.Communication, SourceEnum.HotWarm, SourceEnum.HumanResources])
           .optional()
           .nullable(),
-        departments: array(string(), { required_error: departments.required }).min(1, departments.required),
+        departments: array(string(), {
+          required_error: departments.required,
+        }).min(1, departments.required),
         saleEmployees: array(string()).optional().nullable(),
       }),
       roleSystem: needPassword

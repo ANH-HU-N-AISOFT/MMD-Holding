@@ -40,6 +40,8 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
   const emergencyContactRelationship = watch('personalInformation.emergencyContactRelationship');
   const notes = watch('personalInformation.notes');
 
+  console.log(watch());
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
       <Field withRequiredMark label={t('employee:fullName')} error={errors.personalInformation?.fullName?.message}>
@@ -190,6 +192,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         <Divider orientation="center">{t('employee:emergency_contact')}</Divider>
       </div>
       <Field
+        withRequiredMark
         label={t('employee:emergency_contact_name')}
         error={errors.personalInformation?.emergencyContactName?.message}
       >
@@ -206,6 +209,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         />
       </Field>
       <Field
+        withRequiredMark
         label={t('employee:emergency_contact_phone')}
         error={errors.personalInformation?.emergencyContactPhone?.message}
       >
