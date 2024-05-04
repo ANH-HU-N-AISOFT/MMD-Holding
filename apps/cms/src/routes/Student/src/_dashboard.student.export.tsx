@@ -9,11 +9,12 @@ import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCa
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request }: ActionFunctionArgs) => {
   const t = i18next.t;
-  const { search } = lisitngUrlSearchParamsUtils.decrypt(request);
+  const { search, department } = lisitngUrlSearchParamsUtils.decrypt(request);
 
   try {
     const response = await exportStudents({
       query: search,
+      orgCodes: department,
     });
 
     downloadAxiosResponseAsCSV({ response, fileName: t('student:students') });

@@ -1,6 +1,7 @@
 import i18next from 'i18next';
 import { ActionFunctionArgs, json } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
 import { exportEmployees } from '~/packages/specific/Employee/services/exportEmployees';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Employee/utils/lisitngUrlSearchParamsUtils';
 import { downloadAxiosResponseAsCSV } from '~/utils/functions/downloadAxiosResponseAsCSV';
@@ -9,11 +10,14 @@ import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCa
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request }: ActionFunctionArgs) => {
   const t = i18next.t;
-  const { search } = lisitngUrlSearchParamsUtils.decrypt(request);
+  const { search, department, roles, status } = lisitngUrlSearchParamsUtils.decrypt(request);
 
   try {
     const response = await exportEmployees({
       query: search,
+      organizationId: department,
+      roles,
+      workStatus: status as EmployeeStatus | undefined,
     });
 
     downloadAxiosResponseAsCSV({ response, fileName: t('employee:employees') });
