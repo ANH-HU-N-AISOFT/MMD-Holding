@@ -1,7 +1,7 @@
 import { Select, Spin } from 'antd';
 import classNames from 'classnames';
 import { isEmpty } from 'ramda';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useDeepCompareEffect } from 'reactjs';
 import { OmitRawProps } from './types/OmitRawProps';
 import { Option } from './types/Option';
@@ -54,6 +54,10 @@ export const SelectMultiple = <ValueType extends OptionValueType[] = OptionValue
     );
   };
 
+  const options_ = useMemo(() => {
+    return options.filter(item => !item.hidden);
+  }, [options]);
+
   return (
     <Select
       {...props}
@@ -66,7 +70,7 @@ export const SelectMultiple = <ValueType extends OptionValueType[] = OptionValue
       onChange={handleChange as any}
       value={valueState as any}
       notFoundContent={loading ? renderLoadingAtDropdown() : notFoundContent}
-      options={loading ? [] : options}
+      options={loading ? [] : options_}
       allowClear={loading ? false : allowClear}
       className={classNames('w-full', props.className)}
     />

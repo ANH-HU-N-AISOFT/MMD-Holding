@@ -22,7 +22,7 @@ export const FormLogin = ({ isSubmitting }: FormLoginProps) => {
     mode: 'onSubmit',
     defaultValues: {
       username: 'admin1',
-      password: '123456',
+      password: '@Abc123456',
       remember: true,
     },
     submitHandlers: {

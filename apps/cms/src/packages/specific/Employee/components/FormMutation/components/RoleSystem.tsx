@@ -64,6 +64,7 @@ export const RoleSystem = ({
         error={errors.roleSystem?.roles?.message}
       >
         <SelectRoles
+          // ignoreRoles={[Role.Student]}
           roles={roles?.filter((role): role is Role => !!role)}
           onChange={value => {
             setValue('roleSystem.roles', value);

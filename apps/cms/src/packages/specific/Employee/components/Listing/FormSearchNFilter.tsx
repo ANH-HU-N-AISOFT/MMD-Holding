@@ -86,7 +86,7 @@ export const FormSearchNFilter = ({
             <Field label={t('employee:department_code')}>
               <SelectDepartment
                 fieldValue="id"
-                fieldLabel="code"
+                fieldLabel={['code']}
                 placeholder={t('employee:department_code')}
                 department={department}
                 onChange={value => {
@@ -96,6 +96,7 @@ export const FormSearchNFilter = ({
             </Field>
             <Field label={t('employee:role')}>
               <SelectRoles
+                // ignoreRoles={[Role.Student]}
                 roles={roles?.split(',').filter((item): item is Role => {
                   return Object.values(Role).includes(item as Role);
                 })}

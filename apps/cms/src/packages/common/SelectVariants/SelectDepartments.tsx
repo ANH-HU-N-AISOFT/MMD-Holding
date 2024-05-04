@@ -13,7 +13,7 @@ interface Props {
   allowClear?: boolean;
   placeholder?: string;
   fieldValue?: keyof Pick<Department, 'id' | 'code'>;
-  fieldLabel?: keyof Pick<Department, 'name' | 'code'>;
+  fieldLabel?: Array<keyof Pick<Department, 'name' | 'code'>>;
 }
 
 export const SelectDepartments = ({
@@ -23,7 +23,7 @@ export const SelectDepartments = ({
   placeholder,
   onChange,
   fieldValue = 'id',
-  fieldLabel = 'name',
+  fieldLabel = ['name', 'code'],
 }: Props) => {
   const { t } = useTranslation(['employee']);
 
@@ -45,11 +45,15 @@ export const SelectDepartments = ({
           items: response.items,
         };
       }}
-      transformToOption={department => ({
-        label: department[fieldLabel],
-        value: department[fieldValue],
-        rawData: department,
-      })}
+      transformToOption={department => {
+        const label = fieldLabel.map(item => department[item]).join(' - ');
+        return {
+          label: label,
+          searchValue: label,
+          value: department[fieldValue],
+          rawData: department,
+        };
+      }}
       className="w-full"
     />
   );

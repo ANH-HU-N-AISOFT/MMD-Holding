@@ -73,7 +73,7 @@ export const FormSearchNFilter = ({
                 placeholder={t('student:department_code')}
                 departments={department?.split(',')}
                 fieldValue="code"
-                fieldLabel="code"
+                fieldLabel={['code']}
                 onChange={value => {
                   setValue('department', value?.join(','));
                 }}

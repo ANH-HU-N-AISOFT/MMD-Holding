@@ -9,5 +9,6 @@ export interface Option<RawData = any> {
   displayLabel?: ReactNode;
   /** Dùng để filter option */
   searchValue?: string;
+  hidden?: boolean;
   rawData: RawData;
 }

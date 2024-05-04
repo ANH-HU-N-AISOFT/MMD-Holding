@@ -9,9 +9,10 @@ interface Props {
   onChange?: SelectMultipleProps<Role[]>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
+  ignoreRoles?: Role[];
 }
 
-export const SelectRoles = ({ roles, disabled, allowClear = true, onChange }: Props) => {
+export const SelectRoles = ({ roles, disabled, allowClear = true, onChange, ignoreRoles: hiddenRoles }: Props) => {
   const { t } = useTranslation(['common', 'enum']);
   const roleMappingToLabels = useMemo(() => {
     return getRoleMappingToLabels(t);
@@ -30,6 +31,7 @@ export const SelectRoles = ({ roles, disabled, allowClear = true, onChange }: Pr
           label: roleMappingToLabels[item],
           value: item,
           rawData: item,
+          hidden: hiddenRoles?.includes(item),
         };
       })}
     />
