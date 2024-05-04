@@ -1,5 +1,5 @@
 import { CaretRightOutlined, DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button, Tag } from 'antd';
+import { Button, Tag, Typography } from 'antd';
 import { ExpandableConfig } from 'antd/es/table/interface';
 import classNames from 'classnames';
 import { isEmpty, nth } from 'ramda';
@@ -24,6 +24,7 @@ export interface Props extends Pick<TableListingProps<Department>, 'dataSource' 
   onDelete?: (recordKeys: string) => void;
   onDeleteMany?: (recordKeys: string[]) => void;
   onView?: (record: Department) => void;
+  onViewPresentDepartment?: (record: Department) => void;
   searchParams?: ListingSearchParams;
 }
 
@@ -33,6 +34,7 @@ export const TableForTreeLayout = ({
   onDelete,
   onDeleteMany,
   onView,
+  onViewPresentDepartment,
   deletable,
   editable,
   searchParams = {},
@@ -90,7 +92,15 @@ export const TableForTreeLayout = ({
     {
       width: 200,
       title: t('department:present_department'),
-      render: (_, record) => record.generalInformation.unitManager?.fullName,
+      render: (_, record) => {
+        return (
+          <Typography.Link onClick={() => onViewPresentDepartment?.(record.generalInformation)}>
+            {[record.generalInformation.unitManager?.fullName, record.generalInformation.unitManager?.code]
+              .filter(Boolean)
+              .join(' - ')}
+          </Typography.Link>
+        );
+      },
     },
     {
       width: 80,
@@ -133,10 +143,14 @@ export const TableForTreeLayout = ({
     return null;
   };
 
-  const tree = useMemo(() => {
+  const { tree, nodeMatchedIds } = useMemo(() => {
     const result = leavesToTreeDataNode(dataSource as Department[], searchParams);
-    shakeUnmatchedBranches(result);
-    return result;
+    const { nodeMatchedIds } = shakeUnmatchedBranches(result);
+
+    return {
+      tree: result,
+      nodeMatchedIds,
+    };
   }, [dataSource, searchParams]);
 
   useEffect(() => {
@@ -147,6 +161,14 @@ export const TableForTreeLayout = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const rootId = nth(0, tree)?.generalInformation.id;
+    if (rootId) {
+      setRowsExpanding([rootId, ...nodeMatchedIds]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nodeMatchedIds]);
 
   return (
     <>

@@ -81,6 +81,7 @@ export const Page = () => {
       ...paramsInUrl,
       ...params,
     });
+    console.log(searchParamsToLoader);
     fetcherData.load('/department' + searchParamsToLoader);
     updateURLSearchParamsOfBrowserWithoutNavigation(searchParamsToLoader);
   };
@@ -167,10 +168,12 @@ export const Page = () => {
       return (
         <BoxFields>
           <TableForTreeLayout
+            loading={isFetchingList}
             dataSource={data.info.hits}
             onDelete={data => setIsOpenModalDeleteDepartment(data)}
             onEdit={record => navigate(`/department/${record.id}/edit`)}
             onView={record => navigate(`/department/${record.id}/detail`)}
+            onViewPresentDepartment={record => navigate(`/employee/${record.unitManager?.id}/detail`)}
             deletable={isCanShow({ accept: [Role.Admin] })}
             editable={isCanShow({ accept: [Role.Admin] })}
             searchParams={paramsInUrl}
