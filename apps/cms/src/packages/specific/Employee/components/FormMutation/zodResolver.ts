@@ -170,8 +170,8 @@ export const getFormMutationResolver = ({
           ),
         emergencyContactRelationship: string()
           .trim()
-          .min(1, emergencyContactRelationship.length)
-          .max(100, emergencyContactRelationship.length)
+          .min(2, emergencyContactRelationship.length)
+          .max(16, emergencyContactRelationship.length)
           .regex(/^[\p{L}\s]*$/u, emergencyContactRelationship.invalid)
           .optional()
           .or(literal(''))
