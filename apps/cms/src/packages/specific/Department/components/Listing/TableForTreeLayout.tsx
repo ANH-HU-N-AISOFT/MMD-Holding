@@ -72,7 +72,9 @@ export const TableForTreeLayout = ({
                 });
               }}
             />
-            <div>{[record.generalInformation.name, record.generalInformation.code].join(' - ')}</div>
+            <Typography.Link onClick={() => onView?.(record.generalInformation)}>
+              {[record.generalInformation.name, record.generalInformation.code].join(' - ')}
+            </Typography.Link>
           </div>
         );
       },

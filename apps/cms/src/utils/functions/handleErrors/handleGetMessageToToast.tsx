@@ -56,7 +56,7 @@ export const handleGetMessageToToast = (
   if (!hasError) {
     return undefined;
   }
-  if (!errorCode && error) {
+  if (error) {
     return (
       <div className="list-disc">
         {error.split(SEPARATOR).map((item, index) => (

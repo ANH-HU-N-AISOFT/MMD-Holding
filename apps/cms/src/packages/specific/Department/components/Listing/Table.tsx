@@ -101,7 +101,13 @@ export const Table = ({
     {
       width: 200,
       title: t('department:name'),
-      render: (_, record) => [record.name, record.code].filter(Boolean).join(' - '),
+      render: (_, record) => {
+        return (
+          <Typography.Link onClick={() => onView?.(record)}>
+            {[record.name, record.code].filter(Boolean).join(' - ')}
+          </Typography.Link>
+        );
+      },
     },
     {
       width: 200,
