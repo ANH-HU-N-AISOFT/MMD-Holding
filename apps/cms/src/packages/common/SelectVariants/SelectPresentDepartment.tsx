@@ -24,7 +24,11 @@ export const SelectPresentDepartment = ({ disabled, allowClear = true, presentDe
       value={presentDepartment}
       onChange={onChange}
       service={async ({ page, search }) => {
-        const response = await getEmployees({ page, query: search });
+        const response = await getEmployees({
+          page,
+          query: search,
+          sortByName: 1,
+        });
         return {
           loadmorable: page < response.headers['x-pages-count'],
           items: response.items,

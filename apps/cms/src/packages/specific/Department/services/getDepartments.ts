@@ -15,8 +15,16 @@ interface GetDepartments {
   page?: number;
   perPage?: number;
   isManagementUnit?: boolean;
+  sortByName?: 1 | -1;
 }
-export const getDepartments = async ({ businessStatus, page, query, perPage, isManagementUnit }: GetDepartments) => {
+export const getDepartments = async ({
+  businessStatus,
+  page,
+  query,
+  perPage,
+  isManagementUnit,
+  sortByName,
+}: GetDepartments) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     url: '/organizations',
     params: {
@@ -25,6 +33,7 @@ export const getDepartments = async ({ businessStatus, page, query, perPage, isM
       query,
       perPage,
       isManagementUnit,
+      sortByName,
     },
   });
 

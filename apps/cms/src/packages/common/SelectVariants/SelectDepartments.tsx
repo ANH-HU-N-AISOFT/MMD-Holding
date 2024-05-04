@@ -35,7 +35,11 @@ export const SelectDepartments = ({
       value={departments}
       onChange={onChange}
       service={async ({ page, search }) => {
-        const response = await getDepartments({ page, query: search });
+        const response = await getDepartments({
+          page,
+          query: search,
+          sortByName: 1,
+        });
         return {
           loadmorable: page < response.headers['x-pages-count'],
           items: response.items,

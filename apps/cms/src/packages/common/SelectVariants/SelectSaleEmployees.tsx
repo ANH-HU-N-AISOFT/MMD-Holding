@@ -41,6 +41,7 @@ export const SelectSaleEmployees = ({ disabled, allowClear = true, saleEmployees
             roles: Role.Sale,
             organizationId: organizations.join(','),
             workStatus: EmployeeStatus.WORKING,
+            sortByName: 1,
           });
           return {
             loadmorable: page < response.headers['x-pages-count'],

@@ -24,7 +24,12 @@ export const SelectManagementUnit = ({ disabled, managementUnit, allowClear = tr
       value={managementUnit}
       onChange={onChange}
       service={async ({ page, search }) => {
-        const response = await getDepartments({ isManagementUnit: true, page, query: search });
+        const response = await getDepartments({
+          isManagementUnit: true,
+          page,
+          query: search,
+          sortByName: 1,
+        });
         return {
           loadmorable: page < response.headers['x-pages-count'],
           items: response.items,

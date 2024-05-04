@@ -36,7 +36,10 @@ export const SelectDepartment = ({
       value={department}
       onChange={onChange}
       service={async () => {
-        const response = await getDepartments(GetAllParams);
+        const response = await getDepartments({
+          ...GetAllParams,
+          sortByName: 1,
+        });
         return response.items;
       }}
       transformToOption={department => ({
