@@ -45,8 +45,8 @@ export const getFormMutationResolver = (t: TFunction<['common', 'department']>) 
         ),
       manageDepartmentId: string({ required_error: manageDepartmentId.required }),
       businessStatus: string(),
-      address: string().min(3, address.length).max(64, address.length).optional().or(literal('')).nullable(),
-      city: string().optional().or(literal('')).nullable(),
+      address: string().trim().min(3, address.length).max(64, address.length).optional().or(literal('')).nullable(),
+      city: string().trim().optional().or(literal('')).nullable(),
       phone: string()
         .trim()
         .refine(

@@ -102,6 +102,7 @@ export const getFormMutationResolver = ({
       required_error: roles.required,
     }).min(1, roles.required),
     username: string({ required_error: username.required })
+      .trim()
       .min(5, username.length)
       .max(12, username.length)
       .regex(/^[\p{L}0-9]*$/u, username.invalid),
@@ -114,50 +115,50 @@ export const getFormMutationResolver = ({
     object({
       personalInformation: object({
         fullName: string({ required_error: fullName.required })
+          .trim()
           .min(1, fullName.length)
           .max(100, fullName.length)
-          .regex(/^[\p{L}\-'\s]*$/u, fullName.invalid)
-          .trim(),
-        phone: string({ required_error: phone.required }).min(1, phone.required).regex(isPhone, phone.invalid).trim(),
+          .regex(/^[\p{L}\-'\s]*$/u, fullName.invalid),
+        phone: string({ required_error: phone.required }).trim().min(1, phone.required).regex(isPhone, phone.invalid),
         dateOfBirth: string({ required_error: dateOfBirth.required }),
         gender: enum_([GenderEnum.FEMALE, GenderEnum.MALE], {
           required_error: gender.required,
         }),
-        workEmail: string({ required_error: workEmail.required }).regex(isEmail, workEmail.invalid).trim(),
-        personalEmail: string({ required_error: personalEmail.required }).regex(isEmail, personalEmail.invalid).trim(),
+        workEmail: string({ required_error: workEmail.required }).trim().regex(isEmail, workEmail.invalid),
+        personalEmail: string({ required_error: personalEmail.required }).trim().regex(isEmail, personalEmail.invalid),
         currentAddress: string()
+          .trim()
           .min(3, currentAddress.length)
           .max(96, currentAddress.length)
           .regex(/^[\p{L}0-9\s/]*$/u, currentAddress.invalid)
-          .trim()
           .optional()
           .or(literal(''))
           .nullable(),
         residenceAddress: string()
+          .trim()
           .min(3, residenceAddress.length)
           .max(96, residenceAddress.length)
           .regex(/^[\p{L}0-9\s/]*$/u, residenceAddress.invalid)
-          .trim()
           .optional()
           .or(literal(''))
           .nullable(),
         region: string().trim().optional().or(literal('')).nullable(),
         citizenIdCard: string()
+          .trim()
           .min(8, citizenIdCard.length)
           .max(16, citizenIdCard.length)
           .regex(/^[\p{L}0-9\-\s]*$/u, citizenIdCard.invalid)
-          .trim()
           .optional()
           .or(literal(''))
           .nullable(),
         emergencyContactName: string({ required_error: emergencyContactName.required })
+          .trim()
           .min(1, emergencyContactName.length)
           .max(100, emergencyContactName.length)
-          .regex(/^[\p{L}\-'\s]*$/u, emergencyContactName.invalid)
-          .trim(),
+          .regex(/^[\p{L}\-'\s]*$/u, emergencyContactName.invalid),
         emergencyContactPhone: string({ required_error: emergencyContactPhone.required })
-          .min(1, emergencyContactPhone.required)
           .trim()
+          .min(1, emergencyContactPhone.required)
           .refine(
             value => {
               if (value !== undefined && value !== null && value.trim() !== '') {
@@ -168,17 +169,17 @@ export const getFormMutationResolver = ({
             { message: emergencyContactPhone.invalid },
           ),
         emergencyContactRelationship: string()
+          .trim()
           .min(1, emergencyContactRelationship.length)
           .max(100, emergencyContactRelationship.length)
           .regex(/^[\p{L}\s]*$/u, emergencyContactRelationship.invalid)
-          .trim()
           .optional()
           .or(literal(''))
           .nullable(),
-        notes: string().min(0, notes.length).max(256, notes.length).trim().optional().or(literal('')).nullable(),
+        notes: string().trim().min(0, notes.length).max(256, notes.length).trim().optional().or(literal('')).nullable(),
       }),
       personnelRecord: object({
-        code: string().optional().or(literal('')).nullable(),
+        code: string().trim().optional().or(literal('')).nullable(),
         department: string({
           required_error: personnelRecordDepartment.required,
         }),

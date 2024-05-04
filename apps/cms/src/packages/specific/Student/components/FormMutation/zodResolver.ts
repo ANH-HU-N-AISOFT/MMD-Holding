@@ -33,6 +33,7 @@ export const getFormMutationResolver = ({
   };
   const roleSystemSchema = object({
     username: string({ required_error: username.required })
+      .trim()
       .min(5, username.length)
       .max(12, username.length)
       .regex(/^[\p{L}0-9]*$/u, username.invalid),
@@ -68,11 +69,11 @@ export const getFormMutationResolver = ({
     object({
       personalInformation: object({
         fullName: string({ required_error: fullName.required })
+          .trim()
           .min(1, fullName.length)
           .max(100, fullName.length)
-          .regex(/^[\p{L}\-'\s]*$/u, fullName.invalid)
-          .trim(),
-        phone: string({ required_error: phone.required }).min(1, phone.required).regex(isPhone, phone.invalid).trim(),
+          .regex(/^[\p{L}\-'\s]*$/u, fullName.invalid),
+        phone: string({ required_error: phone.required }).trim().min(1, phone.required).regex(isPhone, phone.invalid),
         email: string()
           .trim()
           .refine(
@@ -88,17 +89,17 @@ export const getFormMutationResolver = ({
           .or(literal(''))
           .nullable(),
         currentAddress: string()
+          .trim()
           .min(3, currentAddress.length)
           .max(64, currentAddress.length)
           .regex(/^[\p{L}0-9\s/]*$/u, currentAddress.invalid)
-          .trim()
           .optional()
           .or(literal(''))
           .nullable(),
         city: string().trim().optional().or(literal('')).nullable(),
         district: string().trim().optional().or(literal('')).nullable(),
         dateOfBirth: string().trim().optional().or(literal('')).nullable(),
-        school: string().optional().nullable(),
+        school: string().trim().optional().nullable(),
         gender: enum_([GenderEnum.MALE, GenderEnum.FEMALE]).optional().nullable(),
         parentPhone: string()
           .trim()
