@@ -15,6 +15,7 @@ export interface ManagementUnit {
 }
 export interface UnitManager {
   id: string;
+  employeeId: string;
   fullName: string;
   phoneNumber: string;
   workEmail: string;

@@ -193,7 +193,7 @@ export const Page = () => {
         onEdit={record => navigate(`/department/${record.id}/edit`)}
         onView={record => navigate(`/department/${record.id}/detail`)}
         onViewManageDepartment={record => navigate(`/department/${record.managementUnit?.id}/detail`)}
-        onViewPresentDepartment={record => navigate(`/employee/${record.unitManager?.id}/detail`)}
+        onViewPresentDepartment={record => navigate(`/employee/${record.unitManager?.employeeId}/detail`)}
         deletable={isCanShow({ accept: [Role.Admin] })}
         editable={isCanShow({ accept: [Role.Admin] })}
       />

@@ -143,7 +143,13 @@ export const Page = () => {
   const [isOpenModalDeleteEmployee, setIsOpenModalDeleteEmployee] = useState<string | false>(false);
 
   const handleDelete = () => {
-    deleteEmployeeFetcher.submit({}, { method: 'DELETE', action: `/employee/${isOpenModalDeleteEmployee}/delete` });
+    deleteEmployeeFetcher.submit(
+      {},
+      {
+        method: 'DELETE',
+        action: `/employee/${isOpenModalDeleteEmployee}/delete`,
+      },
+    );
   };
 
   useEffect(() => {

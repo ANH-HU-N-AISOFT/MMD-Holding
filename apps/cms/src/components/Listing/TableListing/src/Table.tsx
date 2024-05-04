@@ -74,6 +74,7 @@ export const TableListing = <RecordType extends AnyRecord>({
           ? false
           : {
               showLessItems: true,
+              showSizeChanger: false,
               total: totalRecords,
               current: currentPage,
               pageSize,
