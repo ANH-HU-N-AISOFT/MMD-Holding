@@ -71,9 +71,9 @@ export const ResetPassword = ({ isSubmiting, uid, defaultValues, disabled, field
           placeholder={t('employee:new_password')}
           onChange={event => {
             setValue('newPassword', event.target.value);
-            if (errors.newPassword) {
-              trigger('newPassword');
-            }
+            // if (errors.newPassword) {
+            trigger('newPassword');
+            // }
           }}
         />
       </Field>

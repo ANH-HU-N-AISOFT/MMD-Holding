@@ -3,6 +3,7 @@ import { TFunction } from 'i18next';
 import { literal, object, string } from 'zod';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessage } from '~/utils/functions/getRequiredMessage';
+import { isStrongPassword } from '~/utils/regexes/src/isStrongPassword';
 
 export const getFormResetPasswordResolver = (t: TFunction<['common', 'employee']>) => {
   const password = {
@@ -15,7 +16,7 @@ export const getFormResetPasswordResolver = (t: TFunction<['common', 'employee']
       newPassword: string({ required_error: password.required })
         .min(8, password.length)
         .max(12, password.length)
-        .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&\s'-])[A-Za-z\d@$!%*?&\s'-]+$/, password.invalid),
+        .regex(isStrongPassword, password.invalid),
       confirmPassword: string().optional().or(literal('')).nullable(),
     }).refine(data => data.newPassword === data.confirmPassword, {
       message: t('employee:confirm_password_not_match'),

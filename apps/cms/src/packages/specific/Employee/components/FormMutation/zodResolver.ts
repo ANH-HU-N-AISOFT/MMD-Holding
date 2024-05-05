@@ -12,6 +12,7 @@ import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessage } from '~/utils/functions/getRequiredMessage';
 import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMessageSelectField';
 import { isEmail, isPhone } from '~/utils/regexes';
+import { isStrongPassword } from '~/utils/regexes/src/isStrongPassword';
 
 export const getFormMutationResolver = ({
   needPassword,
@@ -205,7 +206,7 @@ export const getFormMutationResolver = ({
             password: string({ required_error: password.required })
               .min(8, password.length)
               .max(12, password.length)
-              .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&\s'-])[A-Za-z\d@$!%*?&\s'-]+$/, password.invalid),
+              .regex(isStrongPassword, password.invalid),
           })
         : roleSystemSchema,
     }),
