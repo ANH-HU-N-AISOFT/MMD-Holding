@@ -41,7 +41,7 @@ export const Edit = ({ employee, onResetPassword, ...formProps }: Props) => {
           contractType: employee.employee?.contractType,
           department: employee.employee?.organizationId,
           directionManager: employee.directManagerId,
-          jobTitle: employee.employee?.jobTitle,
+          jobTitles: employee.employee?.jobTitles,
           workStatus: employee.employee?.workStatus,
         },
         roleSystem: {

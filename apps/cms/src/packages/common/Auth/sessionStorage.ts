@@ -12,6 +12,7 @@ export const sessionSchema = object({
     organizationName: string(),
     fullName: string(),
     avatar: string(),
+    organizationId: string().optional(),
   }).optional(),
   token: object({
     accessToken: string(),

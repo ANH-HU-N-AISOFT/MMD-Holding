@@ -23,7 +23,7 @@ export interface CreateEmployee {
   emergencyContactRelationship?: string;
   notes?: string;
   organizationId: string;
-  jobTitle: JobTitleEnum;
+  jobTitles: JobTitleEnum[];
   directManagerId?: string;
   workStatus: EmployeeStatus;
   contractType?: EmploymentContractType;

@@ -58,14 +58,7 @@ interface Props {
 
 export const FormMutation = ({
   uid,
-  defaultValues = {
-    personalInformation: {
-      notifyResultToParent: false,
-    },
-    roleSystem: {
-      accessStatus: EmployeeAccessStatus.GRANTED,
-    },
-  },
+  defaultValues = {},
   fieldsError = {},
   isSubmiting,
   onSubmit,

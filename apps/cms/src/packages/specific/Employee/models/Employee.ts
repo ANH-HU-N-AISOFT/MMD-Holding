@@ -44,7 +44,7 @@ export interface Employee {
     id: string;
     code: string;
     organizationId: string;
-    jobTitle: JobTitleEnum;
+    jobTitles: JobTitleEnum[];
     workStatus: EmployeeStatus;
     contractType: EmploymentContractType;
     contractStartDate: string;

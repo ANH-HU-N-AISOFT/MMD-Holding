@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined, LockOutlined } from '@ant-design/icons';
-import { Button, Tag } from 'antd';
+import { Button, Tag, Typography } from 'antd';
 import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
@@ -106,12 +106,16 @@ export const Table = ({
     {
       width: 160,
       title: t('employee:code_short'),
-      render: (_, record) => record.employee?.code,
+      render: (_, record) => {
+        return <Typography.Link onClick={() => onView?.(record)}>{record.employee?.code}</Typography.Link>;
+      },
     },
     {
       width: 200,
       title: t('employee:name'),
-      render: (_, record) => record.fullName,
+      render: (_, record) => {
+        return <Typography.Link onClick={() => onView?.(record)}>{record.fullName}</Typography.Link>;
+      },
     },
     {
       width: 220,

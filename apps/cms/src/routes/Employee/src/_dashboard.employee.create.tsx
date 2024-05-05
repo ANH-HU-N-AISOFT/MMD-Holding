@@ -41,7 +41,8 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
         emergencyContactRelationship: data.personalInformation.emergencyContactRelationship,
         fullName: data.personalInformation.fullName,
         gender: data.personalInformation.gender,
-        jobTitle: data.personnelRecord.jobTitle,
+        // FIXME:
+        jobTitles: data.personnelRecord.jobTitles,
         nationality: data.personalInformation.region,
         notes: data.personalInformation.notes,
         organizationId: data.personnelRecord.department,

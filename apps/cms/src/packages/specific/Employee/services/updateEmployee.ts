@@ -25,7 +25,7 @@ export interface UpdateEmployee {
     emergencyContactRelationship?: string;
     notes?: string;
     organizationId: string;
-    jobTitle: JobTitleEnum;
+    jobTitles: JobTitleEnum[];
     directManagerId?: string;
     workStatus: EmployeeStatus;
     contractType?: EmploymentContractType;

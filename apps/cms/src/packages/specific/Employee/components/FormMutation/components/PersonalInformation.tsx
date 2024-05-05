@@ -40,8 +40,6 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
   const emergencyContactRelationship = watch('personalInformation.emergencyContactRelationship');
   const notes = watch('personalInformation.notes');
 
-  console.log(watch());
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
       <Field withRequiredMark label={t('employee:fullName')} error={errors.personalInformation?.fullName?.message}>

@@ -39,7 +39,7 @@ export interface FormValues {
   personnelRecord: {
     code: string;
     department: Department['id'];
-    jobTitle: JobTitleEnum;
+    jobTitles: JobTitleEnum[];
     directionManager?: string;
     workStatus: EmployeeStatus;
     contractType?: EmploymentContractType;

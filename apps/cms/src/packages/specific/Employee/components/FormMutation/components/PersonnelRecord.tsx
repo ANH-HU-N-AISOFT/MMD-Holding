@@ -8,7 +8,8 @@ import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectEmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/SelectEmployeeStatus';
 import { SelectEmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/SelectEmploymentContractType';
-import { SelectJobTitle } from '~/packages/common/SelectVariants/JobTitle/SelectJobTitle';
+import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
+import { SelectJobTitles } from '~/packages/common/SelectVariants/JobTitle/SelectJobTitles';
 import { SelectDepartmentWithPagination } from '~/packages/common/SelectVariants/SelectDepartmentWithPagination';
 import { SelectDirectionManager } from '~/packages/common/SelectVariants/SelectDirectionManager';
 import { disableBeforeCheckpoint } from '~/utils/functions/disableDatePicker';
@@ -29,7 +30,7 @@ export const PersonnelRecord = ({ form, disabledField }: Props) => {
   } = form;
   const code = watch('personnelRecord.code');
   const department = watch('personnelRecord.department');
-  const jobTitle = watch('personnelRecord.jobTitle');
+  const jobTitles = watch('personnelRecord.jobTitles');
   const directionManager = watch('personnelRecord.directionManager');
   const workStatus = watch('personnelRecord.workStatus');
   const contractType = watch('personnelRecord.contractType');
@@ -69,13 +70,13 @@ export const PersonnelRecord = ({ form, disabledField }: Props) => {
           disabled={disabledField}
         />
       </Field>
-      <Field withRequiredMark label={t('employee:job_title')} error={errors.personnelRecord?.jobTitle?.message}>
-        <SelectJobTitle
-          jobTitle={jobTitle}
+      <Field withRequiredMark label={t('employee:job_title')} error={errors.personnelRecord?.jobTitles?.message}>
+        <SelectJobTitles
+          jobTitles={jobTitles?.filter((item): item is JobTitleEnum => !!item)}
           onChange={value => {
-            setValue('personnelRecord.jobTitle', value);
-            if (errors.personnelRecord?.jobTitle) {
-              trigger('personnelRecord.jobTitle');
+            setValue('personnelRecord.jobTitles', value);
+            if (errors.personnelRecord?.jobTitles) {
+              trigger('personnelRecord.jobTitles');
             }
           }}
           disabled={disabledField}

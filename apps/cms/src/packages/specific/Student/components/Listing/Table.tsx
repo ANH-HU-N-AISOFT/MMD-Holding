@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined, LockOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { Button, Typography } from 'antd';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import Highlighter from 'react-highlight-words';
@@ -98,12 +98,16 @@ export const Table = ({
     {
       width: 140,
       title: t('student:code'),
-      render: (_, record) => record.code,
+      render: (_, record) => {
+        return <Typography.Link onClick={() => onView?.(record)}>{record.code}</Typography.Link>;
+      },
     },
     {
       width: 200,
       title: t('student:name'),
-      render: (_, record) => record.fullName,
+      render: (_, record) => {
+        return <Typography.Link onClick={() => onView?.(record)}>{record.fullName}</Typography.Link>;
+      },
     },
     {
       width: 160,

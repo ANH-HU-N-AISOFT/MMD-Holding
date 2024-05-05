@@ -23,6 +23,7 @@ export const loader = async () => {
     const profileResponse = await fetchApi.request<ResponseSuccess>({
       url: endpoint,
     });
+    console.log(profileResponse);
     setSession({
       ...session,
       profile: {
@@ -30,6 +31,7 @@ export const loader = async () => {
         avatar: '',
         fullName: profileResponse.data.fullName,
         organizationName: profileResponse.data.organization?.fullName ?? '',
+        organizationId: profileResponse.data.organization?.id,
       },
     });
 

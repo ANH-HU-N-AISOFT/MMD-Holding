@@ -8,6 +8,8 @@ import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBound
 import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { getSession } from '~/packages/common/Auth/sessionStorage';
+import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormMutation, FormValues } from '~/packages/specific/Student/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Student/components/FormMutation/zodResolver';
@@ -93,7 +95,19 @@ export const Page = () => {
     <div className="flex flex-col h-full">
       <Header title={t('student:add_student')} onBack={() => navigate('/student')} />
       <div className="flex-1">
-        <FormMutation isSubmiting={isSubmiting} uid={FormCreateUid} />
+        <FormMutation
+          defaultValues={{
+            personalInformation: {
+              notifyResultToParent: false,
+              departments: getSession()?.profile?.organizationId ? [getSession()?.profile?.organizationId] : [],
+            },
+            roleSystem: {
+              accessStatus: EmployeeAccessStatus.GRANTED,
+            },
+          }}
+          isSubmiting={isSubmiting}
+          uid={FormCreateUid}
+        />
       </div>
       <Footer
         isLoading={isSubmiting}

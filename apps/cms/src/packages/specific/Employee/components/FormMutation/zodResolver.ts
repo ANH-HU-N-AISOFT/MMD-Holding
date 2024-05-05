@@ -1,12 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { object, string, enum as enum_, array, literal } from 'zod';
+import { array, enum as enum_, literal, object, string } from 'zod';
 
 import type { TFunction } from 'i18next';
 import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
 import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
 import { EmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/constants/EmploymentContractType';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
-import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { getInvalidMessage } from '~/utils/functions/getInvalidMessage';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
@@ -75,7 +74,7 @@ export const getFormMutationResolver = ({
   const personnelRecordDepartment = {
     required: t('employee:department_invalid'),
   };
-  const jobTitle = {
+  const jobTitles = {
     required: getRequiredMessageSelectField(t, 'employee:job_title'),
   };
   const workStatus = {
@@ -183,9 +182,7 @@ export const getFormMutationResolver = ({
         department: string({
           required_error: personnelRecordDepartment.required,
         }),
-        jobTitle: enum_([JobTitleEnum.CONSULTANT, JobTitleEnum.LECTURER, JobTitleEnum.SALES_PERSONNEL], {
-          required_error: jobTitle.required,
-        }),
+        jobTitles: array(string(), { required_error: jobTitles.required }).min(1, jobTitles.required),
         directionManager: string().optional().or(literal('')).nullable(),
         workStatus: enum_(
           [
