@@ -3,6 +3,7 @@ import {
   SelectSingleDecouplingWithPagination,
   SelectSingleDecouplingWithPaginationProps,
 } from '~/components/SelectDecoupling/SelectSingleDecouplingWithPagination';
+import { GetAllParams } from '~/constants/GetAllParams';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployees } from '~/packages/specific/Employee/services/getEmployees';
 
@@ -28,6 +29,8 @@ export const SelectPresentDepartment = ({ disabled, allowClear = true, presentDe
           page,
           query: search,
           sortByName: 1,
+          // FIXME: Vá tạm
+          perPage: GetAllParams.perPage,
         });
         return {
           loadmorable: page < response.headers['x-pages-count'],

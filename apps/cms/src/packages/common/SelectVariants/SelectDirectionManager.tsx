@@ -3,6 +3,7 @@ import {
   SelectSingleDecouplingWithPagination,
   SelectSingleDecouplingWithPaginationProps,
 } from '~/components/SelectDecoupling/SelectSingleDecouplingWithPagination';
+import { GetAllParams } from '~/constants/GetAllParams';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployees } from '~/packages/specific/Employee/services/getEmployees';
 
@@ -27,6 +28,8 @@ export const SelectDirectionManager = ({ disabled, allowClear = true, directionM
         const response = await getEmployees({
           page,
           query: search,
+          // FIXME: Vá tạm
+          perPage: GetAllParams.perPage,
           sortByName: 1,
         });
         return {

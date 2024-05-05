@@ -14,8 +14,6 @@ interface DebouncedOptions {
  * @param {DebouncedOptions} options Configuration options for the debounce behavior.
  * @param {number} [options.timeoutMs=500] The amount of time, in milliseconds, to delay the debounced value.
  *                                          Defaults to 500ms if not specified.
- * @returns {T} The debounced value, which updates only after the specified timeout has elapsed since the
- *              last change to the input value.
  *
  * @example
  * const [value, setValue] = useState('');
@@ -23,24 +21,31 @@ interface DebouncedOptions {
  *
  * // `debouncedValue` will reflect the latest `value` only if it hasn't changed for at least 300ms.
  */
-export const useDebouncedValue = <T>(value: T, { timeoutMs = 500 }: DebouncedOptions): T => {
+export const useDebouncedValue = <T>(value: T, { timeoutMs = 500 }: DebouncedOptions) => {
   const [state, setState] = useState<T>(value);
   const stateRef = useRef<T>(state);
+  const timeoutRef = useRef<NodeJS.Timeout | number | undefined>(undefined);
 
   useEffect(() => {
     if (stateRef.current === value) {
       return;
     }
 
-    const timeout = setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       stateRef.current = value;
       setState(value);
     }, timeoutMs);
 
     return (): void => {
-      clearTimeout(timeout);
+      clearTimeout(timeoutRef.current);
     };
   }, [value, timeoutMs]);
 
-  return state;
+  const overridesState = (value: T) => {
+    clearTimeout(timeoutRef.current);
+    setState(value);
+    stateRef.current = value;
+  };
+
+  return { state, overridesState };
 };

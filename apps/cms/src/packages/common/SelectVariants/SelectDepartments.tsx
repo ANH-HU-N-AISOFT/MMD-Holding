@@ -3,6 +3,7 @@ import {
   SelectMultipleDecouplingWithPagination,
   SelectMultipleDecouplingWithPaginationProps,
 } from '~/components/SelectDecoupling/SelectMultipleDecouplingWithPagination';
+import { GetAllParams } from '~/constants/GetAllParams';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 
@@ -38,6 +39,8 @@ export const SelectDepartments = ({
         const response = await getDepartments({
           page,
           query: search,
+          // FIXME: Vá tạm
+          perPage: GetAllParams.perPage,
           sortByName: 1,
         });
         return {

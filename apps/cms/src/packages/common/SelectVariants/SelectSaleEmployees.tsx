@@ -8,6 +8,7 @@ import {
   SelectMultipleDecouplingWithPagination,
   SelectMultipleDecouplingWithPaginationProps,
 } from '~/components/SelectDecoupling/SelectMultipleDecouplingWithPagination';
+import { GetAllParams } from '~/constants/GetAllParams';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployees } from '~/packages/specific/Employee/services/getEmployees';
 
@@ -42,6 +43,8 @@ export const SelectSaleEmployees = ({ disabled, allowClear = true, saleEmployees
             organizationId: organizations.join(','),
             workStatus: EmployeeStatus.WORKING,
             sortByName: 1,
+            // FIXME: Vá tạm
+            perPage: GetAllParams.perPage,
           });
           return {
             loadmorable: page < response.headers['x-pages-count'],

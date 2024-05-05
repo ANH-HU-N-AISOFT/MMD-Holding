@@ -42,7 +42,7 @@ export interface ResponseSuccess {}
 export const updateEmployee = async ({ data, id }: UpdateEmployee) => {
   const response = await fetchApi.request({
     method: 'PUT',
-    url: `/organizations/${id}`,
+    url: `/employees/${id}`,
     data: data,
   });
   return response.data;

@@ -60,8 +60,7 @@ export const FormMutation = ({
   uid,
   defaultValues = {
     personalInformation: {
-      notifyResultToParent: true,
-      source: SourceEnum.HotWarm,
+      notifyResultToParent: false,
     },
     roleSystem: {
       accessStatus: EmployeeAccessStatus.GRANTED,

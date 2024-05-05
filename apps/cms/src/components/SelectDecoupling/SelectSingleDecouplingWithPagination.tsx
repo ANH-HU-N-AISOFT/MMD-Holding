@@ -1,5 +1,5 @@
 import { Spin } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDebouncedValue } from 'reactjs';
 import { AnyRecord } from 'typescript-utilities';
 import { SelectSingle, SelectSingleProps } from '../AntCustom/Select';
@@ -28,6 +28,8 @@ export const SelectSingleDecouplingWithPagination = <Model extends AnyRecord, Mo
   showSearch = true,
   ...props
 }: SelectSingleDecouplingWithPaginationProps<Model, ModelId>) => {
+  const cache = useRef<Record<string, ExpectServiceResponse<Model>>>({});
+
   const [isMounted, setIsMounted] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -36,13 +38,19 @@ export const SelectSingleDecouplingWithPagination = <Model extends AnyRecord, Mo
   const [loadmoreable, setLoadmorable] = useState(false);
   const [options, setOptions] = useState<OptionWithRawData<Model>[]>([]);
 
-  const debouncedSearchValue = useDebouncedValue(searchValue, { timeoutMs: 300 });
-  const debouncedPage = useDebouncedValue(page, { timeoutMs: 300 });
+  const { state: debouncedSearchValue, overridesState: overridesDebouncedSearchValue } = useDebouncedValue(
+    searchValue,
+    { timeoutMs: 300 },
+  );
+  const { state: debouncedPage, overridesState: overridesDebouncedPage } = useDebouncedValue(page, { timeoutMs: 300 });
 
   const handleFetch =
     (variant: 'FETCH' | 'LOAD_MORE'): SelectSingleDecouplingWithPaginationProps<Model, ModelId>['service'] =>
     async ({ page, search }) => {
-      const response = await service({ page, search });
+      const keyInCache = [page, search].join(' - ');
+      const cacheValue = cache.current[keyInCache];
+      const response = cacheValue ? cacheValue : await service({ page, search });
+      cache.current[keyInCache] = response;
       const { items, loadmorable } = response;
       const transformData = items?.map((item, index) => ({ ...transformToOption(item, index), rawData: item })) ?? [];
       setOptions(state => (variant === 'FETCH' ? transformData : state.concat(transformData)));
@@ -91,6 +99,14 @@ export const SelectSingleDecouplingWithPagination = <Model extends AnyRecord, Mo
     }
   };
 
+  const handleChange: SelectSingleProps<ModelId>['onChange'] = (value, option) => {
+    onChange?.(value, option);
+    overridesDebouncedPage(1);
+    overridesDebouncedSearchValue('');
+    setSearchValue('');
+    setPage(1);
+  };
+
   useEffect(() => {
     if (isMounted) {
       handleFetchOption(debouncedSearchValue);
@@ -120,7 +136,7 @@ export const SelectSingleDecouplingWithPagination = <Model extends AnyRecord, Mo
       searchValue={searchValue}
       onSearch={handleSearchDropdown}
       onPopupScroll={handleScroll}
-      onChange={onChange}
+      onChange={handleChange}
       options={
         loadmoreable
           ? [

@@ -3,6 +3,7 @@ import {
   SelectSingleDecouplingWithPagination,
   SelectSingleDecouplingWithPaginationProps,
 } from '~/components/SelectDecoupling/SelectSingleDecouplingWithPagination';
+import { GetAllParams } from '~/constants/GetAllParams';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 
@@ -29,6 +30,8 @@ export const SelectManagementUnit = ({ disabled, managementUnit, allowClear = tr
           page,
           query: search,
           sortByName: 1,
+          // FIXME: Vá tạm
+          perPage: GetAllParams.perPage,
         });
         return {
           loadmorable: page < response.headers['x-pages-count'],
