@@ -1,4 +1,5 @@
 import 'i18next';
+import type appointment from 'public/locales/en/appointment.json';
 import type auth from 'public/locales/en/auth.json';
 import type common from 'public/locales/en/common.json';
 import type components from 'public/locales/en/components.json';

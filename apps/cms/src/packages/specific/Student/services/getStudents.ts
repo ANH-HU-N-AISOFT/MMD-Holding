@@ -13,8 +13,9 @@ interface GetStudents {
   page?: number;
   perPage?: number;
   orgCodes?: string;
+  sortByName?: -1 | 1;
 }
-export const getStudents = async ({ page, query, perPage, orgCodes }: GetStudents) => {
+export const getStudents = async ({ page, query, perPage, orgCodes, sortByName }: GetStudents) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     url: '/students',
     params: {
@@ -22,6 +23,7 @@ export const getStudents = async ({ page, query, perPage, orgCodes }: GetStudent
       query,
       perPage,
       orgCodes,
+      sortByName,
     },
   });
 

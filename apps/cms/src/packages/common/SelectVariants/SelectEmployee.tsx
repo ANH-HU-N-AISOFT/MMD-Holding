@@ -15,7 +15,7 @@ interface Props {
   allowClear?: boolean;
 }
 
-export const SelectDirectionManager = ({ disabled, allowClear = true, directionManager, onChange }: Props) => {
+export const SelectEmployee = ({ disabled, allowClear = true, directionManager, onChange }: Props) => {
   const { t } = useTranslation(['employee']);
 
   return (

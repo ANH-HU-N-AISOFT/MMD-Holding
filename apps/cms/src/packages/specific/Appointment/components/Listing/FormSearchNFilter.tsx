@@ -61,7 +61,7 @@ export const FormSearchNFilter = ({
         isMobile ? 'flex-col-reverse' : 'flex-row items-center justify-between flex-wrap-reverse',
       )}
     >
-      <div className="max-w-full lg:max-w-[320px]">
+      <div className="max-w-full lg:max-w-[45%] xl:max-w-[initial]">
         <Tabs
           className="Appointment__type flex-1"
           // NOTE: 4 cái ngắn như này thôi thì đẹp

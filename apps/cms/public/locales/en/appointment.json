@@ -1,5 +1,4 @@
 {
-
   "action": "Action",
   "edit": "Cập nhật",
   "view": "Xem chi tiết",
@@ -21,12 +20,29 @@
   "not_found": "Không tìm thấy lịch hẹn",
   "back_to_list": "Quay lại danh sách",
 
-
+  "sale_employees": "Nhân viên sales giới thiệu",
+  "department": "Đơn vị",
+  "school": "Trường",
+  "source": "Nguồn",
+  "phone": "Số điện thoại",
+  "student": "Học viên",
+  "add_appointment": "Thêm lịch hẹn",
   "appointments": "Danh sách lịch hẹn",
+  "appointment": "Lịch hẹn",
   "student_name": "Tên học viên",
   "status": "Trạng thái",
   "appointment_date": "Ngày hẹn",
+  "appointment_time": "Khung giờ",
   "kip_test": "Kip test",
   "test": "Bài test",
-  "expect_inspection_unit": "ĐV KT dự kiến"
+  "expect_inspection_department_short": "ĐV KT dự kiến",
+  "expect_inspection_department": "Đơn vị kiểm tra đầu vào dư kiến",
+  "demand": "Nhu cầu",
+  "extra_demand": "Nhu cầu khác",
+  "supporter": "Nhân sự hỗ trợ",
+  "admin": "Admin",
+  "consultant": "Tư vấn viên",
+  "tutor": "Trợ giảng",
+  "extra_information": "Thông tin bổ sung",
+  "note": "Ghi chú"
 }

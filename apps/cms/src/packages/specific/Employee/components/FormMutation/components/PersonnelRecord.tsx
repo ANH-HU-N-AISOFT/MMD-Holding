@@ -11,7 +11,7 @@ import { SelectEmploymentContractType } from '~/packages/common/SelectVariants/E
 import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
 import { SelectJobTitles } from '~/packages/common/SelectVariants/JobTitle/SelectJobTitles';
 import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
-import { SelectDirectionManager } from '~/packages/common/SelectVariants/SelectDirectionManager';
+import { SelectEmployee } from '~/packages/common/SelectVariants/SelectEmployee';
 import { disableBeforeCheckpoint } from '~/utils/functions/disableDatePicker';
 
 interface Props {
@@ -85,7 +85,7 @@ export const PersonnelRecord = ({ form, disabledField }: Props) => {
         />
       </Field>
       <Field label={t('employee:direction_manager')} error={errors.personnelRecord?.directionManager?.message}>
-        <SelectDirectionManager
+        <SelectEmployee
           directionManager={directionManager}
           onChange={value => {
             setValue('personnelRecord.directionManager', value);

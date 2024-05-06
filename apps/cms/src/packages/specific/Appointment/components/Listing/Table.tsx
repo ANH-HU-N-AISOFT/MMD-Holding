@@ -115,7 +115,7 @@ export const Table = ({
     },
     {
       width: 180,
-      title: t('appointment:expect_inspection_unit'),
+      title: t('appointment:expect_inspection_department_short'),
     },
     {
       width: 80,
