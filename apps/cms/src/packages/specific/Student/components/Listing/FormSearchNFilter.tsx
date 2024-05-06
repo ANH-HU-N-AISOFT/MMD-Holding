@@ -68,12 +68,12 @@ export const FormSearchNFilter = ({
         count: getCountForFilterDrawer({ fieldKeys: ['department'], formFilterValues }),
         form: (
           <Form method="GET" id={UID} onSubmit={handleSubmit}>
-            <Field label={t('student:department_code')}>
+            <Field label={t('student:department_name')}>
               <SelectDepartments
-                placeholder={t('student:department_code')}
+                placeholder={t('student:department_name')}
                 departments={department?.split(',')}
                 fieldValue="code"
-                fieldLabel={['code']}
+                fieldLabel={['name', 'code']}
                 onChange={value => {
                   setValue('department', value?.join(','));
                 }}

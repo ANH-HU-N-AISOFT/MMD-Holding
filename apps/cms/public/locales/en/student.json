@@ -17,7 +17,6 @@
   "update_failure": "Cập nhật thất bại",
   "update_success": "Cập nhật thành công",
   "search_placeholder": "Tìm theo mã học viên, tên học viên, số điện thoại hoặc mã đơn vị",
-  "department_code": "Mã đơn vị",
   "not_found": "Không tìm thấy học viên",
   "back_to_list": "Quay lại danh sách",
 
@@ -61,5 +60,6 @@
   "current_address_invalid": "Chỉ cho phép nhập ký tự, số, dấu cách và dấu /",
   "department_invalid": "Chọn đơn vị để tiếp tục",
   "student_with_name_n_code": "Học Viên - Mã {{ code }}",
-  "must_select_department": "Chọn đơn vị để tiếp tục"
+  "must_select_department": "Chọn đơn vị để tiếp tục",
+  "department_name": "Tên đơn vị"
 }

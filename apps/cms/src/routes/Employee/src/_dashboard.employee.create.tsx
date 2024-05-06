@@ -8,7 +8,10 @@ import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBound
 import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
+import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { VIETNAM_VALUE } from '~/packages/common/SelectVariants/SelectRegion';
 import { FormMutation, FormValues } from '~/packages/specific/Employee/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Employee/components/FormMutation/zodResolver';
 import { createEmployee } from '~/packages/specific/Employee/services/createEmployee';
@@ -102,7 +105,22 @@ export const Page = () => {
     <div className="flex flex-col h-full">
       <Header title={t('employee:add_employee')} onBack={() => navigate('/employee')} />
       <div className="flex-1">
-        <FormMutation isSubmiting={isSubmiting} uid={FormCreateUid} />
+        <FormMutation
+          isSubmiting={isSubmiting}
+          uid={FormCreateUid}
+          defaultValues={{
+            personalInformation: {
+              region: VIETNAM_VALUE,
+            },
+            personnelRecord: {
+              workStatus: EmployeeStatus.WORKING,
+            },
+            roleSystem: {
+              accessStatus: EmployeeAccessStatus.GRANTED,
+              password: 'Abc@123456',
+            },
+          }}
+        />
       </div>
       <Footer
         isLoading={isSubmiting}

@@ -12,6 +12,7 @@ interface Props {
   allowClear?: boolean;
 }
 
+export const VIETNAM_VALUE = 'Việt Nam';
 export const SelectRegion = ({ region, disabled, allowClear = true, onChange }: Props) => {
   const { t } = useTranslation(['location']);
   const [isFetching, setIsFetching] = useState(false);

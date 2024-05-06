@@ -1,46 +1,53 @@
 import { useTranslation } from 'react-i18next';
+import { OptionWithDetailInformation } from './@components/OptionWithDetailInformation';
 import {
-  SelectSingleDecouplingWithPagination,
-  SelectSingleDecouplingWithPaginationProps,
-} from '~/components/SelectDecoupling/SelectSingleDecouplingWithPagination';
+  SelectSingleDecoupling,
+  SelectSingleDecouplingProps,
+} from '~/components/SelectDecoupling/SelectSingleDecoupling';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployees } from '~/packages/specific/Employee/services/getEmployees';
 
 interface Props {
   presentDepartment?: Employee['employeeId'];
-  onChange?: SelectSingleDecouplingWithPaginationProps<Employee, Employee['employeeId']>['onChange'];
+  onChange?: SelectSingleDecouplingProps<Employee, Employee['employeeId']>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
 }
 
+// FIXME: Có cần filter "Chỉ nhân viên hoặc gì đấy ?"
 export const SelectPresentDepartment = ({ disabled, allowClear = true, presentDepartment, onChange }: Props) => {
-  const { t } = useTranslation(['department']);
+  const { t } = useTranslation(['department', 'employee']);
 
   return (
-    <SelectSingleDecouplingWithPagination
+    <SelectSingleDecoupling
       allowClear={allowClear}
       placeholder={t('department:present_department')}
       disabled={disabled}
       value={presentDepartment}
       onChange={onChange}
-      service={async ({ page, search }) => {
+      service={async () => {
         const response = await getEmployees({
-          page,
-          query: search,
+          ...GetAllParams,
           sortByName: 1,
-          // FIXME: Vá tạm
-          perPage: GetAllParams.perPage,
         });
-        return {
-          loadmorable: page < response.headers['x-pages-count'],
-          items: response.items,
-        };
+        return response.items;
       }}
       transformToOption={employee => ({
-        label: employee.fullName,
+        label: (
+          <OptionWithDetailInformation
+            title={[employee.fullName, employee.employee?.code].filter(Boolean).join(' - ')}
+            extra={[
+              [t('employee:phone'), employee.phoneNumber].join(': '),
+              [t('employee:work_email'), employee.workEmail].join(': '),
+            ]}
+          />
+        ),
         value: employee.employeeId,
         rawData: employee,
+        searchValue: [employee.fullName, employee.employee?.code, employee.workEmail, employee.phoneNumber]
+          .filter(Boolean)
+          .join('-'),
       })}
       className="w-full"
     />

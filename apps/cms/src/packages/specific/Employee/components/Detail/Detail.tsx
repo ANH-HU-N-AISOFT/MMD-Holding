@@ -35,7 +35,7 @@ export const Detail = ({ employee }: Props) => {
           contractStartEffectDate: employee.employee?.contractStartDate,
           contractType: employee.employee?.contractType,
           department: employee.employee?.organizationId,
-          directionManager: employee.directManagerId,
+          directionManager: employee.directManager?.id,
           jobTitles: employee.employee?.jobTitles,
           workStatus: employee.employee?.workStatus,
         },

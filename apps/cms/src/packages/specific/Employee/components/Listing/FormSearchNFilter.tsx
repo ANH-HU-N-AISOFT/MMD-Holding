@@ -83,11 +83,11 @@ export const FormSearchNFilter = ({
                 }}
               />
             </Field>
-            <Field label={t('employee:department_code')}>
+            <Field label={t('employee:department_name')}>
               <SelectDepartment
                 fieldValue="id"
-                fieldLabel={['code']}
-                placeholder={t('employee:department_code')}
+                fieldLabel={['name', 'code']}
+                placeholder={t('employee:department_name')}
                 department={department}
                 onChange={value => {
                   setValue('department', value);

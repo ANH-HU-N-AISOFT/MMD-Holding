@@ -10,7 +10,7 @@ import { SelectEmployeeStatus } from '~/packages/common/SelectVariants/EmployeeS
 import { SelectEmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/SelectEmploymentContractType';
 import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
 import { SelectJobTitles } from '~/packages/common/SelectVariants/JobTitle/SelectJobTitles';
-import { SelectDepartmentWithPagination } from '~/packages/common/SelectVariants/SelectDepartmentWithPagination';
+import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
 import { SelectDirectionManager } from '~/packages/common/SelectVariants/SelectDirectionManager';
 import { disableBeforeCheckpoint } from '~/utils/functions/disableDatePicker';
 
@@ -59,7 +59,9 @@ export const PersonnelRecord = ({ form, disabledField }: Props) => {
         help={t('employee:department_help_text')}
         error={errors.personnelRecord?.department?.message}
       >
-        <SelectDepartmentWithPagination
+        <SelectDepartment
+          fieldLabel={['name', 'code']}
+          fieldValue="id"
           department={department}
           onChange={value => {
             setValue('personnelRecord.department', value);

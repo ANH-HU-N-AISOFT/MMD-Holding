@@ -1,15 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import {
-  SelectMultipleDecouplingWithPagination,
-  SelectMultipleDecouplingWithPaginationProps,
-} from '~/components/SelectDecoupling/SelectMultipleDecouplingWithPagination';
+  SelectMultipleDecoupling,
+  SelectMultipleDecouplingProps,
+} from '~/components/SelectDecoupling/SelectMultipleDecoupling';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 
 interface Props {
   departments?: Array<Department['id']>;
-  onChange?: SelectMultipleDecouplingWithPaginationProps<Department, Array<Department['id']>>['onChange'];
+  onChange?: SelectMultipleDecouplingProps<Department, Array<Department['id']>>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
@@ -29,24 +29,18 @@ export const SelectDepartments = ({
   const { t } = useTranslation(['employee']);
 
   return (
-    <SelectMultipleDecouplingWithPagination
+    <SelectMultipleDecoupling
       allowClear={allowClear}
       placeholder={placeholder ?? t('employee:department')}
       disabled={disabled}
       value={departments}
       onChange={onChange}
-      service={async ({ page, search }) => {
+      service={async () => {
         const response = await getDepartments({
-          page,
-          query: search,
-          // FIXME: Vá tạm
-          perPage: GetAllParams.perPage,
+          ...GetAllParams,
           sortByName: 1,
         });
-        return {
-          loadmorable: page < response.headers['x-pages-count'],
-          items: response.items,
-        };
+        return response.items;
       }}
       transformToOption={department => {
         const label = fieldLabel.map(item => department[item]).join(' - ');

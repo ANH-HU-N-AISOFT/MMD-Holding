@@ -107,7 +107,7 @@ export class UrlSearchParamsUtils<T extends AnyRecord> {
    */
   public encrypt = (data: T): string => {
     try {
-      this._zodSchema?.parse(data);
+      // this._zodSchema?.parse(data);
       const urlSearchParams = stringify(data, {
         addQueryPrefix: true,
         skipNulls: true,
@@ -145,7 +145,7 @@ export class UrlSearchParamsUtils<T extends AnyRecord> {
     }
 
     try {
-      this._zodSchema?.parse(data);
+      // this._zodSchema?.parse(data);
       return data;
     } catch (error) {
       throw new UrlSearchParamsUtilsError<T>({

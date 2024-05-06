@@ -1,15 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import {
-  SelectSingleDecouplingWithPagination,
-  SelectSingleDecouplingWithPaginationProps,
-} from '~/components/SelectDecoupling/SelectSingleDecouplingWithPagination';
+  SelectSingleDecoupling,
+  SelectSingleDecouplingProps,
+} from '~/components/SelectDecoupling/SelectSingleDecoupling';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 
 interface Props {
   managementUnit?: Department['id'];
-  onChange?: SelectSingleDecouplingWithPaginationProps<Department, Department['id']>['onChange'];
+  onChange?: SelectSingleDecouplingProps<Department, Department['id']>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
 }
@@ -18,29 +18,24 @@ export const SelectManagementUnit = ({ disabled, managementUnit, allowClear = tr
   const { t } = useTranslation(['department']);
 
   return (
-    <SelectSingleDecouplingWithPagination
+    <SelectSingleDecoupling
       allowClear={allowClear}
       placeholder={t('department:manage_department')}
       disabled={disabled}
       value={managementUnit}
       onChange={onChange}
-      service={async ({ page, search }) => {
+      service={async () => {
         const response = await getDepartments({
+          ...GetAllParams,
           isManagementUnit: true,
-          page,
-          query: search,
           sortByName: 1,
-          // FIXME: Vá tạm
-          perPage: GetAllParams.perPage,
         });
-        return {
-          loadmorable: page < response.headers['x-pages-count'],
-          items: response.items,
-        };
+        return response.items;
       }}
       transformToOption={department => ({
-        label: department.name,
+        label: [department.name, department.code].filter(Boolean).join(' - '),
         value: department.id,
+        searchValue: [department.name, department.code].filter(Boolean).join('-'),
         rawData: department,
       })}
       className="w-full"

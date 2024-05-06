@@ -1,9 +1,9 @@
 import { UrlSearchParamsUtils } from 'utilities';
-import { any, number, object, string } from 'zod';
+import { number, object, string } from 'zod';
 
 export const lisitngUrlSearchParamsSchema = object({
   page: number().optional(),
-  search: any().optional(),
+  search: string().optional(),
   status: string().optional(),
   department: string().optional(),
   roles: string().optional(),

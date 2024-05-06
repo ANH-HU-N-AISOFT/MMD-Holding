@@ -21,6 +21,7 @@ export interface Props
   onDeleteMany?: (recordKeys: string[]) => void;
   onView?: (record: Employee) => void;
   onResetPassword?: (record: Employee) => void;
+  onViewDepartment?: (record: Employee) => void;
   editable?: boolean;
   deletable?: boolean;
   passwordResetable?: boolean;
@@ -37,6 +38,7 @@ export const Table = ({
   onDeleteMany,
   onView,
   onResetPassword,
+  onViewDepartment,
   deletable,
   editable,
   passwordResetable,
@@ -138,12 +140,18 @@ export const Table = ({
       render: (_, record) => record.workEmail,
     },
     {
-      width: 160,
-      title: t('employee:department_code_short'),
-      render: (_, record) => record.organization?.code,
+      width: 240,
+      title: t('employee:department_name'),
+      render: (_, record) => {
+        return (
+          <Typography.Link onClick={() => onViewDepartment?.(record)}>
+            {[record.organization?.fullName, record.organization?.code].filter(Boolean).join(' - ')}
+          </Typography.Link>
+        );
+      },
     },
     {
-      width: 160,
+      width: 200,
       title: t('employee:role'),
       render: (_, record) => record.user?.roles.map(role => RoleMappingToLabels[role]).join(', '),
     },

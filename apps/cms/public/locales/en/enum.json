@@ -57,7 +57,7 @@
     }
   },
   "source": {
-    "label": "",
+    "label": "Nguồn",
     "options": {
       "HotWarm": "Ấm - Nóng",
       "Cold": "Lạnh",

@@ -9,7 +9,8 @@ export interface SelectMultipleDecouplingProps<Model extends AnyRecord, ModelId 
   service: () => Promise<Model[]> | Model[];
   transformToOption: (model: Model, index?: number) => OptionRawDataWithSearchValue<Model>;
   onChange?: (value: ModelId | undefined, option: OptionWithRawData<Model>[] | undefined) => void;
-  deps?: DependencyList;
+  depsFetch?: DependencyList;
+  depsTransformOption?: DependencyList;
 }
 
 export const SelectMultipleDecoupling = <Model extends AnyRecord, ModelId extends Array<string | number>>({
@@ -18,28 +19,35 @@ export const SelectMultipleDecoupling = <Model extends AnyRecord, ModelId extend
   onChange,
   loading,
   showSearch = true,
+  depsFetch = [],
+  depsTransformOption = [],
   ...props
 }: SelectMultipleDecouplingProps<Model, ModelId>) => {
   const [isFetching, setIsFetching] = useState(false);
   const [options, setOptions] = useState<Option[]>([]);
+  const [response, setResponse] = useState<Model[]>([]);
 
   const handleFetch = async () => {
     setIsFetching(true);
     try {
       const items = await service();
-      const transformData = items?.map((item, index) => ({ ...transformToOption(item, index), rawData: item })) ?? [];
-      setOptions(transformData);
+      setResponse(items);
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsFetching(false);
     }
   };
 
   useEffect(() => {
     handleFetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [...depsFetch]);
+
+  useEffect(() => {
+    const transformData = response?.map((item, index) => ({ ...transformToOption(item, index), rawData: item })) ?? [];
+    setOptions(transformData);
+    setIsFetching(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response, ...depsTransformOption]);
 
   return (
     <SelectMultiple

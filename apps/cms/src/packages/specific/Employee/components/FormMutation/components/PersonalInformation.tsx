@@ -27,6 +27,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
   } = form;
   const fullName = watch('personalInformation.fullName');
   const phone = watch('personalInformation.phone');
+  const username = watch('roleSystem.username');
   const dateOfBirth = watch('personalInformation.dateOfBirth');
   const gender = watch('personalInformation.gender');
   const workEmail = watch('personalInformation.workEmail');
@@ -59,9 +60,13 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         <Input
           value={phone}
           onChange={event => {
-            setValue('personalInformation.phone', takeOnlyNumber(event));
+            const value = takeOnlyNumber(event);
+            setValue('personalInformation.phone', value);
             if (errors.personalInformation?.phone) {
               trigger('personalInformation.phone');
+            }
+            if (!username || username === phone) {
+              setValue('roleSystem.username', value);
             }
           }}
           addonBefore={<div>+84</div>}

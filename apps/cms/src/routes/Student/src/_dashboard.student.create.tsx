@@ -103,6 +103,7 @@ export const Page = () => {
             },
             roleSystem: {
               accessStatus: EmployeeAccessStatus.GRANTED,
+              password: 'Abc@123456',
             },
           }}
           isSubmiting={isSubmiting}
