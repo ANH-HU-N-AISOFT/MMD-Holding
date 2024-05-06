@@ -1,0 +1,32 @@
+{
+
+  "action": "Action",
+  "edit": "Cập nhật",
+  "view": "Xem chi tiết",
+  "delete": "Xoá",
+  "total_records_selected": "Đã chọn {{ total }} bản ghi",
+  "add_new": "Thêm mới",
+  "export": "Export",
+  "import": "Import",
+  "delete_success": "Xoá thành công !",
+  "delete_failure": "Xoá thất bại !",
+  "delete_title": "Xoá lịch hẹn",
+  "delete_description": "Bạn có chắc chắn muốn xoá lịch hẹn này?",
+  "export_failure": "Export thất bại",
+  "create_success": "Tạo thành công !",
+  "create_failure": "Tạo thất bại",
+  "update_failure": "Cập nhật thất bại",
+  "update_success": "Cập nhật thành công",
+  "search_placeholder": "Nhập từ khóa để tìm kiếm",
+  "not_found": "Không tìm thấy lịch hẹn",
+  "back_to_list": "Quay lại danh sách",
+
+
+  "appointments": "Danh sách lịch hẹn",
+  "student_name": "Tên học viên",
+  "status": "Trạng thái",
+  "appointment_date": "Ngày hẹn",
+  "kip_test": "Kip test",
+  "test": "Bài test",
+  "expect_inspection_unit": "ĐV KT dự kiến"
+}

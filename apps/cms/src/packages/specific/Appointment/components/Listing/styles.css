@@ -1,0 +1,3 @@
+.Appointment__type > .ant-tabs-nav {
+  @apply !mb-0;
+}

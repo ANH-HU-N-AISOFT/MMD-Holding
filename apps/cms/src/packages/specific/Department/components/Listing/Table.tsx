@@ -110,7 +110,7 @@ export const Table = ({
       },
     },
     {
-      width: 200,
+      width: 240,
       title: t('department:manage_department'),
       render: (_, record) => {
         return (
@@ -133,7 +133,7 @@ export const Table = ({
       },
     },
     {
-      width: 200,
+      width: 240,
       title: t('department:present_department'),
       render: (_, record) => {
         return (

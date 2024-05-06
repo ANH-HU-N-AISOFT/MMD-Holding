@@ -14,11 +14,12 @@ import * as CourseManagementIndividual from './routes/_dashboard.course-manageme
 import * as CourseRegistrationForCustomer from './routes/_dashboard.course-registration-for-customer';
 import * as CustomerManagement from './routes/_dashboard.customer-management';
 import * as Dashboard from './routes/_dashboard.dashboard';
-import * as InputAssessmentSchedule from './routes/_dashboard.input-assessment-schedule';
+import * as Appointment from './routes/_dashboard.input-assessment-schedule';
 import * as InputCheck from './routes/_dashboard.input-check';
 import * as PromotionProgramManagement from './routes/_dashboard.promotion-program-management';
 import * as TestStudy from './routes/_dashboard.test-study';
 import * as RootLayout from './routes/_index';
+import AppointmentRoutes from './routes/Appointment';
 import DepartmentRoutes from './routes/Department';
 import EmployeeRoutes from './routes/Employee';
 import * as Logout from './routes/logout';
@@ -129,10 +130,10 @@ const router = createBrowserRouter([
           },
           {
             path: '/input-assessment-schedule',
-            errorElement: <InputAssessmentSchedule.ErrorBoundary />,
+            errorElement: <Appointment.ErrorBoundary />,
             element: (
               <Suspense fallback={null}>
-                <InputAssessmentSchedule.Page />
+                <Appointment.Page />
               </Suspense>
             ),
           },
@@ -166,6 +167,7 @@ const router = createBrowserRouter([
           ...DepartmentRoutes,
           ...EmployeeRoutes,
           ...StudentRoutes,
+          ...AppointmentRoutes,
         ],
       },
     ],

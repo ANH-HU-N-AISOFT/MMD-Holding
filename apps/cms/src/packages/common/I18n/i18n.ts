@@ -23,6 +23,7 @@ i18n
       'location',
       'employee',
       'student',
+      'appointment',
     ],
     supportedLngs: ['en'],
     fallbackNS: 'en',

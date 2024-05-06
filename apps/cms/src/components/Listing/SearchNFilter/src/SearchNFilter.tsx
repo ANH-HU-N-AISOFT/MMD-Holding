@@ -20,9 +20,16 @@ export interface SearchNFilterProps {
   };
   isSubmiting?: boolean;
   containerClassName?: string;
+  inputClassName?: string;
 }
 
-export const SearchNFilter = ({ filter, search, isSubmiting, containerClassName }: SearchNFilterProps) => {
+export const SearchNFilter = ({
+  filter,
+  search,
+  isSubmiting,
+  containerClassName,
+  inputClassName,
+}: SearchNFilterProps) => {
   const { placeholder, onSearch, searchValue } = search;
   const { uid, count, form, onApply, onReset } = filter;
 
@@ -30,7 +37,7 @@ export const SearchNFilter = ({ filter, search, isSubmiting, containerClassName 
     <div className={classNames('flex flex-col xs:flex-row gap-2', containerClassName)}>
       <Input
         defaultValue={searchValue}
-        className="md:max-w-[350px]"
+        className={classNames('md:max-w-[350px]', inputClassName)}
         placeholder={placeholder}
         size="large"
         suffix={<SearchOutlined />}

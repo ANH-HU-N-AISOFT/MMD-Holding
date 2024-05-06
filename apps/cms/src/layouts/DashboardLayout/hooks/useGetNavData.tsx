@@ -48,10 +48,10 @@ export const useGetNavData = () => {
       onClick: () => navigate('/appointment-booking'),
     },
     {
-      key: '/input-assessment-schedule',
+      key: '/appointment',
       icon: <ScheduleOutlined />,
-      label: t('dashboard_layout:menu.input_assessment_schedule'),
-      onClick: () => navigate('/input-assessment-schedule'),
+      label: t('dashboard_layout:menu.appointment'),
+      onClick: () => navigate('/appointment'),
     },
     {
       key: '/input-check',

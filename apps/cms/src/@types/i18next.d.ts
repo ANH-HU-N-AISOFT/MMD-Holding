@@ -31,6 +31,7 @@ declare module 'i18next' {
       location: typeof location;
       employee: typeof employee;
       student: typeof student;
+      appointment: typeof appointment;
     };
   }
 }

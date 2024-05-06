@@ -3,7 +3,6 @@
     "home": "Trang chủ",
     "organizational_structure": "Cơ cấu tổ chức",
     "appointment_booking": "Đặt lịch hẹn",
-    "input_assessment_schedule": "Lịch kiểm tra đầu vào",
     "input_check": "Kiểm tra đầu vào",
     "consultation": "Tư vấn",
     "test_study": "Học thử",
@@ -19,7 +18,8 @@
     "course_registration_for_customer": "Đăng ký khoá học cho KH",
     "contract_template_management": "Mẫu hợp đồng",
     "contract_management": "Hợp đồng",
-    "student": "Học viên"
+    "student": "Học viên",
+    "appointment": "Lịch hẹn"
   },
   "logout": "Đăng xuất",
   "profile": "Thông tin cá nhân",

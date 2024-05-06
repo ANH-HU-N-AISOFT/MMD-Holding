@@ -1,28 +1,24 @@
-import { DeleteOutlined, EditOutlined, EyeOutlined, LockOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 import { Button, Typography } from 'antd';
-import dayjs from 'dayjs';
 import { useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
-import { Student } from '../../models/Student';
+import { Appointment } from '../../models/Appointment';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
 import { TableActions } from '~/components/TableActions/TableActions';
 
 export interface Props
   extends Pick<
-    TableListingProps<Student>,
+    TableListingProps<Appointment>,
     'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading'
   > {
-  onEdit?: (record: Student) => void;
+  onEdit?: (record: Appointment) => void;
   onDelete?: (recordKeys: string) => void;
   onDeleteMany?: (recordKeys: string[]) => void;
-  onView?: (record: Student) => void;
-  onResetPassword?: (record: Student) => void;
-  onViewDepartment?: (record: Required<Student>['organizations'][number]) => void;
+  onView?: (record: Appointment) => void;
   editable?: boolean;
   deletable?: boolean;
-  passwordResetable?: boolean;
 }
 
 export const Table = ({
@@ -35,14 +31,11 @@ export const Table = ({
   onDelete,
   onDeleteMany,
   onView,
-  onResetPassword,
-  onViewDepartment,
   deletable,
   editable,
-  passwordResetable,
   ...props
 }: Props) => {
-  const { t } = useTranslation(['common', 'student']);
+  const { t } = useTranslation(['common', 'appointment']);
 
   const [selectedRows, _setSelectedRows] = useState<string[]>([]);
 
@@ -50,7 +43,7 @@ export const Table = ({
   //   return dataSource.every(item => !!selectedRows.find(selectedRow => item.id === selectedRow));
   // }, [dataSource, selectedRows]);
 
-  const columns: ListingColumnType<Student>[] = [
+  const columns: ListingColumnType<Appointment>[] = [
     // {
     //   width: 70,
     //   title: (
@@ -99,75 +92,56 @@ export const Table = ({
 
     {
       width: 140,
-      title: t('student:code'),
+      title: t('appointment:student_name'),
       render: (_, record) => {
-        return <Typography.Link onClick={() => onView?.(record)}>{record.code}</Typography.Link>;
+        return <Typography.Link onClick={() => onView?.(record)}>Tên + SĐT + Hyperlink</Typography.Link>;
       },
     },
     {
       width: 200,
-      title: t('student:name'),
-      render: (_, record) => {
-        return <Typography.Link onClick={() => onView?.(record)}>{record.fullName}</Typography.Link>;
-      },
+      title: t('appointment:status'),
     },
     {
       width: 160,
-      title: t('student:phone'),
-      render: (_, record) => record.phoneNumber,
+      title: t('appointment:appointment_date'),
     },
     {
       width: 140,
-      title: t('student:date_of_birth'),
-      render: (_, record) => {
-        return record.birthday ? dayjs(record.birthday).format('DD/MM/YYYY') : null;
-      },
+      title: t('appointment:kip_test'),
     },
     {
-      width: 240,
-      title: t('student:department_name'),
-      render: (_, record) => {
-        return record.organizations?.map(item => {
-          return (
-            <Typography.Link onClick={() => onViewDepartment?.(item)} className="block" key={item.id}>
-              {[item.name, item.code].join(' - ')}
-            </Typography.Link>
-          );
-        });
-      },
+      width: 180,
+      title: t('appointment:test'),
+    },
+    {
+      width: 180,
+      title: t('appointment:expect_inspection_unit'),
     },
     {
       width: 80,
       align: 'center',
       fixed: 'right',
-      title: t('student:action'),
+      title: t('appointment:action'),
       render: (_, record) => {
         return (
           <TableActions
             items={[
               {
                 key: '1',
-                label: t('student:edit'),
+                label: t('appointment:edit'),
                 icon: <EditOutlined />,
                 onClick: () => onEdit?.(record),
                 hidden: !editable,
               },
               {
                 key: '2',
-                label: t('student:view'),
+                label: t('appointment:view'),
                 icon: <EyeOutlined />,
                 onClick: () => onView?.(record),
               },
               {
-                key: '4',
-                label: t('student:reset_password'),
-                icon: <LockOutlined />,
-                onClick: () => onResetPassword?.(record),
-                hidden: !passwordResetable,
-              },
-              {
                 key: '3',
-                label: t('student:delete'),
+                label: t('appointment:delete'),
                 icon: <DeleteOutlined />,
                 danger: true,
                 onClick: () => onDelete?.(record.id),
@@ -182,7 +156,7 @@ export const Table = ({
 
   return (
     <>
-      <TableListing<Student>
+      <TableListing<Appointment>
         {...props}
         dataSource={dataSource}
         columns={columns}
@@ -211,12 +185,14 @@ export const Table = ({
       <SickyAction isVisible={!!selectedRows.length}>
         <div className="min-w-[400px] flex items-center justify-between">
           <Highlighter
-            textToHighlight={t('student:total_records_selected', { total: selectedRows.length })}
+            textToHighlight={t('appointment:total_records_selected', {
+              total: selectedRows.length,
+            })}
             searchWords={[selectedRows.length.toString()]}
             highlightClassName="bg-transparent font-semibold"
           />
           <Button danger onClick={() => onDeleteMany?.(selectedRows)}>
-            {t('student:delete')}
+            {t('appointment:delete')}
           </Button>
         </div>
       </SickyAction>
