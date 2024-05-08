@@ -62,6 +62,7 @@ export const FormSearchNFilter = ({
 
   return (
     <SearchNFilter
+      inputClassName="md:!max-w-[450px]"
       containerClassName={containerClassName}
       isSubmiting={isSubmiting}
       search={{

@@ -34,10 +34,10 @@ export const SearchNFilter = ({
   const { uid, count, form, onApply, onReset } = filter;
 
   return (
-    <div className={classNames('flex flex-col xs:flex-row gap-2', containerClassName)}>
+    <div className={classNames('flex gap-2', containerClassName)}>
       <Input
         defaultValue={searchValue}
-        className={classNames('md:max-w-[350px]', inputClassName)}
+        className={classNames('md:max-w-[350px] flex-1', inputClassName)}
         placeholder={placeholder}
         size="large"
         suffix={<SearchOutlined />}
@@ -45,7 +45,14 @@ export const SearchNFilter = ({
           onSearch?.(event.target.value);
         })}
       />
-      <FilterDrawer isLoading={isSubmiting} count={count} formId={uid} onReset={onReset} onApply={onApply}>
+      <FilterDrawer
+        containerClassName="flex-shrink-0 flex-grow-0 basis-[48px]"
+        isLoading={isSubmiting}
+        count={count}
+        formId={uid}
+        onReset={onReset}
+        onApply={onApply}
+      >
         {form}
       </FilterDrawer>
     </div>

@@ -61,6 +61,7 @@ export const FormSearchNFilter = ({
 
   return (
     <SearchNFilter
+      inputClassName="md:!max-w-[400px]"
       containerClassName={containerClassName}
       isSubmiting={isSubmiting}
       search={{
@@ -96,7 +97,7 @@ export const FormSearchNFilter = ({
             </Field>
             <Field label={t('employee:role')}>
               <SelectRoles
-                // ignoreRoles={[Role.Student]}
+                ignoreRoles={[Role.Student]}
                 roles={roles?.split(',').filter((item): item is Role => {
                   return Object.values(Role).includes(item as Role);
                 })}

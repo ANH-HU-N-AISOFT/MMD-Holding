@@ -3,7 +3,7 @@ export * from './useDeepCompareCallback';
 export * from './useDeepCompareEffect';
 export * from './useDeepCompareMemo';
 export * from './useDeepCompareMemoize';
-export * from './usePrevious';
 export * from './useIsomorphicLayoutEffect';
 export * from './useMediaQuery';
 export * from './useMobile';
+export * from './usePrevious';

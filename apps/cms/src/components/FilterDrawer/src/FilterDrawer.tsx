@@ -14,8 +14,9 @@ interface Props {
   onReset?: () => void;
   onApply?: () => void;
   isLoading?: boolean;
+  containerClassName?: string;
 }
-export const FilterDrawer = ({ children, count, formId, onApply, onReset, isLoading }: Props) => {
+export const FilterDrawer = ({ containerClassName, children, count, formId, onApply, onReset, isLoading }: Props) => {
   const { t } = useTranslation(['components']);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +33,13 @@ export const FilterDrawer = ({ children, count, formId, onApply, onReset, isLoad
 
   return (
     <>
-      <Button size="large" onClick={() => setIsOpen(true)} disabled={isLoading} icon={<FilterOutlined />}>
+      <Button
+        className={containerClassName}
+        size="large"
+        onClick={() => setIsOpen(true)}
+        disabled={isLoading}
+        icon={<FilterOutlined />}
+      >
         <div
           className={classNames(
             'py-1 px-2 text-white font-medium rounded-md flex items-center justify-center text-xs bg-brand-base',

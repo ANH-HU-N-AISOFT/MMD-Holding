@@ -1,5 +1,5 @@
 import { ClusterOutlined, TableOutlined } from '@ant-design/icons';
-import { Select, notification } from 'antd';
+import { Select, Typography, notification } from 'antd';
 import i18next from 'i18next';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -211,8 +211,8 @@ export const Page = () => {
           onCreate={() => navigate('/department/create')}
           onImport={() => setIsOpenModalImport(true)}
         />
-        <div className="flex items-center justify-end gap-2 mb-1">
-          <div className="basis-[400px]">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2 mb-1">
+          <div className="order-2 sm:order-1 sm:basis-[480px]">
             <FormSearchNFilter
               searchValue={paramsInUrl.search?.toString()}
               formFilterValues={{
@@ -224,8 +224,9 @@ export const Page = () => {
               onSearch={value => handleRequest({ page: 1, search: value })}
             />
           </div>
-          <div>
+          <div className="order-1 sm:order-2 flex-1 sm:flex-none">
             <Select
+              className="w-full"
               onChange={value => handleRequest({ layout: value })}
               value={paramsInUrl.layout ?? 'table'}
               size="large"
@@ -233,16 +234,22 @@ export const Page = () => {
                 {
                   value: 'table',
                   label: (
-                    <div className="text-center">
+                    <div className="flex items-center justify-center gap-2">
                       <TableOutlined />
+                      <Typography.Text className="inline-block sm:hidden">
+                        {t('department:table_layout')}
+                      </Typography.Text>
                     </div>
                   ),
                 },
                 {
                   value: 'tree',
                   label: (
-                    <div className="text-center">
+                    <div className="flex items-center justify-center gap-2">
                       <ClusterOutlined />
+                      <Typography.Text className="inline-block sm:hidden">
+                        {t('department:tree_layout')}
+                      </Typography.Text>
                     </div>
                   ),
                 },
