@@ -43,7 +43,7 @@ export const SelectTestShift = ({
             label: (
               <div className="flex items-center gap-2 justify-between">
                 <div>{item.name}</div>
-                <div>
+                <div className={disabled ? 'hidden' : 'block'}>
                   {t('appointment:total_available')}: {item.maxCapacity - item.totalAppointments}
                 </div>
               </div>

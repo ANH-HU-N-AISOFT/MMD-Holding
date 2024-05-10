@@ -187,6 +187,9 @@ export const Table = ({
       width: 240,
       title: t('appointment:consultant_short'),
       render: (_, record) => {
+        if (!record.consultant) {
+          return null;
+        }
         return (
           <Typography.Link onClick={() => onViewExpectInspectationDepartment?.(record)}>
             <TooltipDetailInformation
@@ -204,6 +207,9 @@ export const Table = ({
       width: 240,
       title: t('appointment:admin'),
       render: (_, record) => {
+        if (!record.admin) {
+          return null;
+        }
         return (
           <Typography.Link onClick={() => onViewExpectInspectationDepartment?.(record)}>
             <TooltipDetailInformation
@@ -221,6 +227,9 @@ export const Table = ({
       width: 240,
       title: t('appointment:tester'),
       render: (_, record) => {
+        if (!record.tester) {
+          return null;
+        }
         return (
           <Typography.Link onClick={() => onViewExpectInspectationDepartment?.(record)}>
             <TooltipDetailInformation
