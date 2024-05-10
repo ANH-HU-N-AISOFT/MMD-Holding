@@ -14,6 +14,7 @@ export const Edit = ({ appointment, ...formProps }: Props) => {
   return (
     <FormMutation
       {...formProps}
+      isUpdate
       defaultValues={{
         admin: appointment.admin?.id,
         appointmentDate: appointment.appointmentDate,
@@ -25,13 +26,13 @@ export const Edit = ({ appointment, ...formProps }: Props) => {
         extraDemand: appointment.extraDemand,
         ieltsTestType: appointment.test,
         note: appointment.notes,
-        // FIXME: BE update sau
-        studentDepartment: [],
+        departmentOfSaleEmployees: appointment.saleEmployees
+          ?.map(employee => employee.organization?.id)
+          .filter((item): item is string => !!item),
         studentId: appointment.student?.id,
         studentPhoneNumber: appointment.student?.phoneNumber,
-        // FIXME: BE update sau
-        studentSaleEmployees: [],
-        studentSchool: appointment.student?.school?.id,
+        studentSaleEmployees: appointment.saleEmployees?.map(employee => employee.employeeId),
+        studentSchool: appointment.student?.school,
         studentSource: undefined,
         tester: appointment.tester?.id,
         testShiftId: appointment.testingShift?.id,

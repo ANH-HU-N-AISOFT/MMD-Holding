@@ -32,7 +32,7 @@ export interface FormValues {
   studentSchool?: string;
   studentSource?: SourceEnum;
   studentSaleEmployees?: string[];
-  studentDepartment?: string[];
+  departmentOfSaleEmployees?: string[];
 
   // Lịch hẹn
   appointmentStatus: AppointmentStatus;
@@ -61,9 +61,18 @@ interface Props {
   fieldsError?: Partial<Record<keyof FormValues, string>>;
   onSubmit?: (values: FormValues) => void;
   disabled?: boolean;
+  isUpdate?: boolean;
 }
 
-export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubmiting, onSubmit, disabled }: Props) => {
+export const FormMutation = ({
+  uid,
+  defaultValues = {},
+  fieldsError = {},
+  isSubmiting,
+  onSubmit,
+  disabled,
+  isUpdate,
+}: Props) => {
   const { t } = useTranslation(['common', 'appointment']);
 
   const disabledField = disabled || isSubmiting;
@@ -93,7 +102,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
   const studentSchool = watch('studentSchool');
   const studentSource = watch('studentSource');
   const studentSaleEmployees = watch('studentSaleEmployees');
-  const studentDepartment = watch('studentDepartment');
+  const departmentOfSaleEmployees = watch('departmentOfSaleEmployees');
 
   // Appointment
   const appointmentStatus = watch('appointmentStatus');
@@ -140,7 +149,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
             <Field withRequiredMark label={t('appointment:student')} error={errors.studentId?.message}>
               <SelectStudent
-                disabled={disabledField}
+                disabled={disabledField || isUpdate}
                 student={studentId}
                 onChange={(value, option) => {
                   setValue('studentId', value);
@@ -148,7 +157,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                   setValue('studentSchool', option?.rawData.school?.id);
                   setValue('studentSource', option?.rawData.source);
                   setValue('studentSaleEmployees', option?.rawData.supporters?.map(supporter => supporter.id));
-                  setValue('studentDepartment', option?.rawData.organizations?.map(organization => organization.id));
+                  setValue('departmentOfSaleEmployees', option?.rawData.supporterOrganizationIds?.map(item => item.id));
                   if (errors.studentId) {
                     trigger('studentId');
                   }
@@ -173,8 +182,8 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             <Field label={t('appointment:sale_employees')} error={errors.studentSaleEmployees?.message}>
               <SelectSaleEmployees saleEmployees={studentSaleEmployees} organizations="GET_ALL" disabled />
             </Field>
-            <Field label={t('appointment:department')} error={errors.studentDepartment?.message}>
-              <SelectDepartments departments={studentDepartment} disabled />
+            <Field label={t('appointment:department')} error={errors.departmentOfSaleEmployees?.message}>
+              <SelectDepartments departments={departmentOfSaleEmployees} disabled />
             </Field>
             <div className="md:col-span-2">
               <Divider orientation="center">{t('appointment:appointment')}</Divider>

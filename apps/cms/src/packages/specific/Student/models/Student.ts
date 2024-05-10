@@ -32,6 +32,7 @@ export interface Student {
   parentPhoneNumber?: string;
   organizationIds?: string[];
   supporterIds?: string[];
+  supporterOrganizationIds?: Array<{ id: string }>;
   code: string;
   organizations?: Array<{
     id: string;

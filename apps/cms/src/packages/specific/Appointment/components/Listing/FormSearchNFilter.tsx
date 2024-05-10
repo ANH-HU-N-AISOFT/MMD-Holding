@@ -1,13 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Select, Tabs } from 'antd';
+import { Tabs } from 'antd';
 import classNames from 'classnames';
-import dayjs from 'dayjs';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Field, useDeepCompareEffect, useMobile } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
-import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
@@ -15,8 +13,6 @@ import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilte
 import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
 import { getAppointmentStatusMappingToLabels } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatusMappingToLabels';
 import { SelectAppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/SelectAppointmentStatus';
-import { IeltsTestEnum } from '~/packages/common/SelectVariants/IeltsTestEnum/constants/IeltsTestEnum';
-import { SelectIeltsTestEnum } from '~/packages/common/SelectVariants/IeltsTestEnum/SelectIeltsTestEnum';
 import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
 import './styles.css';
 
@@ -59,8 +55,8 @@ export const FormSearchNFilter = ({
     },
   });
   const status = watch('status');
-  const date = watch('date');
-  const test = watch('test');
+  // const date = watch('date');
+  // const test = watch('test');
   const organizationId = watch('organizationId');
 
   const handleResetFormFilterValues = () => {
@@ -142,15 +138,15 @@ export const FormSearchNFilter = ({
                   onChange={value => setValue('status', value)}
                 />
               </Field>
-              <Field label={t('appointment:appointment_date')}>
+              {/* <Field label={t('appointment:appointment_date')}>
                 <DatePicker
                   className="w-full"
                   placeholder={t('appointment:appointment_date')}
                   value={date ? dayjs(date) : undefined}
                   onChange={value => setValue('date', value?.toISOString())}
                 />
-              </Field>
-              <Field label={t('appointment:test_shift')}>
+              </Field> */}
+              {/* <Field label={t('appointment:test_shift')}>
                 <Select className="w-full" placeholder={t('appointment:test_shift')} />
               </Field>
               <Field label={t('appointment:test')}>
@@ -158,7 +154,7 @@ export const FormSearchNFilter = ({
                   ieltsTest={test as IeltsTestEnum | undefined}
                   onChange={value => setValue('test', value)}
                 />
-              </Field>
+              </Field> */}
               <Field label={t('appointment:expect_inspection_department')}>
                 <SelectDepartment
                   placeholder={t('appointment:expect_inspection_department')}

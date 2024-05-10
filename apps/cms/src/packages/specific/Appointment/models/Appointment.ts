@@ -4,22 +4,31 @@ import { TestType } from '~/packages/common/SelectVariants/TestType/constants/Te
 
 export interface Appointment {
   id: string;
+  saleEmployees?: Array<{
+    employeeId: string;
+    fullName: string;
+    phoneNumber: string;
+    code: string;
+    organization?: {
+      id: string;
+      fullName: string;
+      code: string;
+    };
+    _id: string;
+  }>;
   status: AppointmentStatus;
   demands: string[];
   testType: TestType;
   appointmentDate: string;
   appointmentTime: string;
   test: IeltsTestEnum;
+  notes: string;
   createdAt: string;
   student?: {
     id: string;
     fullName: string;
     phoneNumber: string;
-    school?: {
-      id: string;
-      code: string;
-      name: string;
-    };
+    school: string;
     source: string;
   };
   organization?: {
@@ -56,6 +65,5 @@ export interface Appointment {
     personalEmail: string;
     workEmail: string;
   };
-  notes?: string;
   extraDemand?: string;
 }
