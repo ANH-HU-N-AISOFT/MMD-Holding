@@ -40,7 +40,6 @@ export interface Student {
     level: 2;
   }>;
   supporters?: Array<{
-    // FIXME: Liệu còn cần organizationId để nâng UX cho action select department & saleEmployees
     id: string;
     employeeId: string;
     fullName: string;

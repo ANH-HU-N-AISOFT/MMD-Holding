@@ -74,5 +74,6 @@
   "department_invalid": "Chọn đơn vị để tiếp tục",
   "date_of_birth_required": "Nhập ngày sinh để tiếp tục",
   "not_found": "Không tìm thấy nhân viên",
-  "back_to_list": "Quay lại danh sách"
+  "back_to_list": "Quay lại danh sách",
+  "employee": "Nhân viên"
 }

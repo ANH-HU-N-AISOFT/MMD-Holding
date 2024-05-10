@@ -11,7 +11,7 @@ interface Props {
   onChange?: SelectSingleProps<District['id'], District>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
-  cityCode: string | undefined;
+  cityCode: 'GET_ALL' | string | undefined;
 }
 
 export const SelectDistrict = ({ district, disabled, allowClear = true, cityCode, onChange }: Props) => {
@@ -28,7 +28,7 @@ export const SelectDistrict = ({ district, disabled, allowClear = true, cityCode
       if (cityCode) {
         const response = await getDistricts({
           ...GetAllParams,
-          provinceCode: cityCode,
+          provinceCode: cityCode === 'GET_ALL' ? undefined : cityCode,
         });
         setOptions(
           response.items.map(item => ({

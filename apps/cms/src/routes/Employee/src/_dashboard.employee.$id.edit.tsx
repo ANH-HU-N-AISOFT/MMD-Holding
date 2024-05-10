@@ -73,7 +73,6 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
           emergencyContactRelationship: data.personalInformation.emergencyContactRelationship,
           fullName: data.personalInformation.fullName,
           gender: data.personalInformation.gender,
-          // FIXME:
           jobTitles: data.personnelRecord.jobTitles,
           nationality: data.personalInformation.region,
           notes: data.personalInformation.notes,
@@ -208,7 +207,7 @@ export const Page = () => {
           })}
           onBack={() => navigate('/employee')}
         />
-        <div className="flex-1">
+        <div className="flex-1 mb-4">
           <Edit
             onResetPassword={() => setIsOpenModalResetPassword(loaderData.info?.employee ?? false)}
             isSubmiting={isSubmiting}

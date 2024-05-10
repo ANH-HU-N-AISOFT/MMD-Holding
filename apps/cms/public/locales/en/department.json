@@ -33,7 +33,7 @@
   "general_information": "Thông tin chung",
   "subordinate_department": "Đơn vị trực thuộc",
   "staff": "Nhân viên",
-  "student": "Học viện",
+  "student": "Học viên",
   "field_code_invalid": "Giá trị không được phép chứa dấu cách và ký tự đặc biệt",
   "update_failure": "Cập nhật thất bại",
   "update_success": "Cập nhật thành công",

@@ -2,11 +2,10 @@ import { Suspense } from 'react';
 import { RouteObject } from 'react-router-dom';
 import * as AppointmentList from './src/_dashboard.appointment';
 import * as DeleteAppointment from './src/_dashboard.appointment.$id.delete';
-// import * as AppointmentDetail from './src/_dashboard.appointment.$id.detail';
-// import * as EditAppointment from './src/_dashboard.appointment.$id.edit';
-// import * as ResetPasswordAppointment from './src/_dashboard.appointment.$id.reset-password';
+import * as AppointmentDetail from './src/_dashboard.appointment.$id.detail';
+import * as EditAppointment from './src/_dashboard.appointment.$id.edit';
 import * as CreateAppointment from './src/_dashboard.appointment.create';
-// import * as ExportAppointments from './src/_dashboard.appointment.export';
+import * as ExportAppointments from './src/_dashboard.appointment.export';
 
 const AppointmentRoutes: RouteObject[] = [
   {
@@ -20,20 +19,20 @@ const AppointmentRoutes: RouteObject[] = [
       </Suspense>
     ),
   },
-  // {
-  //   path: '/appointment/:id/detail',
-  //   loader: AppointmentDetail.loader,
-  //   element: <AppointmentDetail.Page />,
-  //   errorElement: <AppointmentDetail.ErrorBoundary />,
-  // },
-  // {
-  //   path: '/appointment/:id/edit',
-  //   loader: EditAppointment.loader,
-  //   action: EditAppointment.action,
-  //   shouldRevalidate: EditAppointment.shouldRevalidate,
-  //   element: <EditAppointment.Page />,
-  //   errorElement: <EditAppointment.ErrorBoundary />,
-  // },
+  {
+    path: '/appointment/:id/detail',
+    loader: AppointmentDetail.loader,
+    element: <AppointmentDetail.Page />,
+    errorElement: <AppointmentDetail.ErrorBoundary />,
+  },
+  {
+    path: '/appointment/:id/edit',
+    loader: EditAppointment.loader,
+    action: EditAppointment.action,
+    shouldRevalidate: EditAppointment.shouldRevalidate,
+    element: <EditAppointment.Page />,
+    errorElement: <EditAppointment.ErrorBoundary />,
+  },
   {
     path: '/appointment/create',
     loader: CreateAppointment.loader,
@@ -41,18 +40,14 @@ const AppointmentRoutes: RouteObject[] = [
     element: <CreateAppointment.Page />,
     errorElement: <CreateAppointment.ErrorBoundary />,
   },
-  // {
-  //   path: '/appointment/export',
-  //   action: ExportAppointments.action,
-  // },
+  {
+    path: '/appointment/export',
+    action: ExportAppointments.action,
+  },
   {
     path: '/appointment/:id/delete',
     action: DeleteAppointment.action,
   },
-  // {
-  //   path: '/appointment/:id/reset-password',
-  //   action: ResetPasswordAppointment.action,
-  // },
 ];
 
 export default AppointmentRoutes;

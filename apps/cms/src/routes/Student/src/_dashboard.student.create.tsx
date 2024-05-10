@@ -94,7 +94,7 @@ export const Page = () => {
   return (
     <div className="flex flex-col h-full">
       <Header title={t('student:add_student')} onBack={() => navigate('/student')} />
-      <div className="flex-1">
+      <div className="flex-1 mb-4">
         <FormMutation
           defaultValues={{
             personalInformation: {

@@ -242,7 +242,7 @@ export const Page = () => {
           onResetPassword={record => setIsOpenModalResetPassword(record)}
           onEdit={record => navigate(`/employee/${record.employeeId}/edit`)}
           onView={record => navigate(`/employee/${record.employeeId}/detail`)}
-          onViewDepartment={record => navigate(`/department/${record.organization?.id}/detail`)}
+          onViewDepartment={record => window.open(`/department/${record.organization?.id}/detail`)}
         />
       </div>
       <ModalImport

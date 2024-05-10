@@ -65,7 +65,8 @@ export const SelectMultiple = <ValueType extends OptionValueType[] = OptionValue
       autoClearSearchValue={autoClearSearchValue}
       mode="multiple"
       disabled={disabled}
-      placeholder={!valueState?.length && disabled ? null : placeholder}
+      placeholder={placeholder}
+      // placeholder={!valueState?.length && disabled ? null : placeholder}
       onClick={handleClick}
       onChange={handleChange as any}
       value={valueState as any}

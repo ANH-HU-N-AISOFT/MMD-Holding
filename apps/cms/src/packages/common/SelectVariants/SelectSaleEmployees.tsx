@@ -2,13 +2,13 @@ import { Empty } from 'antd';
 import { isEmpty } from 'ramda';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { OptionWithDetailInformation } from './@components/OptionWithDetailInformation';
 import { EmployeeStatus } from './EmployeeStatus/constants/EmployeeStatus';
 import { Role } from './Role/constants/Role';
 import {
   SelectMultipleDecoupling,
   SelectMultipleDecouplingProps,
 } from '~/components/SelectDecoupling/SelectMultipleDecoupling';
+import { TooltipDetailInformation } from '~/components/TooltipDetailInformation/TooltipDetailInformation';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployees } from '~/packages/specific/Employee/services/getEmployees';
@@ -18,7 +18,7 @@ interface Props {
   onChange?: SelectMultipleDecouplingProps<Employee, Array<Employee['employeeId']>>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
-  organizations: string[];
+  organizations: 'GET_ALL' | string[];
 }
 
 export const SelectSaleEmployees = ({ disabled, allowClear = true, saleEmployees, onChange, organizations }: Props) => {
@@ -28,7 +28,6 @@ export const SelectSaleEmployees = ({ disabled, allowClear = true, saleEmployees
 
   return (
     <SelectMultipleDecoupling
-      key={organizations.join('-')}
       notFoundContent={needWarning ? <Empty description={t('student:must_select_department')} /> : undefined}
       allowClear={allowClear}
       placeholder={t('student:sale_employees')}
@@ -47,10 +46,10 @@ export const SelectSaleEmployees = ({ disabled, allowClear = true, saleEmployees
         }
         return [];
       }}
-      depsTransformOption={[organizations]}
+      depsTransformOption={organizations === 'GET_ALL' ? [] : [organizations]}
       transformToOption={employee => ({
         label: (
-          <OptionWithDetailInformation
+          <TooltipDetailInformation
             title={[employee.fullName, employee.employee?.code].filter(Boolean).join(' - ')}
             extra={[
               [t('employee:phone'), employee.phoneNumber].join(': '),
@@ -58,7 +57,10 @@ export const SelectSaleEmployees = ({ disabled, allowClear = true, saleEmployees
             ]}
           />
         ),
-        hidden: !employee.organization?.id || !organizations.includes(employee.organization.id),
+        hidden:
+          organizations === 'GET_ALL'
+            ? false
+            : !employee.organization?.id || !organizations.includes(employee.organization.id),
         value: employee.employeeId,
         searchValue: [employee.fullName, employee.employee?.code, employee.workEmail, employee.phoneNumber]
           .filter(Boolean)

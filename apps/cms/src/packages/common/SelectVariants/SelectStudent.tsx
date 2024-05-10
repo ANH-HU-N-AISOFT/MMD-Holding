@@ -15,7 +15,6 @@ interface Props {
   placeholder?: string;
 }
 
-// FIXME: Chưa có rule filter
 export const SelectStudent = ({ disabled, student, allowClear = true, placeholder, onChange }: Props) => {
   const { t } = useTranslation(['student']);
 
@@ -35,8 +34,8 @@ export const SelectStudent = ({ disabled, student, allowClear = true, placeholde
       }}
       transformToOption={student => {
         return {
-          label: student.fullName,
-          searchValue: student.fullName,
+          label: [student.fullName, student.phoneNumber].filter(Boolean).join(' - '),
+          searchValue: [student.fullName, student.phoneNumber].filter(Boolean).join('-'),
           value: student.id,
           rawData: student,
         };

@@ -1,27 +1,37 @@
 import { useTranslation } from 'react-i18next';
-import { OptionWithDetailInformation } from './@components/OptionWithDetailInformation';
+import { Role } from './Role/constants/Role';
 import {
   SelectSingleDecoupling,
   SelectSingleDecouplingProps,
 } from '~/components/SelectDecoupling/SelectSingleDecoupling';
+import { TooltipDetailInformation } from '~/components/TooltipDetailInformation/TooltipDetailInformation';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployees } from '~/packages/specific/Employee/services/getEmployees';
 
 interface Props {
-  directionManager?: Employee['employeeId'];
+  employee?: Employee['employeeId'];
   onChange?: SelectSingleDecouplingProps<Employee, Employee['employeeId']>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
+  placeholder?: string;
+  roles?: Role[];
 }
 
-export const SelectEmployee = ({ disabled, allowClear = true, directionManager, onChange }: Props) => {
+export const SelectEmployee = ({
+  disabled,
+  allowClear = true,
+  employee: directionManager,
+  onChange,
+  placeholder,
+  roles,
+}: Props) => {
   const { t } = useTranslation(['employee']);
 
   return (
     <SelectSingleDecoupling
       allowClear={allowClear}
-      placeholder={t('employee:direction_manager')}
+      placeholder={placeholder ?? t('employee:employee')}
       disabled={disabled}
       value={directionManager}
       onChange={onChange}
@@ -29,12 +39,13 @@ export const SelectEmployee = ({ disabled, allowClear = true, directionManager, 
         const response = await getEmployees({
           ...GetAllParams,
           sortByName: 1,
+          roles: roles?.join(','),
         });
         return response.items;
       }}
       transformToOption={employee => ({
         label: (
-          <OptionWithDetailInformation
+          <TooltipDetailInformation
             title={[employee.fullName, employee.employee?.code].filter(Boolean).join(' - ')}
             extra={[
               [t('employee:phone'), employee.phoneNumber].join(': '),

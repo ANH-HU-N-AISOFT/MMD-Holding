@@ -63,7 +63,8 @@ export const SelectSingle = <ValueType extends OptionValueType = OptionValueType
       {...props}
       filterOption={filterOption}
       autoClearSearchValue={autoClearSearchValue}
-      placeholder={!valueState && disabled ? null : placeholder}
+      // placeholder={!valueState && disabled ? null : placeholder}
+      placeholder={placeholder}
       disabled={disabled}
       onClick={handleClick}
       onChange={handleChange as any}

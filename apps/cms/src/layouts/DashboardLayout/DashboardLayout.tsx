@@ -47,7 +47,7 @@ export const DashboardLayout = () => {
   }, [isMobile]);
 
   return (
-    <Layout className="!h-screen overflow-hidden">
+    <Layout className="!h-[100dvh] overflow-hidden">
       <Sider
         width={240}
         trigger={null}

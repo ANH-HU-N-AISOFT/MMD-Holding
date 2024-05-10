@@ -1,3 +1,5 @@
+import { ConfigProvider } from 'antd';
+import viVN from 'antd/locale/vi_VN';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -37,9 +39,11 @@ dayjs.extend(weekYear);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <I18nextProvider i18n={i18next}>
-    <Provider>
-      <App />
-    </Provider>
-  </I18nextProvider>,
+  <ConfigProvider locale={viVN}>
+    <I18nextProvider i18n={i18next}>
+      <Provider>
+        <App />
+      </Provider>
+    </I18nextProvider>
+  </ConfigProvider>,
 );

@@ -11,7 +11,7 @@ export const Page: FC = () => {
 
   return (
     <div className="bg-gray-100 px-2 text-center">
-      <div className="h-screen flex flex-col justify-center items-center">
+      <div className="h-[100dvh] flex flex-col justify-center items-center">
         <h1 className="text-8xl font-extrabold text-status-red">403</h1>
         <p className="text-4xl font-medium text-gray-800">{t('page403:title')}</p>
         <p className="text-xl text-gray-800 my-4">{t('page403:title')}</p>

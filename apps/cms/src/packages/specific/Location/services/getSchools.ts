@@ -9,7 +9,7 @@ export interface ResponseSuccess {
 }
 
 interface GetSchools {
-  provinceCode: string;
+  provinceCode?: string;
   perPage?: number;
   page?: number;
 }

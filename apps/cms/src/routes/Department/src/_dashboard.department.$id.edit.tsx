@@ -142,7 +142,7 @@ export const Page = () => {
         title={t('department_with_name', { name: loaderData.info?.department.name })}
         onBack={() => navigate('/department')}
       />
-      <div className="flex-1">
+      <div className="flex-1 mb-4">
         <Edit isSubmiting={isSubmiting} uid={FormUpdate} department={loaderData.info?.department} />
       </div>
       <Footer

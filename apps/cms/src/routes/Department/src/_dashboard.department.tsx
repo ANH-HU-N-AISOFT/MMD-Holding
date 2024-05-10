@@ -173,7 +173,7 @@ export const Page = () => {
             onDelete={data => setIsOpenModalDeleteDepartment(data)}
             onEdit={record => navigate(`/department/${record.id}/edit`)}
             onView={record => navigate(`/department/${record.id}/detail`)}
-            onViewPresentDepartment={record => navigate(`/employee/${record.unitManager?.id}/detail`)}
+            onViewPresentDepartment={record => window.open(`/employee/${record.unitManager?.id}/detail`)}
             deletable={isCanShow({ accept: [Role.Admin] })}
             editable={isCanShow({ accept: [Role.Admin] })}
             searchParams={paramsInUrl}
@@ -192,8 +192,8 @@ export const Page = () => {
         onDelete={data => setIsOpenModalDeleteDepartment(data)}
         onEdit={record => navigate(`/department/${record.id}/edit`)}
         onView={record => navigate(`/department/${record.id}/detail`)}
-        onViewManageDepartment={record => navigate(`/department/${record.managementUnit?.id}/detail`)}
-        onViewPresentDepartment={record => navigate(`/employee/${record.unitManager?.employeeId}/detail`)}
+        onViewManageDepartment={record => window.open(`/department/${record.managementUnit?.id}/detail`)}
+        onViewPresentDepartment={record => window.open(`/employee/${record.unitManager?.employeeId}/detail`)}
         deletable={isCanShow({ accept: [Role.Admin] })}
         editable={isCanShow({ accept: [Role.Admin] })}
       />

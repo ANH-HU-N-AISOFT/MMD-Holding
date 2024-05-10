@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { OptionWithDetailInformation } from './@components/OptionWithDetailInformation';
 import {
   SelectSingleDecoupling,
   SelectSingleDecouplingProps,
 } from '~/components/SelectDecoupling/SelectSingleDecoupling';
+import { TooltipDetailInformation } from '~/components/TooltipDetailInformation/TooltipDetailInformation';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployees } from '~/packages/specific/Employee/services/getEmployees';
@@ -15,7 +15,6 @@ interface Props {
   allowClear?: boolean;
 }
 
-// FIXME: Có cần filter "Chỉ nhân viên hoặc gì đấy ?"
 export const SelectPresentDepartment = ({ disabled, allowClear = true, presentDepartment, onChange }: Props) => {
   const { t } = useTranslation(['department', 'employee']);
 
@@ -35,7 +34,7 @@ export const SelectPresentDepartment = ({ disabled, allowClear = true, presentDe
       }}
       transformToOption={employee => ({
         label: (
-          <OptionWithDetailInformation
+          <TooltipDetailInformation
             title={[employee.fullName, employee.employee?.code].filter(Boolean).join(' - ')}
             extra={[
               [t('employee:phone'), employee.phoneNumber].join(': '),

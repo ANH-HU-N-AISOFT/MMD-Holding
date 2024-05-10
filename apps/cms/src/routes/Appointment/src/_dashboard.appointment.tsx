@@ -17,7 +17,9 @@ import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormSearchNFilter } from '~/packages/specific/Appointment/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Appointment/components/Listing/Header';
 import { Table } from '~/packages/specific/Appointment/components/Listing/Table';
+import { useUpdateAppointmentStatusOfRecord } from '~/packages/specific/Appointment/hooks/useUpdateAppointmentStatusOfRecord';
 import { Appointment } from '~/packages/specific/Appointment/models/Appointment';
+import { getAppointments } from '~/packages/specific/Appointment/services/getAppointments';
 import { ListingSearchParams } from '~/packages/specific/Appointment/types/ListingSearchParams';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Appointment/utils/lisitngUrlSearchParamsUtils';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
@@ -29,20 +31,25 @@ export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Appointment>>> => {
   const t = i18next.t;
-  const { page = 1 } = lisitngUrlSearchParamsUtils.decrypt(request);
+  const { search, page = 1, organizationId, status } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
-    // const response = await getAppointments({
-    //   page,
-    //   query: search,
-    //   orgCodes: department,
-    // });
+    const response = await getAppointments({
+      page,
+      query: search,
+      status: status === 'all' ? undefined : status,
+      organizationId,
+    });
 
     return json({
-      page,
       info: {
-        hits: [],
-        pagination: { pageSize: 0, totalPages: 1, totalRecords: 0 },
+        hits: response.items,
+        pagination: {
+          totalPages: response.headers['x-pages-count'],
+          totalRecords: response.headers['x-total-count'],
+          pageSize: response.headers['x-per-page'],
+        },
       },
+      page: Math.min(page, response.headers['x-pages-count'] || 1),
     });
   } catch (error) {
     return json({
@@ -151,6 +158,9 @@ export const Page = () => {
   }, [deleteAppointmentFetcher.state]);
   //#endregion
 
+  //#region Update appointment status
+  const { isLoading: isSavingAppointmentStatus, update } = useUpdateAppointmentStatusOfRecord();
+  //#endregion
   return (
     <>
       <div className="flex flex-col h-full">
@@ -167,6 +177,10 @@ export const Page = () => {
           searchValue={paramsInUrl.search?.toString()}
           formFilterValues={{
             status: paramsInUrl.status,
+            organizationId: paramsInUrl.organizationId,
+            date: paramsInUrl.date,
+            test: paramsInUrl.test,
+            testShiftId: paramsInUrl.testShiftId,
           }}
           isSubmiting={isFetchingList}
           onFilter={values => handleRequest({ page: 1, ...values })}
@@ -176,7 +190,7 @@ export const Page = () => {
         <Table
           deletable={isCanShow({ accept: [Role.Admin] })}
           editable={isCanShow({ accept: [Role.Admin] })}
-          loading={isFetchingList}
+          loading={isFetchingList || isSavingAppointmentStatus}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}
           totalRecords={data.info.pagination.totalRecords}
@@ -185,6 +199,11 @@ export const Page = () => {
           onDelete={data => setIsOpenModalDeleteAppointment(data)}
           onEdit={record => navigate(`/appointment/${record.id}/edit`)}
           onView={record => navigate(`/appointment/${record.id}/detail`)}
+          onViewStudent={record => window.open(`/student/${record.student?.id}/detail`)}
+          onViewExpectInspectationDepartment={record => window.open(`/department/${record.organization?.id}/detail`)}
+          onUpdateStatus={({ record, status }) => {
+            update({ id: record.id, status, revalidate: () => handleRequest({}) });
+          }}
         />
       </div>
       <ModalImport

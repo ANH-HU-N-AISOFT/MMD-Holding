@@ -64,5 +64,31 @@
       "Communication": "Truyền thông",
       "HumanResources": "Nhân - Tái"
     }
+  },
+  "appointmentStatus": {
+    "label": "Trạng thái lịch hẹn",
+    "options": {
+      "all": "Tất cả",
+      "scheduled": "Đã hẹn",
+      "confirmed": "Đã xác nhận",
+      "arrived_at_center": "Đã đến trung tâm",
+      "level_tested": "Đã test trình độ",
+      "cancelled": "Đã huỷ"
+    }
+  },
+  "testType": {
+    "label": "Hình thức kiểm tra",
+    "options": {
+      "online": "Online",
+      "offline": "Offline"
+    }
+  },
+  "ieltsTest": {
+    "label": "Bài test",
+    "options": {
+      "foundation_test": "Test nền tảng",
+      "full_ielts_test": "Test Full IELTS",
+      "mini_ielts_test": "Test Mini IELTS"
+    }
   }
 }

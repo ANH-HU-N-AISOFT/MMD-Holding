@@ -1,12 +1,11 @@
 import {
-  HomeOutlined,
-  ClusterOutlined,
-  CalendarOutlined,
-  ScheduleOutlined,
   CheckCircleOutlined,
-  QuestionCircleOutlined,
+  ClusterOutlined,
   ExperimentOutlined,
   FileDoneOutlined,
+  HomeOutlined,
+  QuestionCircleOutlined,
+  ScheduleOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import { MenuProps } from 'antd';
@@ -41,12 +40,12 @@ export const useGetNavData = () => {
         },
       ],
     },
-    {
-      key: '/appointment-booking',
-      icon: <CalendarOutlined />,
-      label: t('dashboard_layout:menu.appointment_booking'),
-      onClick: () => navigate('/appointment-booking'),
-    },
+    // {
+    //   key: '/appointment-booking',
+    //   icon: <CalendarOutlined />,
+    //   label: t('dashboard_layout:menu.appointment_booking'),
+    //   onClick: () => navigate('/appointment-booking'),
+    // },
     {
       key: '/appointment',
       icon: <ScheduleOutlined />,

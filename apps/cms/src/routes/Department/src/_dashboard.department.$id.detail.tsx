@@ -107,7 +107,7 @@ export const Page = () => {
           title={t('department_with_name', { name: loaderData.info?.department.name })}
           onBack={() => navigate('/department')}
         />
-        <div className="flex-1">
+        <div className="flex-1 mb-4">
           <Detail department={loaderData.info?.department} />
         </div>
         {isCanShow({ accept: [Role.Admin] }) && (

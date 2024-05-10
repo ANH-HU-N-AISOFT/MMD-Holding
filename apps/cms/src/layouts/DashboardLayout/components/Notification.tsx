@@ -21,6 +21,10 @@ export const Notification = () => {
 
   return (
     <Dropdown
+      arrow={{ pointAtCenter: true }}
+      overlayClassName="!top-[52px]"
+      placement="bottom"
+      getPopupContainer={triggerNode => triggerNode.parentElement || document.body}
       dropdownRender={menu => (
         <div style={contentStyle}>
           {cloneElement(menu as React.ReactElement, {
@@ -77,7 +81,7 @@ export const Notification = () => {
         ],
       }}
     >
-      <Badge count={5}>
+      <Badge count={5} className="cursor-pointer">
         <BellOutlined className="text-xl" />
       </Badge>
     </Dropdown>

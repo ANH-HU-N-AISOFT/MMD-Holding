@@ -107,7 +107,7 @@ export const Page = () => {
           })}
           onBack={() => navigate('/student')}
         />
-        <div className="flex-1">
+        <div className="flex-1 mb-4">
           <Detail student={loaderData.info?.student} />
         </div>
         {isCanShow({ accept: [Role.Admin] }) && (

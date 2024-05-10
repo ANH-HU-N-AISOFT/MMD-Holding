@@ -201,7 +201,7 @@ export const Page = () => {
           })}
           onBack={() => navigate('/student')}
         />
-        <div className="flex-1">
+        <div className="flex-1 mb-4">
           <Edit
             onResetPassword={() => setIsOpenModalResetPassword(loaderData.info?.student ?? false)}
             isSubmiting={isSubmiting}

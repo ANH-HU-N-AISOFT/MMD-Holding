@@ -8,9 +8,13 @@ import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBound
 import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { getSession } from '~/packages/common/Auth/sessionStorage';
+import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { TestType } from '~/packages/common/SelectVariants/TestType/constants/TestType';
 import { FormMutation, FormValues } from '~/packages/specific/Appointment/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Appointment/components/FormMutation/zodResolver';
+import { createAppointment } from '~/packages/specific/Appointment/services/createAppointment';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
@@ -26,7 +30,22 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
       getFormMutationResolver(t as TFunction<any>),
     );
     if (data) {
-      // await createAppointment({});
+      await createAppointment({
+        adminId: data.admin,
+        appointmentDate: data.appointmentDate,
+        appointmentTime: data.appointmentTime,
+        consultantId: data.consultant,
+        demands: data.demand,
+        extraDemand: data.extraDemand,
+        notes: data.note,
+        status: data.appointmentStatus,
+        studentId: data.studentId,
+        test: data.ieltsTestType,
+        testerId: data.tester,
+        testingShiftId: data.testShiftId,
+        testOrganizationId: data.expectInspectionDepartmentId,
+        testType: data.testType,
+      });
       return json({
         hasError: false,
         message: 'Created',
@@ -73,8 +92,17 @@ export const Page = () => {
   return (
     <div className="flex flex-col h-full">
       <Header title={t('appointment:add_appointment')} onBack={() => navigate('/appointment')} />
-      <div className="flex-1">
-        <FormMutation isSubmiting={isSubmiting} uid={FormCreateUid} />
+      <div className="flex-1 mb-4">
+        <FormMutation
+          // FIXME: Nếu lịch hẹn được tạo từ màn danh sách học viên hoặc chi tiết học viên, …, thông tin học viên được autofill
+          defaultValues={{
+            appointmentStatus: AppointmentStatus.SCHEDULED,
+            expectInspectionDepartmentId: getSession()?.profile?.organizationId,
+            testType: TestType.OFFLINE,
+          }}
+          isSubmiting={isSubmiting}
+          uid={FormCreateUid}
+        />
       </div>
       <Footer
         isLoading={isSubmiting}
