@@ -19,6 +19,7 @@ import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, use
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { createUrlSearchParamsUtils } from '~/packages/specific/Appointment/utils/createUrlSearchParamsUtils';
 import { FormSearchNFilter } from '~/packages/specific/Student/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Student/components/Listing/Header';
 import { Table } from '~/packages/specific/Student/components/Listing/Table';
@@ -232,6 +233,10 @@ export const Page = () => {
           onEdit={record => navigate(`/student/${record.id}/edit`)}
           onView={record => navigate(`/student/${record.id}/detail`)}
           onViewDepartment={department => window.open(`/department/${department.id}/detail`)}
+          onBookAppointment={record => {
+            const createSearchParams = createUrlSearchParamsUtils.encrypt({ studentId: record.id });
+            navigate(`/appointment/create${createSearchParams}`);
+          }}
         />
       </div>
       <ModalImport
