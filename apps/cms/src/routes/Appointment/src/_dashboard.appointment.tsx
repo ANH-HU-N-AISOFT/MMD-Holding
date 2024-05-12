@@ -31,13 +31,14 @@ export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Appointment>>> => {
   const t = i18next.t;
-  const { search, page = 1, organizationId, status } = lisitngUrlSearchParamsUtils.decrypt(request);
+  const { search, page = 1, organizationId, status, isOwner } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
     const response = await getAppointments({
       page,
       query: search,
       status: status === 'all' ? undefined : status,
       organizationId,
+      isOwner: isOwner,
     });
 
     return json({
@@ -181,10 +182,20 @@ export const Page = () => {
             date: paramsInUrl.date,
             test: paramsInUrl.test,
             testShiftId: paramsInUrl.testShiftId,
+            isOwner: paramsInUrl.isOwner,
           }}
           isSubmiting={isFetchingList}
           onFilter={values => handleRequest({ page: 1, ...values })}
-          onResetFilter={() => handleRequest({ page: 1, status: undefined })}
+          onResetFilter={() => {
+            handleRequest({
+              page: 1,
+              organizationId: undefined,
+              date: undefined,
+              test: undefined,
+              testShiftId: undefined,
+              isOwner: undefined,
+            });
+          }}
           onSearch={value => handleRequest({ page: 1, search: value })}
         />
         <Table
@@ -201,6 +212,9 @@ export const Page = () => {
           onView={record => navigate(`/appointment/${record.id}/detail`)}
           onViewStudent={record => window.open(`/student/${record.student?.id}/detail`)}
           onViewExpectInspectationDepartment={record => window.open(`/department/${record.organization?.id}/detail`)}
+          onViewAdmin={record => window.open(`/employee/${record.admin?.id}/detail`)}
+          onViewTester={record => window.open(`/employee/${record.tester?.id}/detail`)}
+          onViewConsultant={record => window.open(`/employee/${record.consultant?.id}/detail`)}
           onUpdateStatus={({ record, status }) => {
             update({ id: record.id, status, revalidate: () => handleRequest({}) });
           }}

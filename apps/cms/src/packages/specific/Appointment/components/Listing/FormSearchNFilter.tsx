@@ -6,18 +6,18 @@ import { useTranslation } from 'react-i18next';
 import { Field, useDeepCompareEffect, useMobile } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
+import { SelectSingle } from '~/components/AntCustom/Select';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
 import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
 import { getAppointmentStatusMappingToLabels } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatusMappingToLabels';
-import { SelectAppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/SelectAppointmentStatus';
 import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
 import './styles.css';
 
 export interface FormFilterValues
-  extends Pick<ListingSearchParams, 'status' | 'organizationId' | 'date' | 'test' | 'testShiftId'> {}
+  extends Pick<ListingSearchParams, 'status' | 'organizationId' | 'date' | 'test' | 'testShiftId' | 'isOwner'> {}
 
 interface FormFilterProps {
   onFilter?: (formFilterValues: FormFilterValues) => void;
@@ -55,6 +55,7 @@ export const FormSearchNFilter = ({
     },
   });
   const status = watch('status');
+  const isOwner = watch('isOwner') ?? false;
   // const date = watch('date');
   // const test = watch('test');
   const organizationId = watch('organizationId');
@@ -124,12 +125,22 @@ export const FormSearchNFilter = ({
           uid: UID,
           onReset: handleResetFormFilterValues,
           count: getCountForFilterDrawer({
-            fieldKeys: ['organizationId', 'date', 'test', 'testShiftId'],
+            fieldKeys: ['organizationId', 'isOwner'],
             formFilterValues,
           }),
           form: (
             <Form method="GET" id={UID} onSubmit={handleSubmit}>
-              <Field label={t('appointment:status')}>
+              <Field label={t('appointment:owner')}>
+                <SelectSingle
+                  options={[
+                    { label: t('appointment:all'), value: 0, rawData: undefined },
+                    { label: t('appointment:me'), value: 1, rawData: undefined },
+                  ]}
+                  value={Number(isOwner)}
+                  onChange={value => setValue('isOwner', Boolean(value))}
+                />
+              </Field>
+              {/* <Field label={t('appointment:status')}>
                 <SelectAppointmentStatus
                   allowClear={false}
                   placeholder={t('appointment:status')}
@@ -137,7 +148,7 @@ export const FormSearchNFilter = ({
                   appointmentStatus={status ?? 'all'}
                   onChange={value => setValue('status', value)}
                 />
-              </Field>
+              </Field> */}
               {/* <Field label={t('appointment:appointment_date')}>
                 <DatePicker
                   className="w-full"

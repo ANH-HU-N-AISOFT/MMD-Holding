@@ -16,7 +16,7 @@
   "create_failure": "Tạo thất bại",
   "update_failure": "Cập nhật thất bại",
   "update_success": "Cập nhật thành công",
-  "search_placeholder": "Nhập tên học viên, sđt học viên, tên nhân viên hoặc sđt nhân viên",
+  "search_placeholder": "Nhập tên học viên, sđt học viên hoặc tên nhân viên",
   "not_found": "Không tìm thấy lịch hẹn",
   "back_to_list": "Quay lại danh sách",
 
@@ -51,5 +51,8 @@
   "online": "Online",
   "appointment_with_student_name": "Lịch hẹn - {{ name }}",
   "must_select_appointment_date": "Vui lòng chọn thời gian hẹn để tiếp tục",
-  "total_available": "Còn trống"
+  "total_available": "Còn trống",
+  "owner": "Lọc nhân viên",
+  "all": "Tất cả",
+  "me": "Của tôi"
 }

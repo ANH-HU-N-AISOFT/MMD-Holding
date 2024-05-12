@@ -1,5 +1,5 @@
 import { UrlSearchParamsUtils } from 'utilities';
-import { any, number, object, string, enum as enum_ } from 'zod';
+import { any, number, object, string, enum as enum_, boolean } from 'zod';
 import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
 
 export const lisitngUrlSearchParamsSchema = object({
@@ -17,6 +17,7 @@ export const lisitngUrlSearchParamsSchema = object({
   date: string().optional(),
   testShiftId: string().optional(),
   test: string().optional(),
+  isOwner: boolean().optional(),
 });
 
 export const lisitngUrlSearchParamsUtils = new UrlSearchParamsUtils({

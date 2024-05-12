@@ -25,6 +25,9 @@ export interface Props
   onDeleteMany?: (recordKeys: string[]) => void;
   onView?: (record: Appointment) => void;
   onViewStudent?: (record: Appointment) => void;
+  onViewAdmin?: (record: Appointment) => void;
+  onViewConsultant?: (record: Appointment) => void;
+  onViewTester?: (record: Appointment) => void;
   onViewExpectInspectationDepartment?: (record: Appointment) => void;
   onUpdateStatus?: (params: { record: Appointment; status: AppointmentStatus }) => void;
   editable?: boolean;
@@ -41,6 +44,9 @@ export const Table = ({
   onDelete,
   onDeleteMany,
   onViewStudent,
+  onViewAdmin,
+  onViewConsultant,
+  onViewTester,
   onViewExpectInspectationDepartment,
   onView,
   onUpdateStatus,
@@ -191,7 +197,7 @@ export const Table = ({
           return null;
         }
         return (
-          <Typography.Link onClick={() => onViewExpectInspectationDepartment?.(record)}>
+          <Typography.Link onClick={() => onViewConsultant?.(record)}>
             <TooltipDetailInformation
               title={[record.consultant?.fullName].filter(Boolean).join(' - ')}
               extra={[
@@ -211,7 +217,7 @@ export const Table = ({
           return null;
         }
         return (
-          <Typography.Link onClick={() => onViewExpectInspectationDepartment?.(record)}>
+          <Typography.Link onClick={() => onViewAdmin?.(record)}>
             <TooltipDetailInformation
               title={[record.admin?.fullName].filter(Boolean).join(' - ')}
               extra={[
@@ -231,7 +237,7 @@ export const Table = ({
           return null;
         }
         return (
-          <Typography.Link onClick={() => onViewExpectInspectationDepartment?.(record)}>
+          <Typography.Link onClick={() => onViewTester?.(record)}>
             <TooltipDetailInformation
               title={[record.tester?.fullName].filter(Boolean).join(' - ')}
               extra={[
