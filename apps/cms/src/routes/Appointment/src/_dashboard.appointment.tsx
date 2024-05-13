@@ -39,7 +39,7 @@ export const loader = async ({
       status: status === 'all' ? undefined : status,
       organizationId,
       isOwner: isOwner,
-      sortByDate: -1,
+      sortByDate: !status || status === 'all' ? undefined : -1,
     });
 
     return json({

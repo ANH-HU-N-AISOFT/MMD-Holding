@@ -62,7 +62,9 @@
       "HotWarm": "Ấm - Nóng",
       "Cold": "Lạnh",
       "Communication": "Truyền thông",
-      "HumanResources": "Nhân - Tái"
+      "HumanResources": "Nhân",
+      "DataMarketing": "Data Marketing",
+      "Repeat": "Tái"
     }
   },
   "appointmentStatus": {
