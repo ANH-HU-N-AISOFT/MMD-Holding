@@ -3,7 +3,8 @@ import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
-import { getFormMutationResolver } from './zodResolver';
+import { TypeOf } from 'zod';
+import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
@@ -16,18 +17,7 @@ import { SelectManagementUnit } from '~/packages/common/SelectVariants/SelectMan
 import { SelectPresentDepartment } from '~/packages/common/SelectVariants/SelectPresentDepartment';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
-export interface FormValues {
-  name: string;
-  code: string;
-  manageDepartmentId: string;
-  businessStatus: BusinessStatusEnum;
-  address?: string;
-  city?: string;
-  phone?: string;
-  email?: string;
-  presentDepartmentId?: string;
-  foundationDate?: string;
-}
+export interface FormValues extends TypeOf<ReturnType<typeof getFormMutationSchema>> {}
 
 interface Props {
   uid: string;
@@ -143,7 +133,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </Field>
             <Field label={t('department:business_status')} error={errors.businessStatus?.message}>
               <SelectBusinessStatus
-                businessStatus={businessStatus}
+                businessStatus={businessStatus ?? undefined}
                 placeholder={t('department:business_status')}
                 onChange={value => {
                   setValue('businessStatus', value);
@@ -156,7 +146,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </Field>
             <Field label={t('department:address')} error={errors.address?.message}>
               <Input
-                value={address}
+                value={address ?? undefined}
                 onChange={event => {
                   setValue('address', event.target.value);
                   if (errors.address) {
@@ -169,7 +159,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </Field>
             <Field label={t('department:city')} error={errors.city?.message}>
               <SelectCity
-                city={city}
+                city={city ?? undefined}
                 fieldKey="name"
                 onChange={value => {
                   setValue('city', value);
@@ -182,7 +172,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </Field>
             <Field label={t('department:phone')} error={errors.phone?.message}>
               <Input
-                value={phone}
+                value={phone ?? undefined}
                 onChange={event => {
                   setValue('phone', takeOnlyNumber(event));
                   if (errors.phone) {
@@ -196,7 +186,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </Field>
             <Field label={t('department:email')} error={errors.email?.message}>
               <Input
-                value={email}
+                value={email ?? undefined}
                 onChange={event => {
                   setValue('email', event.target.value);
                   if (errors.email) {
@@ -209,7 +199,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </Field>
             <Field label={t('department:present_department')} error={errors.presentDepartmentId?.message}>
               <SelectPresentDepartment
-                presentDepartment={presentDepartmentId}
+                presentDepartment={presentDepartmentId ?? undefined}
                 onChange={value => {
                   setValue('presentDepartmentId', value);
                   if (errors.presentDepartmentId) {

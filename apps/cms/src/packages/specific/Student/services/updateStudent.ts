@@ -17,13 +17,12 @@ export interface UpdateStudent {
     birthday?: string;
     schoolId?: string;
     gender?: GenderEnum;
-    parentPhone?: string;
+    parentPhoneNumber?: string;
     notifyParentsOfResults?: boolean;
     source?: SourceEnum;
     organizationIds: string[];
     supporterIds?: string[];
     username: string;
-    password: string;
     accessStatus: EmployeeAccessStatus;
   };
 }

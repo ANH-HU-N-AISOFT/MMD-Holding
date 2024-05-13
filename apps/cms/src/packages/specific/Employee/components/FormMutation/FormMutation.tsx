@@ -4,55 +4,16 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
+import { TypeOf } from 'zod';
 import { PersonalInformation } from './components/PersonalInformation';
 import { PersonnelRecord } from './components/PersonnelRecord';
 import { RoleSystem } from './components/RoleSystem';
-import { getFormMutationResolver } from './zodResolver';
+import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
-import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
-import { EmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/constants/EmploymentContractType';
-import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
-import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
-import { Department } from '~/packages/specific/Department/models/Department';
 
-export interface FormValues {
-  personalInformation: {
-    fullName: string;
-    phone: string;
-    dateOfBirth: string;
-    gender: GenderEnum;
-    workEmail: string;
-    personalEmail: string;
-    currentAddress?: string;
-    residenceAddress?: string;
-    region?: string;
-    citizenIdCard?: string;
-    emergencyContactName?: string;
-    emergencyContactPhone?: string;
-    emergencyContactRelationship?: string;
-    notes?: string;
-  };
-  personnelRecord: {
-    code: string;
-    department: Department['id'];
-    jobTitles: JobTitleEnum[];
-    directionManager?: string;
-    workStatus: EmployeeStatus;
-    contractType?: EmploymentContractType;
-    contractStartEffectDate?: string;
-    contractEndEffectDate?: string;
-  };
-  roleSystem: {
-    roles: Role[];
-    username: string;
-    password: string;
-    accessStatus: EmployeeAccessStatus;
-  };
-}
+export interface FormValues extends TypeOf<ReturnType<typeof getFormMutationSchema>> {}
 
 interface Props {
   uid: string;

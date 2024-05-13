@@ -1,15 +1,13 @@
 import { Input } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
-import { getFormResetPasswordResolver } from './zodResolver';
+import { TypeOf } from 'zod';
+import { getFormResetPasswordResolver, getFormResetPasswordSchema } from './zodResolver';
 import { Field } from '~/components/Field/Field';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 
-export interface FormValues {
-  newPassword: string;
-  confirmPassword: string;
-}
+export interface FormValues extends TypeOf<ReturnType<typeof getFormResetPasswordSchema>> {}
 
 interface Props {
   uid: string;
@@ -80,7 +78,7 @@ export const ResetPassword = ({ isSubmiting, uid, defaultValues, disabled, field
       <Field withRequiredMark label={t('employee:confirm_password')} error={errors.confirmPassword?.message}>
         <Input.Password
           disabled={disabledField}
-          value={confirmPassword}
+          value={confirmPassword ?? undefined}
           placeholder={t('employee:confirm_password')}
           onChange={event => {
             setValue('confirmPassword', event.target.value);

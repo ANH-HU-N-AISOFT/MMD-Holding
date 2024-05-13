@@ -1,10 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { array, literal, object, string } from 'zod';
+import { array, literal, object, string, enum as enum_ } from 'zod';
 import type { TFunction } from 'i18next';
+import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
+import { IeltsTestEnum } from '~/packages/common/SelectVariants/IeltsTestEnum/constants/IeltsTestEnum';
+import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMessageSelectField';
 
-export const getFormMutationResolver = (t: TFunction<['common', 'appointment']>) => {
+export const getFormMutationSchema = (t: TFunction<['common', 'appointment']>) => {
   const studentId = {
     required: getRequiredMessageSelectField(t, 'appointment:student'),
   };
@@ -35,27 +38,57 @@ export const getFormMutationResolver = (t: TFunction<['common', 'appointment']>)
   const note = {
     length: getRangeLengthMessage(t, 'appointment:note', 0, 256),
   };
-  return zodResolver(
-    object({
-      studentId: string({ required_error: studentId.required }),
+  return object({
+    studentId: string({ required_error: studentId.required }),
+    // Thông tin để hiển thị
+    studentPhoneNumber: string().optional().nullable(),
+    // Thông tin để hiển thị
+    studentSchool: string().optional().nullable(),
+    // Thông tin để hiển thị
+    studentSource: enum_([
+      SourceEnum.Cold,
+      SourceEnum.Communication,
+      SourceEnum.DataMarketing,
+      SourceEnum.HotWarm,
+      SourceEnum.HumanResources,
+      SourceEnum.Repeat,
+    ])
+      .optional()
+      .nullable(),
+    // Thông tin để hiển thị
+    studentSaleEmployees: array(string()).optional().nullable(),
+    // Thông tin để hiển thị
+    departmentOfSaleEmployees: array(string()).optional().nullable(),
 
-      //
-      appointmentStatus: string(),
-      expectInspectionDepartmentId: string({ required_error: expectInspectionDepartmentId.required }),
-      testType: string(),
-      appointmentDate: string({ required_error: appointmentDate.required }),
-      appointmentTime: string({ required_error: appointmentTime.required }),
-      ieltsTestType: string({ required_error: ieltsTestType.required }),
-      demand: array(string(), { required_error: demand.required }).min(1, demand.required),
-      extraDemand: string().min(1, extraDemand.length).max(32, extraDemand.length).trim().optional().nullable(),
-      testShiftId: string({ required_error: testShiftId.required }),
-      //
-      consultant: string({ required_error: consultant.required }),
-      admin: string().nullable().optional(),
-      tester: string().nullable().optional(),
+    //
+    appointmentStatus: enum_([
+      AppointmentStatus.ARRIVED_AT_CENTER,
+      AppointmentStatus.CANCELED,
+      AppointmentStatus.CONFIRMED,
+      AppointmentStatus.LEVEL_TESTED,
+      AppointmentStatus.SCHEDULED,
+    ]),
+    expectInspectionDepartmentId: string({ required_error: expectInspectionDepartmentId.required }),
+    testType: string(),
+    appointmentDate: string({ required_error: appointmentDate.required }),
+    appointmentTime: string({ required_error: appointmentTime.required }),
+    ieltsTestType: enum_(
+      [IeltsTestEnum.FOUNDATION_TEST, IeltsTestEnum.FULL_IELTS_TEST, IeltsTestEnum.MINI_IELTS_TEST],
+      { required_error: ieltsTestType.required },
+    ),
+    demand: array(string(), { required_error: demand.required }).min(1, demand.required),
+    extraDemand: string().min(1, extraDemand.length).max(32, extraDemand.length).trim().optional().nullable(),
+    testShiftId: string({ required_error: testShiftId.required }),
+    //
+    consultant: string({ required_error: consultant.required }),
+    admin: string().nullable().optional(),
+    tester: string().nullable().optional(),
 
-      //
-      note: string().trim().min(0, note.length).max(256, note.length).trim().optional().or(literal('')).nullable(),
-    }),
-  );
+    //
+    note: string().trim().min(0, note.length).max(256, note.length).trim().optional().or(literal('')).nullable(),
+  });
+};
+
+export const getFormMutationResolver = (t: TFunction<['common', 'appointment']>) => {
+  return zodResolver(getFormMutationSchema(t));
 };

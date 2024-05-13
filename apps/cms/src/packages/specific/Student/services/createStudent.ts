@@ -14,7 +14,7 @@ export interface CreateStudent {
   birthday?: string;
   schoolId?: string;
   gender?: GenderEnum;
-  parentPhone?: string;
+  parentPhoneNumber?: string;
   notifyParentsOfResults?: boolean;
   source?: SourceEnum;
   organizationIds: string[];

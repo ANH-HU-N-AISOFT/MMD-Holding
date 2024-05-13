@@ -41,7 +41,7 @@ export const PersonnelRecord = ({ form, disabledField }: Props) => {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
       <Field label={t('employee:code')} error={errors.personnelRecord?.code?.message}>
         <Input
-          value={code}
+          value={code ?? undefined}
           onChange={event => {
             setValue('personnelRecord.code', event.target.value);
             if (errors.personnelRecord?.code) {
@@ -86,7 +86,7 @@ export const PersonnelRecord = ({ form, disabledField }: Props) => {
       </Field>
       <Field label={t('employee:direction_manager')} error={errors.personnelRecord?.directionManager?.message}>
         <SelectEmployee
-          employee={directionManager}
+          employee={directionManager ?? undefined}
           placeholder={t('employee:direction_manager')}
           onChange={value => {
             setValue('personnelRecord.directionManager', value);
@@ -111,7 +111,7 @@ export const PersonnelRecord = ({ form, disabledField }: Props) => {
       </Field>
       <Field label={t('employee:employment_contract_type')} error={errors.personnelRecord?.contractType?.message}>
         <SelectEmploymentContractType
-          employmentContractType={contractType}
+          employmentContractType={contractType ?? undefined}
           onChange={value => {
             setValue('personnelRecord.contractType', value);
             if (errors.personnelRecord?.contractType) {

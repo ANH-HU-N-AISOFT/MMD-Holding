@@ -12,7 +12,7 @@ import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMess
 import { isEmail, isPhone } from '~/utils/regexes';
 import { isStrongPassword } from '~/utils/regexes/src/isStrongPassword';
 
-export const getFormMutationResolver = ({
+export const getFormMutationSchema = ({
   needPassword,
   t,
 }: {
@@ -32,16 +32,6 @@ export const getFormMutationResolver = ({
   const accessStatus = {
     required: getRequiredMessageSelectField(t, 'student:access_status'),
   };
-  const roleSystemSchema = object({
-    username: string({ required_error: username.required })
-      .trim()
-      .min(5, username.length)
-      .max(12, username.length)
-      .regex(/^[\p{L}0-9]*$/u, username.invalid),
-    accessStatus: enum_([EmployeeAccessStatus.BLOCKED, EmployeeAccessStatus.GRANTED], {
-      required_error: accessStatus.required,
-    }),
-  });
 
   const fullName = {
     required: getRequiredMessage(t, 'student:fullName'),
@@ -66,73 +56,96 @@ export const getFormMutationResolver = ({
     required: t('student:department_invalid'),
   };
 
-  return zodResolver(
-    object({
-      personalInformation: object({
-        fullName: string({ required_error: fullName.required })
-          .trim()
-          .min(1, fullName.length)
-          .max(100, fullName.length)
-          .regex(/^[\p{L}\-'\s]*$/u, fullName.invalid),
-        phone: string({ required_error: phone.required }).trim().min(1, phone.required).regex(isPhone, phone.invalid),
-        email: string()
-          .trim()
-          .refine(
-            value => {
-              if (value !== undefined && value !== null && value.trim() !== '') {
-                return new RegExp(isEmail).test(value);
-              }
-              return true;
-            },
-            { message: email.invalid },
-          )
-          .optional()
-          .or(literal(''))
-          .nullable(),
-        currentAddress: string()
-          .trim()
-          .min(3, currentAddress.length)
-          .max(64, currentAddress.length)
-          .regex(/^[\p{L}0-9\s/]*$/u, currentAddress.invalid)
-          .optional()
-          .or(literal(''))
-          .nullable(),
-        city: string().trim().optional().or(literal('')).nullable(),
-        district: string().trim().optional().or(literal('')).nullable(),
-        dateOfBirth: string().trim().optional().or(literal('')).nullable(),
-        school: string().trim().optional().nullable(),
-        gender: enum_([GenderEnum.MALE, GenderEnum.FEMALE]).optional().nullable(),
-        parentPhone: string()
-          .trim()
-          .refine(
-            value => {
-              if (value !== undefined && value !== null && value.trim() !== '') {
-                return new RegExp(isPhone).test(value);
-              }
-              return true;
-            },
-            { message: parentPhone.invalid },
-          )
-          .optional()
-          .or(literal(''))
-          .nullable(),
-        notifyResultToParent: boolean().optional().nullable(),
-        source: enum_([SourceEnum.Cold, SourceEnum.Communication, SourceEnum.HotWarm, SourceEnum.HumanResources])
-          .optional()
-          .nullable(),
-        departments: array(string(), {
-          required_error: departments.required,
-        }).min(1, departments.required),
-        saleEmployees: array(string()).optional().nullable(),
-      }),
-      roleSystem: needPassword
-        ? roleSystemSchema.extend({
-            password: string({ required_error: password.required })
-              .min(8, password.length)
-              .max(12, password.length)
-              .regex(isStrongPassword, password.invalid),
-          })
-        : roleSystemSchema,
+  return object({
+    personalInformation: object({
+      fullName: string({ required_error: fullName.required })
+        .trim()
+        .min(1, fullName.length)
+        .max(100, fullName.length)
+        .regex(/^[\p{L}\-'\s]*$/u, fullName.invalid),
+      phone: string({ required_error: phone.required }).trim().min(1, phone.required).regex(isPhone, phone.invalid),
+      email: string()
+        .trim()
+        .refine(
+          value => {
+            if (value !== undefined && value !== null && value.trim() !== '') {
+              return new RegExp(isEmail).test(value);
+            }
+            return true;
+          },
+          { message: email.invalid },
+        )
+        .optional()
+        .or(literal(''))
+        .nullable(),
+      currentAddress: string()
+        .trim()
+        .min(3, currentAddress.length)
+        .max(64, currentAddress.length)
+        .regex(/^[\p{L}0-9\s/]*$/u, currentAddress.invalid)
+        .optional()
+        .or(literal(''))
+        .nullable(),
+      city: string().trim().optional().or(literal('')).nullable(),
+      district: string().trim().optional().or(literal('')).nullable(),
+      dateOfBirth: string().trim().optional().or(literal('')).nullable(),
+      school: string().trim().optional().nullable(),
+      gender: enum_([GenderEnum.MALE, GenderEnum.FEMALE]).optional().nullable(),
+      parentPhone: string()
+        .trim()
+        .refine(
+          value => {
+            if (value !== undefined && value !== null && value.trim() !== '') {
+              return new RegExp(isPhone).test(value);
+            }
+            return true;
+          },
+          { message: parentPhone.invalid },
+        )
+        .optional()
+        .or(literal(''))
+        .nullable(),
+      notifyResultToParent: boolean().optional().nullable(),
+      source: enum_([
+        SourceEnum.Cold,
+        SourceEnum.Communication,
+        SourceEnum.HotWarm,
+        SourceEnum.HumanResources,
+        SourceEnum.DataMarketing,
+        SourceEnum.Repeat,
+      ])
+        .optional()
+        .nullable(),
+      departments: array(string(), {
+        required_error: departments.required,
+      }).min(1, departments.required),
+      saleEmployees: array(string()).optional().nullable(),
     }),
-  );
+    roleSystem: object({
+      username: string({ required_error: username.required })
+        .trim()
+        .min(5, username.length)
+        .max(12, username.length)
+        .regex(/^[\p{L}0-9]*$/u, username.invalid),
+      accessStatus: enum_([EmployeeAccessStatus.BLOCKED, EmployeeAccessStatus.GRANTED], {
+        required_error: accessStatus.required,
+      }),
+      password: needPassword
+        ? string({ required_error: password.required })
+            .min(8, password.length)
+            .max(12, password.length)
+            .regex(isStrongPassword, password.invalid)
+        : string().optional().nullable(),
+    }),
+  });
+};
+
+export const getFormMutationResolver = ({
+  needPassword,
+  t,
+}: {
+  t: TFunction<['common', 'student']>;
+  needPassword: boolean;
+}) => {
+  return zodResolver(getFormMutationSchema({ needPassword, t }));
 };

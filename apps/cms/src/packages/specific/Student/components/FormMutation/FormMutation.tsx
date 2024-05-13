@@ -4,40 +4,15 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
+import { TypeOf } from 'zod';
 import { PersonalInformation } from './components/PersonalInformation';
 import { RoleSystem } from './components/RoleSystem';
-import { getFormMutationResolver } from './zodResolver';
+import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
-import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
-import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
-import { Department } from '~/packages/specific/Department/models/Department';
-import { Employee } from '~/packages/specific/Employee/models/Employee';
 
-export interface FormValues {
-  personalInformation: {
-    fullName: string;
-    phone: string;
-    email?: string;
-    currentAddress?: string;
-    city?: string;
-    district?: string;
-    dateOfBirth?: string;
-    school?: string;
-    gender?: GenderEnum;
-    parentPhone?: string;
-    notifyResultToParent?: boolean;
-    source?: SourceEnum;
-    departments: Array<Department['id']>;
-    saleEmployees?: Array<Employee['employeeId']>;
-  };
-  roleSystem: {
-    username: string;
-    password: string;
-    accessStatus: EmployeeAccessStatus;
-  };
+export interface FormValues extends TypeOf<ReturnType<typeof getFormMutationSchema>> {
   // Những field lưu lại giá trị của Select, Input, ... tạm để truyền vào 1 field khác để filter, search, ...
   temporaryOptional?: {
     cityCode?: string;

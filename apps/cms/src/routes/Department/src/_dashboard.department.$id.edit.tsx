@@ -48,16 +48,16 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
       await updateDepartment({
         id: params['id'],
         data: {
-          address: data.address,
+          address: data.address ?? undefined,
           businessStatus: data.businessStatus,
           code: data.code,
-          email: data.email,
-          foundationDate: data.foundationDate,
-          managementUnitId: data.manageDepartmentId,
+          email: data.email ?? undefined,
+          foundationDate: data.foundationDate ?? undefined,
+          managementUnitId: data.manageDepartmentId ?? undefined,
           name: data.name,
-          phoneNumber: data.phone,
-          province: data.city,
-          unitManagerId: data.presentDepartmentId,
+          phoneNumber: data.phone ?? undefined,
+          province: data.city ?? undefined,
+          unitManagerId: data.presentDepartmentId ?? undefined,
           id: params['id'],
         },
       });

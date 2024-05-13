@@ -6,16 +6,16 @@ export interface CreateAppointment {
   status: string;
   testOrganizationId: string;
   demands: string[];
-  extraDemand: string;
+  extraDemand?: string;
   testType: string;
   appointmentDate: string;
   appointmentTime: string;
   test: string;
   testingShiftId: string;
   consultantId: string;
-  adminId: string;
-  testerId: string;
-  notes: string;
+  adminId?: string;
+  testerId?: string;
+  notes?: string;
 }
 
 export type ResponseSuccess = Appointment;

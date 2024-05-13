@@ -43,17 +43,17 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
     );
     if (data) {
       await createAppointment({
-        adminId: data.admin,
+        adminId: data.admin ?? undefined,
         appointmentDate: data.appointmentDate,
         appointmentTime: data.appointmentTime,
         consultantId: data.consultant,
         demands: data.demand,
-        extraDemand: data.extraDemand,
-        notes: data.note,
+        extraDemand: data.extraDemand ?? undefined,
+        notes: data.note ?? undefined,
         status: data.appointmentStatus,
         studentId: data.studentId,
         test: data.ieltsTestType,
-        testerId: data.tester,
+        testerId: data.tester ?? undefined,
         testingShiftId: data.testShiftId,
         testOrganizationId: data.expectInspectionDepartmentId,
         testType: data.testType,

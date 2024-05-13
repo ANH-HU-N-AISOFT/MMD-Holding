@@ -139,7 +139,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       <div className="md:col-span-2">
         <Field label={t('employee:current_address')} error={errors.personalInformation?.currentAddress?.message}>
           <Input
-            value={currentAddress}
+            value={currentAddress ?? undefined}
             onChange={event => {
               setValue('personalInformation.currentAddress', event.target.value);
               if (errors.personalInformation?.currentAddress) {
@@ -154,7 +154,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       <div className="md:col-span-2">
         <Field label={t('employee:residence_address')} error={errors.personalInformation?.residenceAddress?.message}>
           <Input
-            value={residenceAddress}
+            value={residenceAddress ?? undefined}
             onChange={event => {
               setValue('personalInformation.residenceAddress', event.target.value);
               if (errors.personalInformation?.residenceAddress) {
@@ -168,7 +168,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       </div>
       <Field label={t('employee:region')} error={errors.personalInformation?.region?.message}>
         <SelectRegion
-          region={region}
+          region={region ?? undefined}
           onChange={value => {
             setValue('personalInformation.region', value);
             if (errors.personalInformation?.region) {
@@ -180,7 +180,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       </Field>
       <Field label={t('employee:citizen_id_card')} error={errors.personalInformation?.citizenIdCard?.message}>
         <Input
-          value={citizenIdCard}
+          value={citizenIdCard ?? undefined}
           onChange={event => {
             setValue('personalInformation.citizenIdCard', event.target.value);
             if (errors.personalInformation?.citizenIdCard) {
@@ -234,7 +234,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         error={errors.personalInformation?.emergencyContactRelationship?.message}
       >
         <Input
-          value={emergencyContactRelationship}
+          value={emergencyContactRelationship ?? undefined}
           onChange={event => {
             setValue('personalInformation.emergencyContactRelationship', event.target.value);
             if (errors.personalInformation?.emergencyContactRelationship) {
@@ -251,7 +251,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       <div className="md:col-span-2">
         <Field label={t('employee:note')} error={errors.personalInformation?.notes?.message}>
           <Input.TextArea
-            value={notes}
+            value={notes ?? undefined}
             onChange={event => {
               setValue('personalInformation.notes', event.target.value);
               if (errors.personalInformation?.notes) {

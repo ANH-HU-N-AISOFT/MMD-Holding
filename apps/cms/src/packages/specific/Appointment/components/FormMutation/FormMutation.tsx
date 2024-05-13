@@ -4,15 +4,14 @@ import { TFunction } from 'i18next';
 import { uniq } from 'ramda';
 import { useTranslation } from 'react-i18next';
 import { Field, useDeepCompareEffect } from 'reactjs';
-import { getFormMutationResolver } from './zodResolver';
+import { TypeOf } from 'zod';
+import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { SelectMultiple } from '~/components/AntCustom/Select';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
 import { SelectAppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/SelectAppointmentStatus';
-import { IeltsTestEnum } from '~/packages/common/SelectVariants/IeltsTestEnum/constants/IeltsTestEnum';
 import { SelectIeltsTestEnum } from '~/packages/common/SelectVariants/IeltsTestEnum/SelectIeltsTestEnum';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
@@ -22,38 +21,11 @@ import { SelectSaleEmployees } from '~/packages/common/SelectVariants/SelectSale
 import { SelectSchool } from '~/packages/common/SelectVariants/SelectSchool';
 import { SelectStudent } from '~/packages/common/SelectVariants/SelectStudent';
 import { SelectTestShift } from '~/packages/common/SelectVariants/SelectTestShift';
-import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
 import { SelectSourceEnum } from '~/packages/common/SelectVariants/SourceEnum/SelectSourceEnum';
 import { TestType } from '~/packages/common/SelectVariants/TestType/constants/TestType';
 import { disablePast } from '~/utils/functions/disableDatePicker';
 
-export interface FormValues {
-  studentId: string;
-  studentPhoneNumber?: string;
-  studentSchool?: string;
-  studentSource?: SourceEnum;
-  studentSaleEmployees?: string[];
-  departmentOfSaleEmployees?: string[];
-
-  // Lịch hẹn
-  appointmentStatus: AppointmentStatus;
-  expectInspectionDepartmentId: string;
-  testType: TestType;
-  appointmentDate: string;
-  appointmentTime: string;
-  ieltsTestType: IeltsTestEnum;
-  demand: string[];
-  extraDemand: string;
-  testShiftId: string;
-
-  // Supporters
-  consultant: string;
-  admin: string;
-  tester: string;
-
-  // Extra
-  note: string;
-}
+export interface FormValues extends TypeOf<ReturnType<typeof getFormMutationSchema>> {}
 
 interface Props {
   uid: string;
@@ -173,7 +145,7 @@ export const FormMutation = ({
             </Field>
             <Field label={t('appointment:phone')} error={errors.studentPhoneNumber?.message}>
               <Input
-                value={studentPhoneNumber}
+                value={studentPhoneNumber ?? undefined}
                 addonBefore={<div>+84</div>}
                 readOnly
                 disabled
@@ -181,16 +153,16 @@ export const FormMutation = ({
               />
             </Field>
             <Field label={t('appointment:school')} error={errors.studentSchool?.message}>
-              <SelectSchool school={studentSchool} cityCode="GET_ALL" disabled />
+              <SelectSchool school={studentSchool ?? undefined} cityCode="GET_ALL" disabled />
             </Field>
             <Field label={t('appointment:source')} error={errors.studentSource?.message}>
-              <SelectSourceEnum sourceEnum={studentSource} disabled />
+              <SelectSourceEnum sourceEnum={studentSource ?? undefined} disabled />
             </Field>
             <Field label={t('appointment:sale_employees')} error={errors.studentSaleEmployees?.message}>
-              <SelectSaleEmployees saleEmployees={studentSaleEmployees} organizations="GET_ALL" disabled />
+              <SelectSaleEmployees saleEmployees={studentSaleEmployees ?? undefined} organizations="GET_ALL" disabled />
             </Field>
             <Field label={t('appointment:department')} error={errors.departmentOfSaleEmployees?.message}>
-              <SelectDepartments departments={departmentOfSaleEmployees} disabled />
+              <SelectDepartments departments={departmentOfSaleEmployees ?? undefined} disabled />
             </Field>
             <div className="md:col-span-2">
               <Divider orientation="center">{t('appointment:appointment')}</Divider>
@@ -248,7 +220,7 @@ export const FormMutation = ({
                 <Input
                   disabled={disabledField}
                   placeholder={t('appointment:extra_demand')}
-                  value={extraDemand}
+                  value={extraDemand ?? undefined}
                   onChange={event => {
                     setValue('extraDemand', event.target.value);
                     if (errors.extraDemand) {
@@ -354,7 +326,7 @@ export const FormMutation = ({
                 allowClear
                 placeholder={t('appointment:admin')}
                 disabled={disabledField}
-                employee={admin}
+                employee={admin ?? undefined}
                 onChange={value => {
                   setValue('admin', value);
                   if (errors.admin) {
@@ -369,7 +341,7 @@ export const FormMutation = ({
                 allowClear
                 placeholder={t('appointment:tester')}
                 disabled={disabledField}
-                employee={tester}
+                employee={tester ?? undefined}
                 onChange={value => {
                   setValue('tester', value);
                   if (errors.tester) {
@@ -384,7 +356,7 @@ export const FormMutation = ({
             <div className="md:col-span-2">
               <Field label={t('appointment:note')} error={errors.note?.message}>
                 <Input.TextArea
-                  value={note}
+                  value={note ?? undefined}
                   onChange={event => {
                     setValue('note', event.target.value);
                     if (errors.note) {

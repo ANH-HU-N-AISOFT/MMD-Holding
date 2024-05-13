@@ -83,7 +83,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       </Field>
       <Field label={t('student:email')} error={errors.personalInformation?.email?.message}>
         <Input
-          value={email}
+          value={email ?? undefined}
           onChange={event => {
             setValue('personalInformation.email', event.target.value);
             if (errors.personalInformation?.email) {
@@ -96,7 +96,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       </Field>
       <Field label={t('student:current_address')} error={errors.personalInformation?.currentAddress?.message}>
         <Input
-          value={currentAddress}
+          value={currentAddress ?? undefined}
           onChange={event => {
             setValue('personalInformation.currentAddress', event.target.value);
             if (errors.personalInformation?.currentAddress) {
@@ -109,7 +109,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       </Field>
       <Field label={t('student:city')} error={errors.personalInformation?.city?.message}>
         <SelectCity
-          city={city}
+          city={city ?? undefined}
           onChange={(value, option) => {
             setValue('personalInformation.city', value);
             setValue('personalInformation.district', undefined);
@@ -125,7 +125,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       <Field label={t('student:district')} error={errors.personalInformation?.district?.message}>
         <SelectDistrict
           cityCode={cityCode}
-          district={district}
+          district={district ?? undefined}
           onChange={value => {
             setValue('personalInformation.district', value);
             if (errors.personalInformation?.district) {
@@ -153,7 +153,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       </Field>
       <Field label={t('student:school')} error={errors.personalInformation?.school?.message}>
         <SelectSchool
-          school={school}
+          school={school ?? undefined}
           cityCode={cityCode}
           onChange={value => {
             setValue('personalInformation.school', value);
@@ -166,7 +166,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       </Field>
       <Field label={t('student:gender')} error={errors.personalInformation?.gender?.message}>
         <SelectGender
-          gender={gender}
+          gender={gender ?? undefined}
           onChange={value => {
             setValue('personalInformation.gender', value);
             if (errors.personalInformation?.gender) {
@@ -181,7 +181,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       </div>
       <Field label={t('student:parent_phone')} error={errors.personalInformation?.parentPhone?.message}>
         <Input
-          value={parentPhone}
+          value={parentPhone ?? undefined}
           onChange={event => {
             setValue('personalInformation.parentPhone', event.target.value);
             if (errors.personalInformation?.parentPhone) {
@@ -215,7 +215,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       </div>
       <Field label={t('student:source')} error={errors.personalInformation?.source?.message}>
         <SelectSourceEnum
-          sourceEnum={source}
+          sourceEnum={source ?? undefined}
           onChange={value => {
             setValue('personalInformation.source', value);
             if (errors.personalInformation?.source) {

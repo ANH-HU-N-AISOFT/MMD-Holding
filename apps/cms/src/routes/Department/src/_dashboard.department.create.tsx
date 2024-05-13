@@ -28,16 +28,16 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
     );
     if (data) {
       await createDepartment({
-        address: data.address,
+        address: data.address ?? undefined,
         businessStatus: data.businessStatus,
         code: data.code,
-        email: data.email,
-        foundationDate: data.foundationDate,
+        email: data.email ?? undefined,
+        foundationDate: data.foundationDate ?? undefined,
         managementUnitId: data.manageDepartmentId,
         name: data.name,
-        phoneNumber: data.phone,
-        province: data.city,
-        unitManagerId: data.presentDepartmentId,
+        phoneNumber: data.phone ?? undefined,
+        province: data.city ?? undefined,
+        unitManagerId: data.presentDepartmentId ?? undefined,
       });
       return json({
         hasError: false,

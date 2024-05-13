@@ -118,7 +118,7 @@ export const RoleSystem = ({
           error={errors.roleSystem?.password?.message}
         >
           <Input.Password
-            value={password}
+            value={password ?? undefined}
             onChange={event => {
               setValue('roleSystem.password', event.target.value);
               if (errors.roleSystem?.password) {

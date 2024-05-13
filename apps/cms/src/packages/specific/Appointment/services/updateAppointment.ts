@@ -8,16 +8,16 @@ export interface UpdateAppointment {
     status: string;
     testOrganizationId: string;
     demands: string[];
-    extraDemand: string;
+    extraDemand?: string;
     testType: string;
     appointmentDate: string;
     appointmentTime: string;
     test: string;
     testingShiftId: string;
     consultantId: string;
-    adminId: string;
-    testerId: string;
-    notes: string;
+    adminId?: string;
+    testerId?: string;
+    notes?: string;
     id: string;
   };
 }
