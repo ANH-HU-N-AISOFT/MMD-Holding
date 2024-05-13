@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Tabs } from 'antd';
 import classNames from 'classnames';
+import { sum, values } from 'ramda';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Field, useDeepCompareEffect, useMobile } from 'reactjs';
@@ -27,6 +28,7 @@ interface FormFilterProps {
   searchValue?: string;
   onSearch?: (value: string) => void;
   containerClassName?: string;
+  counts?: Record<AppointmentStatus, number>;
 }
 
 const UID = 'FORM_FILTER_LISTING_CUSTOMER_MANAGEMENT';
@@ -38,6 +40,7 @@ export const FormSearchNFilter = ({
   onResetFilter,
   onFilter,
   containerClassName,
+  counts,
 }: FormFilterProps) => {
   const { t } = useTranslation(['common', 'appointment', 'enum']);
   const { isMobile } = useMobile();
@@ -76,8 +79,10 @@ export const FormSearchNFilter = ({
         isMobile ? 'flex-col-reverse' : 'flex-row items-center justify-between flex-wrap-reverse',
       )}
     >
-      <div className="max-w-full lg:max-w-[45%] xl:max-w-[initial]">
+      <div className="max-w-full lg:max-w-[45%] xl:max-w-[49%]">
         <Tabs
+          size="small"
+          tabBarGutter={16}
           activeKey={status}
           onChange={value => {
             setValue('status', value as FormFilterValues['status']);
@@ -85,33 +90,75 @@ export const FormSearchNFilter = ({
           }}
           className="Appointment__type flex-1"
           items={[
-            { key: 'all', label: t('enum:appointmentStatus.options.all') },
+            {
+              key: 'all',
+              label: (
+                <div>
+                  {t('enum:appointmentStatus.options.all')} {counts ? `(${sum(values(counts))})` : null}
+                </div>
+              ),
+            },
             {
               key: AppointmentStatus.SCHEDULED,
-              label: AppointmentStatusMappingToLabel[AppointmentStatus.SCHEDULED],
+              label: (
+                <div>
+                  {AppointmentStatusMappingToLabel[AppointmentStatus.SCHEDULED]}{' '}
+                  {typeof counts?.[AppointmentStatus.SCHEDULED] === 'number'
+                    ? `(${counts?.[AppointmentStatus.SCHEDULED]})`
+                    : null}
+                </div>
+              ),
             },
             {
               key: AppointmentStatus.CONFIRMED,
-              label: AppointmentStatusMappingToLabel[AppointmentStatus.CONFIRMED],
+              label: (
+                <div>
+                  {AppointmentStatusMappingToLabel[AppointmentStatus.CONFIRMED]}{' '}
+                  {typeof counts?.[AppointmentStatus.CONFIRMED] === 'number'
+                    ? `(${counts?.[AppointmentStatus.CONFIRMED]})`
+                    : null}
+                </div>
+              ),
             },
             {
               key: AppointmentStatus.ARRIVED_AT_CENTER,
-              label: AppointmentStatusMappingToLabel[AppointmentStatus.ARRIVED_AT_CENTER],
+              label: (
+                <div>
+                  {AppointmentStatusMappingToLabel[AppointmentStatus.ARRIVED_AT_CENTER]}{' '}
+                  {typeof counts?.[AppointmentStatus.ARRIVED_AT_CENTER] === 'number'
+                    ? `(${counts?.[AppointmentStatus.ARRIVED_AT_CENTER]})`
+                    : null}
+                </div>
+              ),
             },
             {
               key: AppointmentStatus.LEVEL_TESTED,
-              label: AppointmentStatusMappingToLabel[AppointmentStatus.LEVEL_TESTED],
+              label: (
+                <div>
+                  {AppointmentStatusMappingToLabel[AppointmentStatus.LEVEL_TESTED]}{' '}
+                  {typeof counts?.[AppointmentStatus.LEVEL_TESTED] === 'number'
+                    ? `(${counts?.[AppointmentStatus.LEVEL_TESTED]})`
+                    : null}
+                </div>
+              ),
             },
             {
               key: AppointmentStatus.CANCELED,
-              label: AppointmentStatusMappingToLabel[AppointmentStatus.CANCELED],
+              label: (
+                <div>
+                  {AppointmentStatusMappingToLabel[AppointmentStatus.CANCELED]}{' '}
+                  {typeof counts?.[AppointmentStatus.CANCELED] === 'number'
+                    ? `(${counts?.[AppointmentStatus.CANCELED]})`
+                    : null}
+                </div>
+              ),
             },
           ]}
         />
       </div>
       <SearchNFilter
         containerClassName={classNames(
-          'mb-0 flex-shrink-0 sm:min-w-[380px] lg:basis-[52%] xl:basis-[37%] 2xl:basis-[600px] !justify-start w-full',
+          'mb-0 flex-shrink-0 sm:min-w-[380px] lg:basis-[52%] xl:basis-[50%] 2xl:basis-[600px] !justify-start w-full',
           containerClassName,
         )}
         inputClassName="md:!max-w-[initial]"

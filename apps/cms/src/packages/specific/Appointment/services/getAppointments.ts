@@ -7,6 +7,7 @@ import { fetchApi } from '~/utils/functions/fetchApi';
 export interface ResponseSuccess {
   items: Appointment[];
   headers: ServiceHeaderResponse;
+  totalsByStatus: Record<AppointmentStatus, number>;
 }
 
 interface GetAppointments {

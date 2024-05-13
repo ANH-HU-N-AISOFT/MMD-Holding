@@ -13,6 +13,7 @@ import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBound
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
+import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormSearchNFilter } from '~/packages/specific/Appointment/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Appointment/components/Listing/Header';
@@ -29,7 +30,9 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 
 export const loader = async ({
   request,
-}: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Appointment>>> => {
+}: LoaderFunctionArgs): Promise<
+  TypedResponse<SimpleListingLoaderResponse<Appointment> & { counts: Record<AppointmentStatus, number> }>
+> => {
   const t = i18next.t;
   const { search, page = 1, organizationId, status, isOwner } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
@@ -52,6 +55,7 @@ export const loader = async ({
         },
       },
       page: Math.min(page, response.headers['x-pages-count'] || 1),
+      counts: response.totalsByStatus,
     });
   } catch (error) {
     return json({
@@ -61,6 +65,13 @@ export const loader = async ({
         pagination: { pageSize: 0, totalPages: 1, totalRecords: 0 },
       },
       toastMessage: handleGetMessageToToast(t, handleCatchClauseSimpleAtClient(error)),
+      counts: {
+        'arrived-at-center': 0,
+        'level-tested': 0,
+        canceled: 0,
+        confirmed: 0,
+        scheduled: 0,
+      },
     });
   }
 };
@@ -73,6 +84,13 @@ export const Page = () => {
   const paramsInUrl = lisitngUrlSearchParamsUtils.decrypt(lisitngUrlSearchParamsUtils.getUrlSearchParams().toString());
   const fetcherData = useFetcher<typeof loader>();
   const loaderData = useLoaderData<typeof loader>();
+
+  const counts = useMemo(() => {
+    if (fetcherData.data?.counts) {
+      return fetcherData.data?.counts;
+    }
+    return loaderData.counts;
+  }, [loaderData, fetcherData]);
 
   const handleRequest = (params: ListingSearchParams) => {
     const searchParamsToLoader = lisitngUrlSearchParamsUtils.encrypt({
@@ -163,6 +181,7 @@ export const Page = () => {
   //#region Update appointment status
   const { isLoading: isSavingAppointmentStatus, update } = useUpdateAppointmentStatusOfRecord();
   //#endregion
+
   return (
     <>
       <div className="flex flex-col h-full">
@@ -175,6 +194,7 @@ export const Page = () => {
           onImport={() => setIsOpenModalImport(true)}
         />
         <FormSearchNFilter
+          counts={counts}
           containerClassName="justify-end mb-1"
           searchValue={paramsInUrl.search?.toString()}
           formFilterValues={{

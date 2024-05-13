@@ -1,3 +1,6 @@
 .Appointment__type > .ant-tabs-nav {
   @apply !mb-0;
 }
+.Appointment__type .ant-tabs-nav-more {
+  @apply !ml-0 !px-2;
+}
