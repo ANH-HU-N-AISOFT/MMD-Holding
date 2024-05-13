@@ -1,5 +1,6 @@
 import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
 import { IeltsTestEnum } from '~/packages/common/SelectVariants/IeltsTestEnum/constants/IeltsTestEnum';
+import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
 import { TestType } from '~/packages/common/SelectVariants/TestType/constants/TestType';
 
 export interface Appointment {
@@ -28,8 +29,12 @@ export interface Appointment {
     id: string;
     fullName: string;
     phoneNumber: string;
-    school: string;
-    source: string;
+    school?: {
+      id: string;
+      code: string;
+      name: string;
+    };
+    source: SourceEnum;
   };
   organization?: {
     id: string;

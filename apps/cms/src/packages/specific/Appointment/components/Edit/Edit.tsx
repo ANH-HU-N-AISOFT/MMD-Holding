@@ -1,3 +1,4 @@
+import { uniq } from 'ramda';
 import { Appointment } from '../../models/Appointment';
 import { FormMutation, FormValues } from '../FormMutation/FormMutation';
 
@@ -26,14 +27,16 @@ export const Edit = ({ appointment, ...formProps }: Props) => {
         extraDemand: appointment.extraDemand,
         ieltsTestType: appointment.test,
         note: appointment.notes,
-        departmentOfSaleEmployees: appointment.saleEmployees
-          ?.map(employee => employee.organization?.id)
-          .filter((item): item is string => !!item),
+        departmentOfSaleEmployees: uniq(
+          (appointment.saleEmployees ?? [])
+            .map(employee => employee.organization?.id)
+            .filter((item): item is string => !!item),
+        ),
         studentId: appointment.student?.id,
         studentPhoneNumber: appointment.student?.phoneNumber,
         studentSaleEmployees: appointment.saleEmployees?.map(employee => employee.employeeId),
-        studentSchool: appointment.student?.school,
-        studentSource: undefined,
+        studentSchool: appointment.student?.school?.id,
+        studentSource: appointment.student?.source,
         tester: appointment.tester?.id,
         testShiftId: appointment.testingShift?.id,
         testType: appointment.testType,

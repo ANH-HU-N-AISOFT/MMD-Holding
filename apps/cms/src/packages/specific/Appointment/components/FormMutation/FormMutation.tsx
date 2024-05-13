@@ -1,6 +1,7 @@
 import { Divider, Input, Radio } from 'antd';
 import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
+import { uniq } from 'ramda';
 import { useTranslation } from 'react-i18next';
 import { Field, useDeepCompareEffect } from 'reactjs';
 import { getFormMutationResolver } from './zodResolver';
@@ -156,8 +157,14 @@ export const FormMutation = ({
                   setValue('studentPhoneNumber', option?.rawData.phoneNumber);
                   setValue('studentSchool', option?.rawData.school?.id);
                   setValue('studentSource', option?.rawData.source);
-                  setValue('studentSaleEmployees', option?.rawData.supporters?.map(supporter => supporter.id));
-                  setValue('departmentOfSaleEmployees', option?.rawData.supporterOrganizationIds?.map(item => item.id));
+                  setValue(
+                    'studentSaleEmployees',
+                    uniq((option?.rawData.supporters ?? []).map(supporter => supporter.id)),
+                  );
+                  setValue(
+                    'departmentOfSaleEmployees',
+                    uniq((option?.rawData.supporterOrganizationIds ?? []).map(item => item.id)),
+                  );
                   if (errors.studentId) {
                     trigger('studentId');
                   }
