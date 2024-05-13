@@ -11,7 +11,7 @@ export const resetPassword = async ({ id, newPassword }: ResetPassword) => {
     method: 'POST',
     url: `/students/reset-password`,
     data: {
-      id,
+      studentId: id,
       newPassword,
     },
   });
