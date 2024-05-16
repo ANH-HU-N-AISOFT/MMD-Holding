@@ -16,13 +16,12 @@
   "create_failure": "Tạo thất bại",
   "update_failure": "Cập nhật thất bại",
   "update_success": "Cập nhật thành công",
-  "search_placeholder": "Nhập tên lộ trình học hoặc khoá học",
+  "search_placeholder": "Nhập tên Combo, tên lộ trình học hoặc mã lộ trình học",
   "not_found": "Không tìm thấy lộ trình học",
   "back_to_list": "Quay lại danh sách",
 
-  "name": "Lộ trình học",
-  "code": "Mã lộ trình học",
-  "course": "Khóa học",
+  "name": "Tên combo",
+  "course_roadmap": "Lộ trình học",
   "number_session_with_measure": "Thời gian (buổi)",
   "session_duration_with_measure": "Thời lượng buổi học (phút)",
   "fee_with_measure": "Học phí (VNĐ / buổi)",
@@ -31,8 +30,7 @@
   "fee": "Học phí",
   "status": "Trạng thái",
   "description": "Ghi chú",
-  "course_roadmaps": "Danh sách lộ trình học",
-  "course_roadmap": "Lộ trình học",
-  "course_roadmap_with_name": "Lộ trình học - {{ name }}",
-  "add_course_roadmap": "Thêm lộ trình học"
+  "course_combos": "Danh sách combo",
+  "add_course_combo": "Thêm combo",
+  "course_combo_with_name": "Combo - {{ name }}"
 }

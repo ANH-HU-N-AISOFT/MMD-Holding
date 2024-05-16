@@ -20,12 +20,12 @@ import {
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
-import { Edit } from '~/packages/specific/CourseRoadmap/components/Edit/Edit';
-import { FormValues } from '~/packages/specific/CourseRoadmap/components/FormMutation/FormMutation';
-import { getFormMutationResolver } from '~/packages/specific/CourseRoadmap/components/FormMutation/zodResolver';
-import { CourseRoadmap } from '~/packages/specific/CourseRoadmap/models/CourseRoadmap';
-import { getCourseRoadmap } from '~/packages/specific/CourseRoadmap/services/getCourseRoadmap';
-import { updateCourseRoadmap } from '~/packages/specific/CourseRoadmap/services/updateCourseRoadmap';
+import { Edit } from '~/packages/specific/CourseCombo/components/Edit/Edit';
+import { FormValues } from '~/packages/specific/CourseCombo/components/FormMutation/FormMutation';
+import { getFormMutationResolver } from '~/packages/specific/CourseCombo/components/FormMutation/zodResolver';
+import { CourseCombo } from '~/packages/specific/CourseCombo/models/CourseCombo';
+import { getCourseCombo } from '~/packages/specific/CourseCombo/services/getCourseCombo';
+import { updateCourseCombo } from '~/packages/specific/CourseCombo/services/updateCourseCombo';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
@@ -36,7 +36,7 @@ export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request, params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
   isCanAccessRoute({ accept: [Role.Admin] });
   if (!params['id']) {
-    return redirect('/course-roadmap', {});
+    return redirect('/course-combo', {});
   }
   const t = i18next.t;
   try {
@@ -45,18 +45,14 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
       getFormMutationResolver(t as TFunction<any>),
     );
     if (data) {
-      await updateCourseRoadmap({
+      await updateCourseCombo({
         id: params['id'],
         data: {
           id: params['id'],
           name: data.name,
+          courseRoadmapIds: data.courseRoadmapIds,
           notes: data.description,
           status: data.status,
-          code: data.code,
-          courseId: data.courseId,
-          numberSessions: data.numberSessions,
-          price: data.price,
-          sessionDuration: data.sessionDuration,
         },
       });
       return json({
@@ -71,17 +67,17 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
   }
 };
 
-type LoaderResponse = SimpleResponse<{ courseRoadmap: CourseRoadmap }, undefined>;
+type LoaderResponse = SimpleResponse<{ courseCombo: CourseCombo }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
   isCanAccessRoute({ accept: [Role.Admin] });
   if (!params['id']) {
-    return redirect('/course-roadmap', {});
+    return redirect('/course-combo', {});
   }
   try {
-    const response = await getCourseRoadmap({ id: params['id'] });
+    const response = await getCourseCombo({ id: params['id'] });
     return json({
       info: {
-        courseRoadmap: response,
+        courseCombo: response,
       },
       hasError: false,
       message: '',
@@ -94,7 +90,7 @@ export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedRespo
 const FormUpdate = 'FORM_UPDATE';
 export const Page = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation(['course_roadmap']);
+  const { t } = useTranslation(['course_combo']);
 
   const loaderData = useLoaderData<typeof loader>();
 
@@ -109,12 +105,12 @@ export const Page = () => {
     if (actionData) {
       if (actionData.hasError) {
         notification.error({
-          message: t('course_roadmap:update_failure'),
+          message: t('course_combo:update_failure'),
           description: handleGetMessageToToast(t, actionData),
         });
       } else {
-        notification.success({ message: t('course_roadmap:update_success') });
-        navigate('/course-roadmap');
+        notification.success({ message: t('course_combo:update_success') });
+        navigate('/course-combo');
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -124,10 +120,10 @@ export const Page = () => {
     return (
       <Result
         status="404"
-        title={t('course_roadmap:not_found')}
+        title={t('course_combo:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/course-roadmap')}>
-            {t('course_roadmap:back_to_list')}
+          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/course-combo')}>
+            {t('course_combo:back_to_list')}
           </Button>
         }
       />
@@ -137,16 +133,16 @@ export const Page = () => {
   return (
     <div className="flex flex-col h-full">
       <Header
-        title={t('course_roadmap:course_roadmap_with_name', { name: loaderData.info?.courseRoadmap.name })}
-        onBack={() => navigate('/course-roadmap')}
+        title={t('course_combo:course_combo_with_name', { name: loaderData.info?.courseCombo.name })}
+        onBack={() => navigate('/course-combo')}
       />
       <div className="flex-1 mb-4">
-        <Edit isSubmiting={isSubmiting} uid={FormUpdate} courseRoadmap={loaderData.info?.courseRoadmap} />
+        <Edit isSubmiting={isSubmiting} uid={FormUpdate} courseCombo={loaderData.info?.courseCombo} />
       </div>
       <Footer
         isLoading={isSubmiting}
         okConfirmProps={{ form: FormUpdate, htmlType: 'submit' }}
-        onCancel={() => navigate('/course-roadmap')}
+        onCancel={() => navigate('/course-combo')}
       />
     </div>
   );

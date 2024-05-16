@@ -25,6 +25,7 @@ i18n
       'appointment',
       'course',
       'course_roadmap',
+      'course_combo',
     ],
     supportedLngs: ['en'],
     fallbackNS: 'en',

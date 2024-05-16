@@ -20,6 +20,7 @@ import * as TestStudy from './routes/_dashboard.test-study';
 import * as RootLayout from './routes/_index';
 import AppointmentRoutes from './routes/Appointment';
 import CourseRoutes from './routes/Course';
+import CourseComboRoutes from './routes/CourseCombo';
 import CourseRoadmapRoutes from './routes/CourseRoadmap';
 import DepartmentRoutes from './routes/Department';
 import EmployeeRoutes from './routes/Employee';
@@ -161,6 +162,7 @@ const router = createBrowserRouter([
           ...AppointmentRoutes,
           ...CourseRoutes,
           ...CourseRoadmapRoutes,
+          ...CourseComboRoutes,
         ],
       },
     ],

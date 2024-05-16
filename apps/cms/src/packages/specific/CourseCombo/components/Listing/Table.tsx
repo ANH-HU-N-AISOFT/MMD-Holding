@@ -3,8 +3,8 @@ import { Button, Tag, Typography } from 'antd';
 import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
-import { CourseRoadmapStatusMappingToColors } from '../../constants/CourseRoadmapStatusMappingToColors';
-import { CourseRoadmap } from '../../models/CourseRoadmap';
+import { CourseComboStatusMappingToColors } from '../../constants/CourseComboStatusMappingToColors';
+import { CourseCombo } from '../../models/CourseCombo';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
 import { TableActions } from '~/components/TableActions/TableActions';
@@ -13,15 +13,15 @@ import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter'
 
 export interface Props
   extends Pick<
-    TableListingProps<CourseRoadmap>,
+    TableListingProps<CourseCombo>,
     'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading'
   > {
   editable?: boolean;
   deletable?: boolean;
-  onEdit?: (record: CourseRoadmap) => void;
+  onEdit?: (record: CourseCombo) => void;
   onDelete?: (recordKeys: string) => void;
   onDeleteMany?: (recordKeys: string[]) => void;
-  onView?: (record: CourseRoadmap) => void;
+  onView?: (record: CourseCombo) => void;
 }
 
 export const Table = ({
@@ -38,9 +38,9 @@ export const Table = ({
   editable,
   ...props
 }: Props) => {
-  const { t } = useTranslation(['common', 'course_roadmap', 'course']);
+  const { t } = useTranslation(['common', 'course_combo', 'course']);
 
-  const CourseRoadmapStatusMappingToLabels = useMemo(() => {
+  const CourseComboStatusMappingToLabels = useMemo(() => {
     return getCourseStatusMappingToLabels(t);
   }, [t]);
 
@@ -50,7 +50,7 @@ export const Table = ({
   //   return dataSource.every(item => !!selectedRows.find(selectedRow => item.id === selectedRow));
   // }, [dataSource, selectedRows]);
 
-  const columns: ListingColumnType<CourseRoadmap>[] = [
+  const columns: ListingColumnType<CourseCombo>[] = [
     // {
     //   width: 70,
     //   title: (
@@ -98,33 +98,33 @@ export const Table = ({
     },
     {
       width: 350,
-      title: t('course_roadmap:name'),
+      title: t('course_combo:name'),
       render: (_, record) => {
         return <Typography.Link onClick={() => onView?.(record)}>{record.name}</Typography.Link>;
       },
     },
     {
       width: 200,
-      title: t('course_roadmap:course'),
-      render: (_, record) => record.course?.name,
+      title: t('course_combo:course_roadmap'),
+      render: (_, record) => record.courseRoadmap?.map(item => item.name).join(', '),
     },
     {
       width: 160,
-      title: t('course_roadmap:number_session_with_measure'),
-      render: (_, record) => record.numberSessions,
+      title: t('course_combo:number_session_with_measure'),
+      render: (_, record) => record.totalNumberSessions,
     },
     {
       width: 160,
-      title: t('course_roadmap:fee_with_measure'),
-      render: (_, record) => currencyFormatter()(record.price),
+      title: t('course_combo:fee_with_measure'),
+      render: (_, record) => currencyFormatter()(record.totalPrice),
     },
     {
       width: 110,
-      title: t('course_roadmap:status'),
+      title: t('course_combo:status'),
       render: (_, record) => {
         return (
-          <Tag color={CourseRoadmapStatusMappingToColors[record.status]}>
-            {CourseRoadmapStatusMappingToLabels[record.status]}
+          <Tag color={CourseComboStatusMappingToColors[record.status]}>
+            {CourseComboStatusMappingToLabels[record.status]}
           </Tag>
         );
       },
@@ -133,27 +133,27 @@ export const Table = ({
       width: 80,
       align: 'center',
       fixed: 'right',
-      title: t('course_roadmap:action'),
+      title: t('course_combo:action'),
       render: (_, record) => {
         return (
           <TableActions
             items={[
               {
                 key: '1',
-                label: t('course_roadmap:edit'),
+                label: t('course_combo:edit'),
                 icon: <EditOutlined />,
                 onClick: () => onEdit?.(record),
                 hidden: !editable,
               },
               {
                 key: '2',
-                label: t('course_roadmap:view'),
+                label: t('course_combo:view'),
                 icon: <EyeOutlined />,
                 onClick: () => onView?.(record),
               },
               {
                 key: '3',
-                label: t('course_roadmap:delete'),
+                label: t('course_combo:delete'),
                 icon: <DeleteOutlined />,
                 danger: true,
                 onClick: () => onDelete?.(record.id),
@@ -168,7 +168,7 @@ export const Table = ({
 
   return (
     <>
-      <TableListing<CourseRoadmap>
+      <TableListing<CourseCombo>
         {...props}
         dataSource={dataSource}
         columns={columns}
@@ -197,14 +197,14 @@ export const Table = ({
       <SickyAction isVisible={!!selectedRows.length}>
         <div className="min-w-[400px] flex items-center justify-between">
           <Highlighter
-            textToHighlight={t('course_roadmap:total_records_selected', {
+            textToHighlight={t('course_combo:total_records_selected', {
               total: selectedRows.length,
             })}
             searchWords={[selectedRows.length.toString()]}
             highlightClassName="bg-transparent font-semibold"
           />
           <Button danger onClick={() => onDeleteMany?.(selectedRows)}>
-            {t('course_roadmap:delete')}
+            {t('course_combo:delete')}
           </Button>
         </div>
       </SickyAction>

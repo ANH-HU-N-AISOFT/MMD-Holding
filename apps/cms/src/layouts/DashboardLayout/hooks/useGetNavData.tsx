@@ -64,9 +64,9 @@ export const useGetNavData = () => {
       label: t('dashboard_layout:menu.consultation'),
       children: [
         {
-          key: '/course_combo',
+          key: '/course-combo',
           label: t('dashboard_layout:menu.course_combo'),
-          onClick: () => navigate('/course_combo'),
+          onClick: () => navigate('/course-combo'),
         },
         {
           key: '/course-roadmap',

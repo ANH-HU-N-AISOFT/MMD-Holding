@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import {
   ActionResponse as ActionDeleteCourseResponse,
   action as actionDeleteCourse,
-} from './_dashboard.course-roadmap.$id.delete';
+} from './_dashboard.course-combo.$id.delete';
 import { Footer } from '~/components/Detail/Footer';
 import { Header } from '~/components/Detail/Header';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
@@ -21,25 +21,25 @@ import {
 } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
-import { Detail } from '~/packages/specific/CourseRoadmap/components/Detail/Detail';
-import { CourseRoadmap } from '~/packages/specific/CourseRoadmap/models/CourseRoadmap';
-import { getCourseRoadmap } from '~/packages/specific/CourseRoadmap/services/getCourseRoadmap';
+import { Detail } from '~/packages/specific/CourseCombo/components/Detail/Detail';
+import { CourseCombo } from '~/packages/specific/CourseCombo/models/CourseCombo';
+import { getCourseCombo } from '~/packages/specific/CourseCombo/services/getCourseCombo';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
-type LoaderResponse = SimpleResponse<{ courseRoadmap: CourseRoadmap }, undefined>;
+type LoaderResponse = SimpleResponse<{ courseCombo: CourseCombo }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
   if (!params['id']) {
-    return redirect('/course-roadmap', {});
+    return redirect('/course-combo', {});
   }
   try {
-    const response = await getCourseRoadmap({ id: params['id'] });
+    const response = await getCourseCombo({ id: params['id'] });
     return json({
       hasError: false,
       message: '',
       info: {
-        courseRoadmap: response,
+        courseCombo: response,
       },
     });
   } catch (error) {
@@ -48,7 +48,7 @@ export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedRespo
 };
 
 export const Page = () => {
-  const { t } = useTranslation(['course_roadmap', 'page404']);
+  const { t } = useTranslation(['course_combo', 'page404']);
   const navigate = useNavigate();
 
   const loaderData = useLoaderData<typeof loader>();
@@ -62,7 +62,7 @@ export const Page = () => {
   const [isOpenModalDeleteCourse, setIsOpenModalDeleteCourse] = useState<string | false>(false);
 
   const handleDelete = () => {
-    deleteCourseFetcher.submit({}, { method: 'DELETE', action: `/course-roadmap/${isOpenModalDeleteCourse}/delete` });
+    deleteCourseFetcher.submit({}, { method: 'DELETE', action: `/course-combo/${isOpenModalDeleteCourse}/delete` });
   };
 
   useEffect(() => {
@@ -70,12 +70,12 @@ export const Page = () => {
       const response = deleteCourseFetcher.data as ActionDeleteCourseResponse;
       if (response.hasError) {
         notification.error({
-          message: t('course_roadmap:delete_failure'),
+          message: t('course_combo:delete_failure'),
           description: handleGetMessageToToast(t, response),
         });
       } else {
-        notification.success({ message: t('course_roadmap:delete_success') });
-        navigate('/course-roadmap');
+        notification.success({ message: t('course_combo:delete_success') });
+        navigate('/course-combo');
         setIsOpenModalDeleteCourse(false);
       }
     }
@@ -87,10 +87,10 @@ export const Page = () => {
     return (
       <Result
         status="404"
-        title={t('course_roadmap:not_found')}
+        title={t('course_combo:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/course-roadmap')}>
-            {t('course_roadmap:back_to_list')}
+          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/course-combo')}>
+            {t('course_combo:back_to_list')}
           </Button>
         }
       />
@@ -101,18 +101,18 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          title={t('course_roadmap:course_roadmap_with_name', {
-            name: loaderData.info?.courseRoadmap.name,
+          title={t('course_combo:course_combo_with_name', {
+            name: loaderData.info?.courseCombo.name,
           })}
-          onBack={() => navigate('/course-roadmap')}
+          onBack={() => navigate('/course-combo')}
         />
         <div className="flex-1 mb-4">
-          <Detail courseRoadmap={loaderData.info?.courseRoadmap} />
+          <Detail courseCombo={loaderData.info?.courseCombo} />
         </div>
         {isCanShow({ accept: [Role.Admin] }) && (
           <Footer
-            onDelete={() => setIsOpenModalDeleteCourse(loaderData.info?.courseRoadmap.id ?? false)}
-            onEdit={() => navigate(`/course-roadmap/${loaderData.info?.courseRoadmap.id}/edit`)}
+            onDelete={() => setIsOpenModalDeleteCourse(loaderData.info?.courseCombo.id ?? false)}
+            onEdit={() => navigate(`/course-combo/${loaderData.info?.courseCombo.id}/edit`)}
           />
         )}
       </div>
@@ -120,8 +120,8 @@ export const Page = () => {
         open={!!isOpenModalDeleteCourse}
         onCancel={() => setIsOpenModalDeleteCourse(false)}
         onOk={handleDelete}
-        title={t('course_roadmap:delete_title')}
-        description={t('course_roadmap:delete_description')}
+        title={t('course_combo:delete_title')}
+        description={t('course_combo:delete_description')}
         loading={isDeleting}
       />
     </>
