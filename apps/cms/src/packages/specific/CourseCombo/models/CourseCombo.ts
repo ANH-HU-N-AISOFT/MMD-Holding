@@ -18,5 +18,4 @@ export interface CourseCombo {
   }>;
   totalNumberSessions: number;
   totalPrice: number;
-  totalSessionDuration: number;
 }

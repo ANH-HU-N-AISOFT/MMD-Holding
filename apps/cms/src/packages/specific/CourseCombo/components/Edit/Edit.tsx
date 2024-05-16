@@ -21,7 +21,11 @@ export const Edit = ({ courseCombo, ...formProps }: Props) => {
         status: courseCombo.status,
         totalNumberSessions: courseCombo.totalNumberSessions,
         totalPrice: courseCombo.totalPrice,
-        totalSessionDuration: courseCombo.totalSessionDuration,
+        displayTotalSessionDuration: courseCombo.courseRoadmap
+          ?.map(courseRoadmap => {
+            return [courseRoadmap.code, courseRoadmap.sessionDuration].join(' - ');
+          })
+          .join(', '),
       }}
     />
   );

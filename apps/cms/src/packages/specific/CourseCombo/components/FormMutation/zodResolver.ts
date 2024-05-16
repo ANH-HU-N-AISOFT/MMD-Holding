@@ -31,8 +31,9 @@ export const getFormMutationSchema = (t: TFunction<['common', 'course_combo']>) 
     name: string({ required_error: name.required }).trim().min(3, name.length).max(32, name.length),
     courseRoadmapIds: array(string(), { required_error: courseRoadmapIds.required }).min(1, courseRoadmapIds.required),
     totalNumberSessions: number().optional().nullable(),
-    totalSessionDuration: number().optional().nullable(),
     totalPrice: number().optional().nullable(),
+
+    displayTotalSessionDuration: string().optional().nullable(),
     // totalNumberSessions: number({ required_error: totalNumberSessions.required }).min(0, totalNumberSessions.required),
     // totalSessionDuration: number({ required_error: totalSessionDuration.required }).min(
     //   0,

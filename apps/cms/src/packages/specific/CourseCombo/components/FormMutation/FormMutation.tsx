@@ -50,7 +50,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
   const name = watch('name');
   const courseRoadmapIds = watch('courseRoadmapIds');
   const totalNumberSessions = watch('totalNumberSessions');
-  const totalSessionDuration = watch('totalSessionDuration');
+  const displayTotalSessionDuration = watch('displayTotalSessionDuration');
   const totalPrice = watch('totalPrice');
   const status = watch('status');
   const description = watch('description');
@@ -103,15 +103,17 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                         return courseRoadmap.rawData.numberSessions;
                       }),
                     );
-                    const totalSessionDuration = sum(
-                      (courseRoadmaps ?? [])?.map(courseRoadmap => {
-                        return courseRoadmap.rawData.sessionDuration;
-                      }),
-                    );
                     setValue('courseRoadmapIds', value);
                     setValue('totalPrice', totalPrice);
                     setValue('totalNumberSessions', totalNumberSessions);
-                    setValue('totalSessionDuration', totalSessionDuration);
+                    setValue(
+                      'displayTotalSessionDuration',
+                      courseRoadmaps
+                        ?.map(courseRoadmap => {
+                          return [courseRoadmap.rawData.code, courseRoadmap.rawData.sessionDuration].join(' - ');
+                        })
+                        .join(', '),
+                    );
                     if (errors.courseRoadmapIds) {
                       trigger('courseRoadmapIds');
                     }
@@ -135,17 +137,19 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                 }}
               />
             </Field>
-            <Field label={t('course_combo:session_duration_with_measure')} error={errors.totalSessionDuration?.message}>
-              <InputNumber
-                min={0}
+            <Field
+              label={t('course_combo:session_duration_with_measure')}
+              error={errors.displayTotalSessionDuration?.message}
+            >
+              <Input
                 className="w-full"
                 disabled
                 placeholder={t('course_combo:session_duration_with_measure')}
-                value={totalSessionDuration}
-                onChange={value => {
-                  setValue('totalSessionDuration', value ?? undefined);
-                  if (errors.totalSessionDuration) {
-                    trigger('totalSessionDuration');
+                value={displayTotalSessionDuration ?? undefined}
+                onChange={event => {
+                  setValue('displayTotalSessionDuration', event.target.value);
+                  if (errors.displayTotalSessionDuration) {
+                    trigger('displayTotalSessionDuration');
                   }
                 }}
               />
