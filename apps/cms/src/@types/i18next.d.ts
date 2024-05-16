@@ -3,7 +3,7 @@ import type appointment from 'public/locales/en/appointment.json';
 import type auth from 'public/locales/en/auth.json';
 import type common from 'public/locales/en/common.json';
 import type components from 'public/locales/en/components.json';
-import type customer_management from 'public/locales/en/customer_management.json';
+import type course from 'public/locales/en/course.json';
 import type dashboard_layout from 'public/locales/en/dashboard_layout.json';
 import type department from 'public/locales/en/department.json';
 import type employee from 'public/locales/en/employee.json';
@@ -26,13 +26,13 @@ declare module 'i18next' {
       page403: typeof page403;
       page500: typeof page500;
       dashboard_layout: typeof dashboard_layout;
-      customer_management: typeof customer_management;
       department: typeof department;
       error_message: typeof error_message;
       location: typeof location;
       employee: typeof employee;
       student: typeof student;
       appointment: typeof appointment;
+      course: typeof course;
     };
   }
 }

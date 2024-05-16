@@ -3,7 +3,6 @@ import { any, number, object, string } from 'zod';
 
 export const lisitngUrlSearchParamsSchema = object({
   page: number().optional(),
-  pageSize: number().optional(),
   search: any().optional(),
   status: string().optional(),
 });

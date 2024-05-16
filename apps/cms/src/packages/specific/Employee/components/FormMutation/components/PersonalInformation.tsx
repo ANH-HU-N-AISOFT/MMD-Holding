@@ -251,6 +251,9 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       <div className="md:col-span-2">
         <Field label={t('employee:note')} error={errors.personalInformation?.notes?.message}>
           <Input.TextArea
+            minLength={0}
+            maxLength={256}
+            showCount
             value={notes ?? undefined}
             onChange={event => {
               setValue('personalInformation.notes', event.target.value);

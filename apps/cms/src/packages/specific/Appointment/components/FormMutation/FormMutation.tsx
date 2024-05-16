@@ -356,6 +356,9 @@ export const FormMutation = ({
             <div className="md:col-span-2">
               <Field label={t('appointment:note')} error={errors.note?.message}>
                 <Input.TextArea
+                  minLength={0}
+                  maxLength={256}
+                  showCount
                   value={note ?? undefined}
                   onChange={event => {
                     setValue('note', event.target.value);

@@ -92,5 +92,12 @@
       "full_ielts_test": "Test Full IELTS",
       "mini_ielts_test": "Test Mini IELTS"
     }
+  },
+  "courseStatus": {
+    "label": "Trạng thái",
+    "options": {
+      "ACTIVE": "Mở",
+      "IN_ACTIVE": "Đóng"
+    }
   }
 }

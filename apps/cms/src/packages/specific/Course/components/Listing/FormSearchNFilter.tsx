@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Field, useDeepCompareEffect } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
@@ -8,6 +7,8 @@ import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
+import { CourseStatus } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatus';
+import { SelectCourseStatus } from '~/packages/common/SelectVariants/CourseStatus/SelectCourseStatus';
 
 export interface FormFilterValues extends Pick<ListingSearchParams, 'status'> {}
 
@@ -18,6 +19,7 @@ interface FormFilterProps {
   formFilterValues?: FormFilterValues;
   searchValue?: string;
   onSearch?: (value: string) => void;
+  containerClassName?: string;
 }
 
 const UID = 'FORM_FILTER_LISTING_CUSTOMER_MANAGEMENT';
@@ -28,8 +30,9 @@ export const FormSearchNFilter = ({
   isSubmiting,
   onResetFilter,
   onFilter,
+  containerClassName,
 }: FormFilterProps) => {
-  const { t } = useTranslation(['customer_management']);
+  const { t } = useTranslation(['common', 'course']);
 
   const {
     handleSubmit,
@@ -59,9 +62,11 @@ export const FormSearchNFilter = ({
 
   return (
     <SearchNFilter
+      inputClassName="md:!max-w-[450px]"
+      containerClassName={containerClassName}
       isSubmiting={isSubmiting}
       search={{
-        placeholder: t('customer_management:search_placeholder'),
+        placeholder: t('course:search_placeholder'),
         searchValue: searchValue,
         onSearch: onSearch,
       }}
@@ -71,20 +76,14 @@ export const FormSearchNFilter = ({
         count: getCountForFilterDrawer({ fieldKeys: ['status'], formFilterValues }),
         form: (
           <Form method="GET" id={UID} onSubmit={handleSubmit}>
-            <Field label={t('customer_management:status')} error={errors.status?.message}>
-              <Select
-                allowClear
-                className="w-full"
-                placeholder={t('customer_management:status')}
-                value={status}
+            <Field label={t('course:status')} error={errors.status?.message}>
+              <SelectCourseStatus
+                placeholder={t('course:status')}
+                courseStatus={status as CourseStatus | undefined}
                 onChange={value => {
                   setValue('status', value);
                   trigger('status');
                 }}
-                options={[
-                  { value: 'Active', label: 'Active' },
-                  { value: 'Inactive', label: 'Inactive' },
-                ]}
               />
             </Field>
           </Form>

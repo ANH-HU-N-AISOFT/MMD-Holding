@@ -64,24 +64,19 @@ export const useGetNavData = () => {
       label: t('dashboard_layout:menu.consultation'),
       children: [
         {
-          key: '/course-management-individual',
-          label: t('dashboard_layout:menu.course_management_individual'),
-          onClick: () => navigate('/course-management-individual'),
+          key: '/course_combo',
+          label: t('dashboard_layout:menu.course_combo'),
+          onClick: () => navigate('/course_combo'),
         },
         {
-          key: '/course-combo-management',
-          label: t('dashboard_layout:menu.course_combo_management'),
-          onClick: () => navigate('/course-combo-management'),
+          key: '/roadmap',
+          label: t('dashboard_layout:menu.roadmap'),
+          onClick: () => navigate('/roadmap'),
         },
         {
-          key: '/promotion-program-management',
-          label: t('dashboard_layout:menu.promotion_program_management'),
-          onClick: () => navigate('/promotion-program-management'),
-        },
-        {
-          key: '/course-registration-for-customer',
-          label: t('dashboard_layout:menu.course_registration_for_customer'),
-          onClick: () => navigate('/course-registration-for-customer'),
+          key: '/course',
+          label: t('dashboard_layout:menu.course'),
+          onClick: () => navigate('/course'),
         },
       ],
     },

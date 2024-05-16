@@ -12,7 +12,6 @@ import * as ContractTemplateManagement from './routes/_dashboard.contract-templa
 import * as CourseComboManagement from './routes/_dashboard.course-combo-management';
 import * as CourseManagementIndividual from './routes/_dashboard.course-management-individual';
 import * as CourseRegistrationForCustomer from './routes/_dashboard.course-registration-for-customer';
-import * as CustomerManagement from './routes/_dashboard.customer-management';
 import * as Dashboard from './routes/_dashboard.dashboard';
 import * as Appointment from './routes/_dashboard.input-assessment-schedule';
 import * as InputCheck from './routes/_dashboard.input-check';
@@ -20,6 +19,7 @@ import * as PromotionProgramManagement from './routes/_dashboard.promotion-progr
 import * as TestStudy from './routes/_dashboard.test-study';
 import * as RootLayout from './routes/_index';
 import AppointmentRoutes from './routes/Appointment';
+import CourseRoutes from './routes/Course';
 import DepartmentRoutes from './routes/Department';
 import EmployeeRoutes from './routes/Employee';
 import * as Logout from './routes/logout';
@@ -119,16 +119,6 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: '/customer-management',
-            errorElement: <CustomerManagement.ErrorBoundary />,
-            loader: CustomerManagement.loader,
-            element: (
-              <Suspense fallback={null}>
-                <CustomerManagement.Page />
-              </Suspense>
-            ),
-          },
-          {
             path: '/input-assessment-schedule',
             errorElement: <Appointment.ErrorBoundary />,
             element: (
@@ -168,6 +158,7 @@ const router = createBrowserRouter([
           ...EmployeeRoutes,
           ...StudentRoutes,
           ...AppointmentRoutes,
+          ...CourseRoutes,
         ],
       },
     ],
