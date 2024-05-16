@@ -69,9 +69,9 @@ export const useGetNavData = () => {
           onClick: () => navigate('/course_combo'),
         },
         {
-          key: '/roadmap',
-          label: t('dashboard_layout:menu.roadmap'),
-          onClick: () => navigate('/roadmap'),
+          key: '/course-roadmap',
+          label: t('dashboard_layout:menu.course_roadmap'),
+          onClick: () => navigate('/course-roadmap'),
         },
         {
           key: '/course',

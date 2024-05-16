@@ -1,6 +1,7 @@
 import { ChangeEvent } from 'react';
 
-export const takeOnlyNumber = (event: ChangeEvent<HTMLInputElement>) => {
-  const numbersArray = event.target.value.match(/\d+/g) ?? [];
+export const takeOnlyNumber = (eventOrValue: ChangeEvent<HTMLInputElement> | string) => {
+  const value = typeof eventOrValue === 'string' ? eventOrValue : eventOrValue.target.value;
+  const numbersArray = value.match(/\d+/g) ?? [];
   return numbersArray.join('');
 };

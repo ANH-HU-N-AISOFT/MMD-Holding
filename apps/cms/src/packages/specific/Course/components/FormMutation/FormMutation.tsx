@@ -96,7 +96,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               />
             </Field>
             <div className="md:col-span-2">
-              <Field withRequiredMark label={t('course:description')} error={errors.description?.message}>
+              <Field label={t('course:description')} error={errors.description?.message}>
                 <Input.TextArea
                   minLength={0}
                   maxLength={256}

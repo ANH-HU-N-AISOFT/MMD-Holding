@@ -16,7 +16,7 @@
   "create_failure": "Tạo thất bại",
   "update_failure": "Cập nhật thất bại",
   "update_success": "Cập nhật thành công",
-  "search_placeholder": "Nhập tên học viên, sđt học viên hoặc tên nhân viên",
+  "search_placeholder": "Nhập tên khoá học",
   "not_found": "Không tìm thấy khoá học",
   "back_to_list": "Quay lại danh sách",
 
@@ -25,5 +25,6 @@
   "description": "Ghi chú",
   "courses": "Danh sách khoá học",
   "course_with_name": "Khoá học - {{ name }}",
-  "add_course": "Thêm Khoá học"
+  "add_course": "Thêm Khoá học",
+  "course": "Khoá học"
 }

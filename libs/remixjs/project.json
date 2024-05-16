@@ -1,9 +1,9 @@
 {
   "name": "remixjs",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "tags": [],
   "sourceRoot": "libs/remixjs/src",
   "projectType": "library",
+  "tags": [],
   "targets": {
     "lint": {
       "executor": "@nx/linter:eslint",

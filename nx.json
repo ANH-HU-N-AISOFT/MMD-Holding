@@ -5,29 +5,38 @@
       "inputs": [
         "default",
         "{workspaceRoot}/.stylelintrc(.(json|yml|yaml|js))?"
-      ]
+      ],
+      "cache": true
+    },
+    "build": {
+      "inputs": ["production", "^production"],
+      "cache": true
+    },
+    "lint": {
+      "cache": true
+    },
+    "typecheck": {
+      "cache": true
+    },
+    "test": {
+      "cache": true
+    },
+    "e2e": {
+      "cache": true
+    },
+    "build-storybook": {
+      "cache": true
     }
   },
   "workspaceLayout": {
     "appsDir": "apps",
     "libsDir": "libs"
   },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "typecheck",
-          "test",
-          "e2e",
-          "build-storybook",
-          "stylelint"
-        ],
-        "accessToken": "MTM5NzhiMjYtNTc5MC00ZmY3LTlkYWEtN2EzNTMxMzJiOTFmfHJlYWQtd3JpdGU="
-      }
-    }
+  "useDaemonProcess": false,
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "sharedGlobals": [],
+    "production": ["default"]
   },
-  "useDaemonProcess": false
+  "nxCloudAccessToken": "MTM5NzhiMjYtNTc5MC00ZmY3LTlkYWEtN2EzNTMxMzJiOTFmfHJlYWQtd3JpdGU="
 }

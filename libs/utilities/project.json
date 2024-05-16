@@ -3,12 +3,16 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/utilities/src",
   "projectType": "library",
+  "tags": [],
   "targets": {
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["{projectRoot}/**/*.ts", "{projectRoot}/package.json"],
+        "lintFilePatterns": [
+          "{projectRoot}/**/*.ts",
+          "{projectRoot}/package.json"
+        ],
         "fix": true
       }
     },
@@ -19,6 +23,5 @@
         "commands": ["tsc -p tsconfig.json --noEmit"]
       }
     }
-  },
-  "tags": []
+  }
 }

@@ -10,9 +10,9 @@ import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { CourseStatus } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatus';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
-import { FormMutation, FormValues } from '~/packages/specific/Course/components/FormMutation/FormMutation';
-import { getFormMutationResolver } from '~/packages/specific/Course/components/FormMutation/zodResolver';
-import { createCourse } from '~/packages/specific/Course/services/createCourse';
+import { FormMutation, FormValues } from '~/packages/specific/CourseRoadmap/components/FormMutation/FormMutation';
+import { getFormMutationResolver } from '~/packages/specific/CourseRoadmap/components/FormMutation/zodResolver';
+import { createCourseRoadmap } from '~/packages/specific/CourseRoadmap/services/createCourseRoadmap';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
@@ -28,10 +28,15 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
       getFormMutationResolver(t as TFunction<any>),
     );
     if (data) {
-      await createCourse({
+      await createCourseRoadmap({
         name: data.name,
         notes: data.description,
         status: data.status,
+        code: data.code,
+        courseId: data.courseId,
+        numberSessions: data.numberSessions,
+        price: data.price,
+        sessionDuration: data.sessionDuration,
       });
       return json({
         hasError: false,
@@ -48,7 +53,7 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
 const FormCreateUid = 'FORM_CREATE';
 export const Page = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation(['course']);
+  const { t } = useTranslation(['course_roadmap']);
 
   const navigation = useNavigation();
   const actionData = useActionData<typeof action>();
@@ -61,26 +66,26 @@ export const Page = () => {
     if (actionData) {
       if (actionData.hasError) {
         notification.error({
-          message: t('course:create_failure'),
+          message: t('course_roadmap:create_failure'),
           description: handleGetMessageToToast(t, actionData),
         });
       } else {
-        notification.success({ message: t('course:create_success') });
-        navigate('/course');
+        notification.success({ message: t('course_roadmap:create_success') });
+        navigate('/course-roadmap');
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actionData]);
   return (
     <div className="flex flex-col h-full">
-      <Header title={t('course:add_course')} onBack={() => navigate('/course')} />
+      <Header title={t('course_roadmap:add_course')} onBack={() => navigate('/course-roadmap')} />
       <div className="flex-1 mb-4">
         <FormMutation isSubmiting={isSubmiting} uid={FormCreateUid} defaultValues={{ status: CourseStatus.ACTIVE }} />
       </div>
       <Footer
         isLoading={isSubmiting}
         okConfirmProps={{ form: FormCreateUid, htmlType: 'submit' }}
-        onCancel={() => navigate('/course')}
+        onCancel={() => navigate('/course-roadmap')}
       />
     </div>
   );
