@@ -160,7 +160,8 @@ export const Page = () => {
       <div className="flex flex-col h-full">
         <Header
           creatable={isCanShow({ accept: [Role.Admin] })}
-          importable={isCanShow({ accept: [Role.Admin] })}
+          importable={false}
+          exportable={false}
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/course-roadmap/create')}
