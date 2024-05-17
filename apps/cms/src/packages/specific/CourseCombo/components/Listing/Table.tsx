@@ -8,6 +8,7 @@ import { CourseCombo } from '../../models/CourseCombo';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
 import { TableActions } from '~/components/TableActions/TableActions';
+import { TooltipDetailInformation } from '~/components/TooltipDetailInformation/TooltipDetailInformation';
 import { getCourseStatusMappingToLabels } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatusMappingToLabels';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 
@@ -22,6 +23,7 @@ export interface Props
   onDelete?: (recordKeys: string) => void;
   onDeleteMany?: (recordKeys: string[]) => void;
   onView?: (record: CourseCombo) => void;
+  onViewRoadMap?: (record: Required<CourseCombo>['courseRoadmap'][number]) => void;
 }
 
 export const Table = ({
@@ -34,11 +36,12 @@ export const Table = ({
   onDelete,
   onDeleteMany,
   onView,
+  onViewRoadMap,
   deletable,
   editable,
   ...props
 }: Props) => {
-  const { t } = useTranslation(['common', 'course_combo', 'course']);
+  const { t } = useTranslation(['common', 'course_combo', 'course', 'course_roadmap']);
 
   const CourseComboStatusMappingToLabels = useMemo(() => {
     return getCourseStatusMappingToLabels(t);
@@ -104,17 +107,41 @@ export const Table = ({
       },
     },
     {
-      width: 200,
+      width: 300,
       title: t('course_combo:course_roadmap'),
-      render: (_, record) => record.courseRoadmap?.map(item => item.name).join(', '),
+      render: (_, record) => {
+        return (
+          <ul className="grid grid-cols-1 gap-1 pl-3">
+            {record.courseRoadmap?.map(item => {
+              return (
+                <TooltipDetailInformation
+                  withQuestionMark={false}
+                  key={item.id}
+                  extra={[
+                    [t('course_roadmap:fee_with_measure'), currencyFormatter()(item.price) ?? '0'].join(': '),
+                    [t('course_roadmap:number_session_with_measure'), item.numberSessions].join(': '),
+                  ]}
+                  title={
+                    <li className={record.courseRoadmap && record.courseRoadmap.length > 1 ? '' : 'list-none'}>
+                      <Typography.Link onClick={() => onViewRoadMap?.(item)}>
+                        {item.name} ({item.code})
+                      </Typography.Link>
+                    </li>
+                  }
+                />
+              );
+            })}
+          </ul>
+        );
+      },
     },
     {
-      width: 160,
+      width: 140,
       title: t('course_combo:number_session_with_measure'),
       render: (_, record) => record.totalNumberSessions,
     },
     {
-      width: 160,
+      width: 180,
       title: t('course_combo:fee_with_measure'),
       render: (_, record) => currencyFormatter()(record.totalPrice),
     },

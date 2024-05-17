@@ -22,6 +22,7 @@ export interface Props
   onDelete?: (recordKeys: string) => void;
   onDeleteMany?: (recordKeys: string[]) => void;
   onView?: (record: CourseRoadmap) => void;
+  onViewCourse?: (record: CourseRoadmap) => void;
 }
 
 export const Table = ({
@@ -34,6 +35,7 @@ export const Table = ({
   onDelete,
   onDeleteMany,
   onView,
+  onViewCourse,
   deletable,
   editable,
   ...props
@@ -106,7 +108,9 @@ export const Table = ({
     {
       width: 200,
       title: t('course_roadmap:course'),
-      render: (_, record) => record.course?.name,
+      render: (_, record) => {
+        return <Typography.Link onClick={() => onViewCourse?.(record)}>{record.course?.name}</Typography.Link>;
+      },
     },
     {
       width: 160,

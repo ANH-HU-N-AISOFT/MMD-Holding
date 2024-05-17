@@ -194,6 +194,7 @@ export const Page = () => {
           onDelete={data => setIsOpenModalDeleteCourse(data)}
           onEdit={record => navigate(`/course-combo/${record.id}/edit`)}
           onView={record => navigate(`/course-combo/${record.id}/detail`)}
+          onViewRoadMap={roadmap => window.open(`/course-roadmap/${roadmap.id}/detail`)}
         />
       </div>
       <ModalImport
