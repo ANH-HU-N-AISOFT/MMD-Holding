@@ -16,7 +16,6 @@
     "@typescript-eslint",
     "import",
     "prettier",
-    "jsx-a11y",
     "react",
     "react-hooks"
   ],
@@ -50,7 +49,6 @@
     "plugin:react/recommended",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:jsx-a11y/recommended",
     "plugin:cypress/recommended"
   ],
   "rules": {

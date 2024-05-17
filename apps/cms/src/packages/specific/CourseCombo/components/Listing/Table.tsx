@@ -1,5 +1,6 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 import { Button, Tag, Typography } from 'antd';
+import classNames from 'classnames';
 import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +9,6 @@ import { CourseCombo } from '../../models/CourseCombo';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
 import { TableActions } from '~/components/TableActions/TableActions';
-import { TooltipDetailInformation } from '~/components/TooltipDetailInformation/TooltipDetailInformation';
 import { getCourseStatusMappingToLabels } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatusMappingToLabels';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 
@@ -114,21 +114,18 @@ export const Table = ({
           <ul className="grid grid-cols-1 gap-1 pl-3">
             {record.courseRoadmap?.map(item => {
               return (
-                <TooltipDetailInformation
-                  withQuestionMark={false}
+                <li
                   key={item.id}
-                  extra={[
-                    [t('course_roadmap:fee_with_measure'), currencyFormatter()(item.price) ?? '0'].join(': '),
-                    [t('course_roadmap:number_session_with_measure'), item.numberSessions].join(': '),
-                  ]}
-                  title={
-                    <li className={record.courseRoadmap && record.courseRoadmap.length > 1 ? '' : 'list-none'}>
-                      <Typography.Link onClick={() => onViewRoadMap?.(item)}>
-                        {item.name} ({item.code})
-                      </Typography.Link>
-                    </li>
-                  }
-                />
+                  onClick={() => onViewRoadMap?.(item)}
+                  className={classNames(
+                    'cursor-pointer',
+                    record.courseRoadmap && record.courseRoadmap.length > 1 ? '' : 'list-none',
+                  )}
+                >
+                  <Typography.Link>
+                    {item.name} ({item.code})
+                  </Typography.Link>
+                </li>
               );
             })}
           </ul>
