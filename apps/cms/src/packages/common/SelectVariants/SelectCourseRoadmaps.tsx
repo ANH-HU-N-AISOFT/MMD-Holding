@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { CourseStatus } from './CourseStatus/constants/CourseStatus';
 import {
   SelectMultipleDecoupling,
   SelectMultipleDecouplingProps,
@@ -29,6 +30,7 @@ export const SelectCourseRoadmaps = ({ disabled, courseRoadmaps, allowClear = tr
         const response = await getCourseRoadmaps({
           ...GetAllParams,
           sortByName: 1,
+          status: CourseStatus.ACTIVE,
         });
         return response.items;
       }}

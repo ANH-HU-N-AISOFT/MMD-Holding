@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { CourseStatus } from './CourseStatus/constants/CourseStatus';
 import {
   SelectSingleDecoupling,
   SelectSingleDecouplingProps,
@@ -29,6 +30,7 @@ export const SelectCourse = ({ disabled, course, allowClear = true, placeholder,
         const response = await getCourses({
           ...GetAllParams,
           sortByName: 1,
+          status: CourseStatus.ACTIVE,
         });
         return response.items;
       }}
