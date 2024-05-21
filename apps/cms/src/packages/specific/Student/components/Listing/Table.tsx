@@ -136,13 +136,9 @@ export const Table = ({
               return (
                 <li
                   key={item.id}
-                  onClick={() => onViewDepartment?.(item)}
-                  className={classNames(
-                    'cursor-pointer',
-                    record.organizations && record.organizations.length > 1 ? '' : 'list-none',
-                  )}
+                  className={classNames(record.organizations && record.organizations.length > 1 ? '' : 'list-none')}
                 >
-                  <Typography.Link className="block" key={item.id}>
+                  <Typography.Link onClick={() => onViewDepartment?.(item)} className="block" key={item.id}>
                     {[item.name, item.code].join(' - ')}
                   </Typography.Link>
                 </li>

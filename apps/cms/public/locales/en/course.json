@@ -26,5 +26,7 @@
   "courses": "Danh sách khoá học",
   "course_with_name": "Khoá học - {{ name }}",
   "add_course": "Thêm Khoá học",
-  "course": "Khoá học"
+  "course": "Khoá học",
+  "course_roadmaps": "Danh sách lộ trình học",
+  "search_course_roadmaps_placeholder": "Nhập tên lộ trình học"
 }

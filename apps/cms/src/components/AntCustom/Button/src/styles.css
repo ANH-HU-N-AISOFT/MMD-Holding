@@ -1,5 +1,5 @@
 .Button__container.ant-btn {
-  @apply !gap-1 !flex !items-center;
+  @apply gap-1 flex items-center;
 }
 .Button__container .ant-btn-icon {
   @apply !m-0;

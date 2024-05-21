@@ -17,6 +17,7 @@ export interface SearchNFilterProps {
     onReset?: () => void;
     onApply?: () => void;
     form: ReactNode;
+    hideFilter?: boolean;
   };
   isSubmiting?: boolean;
   containerClassName?: string;
@@ -31,7 +32,7 @@ export const SearchNFilter = ({
   inputClassName,
 }: SearchNFilterProps) => {
   const { placeholder, onSearch, searchValue } = search;
-  const { uid, count, form, onApply, onReset } = filter;
+  const { uid, count, form, onApply, onReset, hideFilter } = filter;
 
   return (
     <div className={classNames('flex gap-2', containerClassName)}>
@@ -46,7 +47,7 @@ export const SearchNFilter = ({
         })}
       />
       <FilterDrawer
-        containerClassName="flex-shrink-0 flex-grow-0 basis-[48px]"
+        containerClassName={classNames('flex-shrink-0 flex-grow-0 basis-[48px]', hideFilter ? '!hidden' : '')}
         isLoading={isSubmiting}
         count={count}
         formId={uid}

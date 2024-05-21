@@ -18,7 +18,7 @@
 }
 
 .TableListing__container.ant-table-wrapper .ant-table-pagination {
-  @apply bg-white !m-0 !py-3 !px-2 border border-solid border-t-transparent border-neutral-300 rounded-bl-lg rounded-br-lg;
+  @apply bg-white !m-0 !py-3 !px-2 border border-solid border-t-transparent border-[#f0f0f0] rounded-bl-lg rounded-br-lg;
 }
 
 /* Phụ thuộc vào padding layout */

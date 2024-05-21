@@ -14,7 +14,7 @@ import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter'
 export interface Props
   extends Pick<
     TableListingProps<CourseRoadmap>,
-    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading'
+    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading' | 'paginationMode'
   > {
   editable?: boolean;
   deletable?: boolean;
@@ -23,6 +23,7 @@ export interface Props
   onDeleteMany?: (recordKeys: string[]) => void;
   onView?: (record: CourseRoadmap) => void;
   onViewCourse?: (record: CourseRoadmap) => void;
+  hideColumnCourse?: boolean;
 }
 
 export const Table = ({
@@ -38,6 +39,7 @@ export const Table = ({
   onViewCourse,
   deletable,
   editable,
+  hideColumnCourse = false,
   ...props
 }: Props) => {
   const { t } = useTranslation(['common', 'course_roadmap', 'course']);
@@ -108,8 +110,12 @@ export const Table = ({
     {
       width: 200,
       title: t('course_roadmap:course'),
+      hidden: hideColumnCourse,
       render: (_, record) => {
-        return <Typography.Link onClick={() => onViewCourse?.(record)}>{record.course?.name}</Typography.Link>;
+        if (onViewCourse) {
+          return <Typography.Link onClick={() => onViewCourse?.(record)}>{record.course?.name}</Typography.Link>;
+        }
+        return record.course?.name;
       },
     },
     {
@@ -181,7 +187,6 @@ export const Table = ({
         totalRecords={totalRecords}
         rowKey={record => record.id}
         tableLayout="fixed"
-        paginationMode="sticky"
         plural={({ from, to }) => {
           return t('common:showing_range_results', {
             from,

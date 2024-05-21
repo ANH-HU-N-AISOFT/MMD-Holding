@@ -6,6 +6,7 @@ import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
 import { CourseComboStatusMappingToColors } from '../../constants/CourseComboStatusMappingToColors';
 import { CourseCombo } from '../../models/CourseCombo';
+import { Collapsed } from '~/components/Collapsed/Collapsed';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
 import { TableActions } from '~/components/TableActions/TableActions';
@@ -112,22 +113,34 @@ export const Table = ({
       render: (_, record) => {
         return (
           <ul className="grid grid-cols-1 gap-1 pl-3">
-            {record.courseRoadmap?.map(item => {
-              return (
-                <li
-                  key={item.id}
-                  onClick={() => onViewRoadMap?.(item)}
-                  className={classNames(
-                    'cursor-pointer',
-                    record.courseRoadmap && record.courseRoadmap.length > 1 ? '' : 'list-none',
-                  )}
-                >
-                  <Typography.Link>
-                    {item.name} ({item.code})
-                  </Typography.Link>
-                </li>
-              );
-            })}
+            <Collapsed
+              className="-ml-3 pt-2"
+              disabled={!!record.courseRoadmap && record.courseRoadmap?.length < 3}
+              LessState={record.courseRoadmap?.slice(0, 3)?.map(item => {
+                return (
+                  <li
+                    key={item.id}
+                    className={classNames(record.courseRoadmap && record.courseRoadmap.length > 1 ? '' : 'list-none')}
+                  >
+                    <Typography.Link onClick={() => onViewRoadMap?.(item)}>
+                      {item.name} ({item.code})
+                    </Typography.Link>
+                  </li>
+                );
+              })}
+              MoreState={record.courseRoadmap?.map(item => {
+                return (
+                  <li
+                    key={item.id}
+                    className={classNames(record.courseRoadmap && record.courseRoadmap.length > 1 ? '' : 'list-none')}
+                  >
+                    <Typography.Link onClick={() => onViewRoadMap?.(item)}>
+                      {item.name} ({item.code})
+                    </Typography.Link>
+                  </li>
+                );
+              })}
+            />
           </ul>
         );
       },

@@ -21,6 +21,8 @@ interface FormFilterProps {
   searchValue?: string;
   onSearch?: (value: string) => void;
   containerClassName?: string;
+  hideFilter?: boolean;
+  searchPlaceholder?: string;
 }
 
 const UID = 'FORM_FILTER_LISTING_CUSTOMER_MANAGEMENT';
@@ -32,6 +34,8 @@ export const FormSearchNFilter = ({
   onResetFilter,
   onFilter,
   containerClassName,
+  hideFilter,
+  searchPlaceholder,
 }: FormFilterProps) => {
   const { t } = useTranslation(['common', 'course_roadmap']);
 
@@ -64,16 +68,17 @@ export const FormSearchNFilter = ({
 
   return (
     <SearchNFilter
-      inputClassName="md:!max-w-[450px]"
+      inputClassName="md:!max-w-[450px] font-normal"
       containerClassName={containerClassName}
       isSubmiting={isSubmiting}
       search={{
-        placeholder: t('course_roadmap:search_placeholder'),
+        placeholder: searchPlaceholder ?? t('course_roadmap:search_placeholder'),
         searchValue: searchValue,
         onSearch: onSearch,
       }}
       filter={{
         uid: UID,
+        hideFilter,
         onReset: handleResetFormFilterValues,
         count: getCountForFilterDrawer({ fieldKeys: ['status', 'courseId'], formFilterValues }),
         form: (

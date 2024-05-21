@@ -188,6 +188,7 @@ export const FormMutation = ({
                 department={expectInspectionDepartmentId}
                 onChange={value => {
                   setValue('expectInspectionDepartmentId', value);
+                  setValue('testShiftId', undefined);
                   if (errors.expectInspectionDepartmentId) {
                     trigger('expectInspectionDepartmentId');
                   }
@@ -202,6 +203,9 @@ export const FormMutation = ({
                   setValue('demand', value);
                   if (value?.includes('Khác')) {
                     setValue('extraDemand', '');
+                  } else {
+                    setValue('extraDemand', null);
+                    trigger('extraDemand');
                   }
                   if (errors.demand) {
                     trigger('demand');
@@ -254,6 +258,7 @@ export const FormMutation = ({
                 value={appointmentDate ? dayjs(appointmentDate) : undefined}
                 onChange={value => {
                   setValue('appointmentDate', value?.startOf('day').toISOString());
+                  setValue('testShiftId', undefined);
                   if (errors.appointmentDate) {
                     trigger('appointmentDate');
                   }
@@ -293,6 +298,7 @@ export const FormMutation = ({
             <Field withRequiredMark label={t('appointment:test_shift')} error={errors.testShiftId?.message}>
               <SelectTestShift
                 disabled={disabledField}
+                testOrganizationId={expectInspectionDepartmentId}
                 appointmentDate={appointmentDate}
                 testShift={testShiftId}
                 onChange={value => {

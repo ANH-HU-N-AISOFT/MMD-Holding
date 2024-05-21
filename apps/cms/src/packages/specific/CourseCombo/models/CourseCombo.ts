@@ -9,7 +9,7 @@ export interface CourseCombo {
   courseRoadmap?: Array<{
     id: string;
     name: string;
-    status: string;
+    status: CourseStatus;
     code: string;
     numberSessions: number;
     sessionDuration: number;

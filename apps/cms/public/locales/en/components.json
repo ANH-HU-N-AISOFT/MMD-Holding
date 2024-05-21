@@ -33,5 +33,9 @@
     "Table": {
       "empty": "Không có dữ liệu"
     }
+  },
+  "Collapsed": {
+    "show_more": "Xem thêm",
+    "show_less": "Rút gọn"
   }
 }

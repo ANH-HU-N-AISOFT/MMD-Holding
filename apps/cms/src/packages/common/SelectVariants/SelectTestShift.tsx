@@ -12,6 +12,7 @@ interface Props {
   disabled?: boolean;
   allowClear?: boolean;
   appointmentDate: 'GET_ALL' | string | undefined;
+  testOrganizationId: 'GET_ALL' | string | undefined;
   placeholder?: string;
 }
 
@@ -20,6 +21,7 @@ export const SelectTestShift = ({
   disabled,
   allowClear = true,
   appointmentDate,
+  testOrganizationId,
   placeholder,
   onChange,
 }: Props) => {
@@ -28,15 +30,16 @@ export const SelectTestShift = ({
   const [options, setOptions] = useState<Option[]>([]);
   const [searchValue, setSearchValue] = useState('');
 
-  const needWarning = useMemo(() => !appointmentDate, [appointmentDate]);
+  const needWarning = useMemo(() => !appointmentDate || !testOrganizationId, [appointmentDate, testOrganizationId]);
 
   const handleFetchOption = async () => {
     setIsFetching(true);
     try {
-      if (appointmentDate) {
+      if (appointmentDate && testOrganizationId) {
         const response = await getTestShifts({
           ...GetAllParams,
           appointmentDate: appointmentDate === 'GET_ALL' ? undefined : appointmentDate,
+          testOrganizationId: testOrganizationId === 'GET_ALL' ? undefined : testOrganizationId,
         });
         setOptions(
           response.map(item => ({
@@ -67,11 +70,23 @@ export const SelectTestShift = ({
   useEffect(() => {
     handleFetchOption();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [appointmentDate]);
+  }, [appointmentDate, testOrganizationId]);
 
   return (
     <SelectSingle
-      notFoundContent={needWarning ? <Empty description={t('appointment:must_select_appointment_date')} /> : undefined}
+      notFoundContent={
+        needWarning ? (
+          <Empty
+            description={
+              !appointmentDate
+                ? t('appointment:must_select_appointment_date')
+                : !testOrganizationId
+                  ? t('appointment:must_select_expect_inspection_department')
+                  : ''
+            }
+          />
+        ) : undefined
+      }
       allowClear={allowClear}
       value={testShift}
       onChange={onChange}

@@ -24,7 +24,7 @@
   "course_roadmap": "Lộ trình học",
   "number_session_with_measure": "Thời gian (buổi)",
   "session_duration_with_measure": "Thời lượng buổi học (phút)",
-  "fee_with_measure": "Học phí (VNĐ / buổi)",
+  "fee_with_measure": "Học phí (VNĐ)",
   "number_session": "Thời gian",
   "session_duration": "Thời lượng buổi học",
   "fee": "Học phí",
@@ -32,5 +32,7 @@
   "description": "Ghi chú",
   "course_combos": "Danh sách combo",
   "add_course_combo": "Thêm combo",
-  "course_combo_with_name": "Combo - {{ name }}"
+  "course_combo_with_name": "Combo - {{ name }}",
+  "course_roadmaps": "Danh sách lộ trình học",
+  "search_course_roadmaps_placeholder": "Nhập tên lộ trình học hoặc khoá học"
 }
