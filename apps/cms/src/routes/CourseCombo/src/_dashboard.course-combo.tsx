@@ -23,12 +23,14 @@ import { ListingSearchParams } from '~/packages/specific/CourseCombo/types/Listi
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/CourseCombo/utils/lisitngUrlSearchParamsUtils';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
+import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalidateOnListingPage';
 
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<CourseCombo>>> => {
+  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
   const t = i18next.t;
   const { search, page = 1, status } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {

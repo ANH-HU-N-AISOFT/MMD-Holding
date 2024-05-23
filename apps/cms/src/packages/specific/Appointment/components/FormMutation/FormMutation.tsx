@@ -362,6 +362,7 @@ export const FormMutation = ({
             <div className="md:col-span-2">
               <Field label={t('appointment:note')} error={errors.note?.message}>
                 <Input.TextArea
+                  rows={6}
                   minLength={0}
                   maxLength={256}
                   showCount

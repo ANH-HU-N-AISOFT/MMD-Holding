@@ -26,10 +26,12 @@ import { Student } from '~/packages/specific/Student/models/Student';
 import { getStudent } from '~/packages/specific/Student/services/getStudent';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
+import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ student: Student }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
+  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
   if (!params['id']) {
     return redirect('/student', {});
   }

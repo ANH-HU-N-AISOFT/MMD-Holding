@@ -1,10 +1,12 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 import { Button, Tag, Typography } from 'antd';
+import classNames from 'classnames';
 import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
 import { CourseStatusMappingToColors } from '../../constants/CourseStatusMappingToColors';
 import { Course } from '../../models/Course';
+import { Collapsed } from '~/components/Collapsed/Collapsed';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
 import { TableActions } from '~/components/TableActions/TableActions';
@@ -18,6 +20,7 @@ export interface Props
   editable?: boolean;
   deletable?: boolean;
   onEdit?: (record: Course) => void;
+  onViewRoadMap?: (record: Required<Course>['courseRoadmaps'][number]) => void;
   onDelete?: (recordKeys: string) => void;
   onDeleteMany?: (recordKeys: string[]) => void;
   onView?: (record: Course) => void;
@@ -35,6 +38,7 @@ export const Table = ({
   onView,
   deletable,
   editable,
+  onViewRoadMap,
   ...props
 }: Props) => {
   const { t } = useTranslation(['common', 'course']);
@@ -100,6 +104,44 @@ export const Table = ({
       title: t('course:name'),
       render: (_, record) => {
         return <Typography.Link onClick={() => onView?.(record)}>{record.name}</Typography.Link>;
+      },
+    },
+    {
+      width: 300,
+      title: t('course:course_roadmap'),
+      render: (_, record) => {
+        return (
+          <ul className="grid grid-cols-1 gap-1 pl-3">
+            <Collapsed
+              className="-ml-3 pt-2"
+              disabled={!!record.courseRoadmaps && record.courseRoadmaps?.length <= 3}
+              LessState={record.courseRoadmaps?.slice(0, 3)?.map(item => {
+                return (
+                  <li
+                    key={item.id}
+                    className={classNames(record.courseRoadmaps && record.courseRoadmaps.length > 1 ? '' : 'list-none')}
+                  >
+                    <Typography.Link onClick={() => onViewRoadMap?.(item)}>
+                      {item.name} ({item.code})
+                    </Typography.Link>
+                  </li>
+                );
+              })}
+              MoreState={record.courseRoadmaps?.map(item => {
+                return (
+                  <li
+                    key={item.id}
+                    className={classNames(record.courseRoadmaps && record.courseRoadmaps.length > 1 ? '' : 'list-none')}
+                  >
+                    <Typography.Link onClick={() => onViewRoadMap?.(item)}>
+                      {item.name} ({item.code})
+                    </Typography.Link>
+                  </li>
+                );
+              })}
+            />
+          </ul>
+        );
       },
     },
     {

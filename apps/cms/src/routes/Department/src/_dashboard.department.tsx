@@ -28,12 +28,14 @@ import { ListingSearchParams } from '~/packages/specific/Department/types/Listin
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Department/utils/lisitngUrlSearchParamsUtils';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
+import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalidateOnListingPage';
 
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Department>>> => {
+  await isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
   const t = i18next.t;
   const { page = 1, search, businessStatus, layout } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
@@ -206,6 +208,7 @@ export const Page = () => {
         <Header
           creatable={isCanShow({ accept: [Role.Admin] })}
           importable={isCanShow({ accept: [Role.Admin] })}
+          exportable={isCanShow({ accept: [Role.Admin] })}
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/department/create')}

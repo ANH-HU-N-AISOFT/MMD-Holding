@@ -6,6 +6,10 @@ import { getSession } from '~/packages/common/Auth/sessionStorage';
 export const UserDropdown = () => {
   const avatarDropdownItems = useGetAvatarDropdown();
   const session = getSession();
+
+  if (!session) {
+    return null;
+  }
   return (
     <Dropdown menu={{ items: avatarDropdownItems }}>
       <div className="flex items-center gap-2 cursor-pointer">

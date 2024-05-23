@@ -5,6 +5,7 @@ import { Outlet, ScrollRestoration, useNavigation } from '~/overrides/@remix';
 export const RootLayout = () => {
   const navigation = useNavigation();
   const prevFormAction = usePrevious(navigation);
+
   return (
     <Suspense fallback={null}>
       <Outlet />

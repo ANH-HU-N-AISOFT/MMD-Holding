@@ -24,7 +24,6 @@ export interface Props
   onDelete?: (recordKeys: string) => void;
   onDeleteMany?: (recordKeys: string[]) => void;
   onView?: (record: Appointment) => void;
-  onViewStudent?: (record: Appointment) => void;
   onViewAdmin?: (record: Appointment) => void;
   onViewConsultant?: (record: Appointment) => void;
   onViewTester?: (record: Appointment) => void;
@@ -43,7 +42,6 @@ export const Table = ({
   onEdit,
   onDelete,
   onDeleteMany,
-  onViewStudent,
   onViewAdmin,
   onViewConsultant,
   onViewTester,
@@ -122,7 +120,7 @@ export const Table = ({
       title: t('appointment:student_name'),
       render: (_, record) => {
         return (
-          <Typography.Link onClick={() => onViewStudent?.(record)}>
+          <Typography.Link onClick={() => onView?.(record)}>
             <Typography.Paragraph className="text-[inherit] !mb-1">{record.student?.fullName}</Typography.Paragraph>
             <Typography.Paragraph className="text-[inherit] !mb-0">{record.student?.phoneNumber}</Typography.Paragraph>
           </Typography.Link>

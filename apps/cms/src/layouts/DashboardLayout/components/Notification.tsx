@@ -2,11 +2,13 @@ import { BellOutlined } from '@ant-design/icons';
 import { Badge, Button, Divider, Dropdown, Typography, theme } from 'antd';
 import { CSSProperties, cloneElement } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getSession } from '~/packages/common/Auth/sessionStorage';
 
 const { useToken } = theme;
 
 export const Notification = () => {
   const { t } = useTranslation(['dashboard_layout']);
+  const session = getSession();
   const { token } = useToken();
 
   const contentStyle: CSSProperties = {
@@ -18,6 +20,10 @@ export const Notification = () => {
   const menuStyle: CSSProperties = {
     boxShadow: 'none',
   };
+
+  if (!session) {
+    return null;
+  }
 
   return (
     <Dropdown

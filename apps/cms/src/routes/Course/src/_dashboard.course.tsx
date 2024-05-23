@@ -23,12 +23,14 @@ import { ListingSearchParams } from '~/packages/specific/Course/types/ListingSea
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Course/utils/lisitngUrlSearchParamsUtils';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
+import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalidateOnListingPage';
 
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Course>>> => {
+  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
   const t = i18next.t;
   const { search, page = 1, status } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
@@ -194,6 +196,7 @@ export const Page = () => {
           onDelete={data => setIsOpenModalDeleteCourse(data)}
           onEdit={record => navigate(`/course/${record.id}/edit`)}
           onView={record => navigate(`/course/${record.id}/detail`)}
+          onViewRoadMap={record => window.open(`/course-roadmap/${record.id}/detail`)}
         />
       </div>
       <ModalImport

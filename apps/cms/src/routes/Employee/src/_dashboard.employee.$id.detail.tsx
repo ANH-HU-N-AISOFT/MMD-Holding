@@ -26,10 +26,12 @@ import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployee } from '~/packages/specific/Employee/services/getEmployee';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
+import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ employee: Employee }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
+  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Lecturer, Role.Sale] });
   if (!params['id']) {
     return redirect('/employee', {});
   }

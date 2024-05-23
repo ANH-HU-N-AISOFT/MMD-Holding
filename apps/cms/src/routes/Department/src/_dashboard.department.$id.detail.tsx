@@ -26,10 +26,12 @@ import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartment } from '~/packages/specific/Department/services/getDepartment';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
+import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ department: Department }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
+  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
   if (!params['id']) {
     return redirect('/department', {});
   }

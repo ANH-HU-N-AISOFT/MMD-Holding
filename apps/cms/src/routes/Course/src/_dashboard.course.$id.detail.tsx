@@ -26,10 +26,12 @@ import { Course } from '~/packages/specific/Course/models/Course';
 import { getCourse } from '~/packages/specific/Course/services/getCourse';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
+import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ course: Course }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
+  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
   if (!params['id']) {
     return redirect('/course', {});
   }

@@ -25,8 +25,9 @@
   "description": "Ghi chú",
   "courses": "Danh sách khoá học",
   "course_with_name": "Khoá học - {{ name }}",
-  "add_course": "Thêm Khoá học",
+  "add_course": "Thêm khoá học",
   "course": "Khoá học",
   "course_roadmaps": "Danh sách lộ trình học",
-  "search_course_roadmaps_placeholder": "Nhập tên lộ trình học"
+  "search_course_roadmaps_placeholder": "Nhập tên lộ trình học",
+  "course_roadmap": "Lộ trình học"
 }

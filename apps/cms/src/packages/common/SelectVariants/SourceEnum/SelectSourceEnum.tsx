@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { ReactNode, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SourceEnum } from './constants/SourceEnum';
 import { getSourceEnumMappingToLabels } from './constants/SourceEnumMappingToLabels';
@@ -9,9 +9,10 @@ interface Props {
   onChange?: SelectSingleProps<SourceEnum>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
+  placeholder?: ReactNode;
 }
 
-export const SelectSourceEnum = ({ sourceEnum, disabled, allowClear = true, onChange }: Props) => {
+export const SelectSourceEnum = ({ sourceEnum, disabled, allowClear = true, onChange, placeholder }: Props) => {
   const { t } = useTranslation(['common', 'enum']);
 
   const sourceEnumMappingToLabels = useMemo(() => {
@@ -23,7 +24,7 @@ export const SelectSourceEnum = ({ sourceEnum, disabled, allowClear = true, onCh
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={t('enum:source.label')}
+      placeholder={placeholder ?? t('enum:source.label')}
       value={sourceEnum}
       onChange={onChange}
       options={Object.values(SourceEnum).map(item => {

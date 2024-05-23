@@ -64,6 +64,16 @@ export const useGetNavData = () => {
       label: t('dashboard_layout:menu.consultation'),
       children: [
         {
+          key: '/consultant-form',
+          label: t('dashboard_layout:menu.consultant_form'),
+          onClick: () => navigate('/consultant-form'),
+        },
+        {
+          key: '/discount',
+          label: t('dashboard_layout:menu.discount'),
+          onClick: () => navigate('/discount'),
+        },
+        {
           key: '/course-combo',
           label: t('dashboard_layout:menu.course_combo'),
           onClick: () => navigate('/course-combo'),

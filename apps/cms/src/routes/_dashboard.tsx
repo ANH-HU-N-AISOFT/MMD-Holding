@@ -1,15 +1,9 @@
-import { useEffect } from 'react';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { DashboardLayout } from '~/layouts/DashboardLayout/DashboardLayout';
-import { json, redirect, useLoaderData, useNavigate } from '~/overrides/@remix';
-import { Session } from '~/packages/common/Auth/models/Session';
+import { json, redirect } from '~/overrides/@remix';
 import { ResponseSuccess, endpoint } from '~/packages/common/Auth/services/getProfile';
 import { destroySession, getSession, setSession } from '~/packages/common/Auth/sessionStorage';
 import { fetchApi } from '~/utils/functions/fetchApi';
-
-export interface LoaderResponse {
-  profile: Session;
-}
 
 export const loader = async () => {
   try {
@@ -22,7 +16,7 @@ export const loader = async () => {
     const profileResponse = await fetchApi.request<ResponseSuccess>({
       url: endpoint,
     });
-    console.log(profileResponse);
+
     setSession({
       ...session,
       profile: {
@@ -34,12 +28,7 @@ export const loader = async () => {
       },
     });
 
-    return json({
-      profile: {
-        firstName: 'Hello',
-        lastName: 'World',
-      },
-    });
+    return json({});
   } catch (error) {
     console.log(error);
     return redirect('/logout?expired=true', {});
@@ -47,16 +36,6 @@ export const loader = async () => {
 };
 
 export const Page = () => {
-  const loaderData = useLoaderData<typeof loader>() as LoaderResponse;
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!loaderData.profile) {
-      navigate('/logout?expired=true');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaderData.profile]);
-
   return <DashboardLayout />;
 };
 

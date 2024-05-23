@@ -19,10 +19,12 @@ import * as PromotionProgramManagement from './routes/_dashboard.promotion-progr
 import * as TestStudy from './routes/_dashboard.test-study';
 import * as RootLayout from './routes/_index';
 import AppointmentRoutes from './routes/Appointment';
+import ConsultantFormRoutes from './routes/ConsultantForm';
 import CourseRoutes from './routes/Course';
 import CourseComboRoutes from './routes/CourseCombo';
 import CourseRoadmapRoutes from './routes/CourseRoadmap';
 import DepartmentRoutes from './routes/Department';
+import DiscountRoutes from './routes/Discount';
 import EmployeeRoutes from './routes/Employee';
 import * as Logout from './routes/logout';
 import StudentRoutes from './routes/Student';
@@ -162,6 +164,8 @@ const router = createBrowserRouter([
           ...CourseRoutes,
           ...CourseRoadmapRoutes,
           ...CourseComboRoutes,
+          ...DiscountRoutes,
+          ...ConsultantFormRoutes,
         ],
       },
     ],

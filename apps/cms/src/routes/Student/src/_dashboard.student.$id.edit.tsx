@@ -45,7 +45,7 @@ import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidate
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request, params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  isCanAccessRoute({ accept: [Role.Admin] });
+  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
 
   if (!params['id']) {
     return redirect('/student', {});

@@ -1,5 +1,5 @@
 import { Empty } from 'antd';
-import { useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Option, SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 import { GetAllParams } from '~/constants/GetAllParams';
@@ -12,9 +12,10 @@ interface Props {
   disabled?: boolean;
   allowClear?: boolean;
   cityCode: 'GET_ALL' | string | undefined;
+  placeholder?: ReactNode;
 }
 
-export const SelectSchool = ({ school, disabled, allowClear = true, cityCode, onChange }: Props) => {
+export const SelectSchool = ({ school, disabled, allowClear = true, cityCode, onChange, placeholder }: Props) => {
   const { t } = useTranslation(['location']);
   const [isFetching, setIsFetching] = useState(false);
   const [options, setOptions] = useState<Option[]>([]);
@@ -60,7 +61,7 @@ export const SelectSchool = ({ school, disabled, allowClear = true, cityCode, on
       value={school}
       onChange={onChange}
       disabled={disabled}
-      placeholder={t('location:school')}
+      placeholder={placeholder ?? t('location:school')}
       className="w-full"
       loading={isFetching}
       showSearch

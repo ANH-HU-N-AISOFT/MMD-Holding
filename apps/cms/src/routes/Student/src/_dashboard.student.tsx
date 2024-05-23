@@ -31,12 +31,14 @@ import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Student/utils/l
 import { fetcherFormData } from '~/utils/functions/formData/fetcherFormData';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
+import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalidateOnListingPage';
 
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Student>>> => {
+  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
   const t = i18next.t;
   const { page = 1, search, department } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
@@ -200,8 +202,9 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.Admin] })}
-          importable={isCanShow({ accept: [Role.Admin] })}
+          creatable={isCanShow({ accept: [Role.Admin, Role.Consultant, Role.Sale] })}
+          importable={isCanShow({ accept: [Role.Admin, Role.Consultant, Role.Sale] })}
+          exportable={isCanShow({ accept: [Role.Admin, Role.Consultant, Role.Sale] })}
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/student/create')}
@@ -219,9 +222,9 @@ export const Page = () => {
           onSearch={value => handleRequest({ page: 1, search: value })}
         />
         <Table
-          deletable={isCanShow({ accept: [Role.Admin] })}
-          editable={isCanShow({ accept: [Role.Admin] })}
-          passwordResetable={isCanShow({ accept: [Role.Admin] })}
+          deletable={isCanShow({ accept: [Role.Admin, Role.Consultant, Role.Sale] })}
+          editable={isCanShow({ accept: [Role.Admin, Role.Consultant, Role.Sale] })}
+          passwordResetable={isCanShow({ accept: [Role.Admin, Role.Consultant, Role.Sale] })}
           loading={isFetchingList}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}

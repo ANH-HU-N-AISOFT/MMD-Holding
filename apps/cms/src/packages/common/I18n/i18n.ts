@@ -26,6 +26,8 @@ i18n
       'course',
       'course_roadmap',
       'course_combo',
+      'discount',
+      'consultant_form',
     ],
     supportedLngs: ['en'],
     fallbackNS: 'en',

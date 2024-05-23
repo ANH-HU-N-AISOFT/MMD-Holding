@@ -3,11 +3,13 @@ import type appointment from 'public/locales/en/appointment.json';
 import type auth from 'public/locales/en/auth.json';
 import type common from 'public/locales/en/common.json';
 import type components from 'public/locales/en/components.json';
+import type consultant_form from 'public/locales/en/consultant_form.json';
 import type course from 'public/locales/en/course.json';
 import type course_combo from 'public/locales/en/course_combo.json';
 import type course_roadmap from 'public/locales/en/course_roadmap.json';
 import type dashboard_layout from 'public/locales/en/dashboard_layout.json';
 import type department from 'public/locales/en/department.json';
+import type discount from 'public/locales/en/discount.json';
 import type employee from 'public/locales/en/employee.json';
 import type enum_ from 'public/locales/en/enum.json';
 import type error_message from 'public/locales/en/error_message.json';
@@ -37,6 +39,8 @@ declare module 'i18next' {
       course: typeof course;
       course_roadmap: typeof course_roadmap;
       course_combo: typeof course_combo;
+      discount: typeof discount;
+      consultant_form: typeof consultant_form;
     };
   }
 }

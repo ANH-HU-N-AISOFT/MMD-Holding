@@ -26,10 +26,12 @@ import { CourseRoadmap } from '~/packages/specific/CourseRoadmap/models/CourseRo
 import { getCourseRoadmap } from '~/packages/specific/CourseRoadmap/services/getCourseRoadmap';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
+import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ courseRoadmap: CourseRoadmap }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
+  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
   if (!params['id']) {
     return redirect('/course-roadmap', {});
   }

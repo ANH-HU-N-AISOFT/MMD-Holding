@@ -98,6 +98,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             <div className="md:col-span-2">
               <Field label={t('course:description')} error={errors.description?.message}>
                 <Input.TextArea
+                  rows={6}
                   minLength={0}
                   maxLength={256}
                   showCount

@@ -115,7 +115,7 @@ export const Table = ({
           <ul className="grid grid-cols-1 gap-1 pl-3">
             <Collapsed
               className="-ml-3 pt-2"
-              disabled={!!record.courseRoadmap && record.courseRoadmap?.length < 3}
+              disabled={!!record.courseRoadmap && record.courseRoadmap?.length <= 3}
               LessState={record.courseRoadmap?.slice(0, 3)?.map(item => {
                 return (
                   <li

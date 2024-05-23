@@ -25,6 +25,7 @@ import { ListingSearchParams } from '~/packages/specific/Appointment/types/Listi
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Appointment/utils/lisitngUrlSearchParamsUtils';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
+import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalidateOnListingPage';
 
@@ -33,6 +34,7 @@ export const loader = async ({
 }: LoaderFunctionArgs): Promise<
   TypedResponse<SimpleListingLoaderResponse<Appointment> & { counts: Record<AppointmentStatus, number> }>
 > => {
+  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
   const t = i18next.t;
   const { search, page = 1, organizationId, status, isOwner } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
@@ -42,7 +44,12 @@ export const loader = async ({
       status: status === 'all' ? undefined : status,
       organizationId,
       isOwner: isOwner,
-      sortByDate: !status || status === 'all' ? undefined : -1,
+      sortByDate:
+        !status || status === 'all'
+          ? undefined
+          : [AppointmentStatus.CANCELED, AppointmentStatus.LEVEL_TESTED].includes(status)
+            ? -1
+            : 1,
     });
 
     return json({
@@ -186,8 +193,9 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.Admin] })}
-          importable={isCanShow({ accept: [Role.Admin] })}
+          creatable={isCanShow({ accept: [Role.Admin, Role.Sale] })}
+          importable={isCanShow({ accept: [Role.Admin, Role.Sale] })}
+          exportable={isCanShow({ accept: [Role.Admin, Role.Consultant, Role.Sale] })}
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/appointment/create')}
@@ -220,8 +228,8 @@ export const Page = () => {
           onSearch={value => handleRequest({ page: 1, search: value })}
         />
         <Table
-          deletable={isCanShow({ accept: [Role.Admin] })}
-          editable={isCanShow({ accept: [Role.Admin] })}
+          deletable={isCanShow({ accept: [Role.Admin, Role.Sale, Role.Consultant] })}
+          editable={isCanShow({ accept: [Role.Admin, Role.Sale] })}
           loading={isFetchingList || isSavingAppointmentStatus}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}
@@ -231,7 +239,6 @@ export const Page = () => {
           onDelete={data => setIsOpenModalDeleteAppointment(data)}
           onEdit={record => navigate(`/appointment/${record.id}/edit`)}
           onView={record => navigate(`/appointment/${record.id}/detail`)}
-          onViewStudent={record => window.open(`/student/${record.student?.id}/detail`)}
           onViewExpectInspectationDepartment={record => window.open(`/department/${record.organization?.id}/detail`)}
           onViewAdmin={record => window.open(`/employee/${record.admin?.id}/detail`)}
           onViewTester={record => window.open(`/employee/${record.tester?.id}/detail`)}

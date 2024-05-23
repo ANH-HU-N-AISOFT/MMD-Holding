@@ -31,7 +31,7 @@ interface FormFilterProps {
   counts?: Record<AppointmentStatus, number>;
 }
 
-const UID = 'FORM_FILTER_LISTING_CUSTOMER_MANAGEMENT';
+const UID = 'FORM_FILTER_LISTING_APPOINTMENT';
 export const FormSearchNFilter = ({
   formFilterValues = {},
   searchValue,

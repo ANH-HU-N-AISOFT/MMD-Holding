@@ -251,6 +251,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       <div className="md:col-span-2">
         <Field label={t('employee:note')} error={errors.personalInformation?.notes?.message}>
           <Input.TextArea
+            rows={6}
             minLength={0}
             maxLength={256}
             showCount
