@@ -1,6 +1,7 @@
 import { ConfigProvider } from 'antd';
 import viVN from 'antd/locale/vi_VN';
 import dayjs from 'dayjs';
+import 'dayjs/locale/vi';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import localeData from 'dayjs/plugin/localeData';
@@ -16,7 +17,6 @@ import '~/packages/common/I18n/i18n';
 import { App } from './App';
 import './styles/reset.css';
 import './tailwind.css';
-import 'dayjs/locale/vi';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
