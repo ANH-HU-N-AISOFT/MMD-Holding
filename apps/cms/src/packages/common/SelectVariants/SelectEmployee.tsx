@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { EmployeeStatus } from './EmployeeStatus/constants/EmployeeStatus';
 import { Role } from './Role/constants/Role';
 import {
   SelectSingleDecoupling,
@@ -40,6 +41,7 @@ export const SelectEmployee = ({
           ...GetAllParams,
           sortByName: 1,
           roles: roles?.join(','),
+          workStatus: EmployeeStatus.WORKING,
         });
         return response.items;
       }}

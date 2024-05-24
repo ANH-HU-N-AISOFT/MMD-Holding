@@ -1,6 +1,5 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined, LockOutlined, ScheduleOutlined } from '@ant-design/icons';
 import { Button, Typography } from 'antd';
-import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import Highlighter from 'react-highlight-words';
@@ -134,10 +133,7 @@ export const Table = ({
           <ul className="grid grid-cols-1 pl-3">
             {record.organizations?.map(item => {
               return (
-                <li
-                  key={item.id}
-                  className={classNames(record.organizations && record.organizations.length > 1 ? '' : 'list-none')}
-                >
+                <li key={item.id}>
                   <Typography.Link onClick={() => onViewDepartment?.(item)} className="block" key={item.id}>
                     {[item.name, item.code].join(' - ')}
                   </Typography.Link>

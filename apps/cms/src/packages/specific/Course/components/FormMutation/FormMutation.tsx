@@ -84,6 +84,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </Field>
             <Field withRequiredMark label={t('course:status')} error={errors.status?.message}>
               <SelectCourseStatus
+                allowClear={false}
                 courseStatus={status ?? undefined}
                 onChange={value => {
                   setValue('status', value);

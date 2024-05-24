@@ -31,6 +31,7 @@
   "status": "Trạng thái",
   "description": "Ghi chú",
   "course_combos": "Danh sách combo",
+  "course_combo": "Combo",
   "add_course_combo": "Thêm combo",
   "course_combo_with_name": "Combo - {{ name }}",
   "course_roadmaps": "Danh sách lộ trình học",

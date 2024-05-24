@@ -126,7 +126,7 @@ export const Table = ({
     {
       width: 160,
       title: t('course_roadmap:fee_with_measure'),
-      render: (_, record) => currencyFormatter()(record.price),
+      render: (_, record) => currencyFormatter(record.price),
     },
     {
       width: 110,

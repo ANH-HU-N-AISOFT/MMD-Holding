@@ -117,6 +117,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </Field>
             <Field withRequiredMark label={t('course_roadmap:status')} error={errors.status?.message}>
               <SelectCourseStatus
+                allowClear={false}
                 courseStatus={status ?? undefined}
                 onChange={value => {
                   setValue('status', value);
@@ -174,8 +175,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                 placeholder={t('course_roadmap:fee_with_measure')}
                 value={price}
                 formatter={value => {
-                  const formatter = currencyFormatter();
-                  return formatter(value) ?? '';
+                  return currencyFormatter(value) ?? '';
                 }}
                 parser={value => currencyParser(value) ?? 0}
                 onChange={value => {

@@ -156,7 +156,7 @@ export const FormMutation = ({
               <SelectSchool school={studentSchool ?? undefined} cityCode="GET_ALL" disabled />
             </Field>
             <Field label={t('appointment:source')} error={errors.studentSource?.message}>
-              <SelectSourceEnum sourceEnum={studentSource ?? undefined} disabled />
+              <SelectSourceEnum allowClear={false} sourceEnum={studentSource ?? undefined} disabled />
             </Field>
             <Field label={t('appointment:sale_employees')} error={errors.studentSaleEmployees?.message}>
               <SelectSaleEmployees saleEmployees={studentSaleEmployees ?? undefined} organizations="GET_ALL" disabled />
@@ -169,6 +169,7 @@ export const FormMutation = ({
             </div>
             <Field label={t('appointment:status')} error={errors.appointmentStatus?.message}>
               <SelectAppointmentStatus
+                allowClear={false}
                 appointmentStatus={appointmentStatus}
                 onChange={value => {
                   setValue('appointmentStatus', value);
@@ -198,6 +199,7 @@ export const FormMutation = ({
             </Field>
             <Field withRequiredMark label={t('appointment:demand')} error={errors.demand?.message}>
               <SelectMultiple
+                allowClear={false}
                 value={demand}
                 onChange={value => {
                   setValue('demand', value);
@@ -284,6 +286,7 @@ export const FormMutation = ({
             </Field>
             <Field withRequiredMark label={t('appointment:test')} error={errors.ieltsTestType?.message}>
               <SelectIeltsTestEnum
+                allowClear={false}
                 ieltsTest={ieltsTestType}
                 onChange={value => {
                   setValue('ieltsTestType', value);

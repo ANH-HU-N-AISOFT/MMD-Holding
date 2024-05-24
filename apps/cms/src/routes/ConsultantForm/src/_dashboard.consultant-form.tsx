@@ -32,12 +32,14 @@ export const loader = async ({
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<ConsultantForm>>> => {
   isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
   const t = i18next.t;
-  const { search, page = 1 } = lisitngUrlSearchParamsUtils.decrypt(request);
+  const { search, page = 1, courseRoadmapId, status } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
     const response = await getConsultantForms({
       page,
       query: search,
       sortByName: search ? 1 : undefined,
+      courseRoadmapId,
+      status,
     });
 
     return json({
@@ -173,12 +175,17 @@ export const Page = () => {
         <FormSearchNFilter
           containerClassName="justify-end mb-1"
           searchValue={paramsInUrl.search?.toString()}
-          formFilterValues={{}}
+          formFilterValues={{
+            courseRoadmapId: paramsInUrl.courseRoadmapId,
+            status: paramsInUrl.status,
+          }}
           isSubmiting={isFetchingList}
           onFilter={values => handleRequest({ page: 1, ...values })}
           onResetFilter={() => {
             handleRequest({
               page: 1,
+              courseRoadmapId: undefined,
+              status: undefined,
             });
           }}
           onSearch={value => handleRequest({ page: 1, search: value })}

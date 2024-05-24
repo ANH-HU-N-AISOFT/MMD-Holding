@@ -1,6 +1,5 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 import { Button, Tag, Typography } from 'antd';
-import classNames from 'classnames';
 import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
@@ -115,13 +114,10 @@ export const Table = ({
           <ul className="grid grid-cols-1 gap-1 pl-3">
             <Collapsed
               className="-ml-3 pt-2"
-              disabled={!!record.courseRoadmap && record.courseRoadmap?.length <= 3}
+              disabled={!record.courseRoadmap || record.courseRoadmap?.length <= 3}
               LessState={record.courseRoadmap?.slice(0, 3)?.map(item => {
                 return (
-                  <li
-                    key={item.id}
-                    className={classNames(record.courseRoadmap && record.courseRoadmap.length > 1 ? '' : 'list-none')}
-                  >
+                  <li key={item.id}>
                     <Typography.Link onClick={() => onViewRoadMap?.(item)}>
                       {item.name} ({item.code})
                     </Typography.Link>
@@ -130,10 +126,7 @@ export const Table = ({
               })}
               MoreState={record.courseRoadmap?.map(item => {
                 return (
-                  <li
-                    key={item.id}
-                    className={classNames(record.courseRoadmap && record.courseRoadmap.length > 1 ? '' : 'list-none')}
-                  >
+                  <li key={item.id}>
                     <Typography.Link onClick={() => onViewRoadMap?.(item)}>
                       {item.name} ({item.code})
                     </Typography.Link>
@@ -153,7 +146,7 @@ export const Table = ({
     {
       width: 180,
       title: t('course_combo:fee_with_measure'),
-      render: (_, record) => currencyFormatter()(record.totalPrice),
+      render: (_, record) => currencyFormatter(record.totalPrice),
     },
     {
       width: 110,

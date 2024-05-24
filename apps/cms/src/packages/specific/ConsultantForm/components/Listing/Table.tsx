@@ -1,12 +1,16 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
-import { useState } from 'react';
+import { Button, Tag, Typography } from 'antd';
+import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
+import { FormStatusMappingToColors } from '../../constants/PromotionComboStatusMappingToColors';
 import { ConsultantForm } from '../../models/ConsultantForm';
+import { Collapsed } from '~/components/Collapsed/Collapsed';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
 import { TableActions } from '~/components/TableActions/TableActions';
+import { getFormStatusMappingToLabels } from '~/packages/common/SelectVariants/FormStatus/constants/FormStatusMappingToLabels';
+import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 export interface Props
   extends Pick<
     TableListingProps<ConsultantForm>,
@@ -35,6 +39,10 @@ export const Table = ({
   ...props
 }: Props) => {
   const { t } = useTranslation(['common', 'consultant_form']);
+
+  const FormStatusMappingToLabels = useMemo(() => {
+    return getFormStatusMappingToLabels(t);
+  }, [t]);
 
   const [selectedRows, _setSelectedRows] = useState<string[]>([]);
 
@@ -91,26 +99,57 @@ export const Table = ({
     {
       width: 185,
       title: t('consultant_form:student_name'),
+      render: (_, record) => {
+        return (
+          <Typography.Link onClick={() => onView?.(record)}>
+            <Typography.Paragraph className="text-[inherit] !mb-1">{record.student?.fullName}</Typography.Paragraph>
+            <Typography.Paragraph className="text-[inherit] !mb-0">{record.student?.phoneNumber}</Typography.Paragraph>
+          </Typography.Link>
+        );
+      },
     },
     {
       width: 109,
+      align: 'center',
       title: t('consultant_form:status'),
+      render: (_, record) => {
+        return <Tag color={FormStatusMappingToColors[record.status]}>{FormStatusMappingToLabels[record.status]}</Tag>;
+      },
     },
     {
       width: 130,
       title: t('consultant_form:course_roadmap'),
+      // FIXME: BE fix type
     },
     {
       width: 220,
       title: t('consultant_form:fee_origin_with_measure'),
+      render: (_, record) => currencyFormatter(record.originPrice),
     },
     {
       width: 220,
-      title: t('consultant_form:fee_discounted_with_measure'),
+      title: t('consultant_form:fee_after_apply_promotion_with_measure'),
+      render: (_, record) => currencyFormatter(record.salePrice),
     },
     {
       width: 220,
-      title: t('consultant_form:fee_gift_with_measure'),
+      title: t('consultant_form:gift'),
+      render: (_, record) => {
+        return (
+          <ul className="grid grid-cols-1 gap-1 pl-3">
+            <Collapsed
+              className="-ml-3 pt-2"
+              disabled={!record.gifts || record.gifts?.length <= 3}
+              LessState={record.gifts?.slice(0, 3)?.map(item => {
+                return <li key={item.id}>{item.name}</li>;
+              })}
+              MoreState={record.gifts?.map(item => {
+                return <li key={item.id}>{item.name}</li>;
+              })}
+            />
+          </ul>
+        );
+      },
     },
     {
       width: 80,

@@ -16,7 +16,7 @@
   "create_failure": "Tạo thất bại",
   "update_failure": "Cập nhật thất bại",
   "update_success": "Cập nhật thành công",
-  "search_placeholder": "Nhập từ khoá để tìm kiếm",
+  "search_placeholder": "Nhập tên học viên",
   "not_found": "Không tìm thấy phiếu tư vấn",
   "back_to_list": "Quay lại danh sách",
 
@@ -30,10 +30,8 @@
   "course_roadmap": "Lộ trình học",
   "fee_origin_with_measure": "Học phí gốc (VNĐ)",
   "fee_origin": "Học phí gốc",
-  "fee_discounted_with_measure": "Học phí sau giảm (VNĐ)",
-  "fee_discounted": "Học phí sau giảm",
-  "fee_gift_with_measure": "Quà tặng (VNĐ)",
-  "fee_gift": "Quà tặng",
+  "fee_after_apply_promotion_with_measure": "Học phí sau giảm (VNĐ)",
+  "fee_after_apply_promotion": "Học phí sau giảm",
   "student_phone": "Số điện thoại",
   "student_school": "Trường",
   "student_source": "Nguồn",
@@ -49,6 +47,7 @@
   "gift": "Quà tặng",
   "extra_information": "Thông tin bổ sung",
   "note": "Ghi chú",
-  "discount": "Khuyến mãi",
-  "test_result": "Kết quả thi"
+  "promotion": "Khuyến mãi",
+  "test_result": "Kết quả thi",
+  "course_roadmap_or_combo": "Combo, Lộ trình học"
 }

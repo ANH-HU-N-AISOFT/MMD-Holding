@@ -24,9 +24,9 @@ import CourseRoutes from './routes/Course';
 import CourseComboRoutes from './routes/CourseCombo';
 import CourseRoadmapRoutes from './routes/CourseRoadmap';
 import DepartmentRoutes from './routes/Department';
-import DiscountRoutes from './routes/Discount';
 import EmployeeRoutes from './routes/Employee';
 import * as Logout from './routes/logout';
+import PromotionRoutes from './routes/Promotion';
 import StudentRoutes from './routes/Student';
 
 const router = createBrowserRouter([
@@ -164,7 +164,7 @@ const router = createBrowserRouter([
           ...CourseRoutes,
           ...CourseRoadmapRoutes,
           ...CourseComboRoutes,
-          ...DiscountRoutes,
+          ...PromotionRoutes,
           ...ConsultantFormRoutes,
         ],
       },

@@ -1,13 +1,16 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { useDeepCompareEffect } from 'reactjs';
+import { Field, useDeepCompareEffect } from 'reactjs';
+import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
+import { SelectFormStatus } from '~/packages/common/SelectVariants/FormStatus/SelectFormStatus';
+import { SelectCourseRoadmap } from '~/packages/common/SelectVariants/SelectCourseRoadmap';
 
-export interface FormFilterValues {}
+export type FormFilterValues = Pick<ListingSearchParams, 'status' | 'courseRoadmapId'>;
 
 interface FormFilterProps {
   onFilter?: (formFilterValues: FormFilterValues) => void;
@@ -29,9 +32,9 @@ export const FormSearchNFilter = ({
   onFilter,
   containerClassName,
 }: FormFilterProps) => {
-  const { t } = useTranslation(['common', 'discount']);
+  const { t } = useTranslation(['common', 'consultant_form']);
 
-  const { handleSubmit, reset } = useRemixForm<FormFilterValues>({
+  const { setValue, watch, handleSubmit, reset } = useRemixForm<FormFilterValues>({
     mode: 'onSubmit',
     defaultValues: formFilterValues,
     resolver: zodResolver(lisitngUrlSearchParamsSchema),
@@ -39,6 +42,8 @@ export const FormSearchNFilter = ({
       onValid: onFilter,
     },
   });
+  const status = watch('status');
+  const courseRoadmapId = watch('courseRoadmapId');
 
   const handleResetFormFilterValues = () => {
     reset({ status: undefined });
@@ -55,15 +60,38 @@ export const FormSearchNFilter = ({
       containerClassName={containerClassName}
       isSubmiting={isSubmiting}
       search={{
-        placeholder: t('discount:search_placeholder'),
+        placeholder: t('consultant_form:search_placeholder'),
         searchValue: searchValue,
         onSearch: onSearch,
       }}
       filter={{
         uid: UID,
         onReset: handleResetFormFilterValues,
-        count: getCountForFilterDrawer({ fieldKeys: [], formFilterValues }),
-        form: <Form method="GET" id={UID} onSubmit={handleSubmit}></Form>,
+        count: getCountForFilterDrawer({ fieldKeys: ['courseRoadmapId', 'status'], formFilterValues }),
+        form: (
+          <Form method="GET" id={UID} onSubmit={handleSubmit}>
+            <div className="grid grid-cols-1 gap-3">
+              <Field label={t('consultant_form:status')}>
+                <SelectFormStatus
+                  placeholder={t('consultant_form:status')}
+                  formStatus={status}
+                  onChange={value => {
+                    setValue('status', value);
+                  }}
+                />
+              </Field>
+              <Field label={t('consultant_form:course_roadmap')}>
+                <SelectCourseRoadmap
+                  placeholder={t('consultant_form:course_roadmap')}
+                  courseRoadmap={courseRoadmapId}
+                  onChange={value => {
+                    setValue('courseRoadmapId', value);
+                  }}
+                />
+              </Field>
+            </div>
+          </Form>
+        ),
       }}
     />
   );

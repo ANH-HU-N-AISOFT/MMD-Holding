@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import localeData from 'dayjs/plugin/localeData';
+import updateLocale from 'dayjs/plugin/updateLocale';
 import weekday from 'dayjs/plugin/weekday';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import weekYear from 'dayjs/plugin/weekYear';
@@ -15,6 +16,7 @@ import '~/packages/common/I18n/i18n';
 import { App } from './App';
 import './styles/reset.css';
 import './tailwind.css';
+import 'dayjs/locale/vi';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -30,14 +32,17 @@ if ('serviceWorker' in navigator) {
 }
 
 // Antd dayjs
+dayjs.extend(updateLocale);
 dayjs.extend(customParseFormat);
 dayjs.extend(advancedFormat);
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(weekOfYear);
 dayjs.extend(weekYear);
+dayjs.locale('vi');
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+
 root.render(
   <ConfigProvider locale={viVN}>
     <I18nextProvider i18n={i18next}>

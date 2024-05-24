@@ -69,9 +69,9 @@ export const useGetNavData = () => {
           onClick: () => navigate('/consultant-form'),
         },
         {
-          key: '/discount',
-          label: t('dashboard_layout:menu.discount'),
-          onClick: () => navigate('/discount'),
+          key: '/promotion',
+          label: t('dashboard_layout:menu.promotion'),
+          onClick: () => navigate('/promotion'),
         },
         {
           key: '/course-combo',

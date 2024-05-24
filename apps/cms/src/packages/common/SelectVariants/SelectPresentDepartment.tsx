@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { EmployeeStatus } from './EmployeeStatus/constants/EmployeeStatus';
 import {
   SelectSingleDecoupling,
   SelectSingleDecouplingProps,
@@ -29,6 +30,7 @@ export const SelectPresentDepartment = ({ disabled, allowClear = true, presentDe
         const response = await getEmployees({
           ...GetAllParams,
           sortByName: 1,
+          workStatus: EmployeeStatus.WORKING,
         });
         return response.items;
       }}

@@ -1,7 +1,7 @@
 import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
-// import { deleteConsultantForm } from '~/packages/specific/ConsultantForm/services/deleteConsultantForm';
+import { deleteConsultantForm } from '~/packages/specific/ConsultantForm/services/deleteConsultantForm';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
@@ -10,9 +10,9 @@ export const action = async ({ params }: ActionFunctionArgs): Promise<TypedRespo
   isCanAccessRoute({ accept: [Role.Admin] });
   try {
     if (!params['id']) {
-      return redirect('/discount', {});
+      return redirect('/consultant-form', {});
     }
-    // await deleteConsultantForm({ id: params['id'] });
+    await deleteConsultantForm({ id: params['id'] });
     return json({
       hasError: false,
       message: 'Deleted',

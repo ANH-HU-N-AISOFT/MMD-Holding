@@ -99,5 +99,36 @@
       "ACTIVE": "Mở",
       "IN_ACTIVE": "Đóng"
     }
+  },
+  "promotionStatus": {
+    "label": "Khuyến mãi",
+    "options": {
+      "Active": "Mở",
+      "InActive": "Đóng"
+    }
+  },
+  "promotionType": {
+    "label": "Loại khuyến mãi",
+    "options": {
+      "FeeDiscount": "Giảm theo học phí",
+      "Gift": "Quà tặng",
+      "PercentageDiscount": "Giảm theo tỉ lệ"
+    }
+  },
+  "promotionScope": {
+    "label": "Cơ sở áp dụng",
+    "options": {
+      "All": "Toàn bộ hệ thống",
+      "Special": "Cơ sở chọn lọc"
+    }
+  },
+  "formStatus": {
+    "label": "Trạng thái",
+    "options": {
+      "Consulted": "Đã tư vấn",
+      "UnderCare": "Đang chăm sóc",
+      "SalesClosed": "Đã chốt sales",
+      "Failed": "Thất bại"
+    }
   }
 }

@@ -133,6 +133,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </Field>
             <Field label={t('department:business_status')} error={errors.businessStatus?.message}>
               <SelectBusinessStatus
+                allowClear={false}
                 businessStatus={businessStatus ?? undefined}
                 placeholder={t('department:business_status')}
                 onChange={value => {

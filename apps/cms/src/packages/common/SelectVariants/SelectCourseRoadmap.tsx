@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { CourseStatus } from './CourseStatus/constants/CourseStatus';
 import {
@@ -14,9 +15,17 @@ interface Props {
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
+  className?: string;
 }
 
-export const SelectCourseRoadmap = ({ disabled, courseRoadmap, allowClear = true, placeholder, onChange }: Props) => {
+export const SelectCourseRoadmap = ({
+  disabled,
+  courseRoadmap,
+  allowClear = true,
+  placeholder,
+  onChange,
+  className,
+}: Props) => {
   const { t } = useTranslation(['course_roadmap']);
 
   return (
@@ -42,7 +51,7 @@ export const SelectCourseRoadmap = ({ disabled, courseRoadmap, allowClear = true
           rawData: courseRoadmap,
         };
       }}
-      className="w-full"
+      className={classNames('w-full', className)}
     />
   );
 };
