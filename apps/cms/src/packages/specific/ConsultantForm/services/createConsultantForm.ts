@@ -12,7 +12,7 @@ export interface CreateConsultantForm {
   promotionIds: string[] | undefined | null;
   giftIds: string[];
   notes: string | undefined | null;
-  examResults: string[];
+  examResults: string[] | undefined | null;
 }
 
 export type ResponseSuccess = ConsultantForm;

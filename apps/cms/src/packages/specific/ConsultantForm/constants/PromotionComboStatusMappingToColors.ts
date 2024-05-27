@@ -3,7 +3,8 @@ import { FormStatus } from '~/packages/common/SelectVariants/FormStatus/constant
 
 export const FormStatusMappingToColors: Record<FormStatus, TagProps['color']> = {
   [FormStatus.Consulted]: 'success',
-  [FormStatus.Failed]: 'error',
   [FormStatus.UnderCare]: 'processing',
+  [FormStatus.Trial]: 'default',
   [FormStatus.SalesClosed]: 'volcano',
+  [FormStatus.Failed]: 'error',
 };

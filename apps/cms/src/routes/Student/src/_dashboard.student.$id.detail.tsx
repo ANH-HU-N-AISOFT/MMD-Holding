@@ -21,6 +21,8 @@ import {
 } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { createUrlSearchParamsUtils as createAppointmentUrlSearchParamsUtils } from '~/packages/specific/Appointment/utils/createUrlSearchParamsUtils';
+import { createUrlSearchParamsUtils as createConsultantFormUrlSearchParamsUtils } from '~/packages/specific/ConsultantForm/utils/createUrlSearchParamsUtils';
 import { Detail } from '~/packages/specific/Student/components/Detail/Detail';
 import { Student } from '~/packages/specific/Student/models/Student';
 import { getStudent } from '~/packages/specific/Student/services/getStudent';
@@ -116,6 +118,30 @@ export const Page = () => {
           <Footer
             onDelete={() => setIsOpenModalDeleteStudent(loaderData.info?.student.id ?? false)}
             onEdit={() => navigate(`/student/${loaderData.info?.student.id}/edit`)}
+            Other={
+              <>
+                <Button
+                  onClick={() => {
+                    const createSearchParams = createAppointmentUrlSearchParamsUtils.encrypt({
+                      studentId: loaderData.info?.student.id,
+                    });
+                    navigate(`/appointment/create${createSearchParams}`);
+                  }}
+                >
+                  {t('student:book_appointment')}
+                </Button>
+                <Button
+                  onClick={() => {
+                    const createSearchParams = createConsultantFormUrlSearchParamsUtils.encrypt({
+                      studentId: loaderData.info?.student.id,
+                    });
+                    navigate(`/consultant-form/create${createSearchParams}`);
+                  }}
+                >
+                  {t('student:consultant')}
+                </Button>
+              </>
+            }
           />
         )}
       </div>

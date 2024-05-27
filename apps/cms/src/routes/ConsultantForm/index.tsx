@@ -35,6 +35,7 @@ const ConsultantFormRoutes: RouteObject[] = [
   {
     path: '/consultant-form/create',
     action: CreateConsultantForm.action,
+    loader: CreateConsultantForm.loader,
     element: <CreateConsultantForm.Page />,
     errorElement: <CreateConsultantForm.ErrorBoundary />,
   },

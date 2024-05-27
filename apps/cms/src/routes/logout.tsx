@@ -6,6 +6,6 @@ export const action = () => {
 };
 
 export const loader = () => {
-  // destroySession();
+  destroySession();
   return null;
 };

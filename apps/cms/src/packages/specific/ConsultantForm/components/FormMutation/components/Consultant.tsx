@@ -56,6 +56,7 @@ export const Consultant = ({ disabledField, form }: Props) => {
   const gifts = watch('gifts') ?? [];
   const note = watch('note');
   const displayGiftPrice = watch('displayGiftPrice');
+  const calculateQuantityCourseRoadMap = watch('calculateQuantityCourseRoadMap');
 
   const { t } = useTranslation(['consultant_form']);
   return (
@@ -109,9 +110,8 @@ export const Consultant = ({ disabledField, form }: Props) => {
           disabled={disabledField}
           placeholder={t('consultant_form:consultantor')}
           employee={consultantId}
-          onChange={(value, option) => {
+          onChange={value => {
             setValue('consultantId', value);
-            setValue('expectDepartmentId', option?.rawData.organization?.id);
             if (errors.consultantId) {
               trigger('consultantId');
             }
@@ -120,7 +120,7 @@ export const Consultant = ({ disabledField, form }: Props) => {
       </Field>
       <Field label={t('consultant_form:expect_department')} error={errors.expectDepartmentId?.message}>
         <SelectDepartment
-          disabled
+          disabled={disabledField}
           placeholder={t('consultant_form:expect_department')}
           department={expectDepartmentId}
           onChange={value => {
@@ -187,6 +187,10 @@ export const Consultant = ({ disabledField, form }: Props) => {
           onChange={(value, option) => {
             const originPrice = option?.rawData.price;
             const quantityCourseRoadMap = 1;
+            const displaySalePrice = calculateSalePrice({
+              calculatePromotions,
+              calculateNDisplayOriginPrice: originPrice,
+            });
             setValue('calculateQuantityCourseRoadMap', quantityCourseRoadMap);
             setValue('courseRoadMapOrComboId', value);
             setValue('displaySessionDuration', option?.rawData.sessionDuration.toString());
@@ -195,17 +199,11 @@ export const Consultant = ({ disabledField, form }: Props) => {
             setValue(
               'displayGiftPrice',
               calculateGiftPrice({
-                calculateNDisplayOriginPrice: originPrice,
+                displaySalePrice,
                 calculateQuantityCourseRoadMap: quantityCourseRoadMap,
               }),
             );
-            setValue(
-              'displaySalePrice',
-              calculateSalePrice({
-                calculatePromotions,
-                calculateNDisplayOriginPrice: originPrice,
-              }),
-            );
+            setValue('displaySalePrice', displaySalePrice);
             if (errors.courseRoadMapOrComboId) {
               trigger('courseRoadMapOrComboId');
             }
@@ -219,6 +217,10 @@ export const Consultant = ({ disabledField, form }: Props) => {
           onChange={(value, option) => {
             const originPrice = option?.rawData.totalPrice;
             const quantityCourseRoadMap = option?.rawData?.courseRoadmap?.length;
+            const displaySalePrice = calculateSalePrice({
+              calculatePromotions,
+              calculateNDisplayOriginPrice: originPrice,
+            });
             setValue('courseRoadMapOrComboId', value);
             setValue('calculateQuantityCourseRoadMap', quantityCourseRoadMap);
             setValue(
@@ -234,17 +236,11 @@ export const Consultant = ({ disabledField, form }: Props) => {
             setValue(
               'displayGiftPrice',
               calculateGiftPrice({
-                calculateNDisplayOriginPrice: originPrice,
+                displaySalePrice,
                 calculateQuantityCourseRoadMap: quantityCourseRoadMap,
               }),
             );
-            setValue(
-              'displaySalePrice',
-              calculateSalePrice({
-                calculatePromotions,
-                calculateNDisplayOriginPrice: originPrice,
-              }),
-            );
+            setValue('displaySalePrice', displaySalePrice);
             if (errors.courseRoadMapOrComboId) {
               trigger('courseRoadMapOrComboId');
             }
@@ -292,13 +288,18 @@ export const Consultant = ({ disabledField, form }: Props) => {
               percentageDiscount: item.rawData.percentageDiscount,
               programType: item.rawData.programType,
             }));
+            const displaySalePrice = calculateSalePrice({
+              calculatePromotions: promotions,
+              calculateNDisplayOriginPrice,
+            });
             setValue('promotionIds', value);
             setValue('calculatePromotions', promotions);
+            setValue('displaySalePrice', displaySalePrice);
             setValue(
-              'displaySalePrice',
-              calculateSalePrice({
-                calculatePromotions: promotions,
-                calculateNDisplayOriginPrice,
+              'displayGiftPrice',
+              calculateGiftPrice({
+                displaySalePrice,
+                calculateQuantityCourseRoadMap,
               }),
             );
             if (errors.promotionIds) {

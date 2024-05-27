@@ -1,4 +1,11 @@
-import { DeleteOutlined, EditOutlined, EyeOutlined, LockOutlined, ScheduleOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  EyeOutlined,
+  LockOutlined,
+  QuestionCircleOutlined,
+  ScheduleOutlined,
+} from '@ant-design/icons';
 import { Button, Typography } from 'antd';
 import dayjs from 'dayjs';
 import { useState } from 'react';
@@ -21,6 +28,7 @@ export interface Props
   onResetPassword?: (record: Student) => void;
   onViewDepartment?: (record: Required<Student>['organizations'][number]) => void;
   onBookAppointment?: (record: Student) => void;
+  onConsultant?: (record: Student) => void;
   editable?: boolean;
   deletable?: boolean;
   passwordResetable?: boolean;
@@ -39,6 +47,7 @@ export const Table = ({
   onResetPassword,
   onViewDepartment,
   onBookAppointment,
+  onConsultant,
   deletable,
   editable,
   passwordResetable,
@@ -171,6 +180,12 @@ export const Table = ({
                 label: t('student:book_appointment'),
                 icon: <ScheduleOutlined />,
                 onClick: () => onBookAppointment?.(record),
+              },
+              {
+                key: '6',
+                label: t('student:consultant'),
+                icon: <QuestionCircleOutlined />,
+                onClick: () => onConsultant?.(record),
               },
               {
                 key: '4',

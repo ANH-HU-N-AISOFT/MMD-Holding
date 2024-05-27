@@ -41,5 +41,5 @@ export const calculateSalePrice = (data: Pick<FormValues, 'calculatePromotions' 
     const promotionByPercentageDiscounts = (priceAfterFeeDiscounts * promotionPercentageStrict) / 100;
     return Math.max(0, priceAfterFeeDiscounts - promotionByPercentageDiscounts);
   }
-  return 0;
+  return originPrice;
 };

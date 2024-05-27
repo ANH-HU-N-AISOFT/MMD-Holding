@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../AntCustom';
 
@@ -8,9 +9,10 @@ interface Props {
   isLoading?: boolean;
   className?: string;
   fitted?: boolean;
+  Other?: ReactNode;
 }
 
-export const Footer = ({ onDelete, onEdit, isLoading, className, fitted }: Props) => {
+export const Footer = ({ onDelete, onEdit, isLoading, className, fitted, Other }: Props) => {
   const { t } = useTranslation(['components']);
 
   const cancelText_ = t('components:Detail.delete').toString();
@@ -36,6 +38,7 @@ export const Footer = ({ onDelete, onEdit, isLoading, className, fitted }: Props
     >
       <div className={classNames('flex items-center justify-end gap-3', fitted ? 'w-full' : '')}>
         {DeleteButton}
+        {Other}
         {EditButton}
       </div>
     </div>

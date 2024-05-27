@@ -109,7 +109,7 @@ export const Table = ({
       },
     },
     {
-      width: 109,
+      width: 160,
       align: 'center',
       title: t('consultant_form:status'),
       render: (_, record) => {
@@ -117,7 +117,7 @@ export const Table = ({
       },
     },
     {
-      width: 130,
+      width: 280,
       title: t('consultant_form:course_roadmap'),
       render: (_, record) => {
         if (record.courseCombo) {

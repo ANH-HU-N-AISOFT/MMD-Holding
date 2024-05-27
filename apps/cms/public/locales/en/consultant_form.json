@@ -16,7 +16,7 @@
   "create_failure": "Tạo thất bại",
   "update_failure": "Cập nhật thất bại",
   "update_success": "Cập nhật thành công",
-  "search_placeholder": "Nhập tên học viên",
+  "search_placeholder": "Nhập tên hoặc số điện thoại học viên",
   "not_found": "Không tìm thấy phiếu tư vấn",
   "back_to_list": "Quay lại danh sách",
 

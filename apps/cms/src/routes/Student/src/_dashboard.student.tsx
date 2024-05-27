@@ -240,6 +240,10 @@ export const Page = () => {
             const createSearchParams = createUrlSearchParamsUtils.encrypt({ studentId: record.id });
             navigate(`/appointment/create${createSearchParams}`);
           }}
+          onConsultant={record => {
+            const createSearchParams = createUrlSearchParamsUtils.encrypt({ studentId: record.id });
+            navigate(`/consultant-form/create${createSearchParams}`);
+          }}
         />
       </div>
       <ModalImport

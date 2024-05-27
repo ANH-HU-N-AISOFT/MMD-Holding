@@ -1,23 +1,22 @@
 import { FormValues } from '../components/FormMutation/FormMutation';
 
 export const calculateGiftPrice = ({
-  calculateNDisplayOriginPrice,
+  displaySalePrice,
   calculateQuantityCourseRoadMap,
-}: Pick<FormValues, 'calculateQuantityCourseRoadMap' | 'calculateNDisplayOriginPrice'>) => {
+}: Pick<FormValues, 'calculateQuantityCourseRoadMap' | 'displaySalePrice'>) => {
   const quantityCourseRoadMap = calculateQuantityCourseRoadMap;
-  const originPrice = calculateNDisplayOriginPrice;
-  if (!quantityCourseRoadMap || !originPrice) {
+  if (!quantityCourseRoadMap || !displaySalePrice) {
     return undefined;
   }
 
   let extra = 0;
-  if (originPrice >= 10000000 && originPrice < 15000000) {
+  if (displaySalePrice >= 10000000 && displaySalePrice < 15000000) {
     extra = 200000;
-  } else if (originPrice >= 15000000 && originPrice < 25000000) {
+  } else if (displaySalePrice >= 15000000 && displaySalePrice < 25000000) {
     extra = 300000;
-  } else if (originPrice >= 25000000 && originPrice < 40000000) {
+  } else if (displaySalePrice >= 25000000 && displaySalePrice < 40000000) {
     extra = 400000;
-  } else if (originPrice >= 40000000) {
+  } else if (displaySalePrice >= 40000000) {
     extra = 500000;
   }
   return quantityCourseRoadMap * 500000 + 1000000 + extra;

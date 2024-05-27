@@ -5,15 +5,28 @@ import { useTranslation } from 'react-i18next';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
-import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/@remix';
+import {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  TypedResponse,
+  json,
+  useActionData,
+  useLoaderData,
+  useNavigate,
+  useNavigation,
+} from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { FormStatus } from '~/packages/common/SelectVariants/FormStatus/constants/FormStatus';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { CourseRoadmapOrCombo } from '~/packages/specific/ConsultantForm/components/FormMutation/constants';
 import { FormMutation, FormValues } from '~/packages/specific/ConsultantForm/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/ConsultantForm/components/FormMutation/zodResolver';
 import { createConsultantForm } from '~/packages/specific/ConsultantForm/services/createConsultantForm';
+import { createUrlSearchParamsUtils } from '~/packages/specific/ConsultantForm/utils/createUrlSearchParamsUtils';
+import { Student } from '~/packages/specific/Student/models/Student';
+import { getStudent } from '~/packages/specific/Student/services/getStudent';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
@@ -40,7 +53,7 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
         status: data.status,
         studentId: data.studentId,
         promotionIds: data.promotionIds,
-        examResults: [],
+        examResults: data.examResults,
       });
       return json({
         hasError: false,
@@ -54,6 +67,28 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
   }
 };
 
+export const loader = async ({
+  request,
+}: LoaderFunctionArgs): Promise<TypedResponse<{ student: Student | undefined }>> => {
+  isCanAccessRoute({ accept: [Role.Admin] });
+  try {
+    const { studentId } = createUrlSearchParamsUtils.decrypt(request);
+    if (studentId) {
+      const response = await getStudent({ id: studentId });
+      return json({
+        student: response,
+      });
+    }
+    return json({
+      student: undefined,
+    });
+  } catch {
+    return json({
+      student: undefined,
+    });
+  }
+};
+
 const FormCreateUid = 'FORM_CREATE';
 export const Page = () => {
   const navigate = useNavigate();
@@ -61,6 +96,7 @@ export const Page = () => {
 
   const navigation = useNavigation();
   const actionData = useActionData<typeof action>();
+  const loaderData = useLoaderData<typeof loader>();
 
   const isSubmiting = useMemo(() => {
     return navigation.state === 'loading' || navigation.state === 'submitting';
@@ -88,9 +124,15 @@ export const Page = () => {
           isSubmiting={isSubmiting}
           uid={FormCreateUid}
           defaultValues={{
+            studentId: loaderData.student?.id,
+            displayStudentPhone: loaderData.student?.phoneNumber,
+            displayStudentSchool: loaderData.student?.school?.id,
+            displayStudentSource: loaderData.student?.source,
+            displaySaleEmployees: loaderData.student?.supporterIds,
             directionalType: CourseRoadmapOrCombo.COMBO,
             status: FormStatus.Consulted,
             examResults: [],
+            expectDepartmentId: getSession()?.profile?.organizationId,
           }}
         />
       </div>

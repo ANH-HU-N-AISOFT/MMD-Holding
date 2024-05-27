@@ -2,7 +2,7 @@ import { DeleteOutlined, InboxOutlined, LoadingOutlined } from '@ant-design/icon
 import { Image } from 'antd';
 import classNames from 'classnames';
 import { descend, prop, range, sortWith } from 'ramda';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { uploadImage } from '../../../services/uploadImage';
 import { FormValues } from '../FormMutation';
 import { UploadMultiple } from '~/components/AntCustom/Upload';
@@ -25,30 +25,43 @@ export const TestResult = ({ disabledField, form }: Props) => {
     watch,
     formState: { errors },
   } = form;
-  const examResults = watch('examResults');
+  const examResults = watch('examResults') ?? [];
   const [quantityItemLoading, setQuantityItemLoading] = useState(0);
+
+  const [uploadFilesState, setUploadFilesState] = useState<FileState<StateItem>[]>([]);
+
+  useEffect(() => {
+    setUploadFilesState(
+      examResults?.map((item, index) => ({
+        status: 'success',
+        uid: item,
+        file: { name: item, size: 0 },
+        response: { path: item, order: examResults.length - index },
+      })),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const examResults = uploadFilesState
+      ?.filter((item): item is Required<FileState<StateItem>> => item.status === 'success')
+      .map(item => ({ path: item.response.path, order: item.response.order }));
+    setValue(
+      'examResults',
+      sortWith([descend(prop('order'))], examResults ?? []).map(item => item.path),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [uploadFilesState]);
 
   return (
     <div className="grid grid-cols-1 gap-3">
       <UploadMultiple<StateItem>
         disabled={disabledField}
         accept="image/png, image/jpg, image/jpeg"
-        value={examResults?.map((item, index) => ({
-          status: 'success',
-          uid: item,
-          file: { name: item, size: 0 },
-          response: { path: item, order: examResults.length - index },
-        }))}
+        value={uploadFilesState}
         onStateChange={nextState => {
           setQuantityItemLoading(nextState?.filter(item => item.status === 'loading').length ?? 0);
-
-          const examResults = nextState
-            ?.filter((item): item is Required<FileState<StateItem>> => item.status === 'success')
-            .map(item => ({ path: item.response.path, order: item.response.order }));
-          setValue(
-            'examResults',
-            sortWith([descend(prop('order'))], examResults ?? []).map(item => item.path),
-          );
+          setUploadFilesState(nextState ?? []);
           if (errors.examResults) {
             trigger('examResults');
           }
