@@ -9,9 +9,10 @@ export interface CreateConsultantForm {
   status: FormStatus | undefined | null;
   courseRoadmapId: string | undefined | null;
   courseComboId: string | undefined | null;
-  promotionIds: string[];
+  promotionIds: string[] | undefined | null;
   giftIds: string[];
   notes: string | undefined | null;
+  examResults: string[];
 }
 
 export type ResponseSuccess = ConsultantForm;

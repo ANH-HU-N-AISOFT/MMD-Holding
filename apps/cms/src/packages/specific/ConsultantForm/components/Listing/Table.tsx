@@ -119,7 +119,33 @@ export const Table = ({
     {
       width: 130,
       title: t('consultant_form:course_roadmap'),
-      // FIXME: BE fix type
+      render: (_, record) => {
+        if (record.courseCombo) {
+          return (
+            <ul className="grid grid-cols-1 gap-1 pl-3">
+              <Collapsed
+                className="-ml-3 pt-2"
+                disabled={!record.courseCombo?.courseRoadmap || record.courseCombo?.courseRoadmap?.length <= 3}
+                LessState={record.courseCombo.courseRoadmap?.slice(0, 3)?.map(item => {
+                  return (
+                    <li key={item.id}>
+                      {item.name} ({item.code})
+                    </li>
+                  );
+                })}
+                MoreState={record.courseCombo.courseRoadmap?.map(item => {
+                  return (
+                    <li key={item.id}>
+                      {item.name} ({item.code})
+                    </li>
+                  );
+                })}
+              />
+            </ul>
+          );
+        }
+        return record.courseRoadmap?.name;
+      },
     },
     {
       width: 220,

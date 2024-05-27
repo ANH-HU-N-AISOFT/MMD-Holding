@@ -4,6 +4,7 @@ import { sum } from 'ramda';
 import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
 import { TypeOf } from 'zod';
+import { getDisplaySessionDuration } from '../../utils/getDisplaySessionDuration';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
@@ -108,11 +109,17 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                     setValue('totalNumberSessions', totalNumberSessions);
                     setValue(
                       'displayTotalSessionDuration',
-                      courseRoadmaps
-                        ?.map(courseRoadmap => {
-                          return [courseRoadmap.rawData.code, courseRoadmap.rawData.sessionDuration].join(' - ');
-                        })
-                        .join(', '),
+                      getDisplaySessionDuration({
+                        courseRoadmaps: courseRoadmaps?.map(item => ({
+                          code: item.rawData.code,
+                          sessionDuration: item.rawData.sessionDuration,
+                        })),
+                      }),
+                      // courseRoadmaps
+                      //   ?.map(courseRoadmap => {
+                      //     return [courseRoadmap.rawData.code, courseRoadmap.rawData.sessionDuration].join(' - ');
+                      //   })
+                      //   .join(', '),
                     );
                     if (errors.courseRoadmapIds) {
                       trigger('courseRoadmapIds');

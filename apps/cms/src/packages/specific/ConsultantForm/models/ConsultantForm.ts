@@ -7,6 +7,7 @@ import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constant
 
 export interface ConsultantForm {
   student?: {
+    id: string;
     fullName: string;
     phoneNumber: string;
     school?: {
@@ -96,8 +97,21 @@ export interface ConsultantForm {
     updatedAt: string;
     id: string;
   }>;
+  learningOrganization?: {
+    id: string;
+    name: string;
+    code: string;
+  };
+  consultant?: {
+    id: string;
+    fullName: string;
+    phoneNumber: string;
+  };
   status: FormStatus;
   createdAt: string;
   updatedAt: string;
   id: string;
+  notes: string;
+  examResults: string[];
+  giftInCurrency: number;
 }

@@ -20,7 +20,6 @@ export const useGetRoadMaps = ({ courseId }: Props) => {
     setPage(page);
   };
 
-  // FIXME: BE cần update thêm params
   useEffect(() => {
     run({
       query: search,

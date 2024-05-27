@@ -1,7 +1,9 @@
-import { Divider, Input, InputNumber } from 'antd';
+import { Checkbox, Divider, Input, InputNumber, Skeleton, Spin } from 'antd';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Field } from 'reactjs';
+import { calculateGiftPrice } from '../../../utils/calculateGiftPrice';
+import { calculateSalePrice } from '../../../utils/calculateSalePrice';
 import { CourseRoadmapOrCombo } from '../constants';
 import { FormValues } from '../FormMutation';
 import { SelectSingle } from '~/components/AntCustom/Select';
@@ -11,12 +13,13 @@ import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectCourseCombo } from '~/packages/common/SelectVariants/SelectCourseCombo';
 import { SelectCourseRoadmap } from '~/packages/common/SelectVariants/SelectCourseRoadmap';
 import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
+import { SelectDiscounts } from '~/packages/common/SelectVariants/SelectDiscounts';
 import { SelectEmployee } from '~/packages/common/SelectVariants/SelectEmployee';
-import { SelectPromotions } from '~/packages/common/SelectVariants/SelectPromotions';
 import { SelectSaleEmployees } from '~/packages/common/SelectVariants/SelectSaleEmployees';
 import { SelectSchool } from '~/packages/common/SelectVariants/SelectSchool';
 import { SelectStudent } from '~/packages/common/SelectVariants/SelectStudent';
 import { SelectSourceEnum } from '~/packages/common/SelectVariants/SourceEnum/SelectSourceEnum';
+import { useGetPromtions } from '~/packages/specific/Promotion/hooks/useGetPromotions';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 import { currencyParser } from '~/utils/functions/currency/currencyParser';
 
@@ -26,6 +29,7 @@ interface Props {
 }
 
 export const Consultant = ({ disabledField, form }: Props) => {
+  const { loading, data } = useGetPromtions({ variants: 'gift', pageSize: 9999 });
   const {
     setValue,
     trigger,
@@ -34,22 +38,24 @@ export const Consultant = ({ disabledField, form }: Props) => {
   } = form;
 
   const studentId = watch('studentId');
-  const studentPhone = watch('studentPhone');
-  const studentSchool = watch('studentSchool');
-  const studentSource = watch('studentSource');
-  const saleEmployees = watch('saleEmployees');
+  const displayStudentPhone = watch('displayStudentPhone');
+  const displayStudentSchool = watch('displayStudentSchool');
+  const displayStudentSource = watch('displayStudentSource');
+  const displaySaleEmployees = watch('displaySaleEmployees');
   const consultantId = watch('consultantId');
   const expectDepartmentId = watch('expectDepartmentId');
   const status = watch('status');
-  const type = watch('type');
+  const directionalType = watch('directionalType');
   const courseRoadMapOrComboId = watch('courseRoadMapOrComboId');
-  const numberSessions = watch('numberSessions');
-  const sessionDuration = watch('sessionDuration');
-  const originPrice = watch('originPrice');
-  const salePrice = watch('salePrice');
+  const displayNumberSessions = watch('displayNumberSessions');
+  const displaySessionDuration = watch('displaySessionDuration');
+  const calculateNDisplayOriginPrice = watch('calculateNDisplayOriginPrice');
+  const displaySalePrice = watch('displaySalePrice');
   const promotionIds = watch('promotionIds');
-  const gift = watch('gift');
+  const calculatePromotions = watch('calculatePromotions') ?? [];
+  const gifts = watch('gifts') ?? [];
   const note = watch('note');
+  const displayGiftPrice = watch('displayGiftPrice');
 
   const { t } = useTranslation(['consultant_form']);
   return (
@@ -61,10 +67,10 @@ export const Consultant = ({ disabledField, form }: Props) => {
           student={studentId}
           onChange={(value, option) => {
             setValue('studentId', value);
-            setValue('studentPhone', option?.rawData.phoneNumber);
-            setValue('studentSchool', option?.rawData.school?.id);
-            setValue('studentSource', option?.rawData.source);
-            setValue('saleEmployees', option?.rawData.supporterIds);
+            setValue('displayStudentPhone', option?.rawData.phoneNumber);
+            setValue('displayStudentSchool', option?.rawData.school?.id);
+            setValue('displayStudentSource', option?.rawData.source);
+            setValue('displaySaleEmployees', option?.rawData.supporterIds);
             if (errors.studentId) {
               trigger('studentId');
             }
@@ -73,7 +79,7 @@ export const Consultant = ({ disabledField, form }: Props) => {
       </Field>
       <Field label={t('consultant_form:student_phone')}>
         <Input
-          value={studentPhone ?? undefined}
+          value={displayStudentPhone ?? undefined}
           addonBefore={<div>+84</div>}
           disabled
           placeholder={t('consultant_form:student_phone')}
@@ -81,7 +87,7 @@ export const Consultant = ({ disabledField, form }: Props) => {
       </Field>
       <Field label={t('consultant_form:student_school')}>
         <SelectSchool
-          school={studentSchool ?? undefined}
+          school={displayStudentSchool ?? undefined}
           cityCode="GET_ALL"
           disabled
           placeholder={t('consultant_form:student_school')}
@@ -89,13 +95,13 @@ export const Consultant = ({ disabledField, form }: Props) => {
       </Field>
       <Field label={t('consultant_form:student_source')}>
         <SelectSourceEnum
-          sourceEnum={studentSource ?? undefined}
+          sourceEnum={displayStudentSource ?? undefined}
           disabled
           placeholder={t('consultant_form:student_source')}
         />
       </Field>
       <Field label={t('consultant_form:sale_employee')}>
-        <SelectSaleEmployees organizations="GET_ALL" saleEmployees={saleEmployees} disabled />
+        <SelectSaleEmployees organizations="GET_ALL" saleEmployees={displaySaleEmployees ?? undefined} disabled />
       </Field>
       <Field withRequiredMark label={t('consultant_form:consultantor')} error={errors.consultantId?.message}>
         <SelectEmployee
@@ -159,53 +165,86 @@ export const Consultant = ({ disabledField, form }: Props) => {
           ]}
           disabled={disabledField}
           placeholder={t('consultant_form:type')}
-          value={type}
+          value={directionalType}
           onChange={value => {
-            setValue('type', value);
+            setValue('directionalType', value);
+            setValue('calculateQuantityCourseRoadMap', undefined);
             setValue('courseRoadMapOrComboId', undefined);
-            setValue('sessionDuration', undefined);
-            setValue('numberSessions', undefined);
-            setValue('originPrice', undefined);
+            setValue('displaySessionDuration', undefined);
+            setValue('displayNumberSessions', undefined);
+            setValue('calculateNDisplayOriginPrice', undefined);
+            setValue('displayGiftPrice', undefined);
+            setValue('displaySalePrice', undefined);
           }}
         />
       </Field>
       <Field label={t('consultant_form:course_roadmap_or_combo')} error={errors.courseRoadMapOrComboId?.message}>
         <SelectCourseRoadmap
-          className={classNames(type === CourseRoadmapOrCombo.COMBO ? 'hidden' : 'block')}
+          className={classNames(directionalType === CourseRoadmapOrCombo.COMBO ? 'hidden' : 'block')}
           disabled={disabledField}
           placeholder={t('consultant_form:course_roadmap_or_combo')}
-          courseRoadmap={type === CourseRoadmapOrCombo.COMBO ? undefined : courseRoadMapOrComboId}
+          courseRoadmap={directionalType === CourseRoadmapOrCombo.COMBO ? undefined : courseRoadMapOrComboId}
           onChange={(value, option) => {
+            const originPrice = option?.rawData.price;
+            const quantityCourseRoadMap = 1;
+            setValue('calculateQuantityCourseRoadMap', quantityCourseRoadMap);
             setValue('courseRoadMapOrComboId', value);
-            setValue('sessionDuration', option?.rawData.sessionDuration.toString());
-            setValue('numberSessions', option?.rawData.numberSessions);
-            setValue('originPrice', option?.rawData.price);
-            // FIXME: Công thức
-            setValue('salePrice', 0);
+            setValue('displaySessionDuration', option?.rawData.sessionDuration.toString());
+            setValue('displayNumberSessions', option?.rawData.numberSessions);
+            setValue('calculateNDisplayOriginPrice', originPrice);
+            setValue(
+              'displayGiftPrice',
+              calculateGiftPrice({
+                calculateNDisplayOriginPrice: originPrice,
+                calculateQuantityCourseRoadMap: quantityCourseRoadMap,
+              }),
+            );
+            setValue(
+              'displaySalePrice',
+              calculateSalePrice({
+                calculatePromotions,
+                calculateNDisplayOriginPrice: originPrice,
+              }),
+            );
             if (errors.courseRoadMapOrComboId) {
               trigger('courseRoadMapOrComboId');
             }
           }}
         />
         <SelectCourseCombo
-          className={classNames(type === CourseRoadmapOrCombo.COURSE_ROADMAP ? 'hidden' : 'block')}
+          className={classNames(directionalType === CourseRoadmapOrCombo.COURSE_ROADMAP ? 'hidden' : 'block')}
           disabled={disabledField}
           placeholder={t('consultant_form:course_roadmap_or_combo')}
-          courseCombo={type === CourseRoadmapOrCombo.COURSE_ROADMAP ? undefined : courseRoadMapOrComboId}
+          courseCombo={directionalType === CourseRoadmapOrCombo.COURSE_ROADMAP ? undefined : courseRoadMapOrComboId}
           onChange={(value, option) => {
+            const originPrice = option?.rawData.totalPrice;
+            const quantityCourseRoadMap = option?.rawData?.courseRoadmap?.length;
             setValue('courseRoadMapOrComboId', value);
+            setValue('calculateQuantityCourseRoadMap', quantityCourseRoadMap);
             setValue(
-              'sessionDuration',
+              'displaySessionDuration',
               option?.rawData?.courseRoadmap
                 ?.map(item => {
                   return [item.code, item.sessionDuration].join(' - ');
                 })
                 .join(', '),
             );
-            setValue('numberSessions', option?.rawData.totalNumberSessions);
-            setValue('originPrice', option?.rawData.totalPrice);
-            // FIXME: Công thức
-            setValue('salePrice', 0);
+            setValue('displayNumberSessions', option?.rawData.totalNumberSessions);
+            setValue('calculateNDisplayOriginPrice', originPrice);
+            setValue(
+              'displayGiftPrice',
+              calculateGiftPrice({
+                calculateNDisplayOriginPrice: originPrice,
+                calculateQuantityCourseRoadMap: quantityCourseRoadMap,
+              }),
+            );
+            setValue(
+              'displaySalePrice',
+              calculateSalePrice({
+                calculatePromotions,
+                calculateNDisplayOriginPrice: originPrice,
+              }),
+            );
             if (errors.courseRoadMapOrComboId) {
               trigger('courseRoadMapOrComboId');
             }
@@ -218,7 +257,7 @@ export const Consultant = ({ disabledField, form }: Props) => {
           className="w-full"
           disabled
           placeholder={t('consultant_form:number_session_with_measure')}
-          value={numberSessions}
+          value={displayNumberSessions}
         />
       </Field>
       <Field label={t('consultant_form:session_duration_with_measure')}>
@@ -226,7 +265,7 @@ export const Consultant = ({ disabledField, form }: Props) => {
           className="w-full"
           disabled
           placeholder={t('consultant_form:session_duration_with_measure')}
-          value={sessionDuration}
+          value={displaySessionDuration}
         />
       </Field>
       <Field label={t('consultant_form:fee_origin_with_measure')}>
@@ -239,25 +278,29 @@ export const Consultant = ({ disabledField, form }: Props) => {
             return currencyFormatter(value) ?? '';
           }}
           parser={value => currencyParser(value) ?? 0}
-          value={originPrice}
+          value={calculateNDisplayOriginPrice}
         />
       </Field>
       <Field label={t('consultant_form:promotion')} error={errors.promotionIds?.message}>
-        <SelectPromotions
+        <SelectDiscounts
           disabled={disabledField}
           placeholder={t('consultant_form:promotion')}
-          promotions={promotionIds}
+          discounts={promotionIds ?? undefined}
           onChange={(value, option) => {
+            const promotions = (option ?? [])?.map(item => ({
+              feeDiscount: item.rawData.feeDiscount,
+              percentageDiscount: item.rawData.percentageDiscount,
+              programType: item.rawData.programType,
+            }));
             setValue('promotionIds', value);
+            setValue('calculatePromotions', promotions);
             setValue(
-              'gift',
-              option
-                ?.map(item => item.rawData.giftDiscount)
-                .filter(Boolean)
-                .join(', '),
+              'displaySalePrice',
+              calculateSalePrice({
+                calculatePromotions: promotions,
+                calculateNDisplayOriginPrice,
+              }),
             );
-            // FIXME: TÍnh giá
-            setValue('salePrice', 0);
             if (errors.promotionIds) {
               trigger('promotionIds');
             }
@@ -274,12 +317,53 @@ export const Consultant = ({ disabledField, form }: Props) => {
             return currencyFormatter(value) ?? '';
           }}
           parser={value => currencyParser(value) ?? 0}
-          value={salePrice}
+          value={displaySalePrice}
         />
       </Field>
       <Field label={t('consultant_form:gift')}>
-        <Input className="w-full" disabled placeholder={t('consultant_form:gift')} value={gift} />
+        <Input
+          value={currencyFormatter(displayGiftPrice)}
+          suffix="VNĐ"
+          className="w-full"
+          disabled
+          placeholder={t('consultant_form:gift')}
+        />
       </Field>
+      <div className="md:col-span-2">
+        <Field label={t('consultant_form:gift2')} error={errors.gifts?.message} tagName="div">
+          <Spin spinning={loading}>
+            <div className={classNames('grid-cols-1 gap-2', loading ? 'grid' : 'hidden')}>
+              <Skeleton.Input />
+              <Skeleton.Input />
+              <Skeleton.Input />
+            </div>
+            <div className="grid grid-cols-1 gap-2">
+              {data?.items.map(item => {
+                return (
+                  <Checkbox
+                    disabled={disabledField}
+                    onChange={event => {
+                      const checked = event.target.checked;
+                      if (checked) {
+                        setValue('gifts', gifts.concat(item.id));
+                      } else {
+                        setValue(
+                          'gifts',
+                          gifts.filter(gift => gift !== item.id),
+                        );
+                      }
+                    }}
+                    checked={gifts?.includes(item.id)}
+                    key={item.id}
+                  >
+                    {item.name}
+                  </Checkbox>
+                );
+              })}
+            </div>
+          </Spin>
+        </Field>
+      </div>
       <div className="md:col-span-2">
         <Divider>{t('consultant_form:extra_information')}</Divider>
       </div>

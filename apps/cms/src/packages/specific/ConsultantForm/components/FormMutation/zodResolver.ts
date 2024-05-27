@@ -3,6 +3,7 @@ import { literal, object, string, enum as enum_, array, number } from 'zod';
 import { CourseRoadmapOrCombo } from './constants';
 import type { TFunction } from 'i18next';
 import { FormStatus } from '~/packages/common/SelectVariants/FormStatus/constants/FormStatus';
+import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
 import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMessageSelectField';
@@ -25,9 +26,9 @@ export const getFormMutationSchema = (t: TFunction<['common', 'consultant_form']
   };
   return object({
     studentId: string({ required_error: studentId.required }),
-    studentPhone: string().or(literal('')).optional().nullable(),
-    studentSchool: string().optional().nullable(),
-    studentSource: enum_([
+    displayStudentPhone: string().or(literal('')).optional().nullable(),
+    displayStudentSchool: string().optional().nullable(),
+    displayStudentSource: enum_([
       SourceEnum.Cold,
       SourceEnum.Communication,
       SourceEnum.DataMarketing,
@@ -37,19 +38,31 @@ export const getFormMutationSchema = (t: TFunction<['common', 'consultant_form']
     ])
       .optional()
       .nullable(),
-    saleEmployees: array(string()).optional(),
+    displaySaleEmployees: array(string()).optional().nullable(),
     consultantId: string({ required_error: consultantId.required }),
     expectDepartmentId: string({ required_error: expectDepartmentId.required }),
     status: enum_([FormStatus.Consulted, FormStatus.Failed, FormStatus.SalesClosed, FormStatus.UnderCare]).optional(),
-    type: enum_([CourseRoadmapOrCombo.COMBO, CourseRoadmapOrCombo.COURSE_ROADMAP]).optional(),
+    directionalType: enum_([CourseRoadmapOrCombo.COMBO, CourseRoadmapOrCombo.COURSE_ROADMAP]).optional(),
     courseRoadMapOrComboId: string({ required_error: courseRoadMapOrComboId.required }),
-    numberSessions: number().optional(),
-    sessionDuration: string().optional(),
-    originPrice: number().optional(),
-    promotionIds: array(string()),
-    salePrice: number().optional(),
-    gift: string().optional(),
+    calculateQuantityCourseRoadMap: number().optional(),
+    displayNumberSessions: number().optional(),
+    displaySessionDuration: string().optional(),
+    calculateNDisplayOriginPrice: number().optional(),
+    promotionIds: array(string()).optional().nullable(),
+    calculatePromotions: array(
+      object({
+        programType: enum_([PromotionType.FeeDiscount, PromotionType.Gift, PromotionType.PercentageDiscount]),
+        feeDiscount: number().optional(),
+        percentageDiscount: number().optional(),
+      }),
+    )
+      .optional()
+      .nullable(),
+    displaySalePrice: number().optional(),
+    displayGiftPrice: number().optional(),
+    gifts: array(string()).optional().nullable(),
     note: string().trim().min(0, note.length).max(256, note.length).trim().optional().or(literal('')).nullable(),
+    examResults: array(string()).optional().nullable(),
   });
 };
 

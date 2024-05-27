@@ -2,7 +2,6 @@ import { AxiosResponse } from 'axios';
 import { Promotion } from '../models/Promotion';
 import { ServiceHeaderResponse } from '~/@types/ServiceHeaderResponse';
 import { PromotionStatus } from '~/packages/common/SelectVariants/PromotionStatus/constants/PromotionStatus';
-import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {
@@ -15,7 +14,7 @@ interface GetPromotions {
   perPage?: number;
   query?: string;
   status?: PromotionStatus;
-  promotionType?: PromotionType;
+  promotionTypes?: string;
   sortByName?: -1 | 1;
   startDate?: string;
   endDate?: string;
@@ -27,7 +26,7 @@ export const getPromotions = async ({
   status,
   sortByName,
   endDate,
-  promotionType,
+  promotionTypes,
   startDate,
 }: GetPromotions) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
@@ -39,7 +38,7 @@ export const getPromotions = async ({
       status,
       sortByName,
       endDate,
-      promotionType,
+      promotionTypes,
       startDate,
     },
   });

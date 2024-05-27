@@ -51,14 +51,16 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
         data: {
           id: params['id'],
           consultantId: data.consultantId,
-          courseComboId: data.type === CourseRoadmapOrCombo.COMBO ? data.courseRoadMapOrComboId : undefined,
-          courseRoadmapId: data.type === CourseRoadmapOrCombo.COURSE_ROADMAP ? data.courseRoadMapOrComboId : undefined,
-          giftIds: [],
+          courseComboId: data.directionalType === CourseRoadmapOrCombo.COMBO ? data.courseRoadMapOrComboId : undefined,
+          courseRoadmapId:
+            data.directionalType === CourseRoadmapOrCombo.COURSE_ROADMAP ? data.courseRoadMapOrComboId : undefined,
+          giftIds: data.gifts ?? [],
           learningOrganizationId: data.expectDepartmentId,
           notes: data.note,
           status: data.status,
           studentId: data.studentId,
           promotionIds: data.promotionIds,
+          examResults: data.examResults ?? [],
         },
       });
       return json({

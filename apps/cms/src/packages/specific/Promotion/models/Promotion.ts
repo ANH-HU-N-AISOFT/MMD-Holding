@@ -9,12 +9,12 @@ export interface Promotion {
   status: PromotionStatus;
   startDate: string;
   endDate: string;
-  programType: PromotionType;
   scope: PromotionScope;
   organizationIds: string[];
   notes: string;
-  feeDiscount: number;
   giftDiscount: string;
-  percentageDiscount: number;
   createdAt: string;
+  programType: PromotionType;
+  feeDiscount: number;
+  percentageDiscount: number;
 }

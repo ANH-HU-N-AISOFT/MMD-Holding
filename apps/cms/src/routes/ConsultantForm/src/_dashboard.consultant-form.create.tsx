@@ -31,14 +31,16 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
     if (data) {
       await createConsultantForm({
         consultantId: data.consultantId,
-        courseComboId: data.type === CourseRoadmapOrCombo.COMBO ? data.courseRoadMapOrComboId : undefined,
-        courseRoadmapId: data.type === CourseRoadmapOrCombo.COURSE_ROADMAP ? data.courseRoadMapOrComboId : undefined,
-        giftIds: [],
+        courseComboId: data.directionalType === CourseRoadmapOrCombo.COMBO ? data.courseRoadMapOrComboId : undefined,
+        courseRoadmapId:
+          data.directionalType === CourseRoadmapOrCombo.COURSE_ROADMAP ? data.courseRoadMapOrComboId : undefined,
+        giftIds: data.gifts ?? [],
         learningOrganizationId: data.expectDepartmentId,
         notes: data.note,
         status: data.status,
         studentId: data.studentId,
         promotionIds: data.promotionIds,
+        examResults: [],
       });
       return json({
         hasError: false,
@@ -86,8 +88,9 @@ export const Page = () => {
           isSubmiting={isSubmiting}
           uid={FormCreateUid}
           defaultValues={{
-            type: CourseRoadmapOrCombo.COMBO,
+            directionalType: CourseRoadmapOrCombo.COMBO,
             status: FormStatus.Consulted,
+            examResults: [],
           }}
         />
       </div>

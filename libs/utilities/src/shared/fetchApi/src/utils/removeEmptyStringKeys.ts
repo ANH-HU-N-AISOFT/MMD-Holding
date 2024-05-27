@@ -1,4 +1,7 @@
 export const removeEmptyStringKeys = <T extends Record<string, any>>(obj: T, setNull?: boolean): T => {
+  if (obj instanceof FormData) {
+    return obj;
+  }
   const newObj: Record<string, any> = {};
   for (const key in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, key)) {

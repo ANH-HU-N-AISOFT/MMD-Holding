@@ -171,10 +171,13 @@ export class FetchAPI {
           ...removeEmptyStringKeys(baseConfig.params),
           ...removeEmptyStringKeys(requestConfig.params),
         },
-        data: {
-          ...removeEmptyStringKeys(baseConfig.data, method === 'PUT'),
-          ...removeEmptyStringKeys(requestConfig.data, method === 'PUT'),
-        },
+        data:
+          requestConfig.data instanceof FormData
+            ? requestConfig.data
+            : {
+                ...removeEmptyStringKeys(baseConfig.data, method === 'PUT'),
+                ...removeEmptyStringKeys(requestConfig.data, method === 'PUT'),
+              },
       });
 
       return request;

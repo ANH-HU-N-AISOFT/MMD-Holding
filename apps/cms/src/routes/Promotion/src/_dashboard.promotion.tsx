@@ -39,7 +39,7 @@ export const loader = async ({
       query: search,
       sortByName: search ? 1 : undefined,
       endDate,
-      promotionType,
+      promotionTypes: promotionType,
       startDate,
       status,
     });

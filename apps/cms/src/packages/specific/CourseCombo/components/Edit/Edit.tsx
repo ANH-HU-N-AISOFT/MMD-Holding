@@ -1,4 +1,5 @@
 import { CourseCombo } from '../../models/CourseCombo';
+import { getDisplaySessionDuration } from '../../utils/getDisplaySessionDuration';
 import { FormMutation, FormValues } from '../FormMutation/FormMutation';
 
 interface Props {
@@ -21,11 +22,7 @@ export const Edit = ({ courseCombo, ...formProps }: Props) => {
         status: courseCombo.status,
         totalNumberSessions: courseCombo.totalNumberSessions,
         totalPrice: courseCombo.totalPrice,
-        displayTotalSessionDuration: courseCombo.courseRoadmap
-          ?.map(courseRoadmap => {
-            return [courseRoadmap.code, courseRoadmap.sessionDuration].join(' - ');
-          })
-          .join(', '),
+        displayTotalSessionDuration: getDisplaySessionDuration({ courseRoadmaps: courseCombo.courseRoadmap }),
       }}
     />
   );

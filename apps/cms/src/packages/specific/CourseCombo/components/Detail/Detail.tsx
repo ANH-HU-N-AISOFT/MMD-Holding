@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CourseCombo } from '../../models/CourseCombo';
+import { getDisplaySessionDuration } from '../../utils/getDisplaySessionDuration';
 import { FormMutation } from '../FormMutation/FormMutation';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { FormSearchNFilter } from '~/packages/specific/CourseRoadmap/components/Listing/FormSearchNFilter';
@@ -57,11 +58,7 @@ export const Detail = ({ courseCombo }: Props) => {
             status: courseCombo.status,
             totalNumberSessions: courseCombo.totalNumberSessions,
             totalPrice: courseCombo.totalPrice,
-            displayTotalSessionDuration: courseCombo.courseRoadmap
-              ?.map(courseRoadmap => {
-                return [courseRoadmap.code, courseRoadmap.sessionDuration].join(' - ');
-              })
-              .join(', '),
+            displayTotalSessionDuration: getDisplaySessionDuration({ courseRoadmaps: courseCombo.courseRoadmap }),
           }}
         />
       </div>

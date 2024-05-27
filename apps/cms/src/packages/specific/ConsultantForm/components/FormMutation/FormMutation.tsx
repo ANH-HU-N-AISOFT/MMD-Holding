@@ -33,7 +33,12 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
     mode: 'onSubmit',
     submitHandlers: {
       onValid: onSubmit as any,
-      onInvalid: console.log,
+      onInvalid: errors => {
+        if (errors.examResults) {
+          setTabActive('testResult');
+        }
+        setTabActive('consultant');
+      },
     },
     defaultValues,
     resolver: getFormMutationResolver(t as TFunction<['common', 'consultant_form']>),

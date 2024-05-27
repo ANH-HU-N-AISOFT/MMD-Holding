@@ -124,7 +124,6 @@ export const Page = () => {
       <Header title={t('appointment:add_appointment')} onBack={() => navigate('/appointment')} />
       <div className="flex-1 mb-4">
         <FormMutation
-          // FIXME: Nếu lịch hẹn được tạo từ màn danh sách học viên hoặc chi tiết học viên, …, thông tin học viên được autofill
           defaultValues={{
             appointmentStatus: AppointmentStatus.SCHEDULED,
             expectInspectionDepartmentId: getSession()?.profile?.organizationId,
