@@ -8,6 +8,7 @@ import { Session } from './models/Session';
 
 export const sessionSchema = object({
   profile: object({
+    id: string(),
     roles: array(string()),
     organizationName: string(),
     fullName: string(),

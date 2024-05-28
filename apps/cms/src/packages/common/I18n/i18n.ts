@@ -28,6 +28,7 @@ i18n
       'course_combo',
       'promotion',
       'consultant_form',
+      'trial',
     ],
     supportedLngs: ['en'],
     fallbackNS: 'en',

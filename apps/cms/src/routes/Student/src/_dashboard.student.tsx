@@ -240,9 +240,13 @@ export const Page = () => {
             const createSearchParams = createUrlSearchParamsUtils.encrypt({ studentId: record.id });
             navigate(`/appointment/create${createSearchParams}`);
           }}
-          onConsultant={record => {
+          onCreateConsultant={record => {
             const createSearchParams = createUrlSearchParamsUtils.encrypt({ studentId: record.id });
             navigate(`/consultant-form/create${createSearchParams}`);
+          }}
+          onCreateTrial={record => {
+            const createSearchParams = createUrlSearchParamsUtils.encrypt({ studentId: record.id });
+            navigate(`/trial/create${createSearchParams}`);
           }}
         />
       </div>

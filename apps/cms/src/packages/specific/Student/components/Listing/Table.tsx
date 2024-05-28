@@ -1,6 +1,7 @@
 import {
   DeleteOutlined,
   EditOutlined,
+  ExperimentOutlined,
   EyeOutlined,
   LockOutlined,
   QuestionCircleOutlined,
@@ -28,7 +29,8 @@ export interface Props
   onResetPassword?: (record: Student) => void;
   onViewDepartment?: (record: Required<Student>['organizations'][number]) => void;
   onBookAppointment?: (record: Student) => void;
-  onConsultant?: (record: Student) => void;
+  onCreateConsultant?: (record: Student) => void;
+  onCreateTrial?: (record: Student) => void;
   editable?: boolean;
   deletable?: boolean;
   passwordResetable?: boolean;
@@ -47,7 +49,8 @@ export const Table = ({
   onResetPassword,
   onViewDepartment,
   onBookAppointment,
-  onConsultant,
+  onCreateConsultant,
+  onCreateTrial,
   deletable,
   editable,
   passwordResetable,
@@ -183,9 +186,15 @@ export const Table = ({
               },
               {
                 key: '6',
-                label: t('student:consultant'),
+                label: t('student:create_consultant'),
                 icon: <QuestionCircleOutlined />,
-                onClick: () => onConsultant?.(record),
+                onClick: () => onCreateConsultant?.(record),
+              },
+              {
+                key: '7',
+                label: t('student:create_trial'),
+                icon: <ExperimentOutlined />,
+                onClick: () => onCreateTrial?.(record),
               },
               {
                 key: '4',

@@ -64,5 +64,6 @@
   "must_select_department": "Chọn đơn vị để tiếp tục",
   "department_name": "Tên đơn vị",
   "book_appointment": "Đặt lịch hẹn",
-  "consultant": "Thêm tư vấn"
+  "create_consultant": "Thêm tư vấn",
+  "create_trial": "Yêu cầu học thử"
 }

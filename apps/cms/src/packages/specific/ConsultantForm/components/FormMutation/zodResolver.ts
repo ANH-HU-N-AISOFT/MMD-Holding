@@ -12,11 +12,11 @@ export const getFormMutationSchema = (t: TFunction<['common', 'consultant_form']
   const studentId = {
     required: getRequiredMessageSelectField(t, 'consultant_form:student'),
   };
-  const note = {
-    length: getRangeLengthMessage(t, 'consultant_form:note', 0, 256),
-  };
   const consultantId = {
     required: getRequiredMessageSelectField(t, 'consultant_form:consultantor'),
+  };
+  const note = {
+    length: getRangeLengthMessage(t, 'consultant_form:note', 0, 256),
   };
   const courseRoadMapOrComboId = {
     required: getRequiredMessageSelectField(t, 'consultant_form:course_roadmap_or_combo'),

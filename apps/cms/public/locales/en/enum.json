@@ -131,5 +131,29 @@
       "Failed": "Thất bại",
       "Trial": "Đang học thử"
     }
+  },
+  "trialStatus": {
+    "label": "Trạng thái",
+    "options": {
+      "WaitingForClass": "Chờ xếp lớp",
+      "ClassAssigned": "Đã xếp lớp",
+      "TrialClass": "Đang học thử",
+      "Finished": "Kết thúc",
+      "Cancelled": "Hủy"
+    }
+  },
+  "classType": {
+    "label": "Loại lớp học thử",
+    "options": {
+      "AvailableClass": "Lớp có sẵn",
+      "PrivateClass": "Lớp riêng"
+    }
+  },
+  "learningType": {
+    "label": "Hình thức học",
+    "options": {
+      "online": "Online",
+      "offline": "Offline"
+    }
   }
 }

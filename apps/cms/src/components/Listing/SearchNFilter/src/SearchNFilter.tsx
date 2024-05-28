@@ -37,6 +37,7 @@ export const SearchNFilter = ({
   return (
     <div className={classNames('flex gap-2', containerClassName)}>
       <Input
+        allowClear
         defaultValue={searchValue}
         className={classNames('md:max-w-[350px] flex-1', inputClassName)}
         placeholder={placeholder}

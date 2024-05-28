@@ -20,6 +20,7 @@ export const loader = async () => {
     setSession({
       ...session,
       profile: {
+        id: profileResponse.data.employeeId,
         roles: profileResponse.data.user?.roles ?? [],
         avatar: '',
         fullName: profileResponse.data.fullName,

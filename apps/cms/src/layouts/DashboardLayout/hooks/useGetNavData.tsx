@@ -69,6 +69,11 @@ export const useGetNavData = () => {
           onClick: () => navigate('/consultant-form'),
         },
         {
+          key: '/trial',
+          label: t('dashboard_layout:menu.trial'),
+          onClick: () => navigate('/trial'),
+        },
+        {
           key: '/promotion',
           label: t('dashboard_layout:menu.promotion'),
           onClick: () => navigate('/promotion'),

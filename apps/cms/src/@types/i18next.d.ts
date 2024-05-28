@@ -18,6 +18,7 @@ import type page404 from 'public/locales/en/page404.json';
 import type page500 from 'public/locales/en/page500.json';
 import type promotion from 'public/locales/en/promotion.json';
 import type student from 'public/locales/en/student.json';
+import type trial from 'public/locales/en/trial.json';
 
 declare module 'i18next' {
   interface CustomTypeOptions {
@@ -41,6 +42,7 @@ declare module 'i18next' {
       course_combo: typeof course_combo;
       promotion: typeof promotion;
       consultant_form: typeof consultant_form;
+      trial: typeof trial;
     };
   }
 }

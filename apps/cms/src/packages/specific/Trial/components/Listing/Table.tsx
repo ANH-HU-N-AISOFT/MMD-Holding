@@ -1,28 +1,30 @@
-import { DeleteOutlined, EditOutlined, ExperimentOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button, Tag, Typography } from 'antd';
+import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
+import { Button, Dropdown, Tag, Typography } from 'antd';
+import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
-import { FormStatusMappingToColors } from '../../constants/PromotionComboStatusMappingToColors';
-import { ConsultantForm } from '../../models/ConsultantForm';
-import { Collapsed } from '~/components/Collapsed/Collapsed';
+import { TrialStatusMappingToColors } from '../../constants/TrialStatusMappingToColors';
+import { Trial } from '../../models/Trial';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
 import { TableActions } from '~/components/TableActions/TableActions';
-import { getFormStatusMappingToLabels } from '~/packages/common/SelectVariants/FormStatus/constants/FormStatusMappingToLabels';
-import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
+import { TooltipDetailInformation } from '~/components/TooltipDetailInformation/TooltipDetailInformation';
+import { TrialStatus } from '~/packages/common/SelectVariants/TrialStatus/constants/TrialStatus';
+import { getTrialStatusMappingToLabels } from '~/packages/common/SelectVariants/TrialStatus/constants/TrialStatusMappingToLabels';
+
 export interface Props
   extends Pick<
-    TableListingProps<ConsultantForm>,
+    TableListingProps<Trial>,
     'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading'
   > {
   editable?: boolean;
   deletable?: boolean;
-  onEdit?: (record: ConsultantForm) => void;
+  onEdit?: (record: Trial) => void;
   onDelete?: (recordKeys: string) => void;
   onDeleteMany?: (recordKeys: string[]) => void;
-  onView?: (record: ConsultantForm) => void;
-  onCreateTrial?: (record: ConsultantForm) => void;
+  onView?: (record: Trial) => void;
+  onUpdateStatus?: (params: { record: Trial; status: TrialStatus }) => void;
 }
 
 export const Table = ({
@@ -35,15 +37,15 @@ export const Table = ({
   onDelete,
   onDeleteMany,
   onView,
-  onCreateTrial,
+  onUpdateStatus,
   deletable,
   editable,
   ...props
 }: Props) => {
-  const { t } = useTranslation(['common', 'consultant_form']);
+  const { t } = useTranslation(['common', 'trial', 'employee']);
 
-  const FormStatusMappingToLabels = useMemo(() => {
-    return getFormStatusMappingToLabels(t);
+  const TrialStatusMappingToLabels = useMemo(() => {
+    return getTrialStatusMappingToLabels(t);
   }, [t]);
 
   const [selectedRows, _setSelectedRows] = useState<string[]>([]);
@@ -52,7 +54,7 @@ export const Table = ({
   //   return dataSource.every(item => !!selectedRows.find(selectedRow => item.id === selectedRow));
   // }, [dataSource, selectedRows]);
 
-  const columns: ListingColumnType<ConsultantForm>[] = [
+  const columns: ListingColumnType<Trial>[] = [
     // {
     //   width: 70,
     //   title: (
@@ -100,7 +102,7 @@ export const Table = ({
     },
     {
       width: 185,
-      title: t('consultant_form:student_name'),
+      title: t('trial:student_name'),
       render: (_, record) => {
         return (
           <Typography.Link onClick={() => onView?.(record)}>
@@ -111,71 +113,97 @@ export const Table = ({
       },
     },
     {
-      width: 160,
-      align: 'center',
-      title: t('consultant_form:status'),
-      render: (_, record) => {
-        return <Tag color={FormStatusMappingToColors[record.status]}>{FormStatusMappingToLabels[record.status]}</Tag>;
-      },
-    },
-    {
-      width: 280,
-      title: t('consultant_form:course_roadmap'),
-      render: (_, record) => {
-        if (record.courseCombo) {
-          return (
-            <ul className="grid grid-cols-1 gap-1 pl-3">
-              <Collapsed
-                className="-ml-3 pt-2"
-                disabled={!record.courseCombo?.courseRoadmap || record.courseCombo?.courseRoadmap?.length <= 3}
-                LessState={record.courseCombo.courseRoadmap?.slice(0, 3)?.map(item => {
-                  return (
-                    <li key={item.id}>
-                      {item.name} ({item.code})
-                    </li>
-                  );
-                })}
-                MoreState={record.courseCombo.courseRoadmap?.map(item => {
-                  return (
-                    <li key={item.id}>
-                      {item.name} ({item.code})
-                    </li>
-                  );
-                })}
-              />
-            </ul>
-          );
-        }
-        return record.courseRoadmap?.name;
-      },
-    },
-    {
-      width: 220,
-      title: t('consultant_form:fee_origin_with_measure'),
-      render: (_, record) => currencyFormatter(record.originPrice),
-    },
-    {
-      width: 220,
-      title: t('consultant_form:fee_after_apply_promotion_with_measure'),
-      render: (_, record) => currencyFormatter(record.salePrice),
-    },
-    {
-      width: 220,
-      title: t('consultant_form:gift'),
+      width: 200,
+      title: t('trial:status'),
       render: (_, record) => {
         return (
-          <ul className="grid grid-cols-1 gap-1 pl-3">
-            <Collapsed
-              className="-ml-3 pt-2"
-              disabled={!record.gifts || record.gifts?.length <= 3}
-              LessState={record.gifts?.slice(0, 3)?.map(item => {
-                return <li key={item.id}>{item.name}</li>;
-              })}
-              MoreState={record.gifts?.map(item => {
-                return <li key={item.id}>{item.name}</li>;
-              })}
+          <div className="flex items-center justify-between gap-2">
+            <Tag color={TrialStatusMappingToColors[record.status]}>{TrialStatusMappingToLabels[record.status]}</Tag>{' '}
+            <Dropdown
+              menu={{
+                items: Object.values(TrialStatus).reduce<ItemType[]>((result, item) => {
+                  if (item === record.status) {
+                    return result;
+                  }
+                  return result.concat({
+                    key: item,
+                    onClick: () => onUpdateStatus?.({ record: record, status: item }),
+                    label: <Tag color={TrialStatusMappingToColors[item]}>{TrialStatusMappingToLabels[item]}</Tag>,
+                  });
+                }, []),
+              }}
+            >
+              <EditOutlined className="text-status-blue cursor-pointer" />
+            </Dropdown>
+          </div>
+        );
+      },
+    },
+    {
+      width: 160,
+      title: t('trial:class_trial'),
+    },
+    {
+      width: 160,
+      title: t('trial:office_learning'),
+    },
+    {
+      width: 240,
+      title: t('trial:consultantor_short'),
+      render: (_, record) => {
+        if (!record.consultant) {
+          return null;
+        }
+        return (
+          <div>
+            <TooltipDetailInformation
+              title={[record.consultant?.fullName].filter(Boolean).join(' - ')}
+              extra={[
+                [t('employee:phone'), record.consultant?.phoneNumber].join(': '),
+                [t('employee:work_email'), record.consultant?.workEmail].join(': '),
+              ]}
             />
-          </ul>
+          </div>
+        );
+      },
+    },
+    {
+      width: 240,
+      title: t('trial:admin'),
+      render: (_, record) => {
+        if (!record.admin) {
+          return null;
+        }
+        return (
+          <div>
+            <TooltipDetailInformation
+              title={[record.admin?.fullName].filter(Boolean).join(' - ')}
+              extra={[
+                [t('employee:phone'), record.admin?.phoneNumber].join(': '),
+                [t('employee:work_email'), record.admin?.workEmail].join(': '),
+              ]}
+            />
+          </div>
+        );
+      },
+    },
+    {
+      width: 240,
+      title: t('trial:lecture'),
+      render: (_, record) => {
+        if (!record.lecture) {
+          return null;
+        }
+        return (
+          <div>
+            <TooltipDetailInformation
+              title={[record.lecture?.fullName].filter(Boolean).join(' - ')}
+              extra={[
+                [t('employee:phone'), record.lecture?.phoneNumber].join(': '),
+                [t('employee:work_email'), record.lecture?.workEmail].join(': '),
+              ]}
+            />
+          </div>
         );
       },
     },
@@ -183,33 +211,27 @@ export const Table = ({
       width: 80,
       align: 'center',
       fixed: 'right',
-      title: t('consultant_form:action'),
+      title: t('trial:action'),
       render: (_, record) => {
         return (
           <TableActions
             items={[
               {
                 key: '1',
-                label: t('consultant_form:edit'),
+                label: t('trial:edit'),
                 icon: <EditOutlined />,
                 onClick: () => onEdit?.(record),
                 hidden: !editable,
               },
               {
                 key: '2',
-                label: t('consultant_form:view'),
+                label: t('trial:view'),
                 icon: <EyeOutlined />,
                 onClick: () => onView?.(record),
               },
               {
-                key: '4',
-                label: t('consultant_form:create_trial'),
-                icon: <ExperimentOutlined />,
-                onClick: () => onCreateTrial?.(record),
-              },
-              {
                 key: '3',
-                label: t('consultant_form:delete'),
+                label: t('trial:delete'),
                 icon: <DeleteOutlined />,
                 danger: true,
                 onClick: () => onDelete?.(record.id),
@@ -224,7 +246,7 @@ export const Table = ({
 
   return (
     <>
-      <TableListing<ConsultantForm>
+      <TableListing<Trial>
         {...props}
         dataSource={dataSource}
         columns={columns}
@@ -253,14 +275,14 @@ export const Table = ({
       <SickyAction isVisible={!!selectedRows.length}>
         <div className="min-w-[400px] flex items-center justify-between">
           <Highlighter
-            textToHighlight={t('consultant_form:total_records_selected', {
+            textToHighlight={t('trial:total_records_selected', {
               total: selectedRows.length,
             })}
             searchWords={[selectedRows.length.toString()]}
             highlightClassName="bg-transparent font-semibold"
           />
           <Button danger onClick={() => onDeleteMany?.(selectedRows)}>
-            {t('consultant_form:delete')}
+            {t('trial:delete')}
           </Button>
         </div>
       </SickyAction>
