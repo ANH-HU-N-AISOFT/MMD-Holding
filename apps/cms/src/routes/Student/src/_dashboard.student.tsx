@@ -246,7 +246,7 @@ export const Page = () => {
           }}
           onCreateTrial={record => {
             const createSearchParams = createUrlSearchParamsUtils.encrypt({ studentId: record.id });
-            navigate(`/trial/create${createSearchParams}`);
+            navigate(`/trial-request/create${createSearchParams}`);
           }}
         />
       </div>

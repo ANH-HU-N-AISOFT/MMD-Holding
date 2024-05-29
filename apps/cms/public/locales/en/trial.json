@@ -36,6 +36,7 @@
   "class_type": "Loại lớp học thử",
   "course_roadmap": "Phân lớp",
   "expect_department": "Đơn vị học dự kiến",
+  "must_select_expect_department": "Vui lòng chọn đơn vị học dự kiến để tiếp tục",
   "learning_date": "Ngày học",
   "learning_time": "Giờ học",
   "learning_type": "Hình thức học",
@@ -46,5 +47,10 @@
   "offline": "Offline",
   "online": "Online",
   "add_trial": "Thêm yêu cầu học thử",
-  "trial_with_student_name": "Yêu cầu học thử - {{ name }}"
+  "trial_with_student_name": "Yêu cầu học thử - {{ name }}",
+  "all": "Tất cả",
+  "me": "Của tôi",
+  "owner_admin": "Lọc admin",
+  "owner_lecture": "Lọc giảng viên",
+  "owner_consultantor": "Lọc tư vấn viên"
 }

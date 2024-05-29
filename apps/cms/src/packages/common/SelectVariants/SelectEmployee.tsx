@@ -1,3 +1,5 @@
+import { Empty } from 'antd';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EmployeeStatus } from './EmployeeStatus/constants/EmployeeStatus';
 import { Role } from './Role/constants/Role';
@@ -17,6 +19,8 @@ interface Props {
   allowClear?: boolean;
   placeholder?: string;
   roles?: Role[];
+  organizationId: 'GET_ALL' | string | undefined;
+  emptyText: string;
 }
 
 export const SelectEmployee = ({
@@ -26,11 +30,15 @@ export const SelectEmployee = ({
   onChange,
   placeholder,
   roles,
+  organizationId,
+  emptyText,
 }: Props) => {
   const { t } = useTranslation(['employee']);
+  const needWarning = useMemo(() => !organizationId, [organizationId]);
 
   return (
     <SelectSingleDecoupling
+      notFoundContent={needWarning && emptyText ? <Empty description={emptyText} /> : undefined}
       allowClear={allowClear}
       placeholder={placeholder ?? t('employee:employee')}
       disabled={disabled}
@@ -42,6 +50,7 @@ export const SelectEmployee = ({
           sortByName: 1,
           roles: roles?.join(','),
           workStatus: EmployeeStatus.WORKING,
+          organizationId: organizationId === 'GET_ALL' ? undefined : organizationId,
         });
         return response.items;
       }}

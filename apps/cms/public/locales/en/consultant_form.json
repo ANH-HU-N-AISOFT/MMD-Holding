@@ -51,5 +51,6 @@
   "test_result": "Kết quả thi",
   "course_roadmap_or_combo": "Combo, Lộ trình học",
   "gift2": "Hiện vật",
-  "create_trial": "Yêu cầu học thử"
+  "create_trial": "Yêu cầu học thử",
+  "must_select_expect_department": "Vui lòng chọn đơn vị học dự kiến để tiếp tục"
 }

@@ -106,6 +106,8 @@ export const Consultant = ({ disabledField, form }: Props) => {
       </Field>
       <Field withRequiredMark label={t('consultant_form:consultantor')} error={errors.consultantId?.message}>
         <SelectEmployee
+          organizationId="GET_ALL"
+          emptyText={t('consultant_form:must_select_expect_department')}
           roles={[Role.Consultant]}
           disabled={disabledField}
           placeholder={t('consultant_form:consultantor')}
@@ -279,6 +281,8 @@ export const Consultant = ({ disabledField, form }: Props) => {
       </Field>
       <Field label={t('consultant_form:promotion')} error={errors.promotionIds?.message}>
         <SelectDiscounts
+          emptyText={t('consultant_form:must_select_expect_department')}
+          organizationId={expectDepartmentId}
           disabled={disabledField}
           placeholder={t('consultant_form:promotion')}
           discounts={promotionIds ?? undefined}
@@ -357,7 +361,7 @@ export const Consultant = ({ disabledField, form }: Props) => {
                     checked={gifts?.includes(item.id)}
                     key={item.id}
                   >
-                    {item.name}
+                    {item.giftDiscount}
                   </Checkbox>
                 );
               })}

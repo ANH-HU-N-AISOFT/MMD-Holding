@@ -28,7 +28,7 @@ import EmployeeRoutes from './routes/Employee';
 import * as Logout from './routes/logout';
 import PromotionRoutes from './routes/Promotion';
 import StudentRoutes from './routes/Student';
-import TrialRoutes from './routes/Trial';
+import TrialRequestRoutes from './routes/TrialRequest';
 
 const router = createBrowserRouter([
   {
@@ -167,7 +167,7 @@ const router = createBrowserRouter([
           ...CourseComboRoutes,
           ...PromotionRoutes,
           ...ConsultantFormRoutes,
-          ...TrialRoutes,
+          ...TrialRequestRoutes,
         ],
       },
     ],

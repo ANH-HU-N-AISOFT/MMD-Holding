@@ -1,7 +1,7 @@
 import { DeleteOutlined, InboxOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Image } from 'antd';
 import classNames from 'classnames';
-import { descend, prop, range, sortWith } from 'ramda';
+import { range } from 'ramda';
 import { useEffect, useState } from 'react';
 import { uploadImage } from '../../../services/uploadImage';
 import { FormValues } from '../FormMutation';
@@ -48,7 +48,8 @@ export const TestResult = ({ disabledField, form }: Props) => {
       .map(item => ({ path: item.response.path, order: item.response.order }));
     setValue(
       'examResults',
-      sortWith([descend(prop('order'))], examResults ?? []).map(item => item.path),
+      // sortWith([descend(prop('order'))], examResults ?? []).map(item => item.path),
+      examResults.map(item => item.path),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadFilesState]);
@@ -78,16 +79,6 @@ export const TestResult = ({ disabledField, form }: Props) => {
         <p className="ant-upload-hint">Hỗ trợ tải lên hình ảnh và có thể tải lên nhiều tệp cùng lúc.</p>
       </UploadMultiple>
       <div className="flex flex-wrap gap-2">
-        {range(0, quantityItemLoading).map(item => {
-          return (
-            <div
-              key={item}
-              className="flex-grow-0 flex-shrink-0 w-40 h-40 rounded-lg flex items-center justify-center bg-black/20"
-            >
-              <LoadingOutlined className="text-4xl" />
-            </div>
-          );
-        })}
         <Image.PreviewGroup>
           {examResults?.map(item => {
             return (
@@ -115,6 +106,16 @@ export const TestResult = ({ disabledField, form }: Props) => {
             );
           })}
         </Image.PreviewGroup>
+        {range(0, quantityItemLoading).map(item => {
+          return (
+            <div
+              key={item}
+              className="flex-grow-0 flex-shrink-0 w-40 h-full rounded-lg flex items-center justify-center bg-black/20"
+            >
+              <LoadingOutlined className="text-4xl" />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

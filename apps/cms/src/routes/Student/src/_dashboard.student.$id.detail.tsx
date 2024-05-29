@@ -26,7 +26,7 @@ import { createUrlSearchParamsUtils as createConsultantFormUrlSearchParamsUtils 
 import { Detail } from '~/packages/specific/Student/components/Detail/Detail';
 import { Student } from '~/packages/specific/Student/models/Student';
 import { getStudent } from '~/packages/specific/Student/services/getStudent';
-import { createUrlSearchParamsUtils as createTrialUrlSearchParamsUtils } from '~/packages/specific/Trial/utils/createUrlSearchParamsUtils';
+import { createUrlSearchParamsUtils as createTrialUrlSearchParamsUtils } from '~/packages/specific/TrialRequest/utils/createUrlSearchParamsUtils';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
@@ -146,7 +146,7 @@ export const Page = () => {
                     const createSearchParams = createTrialUrlSearchParamsUtils.encrypt({
                       studentId: loaderData.info?.student.id,
                     });
-                    navigate(`/trial/create${createSearchParams}`);
+                    navigate(`/trial-request/create${createSearchParams}`);
                   }}
                 >
                   {t('student:create_trial')}

@@ -1,6 +1,5 @@
 // auth.server.ts
 import { notification } from 'antd';
-import i18next from 'i18next';
 import { localStorage } from 'utilities';
 import { array, object, string } from 'zod';
 import { KeyOfSessionInCookie } from './constants/KeyOfSessionInCookie';
@@ -33,9 +32,10 @@ export const getSession = (): Session | undefined => {
       return;
     }
   } catch (error) {
-    notification.info({
-      message: i18next.t('auth:session_expired_title'),
-      description: i18next.t('auth:session_expired_description'),
+    // FIXME: I18n
+    notification.error({
+      message: 'Phiên đăng nhập hết hạn',
+      description: 'Phiên đăng nhập của bạn đã hết hạn, vui lòng đăng nhập lại để tiếp tục',
     });
     destroySession();
     return;

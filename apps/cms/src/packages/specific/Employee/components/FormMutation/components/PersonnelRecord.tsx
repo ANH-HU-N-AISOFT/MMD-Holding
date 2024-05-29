@@ -86,6 +86,8 @@ export const PersonnelRecord = ({ form, disabledField }: Props) => {
       </Field>
       <Field label={t('employee:direction_manager')} error={errors.personnelRecord?.directionManager?.message}>
         <SelectEmployee
+          organizationId="GET_ALL"
+          emptyText={t('employee:must_select_department')}
           employee={directionManager ?? undefined}
           placeholder={t('employee:direction_manager')}
           onChange={value => {

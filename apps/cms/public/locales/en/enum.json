@@ -132,24 +132,24 @@
       "Trial": "Đang học thử"
     }
   },
-  "trialStatus": {
+  "trialRequestStatus": {
     "label": "Trạng thái",
     "options": {
-      "WaitingForClass": "Chờ xếp lớp",
-      "ClassAssigned": "Đã xếp lớp",
-      "TrialClass": "Đang học thử",
-      "Finished": "Kết thúc",
+      "Awaiting": "Chờ xếp lớp",
+      "Assigned": "Đã xếp lớp",
+      "InProgress": "Đang học thử",
+      "Completed": "Kết thúc",
       "Cancelled": "Hủy"
     }
   },
-  "classType": {
+  "demoType": {
     "label": "Loại lớp học thử",
     "options": {
       "AvailableClass": "Lớp có sẵn",
       "PrivateClass": "Lớp riêng"
     }
   },
-  "learningType": {
+  "studyMode": {
     "label": "Hình thức học",
     "options": {
       "online": "Online",

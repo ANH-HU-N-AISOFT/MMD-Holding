@@ -75,5 +75,6 @@
   "date_of_birth_required": "Nhập ngày sinh để tiếp tục",
   "not_found": "Không tìm thấy nhân viên",
   "back_to_list": "Quay lại danh sách",
-  "employee": "Nhân viên"
+  "employee": "Nhân viên",
+  "must_select_department": "Vui lòng chọn đơn vị để tiếp tục"
 }

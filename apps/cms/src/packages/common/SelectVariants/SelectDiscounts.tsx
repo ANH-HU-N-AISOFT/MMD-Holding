@@ -1,3 +1,5 @@
+import { Empty } from 'antd';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PromotionStatus } from './PromotionStatus/constants/PromotionStatus';
 import { PromotionType } from './PromotionType/constants/PromotionType';
@@ -15,13 +17,26 @@ interface Props {
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
+  organizationId: 'GET_ALL' | string | undefined;
+  emptyText?: string;
 }
 
-export const SelectDiscounts = ({ disabled, discounts, allowClear = true, placeholder, onChange }: Props) => {
+export const SelectDiscounts = ({
+  disabled,
+  discounts,
+  allowClear = true,
+  placeholder,
+  onChange,
+  organizationId,
+  emptyText,
+}: Props) => {
   const { t } = useTranslation(['promotion']);
+  const needWarning = useMemo(() => !organizationId, [organizationId]);
 
   return (
     <SelectMultipleDecoupling
+      depsFetch={[organizationId]}
+      notFoundContent={needWarning && emptyText ? <Empty description={emptyText} /> : undefined}
       allowClear={allowClear}
       placeholder={placeholder ?? t('promotion:promotion')}
       disabled={disabled}
@@ -33,6 +48,7 @@ export const SelectDiscounts = ({ disabled, discounts, allowClear = true, placeh
           sortByName: 1,
           status: PromotionStatus.Active,
           promotionTypes: [PromotionType.FeeDiscount, PromotionType.PercentageDiscount].join(','),
+          organizationId: organizationId === 'GET_ALL' ? undefined : organizationId,
         });
         return response.items;
       }}

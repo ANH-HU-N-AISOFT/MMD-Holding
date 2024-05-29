@@ -4,9 +4,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { updateURLSearchParamsOfBrowserWithoutNavigation } from 'utilities';
 import {
-  ActionResponse as ActionDeleteConsultantFormResponse,
-  action as actionDeleteConsultantForm,
-} from './_dashboard.consultant-form.$id.delete';
+  ActionResponse as ActionDeleteTrialResponse,
+  action as actionDeleteTrial,
+} from './_dashboard.trial-request.$id.delete';
 import { ModalImport } from '~/components/Listing/ModalImport/ModalImport';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
@@ -14,14 +14,14 @@ import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, use
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
-import { FormSearchNFilter } from '~/packages/specific/ConsultantForm/components/Listing/FormSearchNFilter';
-import { Header } from '~/packages/specific/ConsultantForm/components/Listing/Header';
-import { Table } from '~/packages/specific/ConsultantForm/components/Listing/Table';
-import { ConsultantForm } from '~/packages/specific/ConsultantForm/models/ConsultantForm';
-import { getConsultantForms } from '~/packages/specific/ConsultantForm/services/getConsultantForms';
-import { ListingSearchParams } from '~/packages/specific/ConsultantForm/types/ListingSearchParams';
-import { lisitngUrlSearchParamsUtils } from '~/packages/specific/ConsultantForm/utils/lisitngUrlSearchParamsUtils';
-import { createUrlSearchParamsUtils } from '~/packages/specific/TrialRequest/utils/createUrlSearchParamsUtils';
+import { FormSearchNFilter } from '~/packages/specific/TrialRequest/components/Listing/FormSearchNFilter';
+import { Header } from '~/packages/specific/TrialRequest/components/Listing/Header';
+import { Table } from '~/packages/specific/TrialRequest/components/Listing/Table';
+import { useUpdateTrialRequestStatusOfRecord } from '~/packages/specific/TrialRequest/hooks/useUpdateTrialRequestStatusOfRecord';
+import { TrialRequest } from '~/packages/specific/TrialRequest/models/TrialRequest';
+import { getTrialRequests } from '~/packages/specific/TrialRequest/services/getTrialRequests';
+import { ListingSearchParams } from '~/packages/specific/TrialRequest/types/ListingSearchParams';
+import { lisitngUrlSearchParamsUtils } from '~/packages/specific/TrialRequest/utils/lisitngUrlSearchParamsUtils';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
@@ -30,17 +30,34 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 
 export const loader = async ({
   request,
-}: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<ConsultantForm>>> => {
+}: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<TrialRequest>>> => {
   isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
   const t = i18next.t;
-  const { search, page = 1, courseRoadmapId, status } = lisitngUrlSearchParamsUtils.decrypt(request);
+  const {
+    search,
+    page = 1,
+    status,
+    classType,
+    courseRoadmapId,
+    departmentId,
+    learningType,
+    isAdminOwner,
+    isConsultantOwner,
+    isLecturerOwner,
+  } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
-    const response = await getConsultantForms({
+    const response = await getTrialRequests({
       page,
       query: search,
-      sortByName: search ? 1 : undefined,
-      courseRoadmapId,
       status,
+      sortByName: search ? 1 : undefined,
+      courseRoadmapId: courseRoadmapId,
+      demoType: classType,
+      studyMode: learningType,
+      learningOrganizationId: departmentId,
+      isAdminOwner,
+      isConsultantOwner,
+      isLecturerOwner,
     });
 
     return json({
@@ -68,7 +85,7 @@ export const loader = async ({
 
 export const Page = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation(['consultant_form']);
+  const { t } = useTranslation(['trial']);
 
   //#region Listing
   const paramsInUrl = lisitngUrlSearchParamsUtils.decrypt(lisitngUrlSearchParamsUtils.getUrlSearchParams().toString());
@@ -80,11 +97,11 @@ export const Page = () => {
       ...paramsInUrl,
       ...params,
     });
-    fetcherData.load('/consultant-form' + searchParamsToLoader);
+    fetcherData.load('/trial-request' + searchParamsToLoader);
     updateURLSearchParamsOfBrowserWithoutNavigation(searchParamsToLoader);
   };
 
-  const { data, isFetchingList } = useListingData<ConsultantForm, ListingSearchParams>({
+  const { data, isFetchingList } = useListingData<TrialRequest, ListingSearchParams>({
     fetcherData: fetcherData,
     loaderData: loaderData,
     getNearestPageAvailable: page => handleRequest({ page }),
@@ -97,87 +114,94 @@ export const Page = () => {
   //#endregion
 
   //#region Export
-  const exportConsultantFormsFetcher = useFetcher();
+  const exportTrialsFetcher = useFetcher();
 
   const isExporting = useMemo(() => {
-    return exportConsultantFormsFetcher.state === 'loading' || exportConsultantFormsFetcher.state === 'submitting';
-  }, [exportConsultantFormsFetcher]);
+    return exportTrialsFetcher.state === 'loading' || exportTrialsFetcher.state === 'submitting';
+  }, [exportTrialsFetcher]);
 
   const handleExport = () => {
     const searchParamsToLoader = lisitngUrlSearchParamsUtils.encrypt({ ...paramsInUrl });
-    exportConsultantFormsFetcher.submit(
+    exportTrialsFetcher.submit(
       {},
       {
         method: 'POST',
-        action: '/consultant-form/export' + searchParamsToLoader,
+        action: '/trial-request/export' + searchParamsToLoader,
       },
     );
   };
 
   useEffect(() => {
-    if (exportConsultantFormsFetcher.data && exportConsultantFormsFetcher.state === 'idle') {
-      const response = exportConsultantFormsFetcher.data as ActionDeleteConsultantFormResponse;
+    if (exportTrialsFetcher.data && exportTrialsFetcher.state === 'idle') {
+      const response = exportTrialsFetcher.data as ActionDeleteTrialResponse;
       if (response.hasError) {
         notification.error({
-          message: t('consultant_form:export_failure'),
+          message: t('trial:export_failure'),
           description: handleGetMessageToToast(t, response),
         });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [exportConsultantFormsFetcher.state]);
+  }, [exportTrialsFetcher.state]);
   //#endregion
 
   //#region Delete
-  const deleteConsultantFormFetcher = useFetcher<typeof actionDeleteConsultantForm>();
+  const deleteTrialFetcher = useFetcher<typeof actionDeleteTrial>();
 
   const isDeleting = useMemo(() => {
-    return deleteConsultantFormFetcher.state === 'loading' || deleteConsultantFormFetcher.state === 'submitting';
-  }, [deleteConsultantFormFetcher]);
-  const [isOpenModalDeleteConsultantForm, setIsOpenModalDeleteConsultantForm] = useState<string | false>(false);
+    return deleteTrialFetcher.state === 'loading' || deleteTrialFetcher.state === 'submitting';
+  }, [deleteTrialFetcher]);
+  const [isOpenModalDeleteTrial, setIsOpenModalDeleteTrial] = useState<string | false>(false);
 
   const handleDelete = () => {
-    deleteConsultantFormFetcher.submit(
-      {},
-      { method: 'DELETE', action: `/consultant-form/${isOpenModalDeleteConsultantForm}/delete` },
-    );
+    deleteTrialFetcher.submit({}, { method: 'DELETE', action: `/trial-request/${isOpenModalDeleteTrial}/delete` });
   };
 
   useEffect(() => {
-    if (deleteConsultantFormFetcher.data && deleteConsultantFormFetcher.state === 'idle') {
-      const response = deleteConsultantFormFetcher.data as ActionDeleteConsultantFormResponse;
+    if (deleteTrialFetcher.data && deleteTrialFetcher.state === 'idle') {
+      const response = deleteTrialFetcher.data as ActionDeleteTrialResponse;
       if (response.hasError) {
         notification.error({
-          message: t('consultant_form:delete_failure'),
+          message: t('trial:delete_failure'),
           description: handleGetMessageToToast(t, response),
         });
       } else {
-        notification.success({ message: t('consultant_form:delete_success') });
+        notification.success({ message: t('trial:delete_success') });
         handleRequest({});
-        setIsOpenModalDeleteConsultantForm(false);
+        setIsOpenModalDeleteTrial(false);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deleteConsultantFormFetcher.state]);
+  }, [deleteTrialFetcher.state]);
+  //#endregion
+
+  //#region Update trial request status
+  const { isLoading: isSavingTrialRequestStatus, update } = useUpdateTrialRequestStatusOfRecord();
   //#endregion
 
   return (
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.Admin, Role.Consultant] })}
+          creatable={isCanShow({ accept: [Role.Admin] })}
           importable={false}
           exportable={false}
           isExporting={isExporting}
           onExport={handleExport}
-          onCreate={() => navigate('/consultant-form/create')}
+          onCreate={() => navigate('/trial-request/create')}
           onImport={() => setIsOpenModalImport(true)}
         />
         <FormSearchNFilter
           containerClassName="justify-end mb-1"
           searchValue={paramsInUrl.search?.toString()}
           formFilterValues={{
+            classType: paramsInUrl.classType,
             courseRoadmapId: paramsInUrl.courseRoadmapId,
+            departmentId: paramsInUrl.departmentId,
+            isAdminOwner: paramsInUrl.isAdminOwner,
+            isConsultantOwner: paramsInUrl.isConsultantOwner,
+            isLecturerOwner: paramsInUrl.isLecturerOwner,
+            learningType: paramsInUrl.learningType,
             status: paramsInUrl.status,
           }}
           isSubmiting={isFetchingList}
@@ -185,7 +209,13 @@ export const Page = () => {
           onResetFilter={() => {
             handleRequest({
               page: 1,
+              classType: undefined,
               courseRoadmapId: undefined,
+              departmentId: undefined,
+              isAdminOwner: undefined,
+              isConsultantOwner: undefined,
+              isLecturerOwner: undefined,
+              learningType: undefined,
               status: undefined,
             });
           }}
@@ -194,18 +224,17 @@ export const Page = () => {
         <Table
           deletable={isCanShow({ accept: [Role.Admin] })}
           editable={isCanShow({ accept: [Role.Admin] })}
-          loading={isFetchingList}
+          loading={isFetchingList || isSavingTrialRequestStatus}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}
           totalRecords={data.info.pagination.totalRecords}
           dataSource={data.info.hits}
           onChange={page => handleRequest({ page })}
-          onDelete={data => setIsOpenModalDeleteConsultantForm(data)}
-          onEdit={record => navigate(`/consultant-form/${record.id}/edit`)}
-          onView={record => navigate(`/consultant-form/${record.id}/detail`)}
-          onCreateTrial={record => {
-            const createSearchParams = createUrlSearchParamsUtils.encrypt({ studentId: record.student?.id });
-            navigate(`/trial-request/create${createSearchParams}`);
+          onDelete={data => setIsOpenModalDeleteTrial(data)}
+          onEdit={record => navigate(`/trial-request/${record.id}/edit`)}
+          onView={record => navigate(`/trial-request/${record.id}/detail`)}
+          onUpdateStatus={({ record, status }) => {
+            update({ id: record.id, status, revalidate: () => handleRequest({}) });
           }}
         />
       </div>
@@ -216,11 +245,11 @@ export const Page = () => {
         onOk={() => alert('Coming soon')}
       />
       <ModalConfirmDelete
-        open={!!isOpenModalDeleteConsultantForm}
-        onCancel={() => setIsOpenModalDeleteConsultantForm(false)}
+        open={!!isOpenModalDeleteTrial}
+        onCancel={() => setIsOpenModalDeleteTrial(false)}
         onOk={handleDelete}
-        title={t('consultant_form:delete_title')}
-        description={t('consultant_form:delete_description')}
+        title={t('trial:delete_title')}
+        description={t('trial:delete_description')}
         loading={isDeleting}
       />
     </>

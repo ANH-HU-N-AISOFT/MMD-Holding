@@ -317,6 +317,8 @@ export const FormMutation = ({
             </div>
             <Field withRequiredMark label={t('appointment:consultant')} error={errors.consultant?.message}>
               <SelectEmployee
+                organizationId="GET_ALL"
+                emptyText={t('appointment:must_select_expect_inspection_department')}
                 roles={[Role.Consultant]}
                 placeholder={t('appointment:consultant')}
                 employee={consultant}
@@ -331,6 +333,8 @@ export const FormMutation = ({
             </Field>
             <Field label={t('appointment:admin')} error={errors.admin?.message}>
               <SelectEmployee
+                organizationId="GET_ALL"
+                emptyText={t('appointment:must_select_expect_inspection_department')}
                 roles={[Role.Admin]}
                 allowClear
                 placeholder={t('appointment:admin')}
@@ -346,6 +350,8 @@ export const FormMutation = ({
             </Field>
             <Field label={t('appointment:tester')}>
               <SelectEmployee
+                organizationId="GET_ALL"
+                emptyText={t('appointment:must_select_expect_inspection_department')}
                 roles={[Role.Lecturer]}
                 allowClear
                 placeholder={t('appointment:tester')}

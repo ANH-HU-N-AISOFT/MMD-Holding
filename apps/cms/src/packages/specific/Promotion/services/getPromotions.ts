@@ -18,6 +18,7 @@ interface GetPromotions {
   sortByName?: -1 | 1;
   startDate?: string;
   endDate?: string;
+  organizationId?: string;
 }
 export const getPromotions = async ({
   page,
@@ -28,6 +29,7 @@ export const getPromotions = async ({
   endDate,
   promotionTypes,
   startDate,
+  organizationId,
 }: GetPromotions) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     url: '/promotions',
@@ -40,6 +42,7 @@ export const getPromotions = async ({
       endDate,
       promotionTypes,
       startDate,
+      organizationId,
     },
   });
 
