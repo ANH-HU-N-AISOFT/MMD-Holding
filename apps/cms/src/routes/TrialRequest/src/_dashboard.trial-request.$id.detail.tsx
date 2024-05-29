@@ -50,7 +50,7 @@ export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedRespo
 };
 
 export const Page = () => {
-  const { t } = useTranslation(['trial', 'page404']);
+  const { t } = useTranslation(['trial_request', 'page404']);
   const navigate = useNavigate();
 
   const loaderData = useLoaderData<typeof loader>();
@@ -72,11 +72,11 @@ export const Page = () => {
       const response = deleteTrialFetcher.data as ActionDeleteTrialResponse;
       if (response.hasError) {
         notification.error({
-          message: t('trial:delete_failure'),
+          message: t('trial_request:delete_failure'),
           description: handleGetMessageToToast(t, response),
         });
       } else {
-        notification.success({ message: t('trial:delete_success') });
+        notification.success({ message: t('trial_request:delete_success') });
         navigate('/trial-request');
         setIsOpenModalDeleteTrial(false);
       }
@@ -89,10 +89,10 @@ export const Page = () => {
     return (
       <Result
         status="404"
-        title={t('trial:not_found')}
+        title={t('trial_request:not_found')}
         extra={
           <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/trial-request')}>
-            {t('trial:back_to_list')}
+            {t('trial_request:back_to_list')}
           </Button>
         }
       />
@@ -103,7 +103,7 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          title={t('trial:trial_with_student_name', {
+          title={t('trial_request:trial_with_student_name', {
             name: loaderData.info?.trialRequest.student?.fullName,
           })}
           onBack={() => navigate('/trial-request')}
@@ -122,8 +122,8 @@ export const Page = () => {
         open={!!isOpenModalDeleteTrial}
         onCancel={() => setIsOpenModalDeleteTrial(false)}
         onOk={handleDelete}
-        title={t('trial:delete_title')}
-        description={t('trial:delete_description')}
+        title={t('trial_request:delete_title')}
+        description={t('trial_request:delete_description')}
         loading={isDeleting}
       />
     </>

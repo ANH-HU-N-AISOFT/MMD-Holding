@@ -98,7 +98,7 @@ export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedRespo
 const FormUpdate = 'FORM_UPDATE';
 export const Page = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation(['trial']);
+  const { t } = useTranslation(['trial_request']);
 
   const loaderData = useLoaderData<typeof loader>();
 
@@ -113,11 +113,11 @@ export const Page = () => {
     if (actionData) {
       if (actionData.hasError) {
         notification.error({
-          message: t('trial:update_failure'),
+          message: t('trial_request:update_failure'),
           description: handleGetMessageToToast(t, actionData),
         });
       } else {
-        notification.success({ message: t('trial:update_success') });
+        notification.success({ message: t('trial_request:update_success') });
         navigate('/trial-request');
       }
     }
@@ -128,10 +128,10 @@ export const Page = () => {
     return (
       <Result
         status="404"
-        title={t('trial:not_found')}
+        title={t('trial_request:not_found')}
         extra={
           <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/trial-request')}>
-            {t('trial:back_to_list')}
+            {t('trial_request:back_to_list')}
           </Button>
         }
       />
@@ -141,7 +141,7 @@ export const Page = () => {
   return (
     <div className="flex flex-col h-full">
       <Header
-        title={t('trial:trial_with_student_name', { name: loaderData.info.trialRequest.student?.fullName })}
+        title={t('trial_request:trial_with_student_name', { name: loaderData.info.trialRequest.student?.fullName })}
         onBack={() => navigate('/trial-request')}
       />
       <div className="flex-1 mb-4">

@@ -43,7 +43,7 @@ export const Table = ({
   editable,
   ...props
 }: Props) => {
-  const { t } = useTranslation(['common', 'trial', 'employee']);
+  const { t } = useTranslation(['common', 'trial_request', 'employee']);
 
   const TrialRequestStatusMappingToLabels = useMemo(() => {
     return getTrialRequestStatusMappingToLabels(t);
@@ -106,7 +106,7 @@ export const Table = ({
     },
     {
       width: 185,
-      title: t('trial:student_name'),
+      title: t('trial_request:student_name'),
       render: (_, record) => {
         return (
           <Typography.Link onClick={() => onView?.(record)}>
@@ -118,7 +118,7 @@ export const Table = ({
     },
     {
       width: 200,
-      title: t('trial:status'),
+      title: t('trial_request:status'),
       render: (_, record) => {
         return (
           <div className="flex items-center justify-between gap-2">
@@ -151,17 +151,17 @@ export const Table = ({
     },
     {
       width: 240,
-      title: t('trial:class_trial'),
+      title: t('trial_request:class_trial'),
       render: (_, record) => DemoTypeMappingToLabels[record.demoType],
     },
     {
       width: 240,
-      title: t('trial:office_learning'),
+      title: t('trial_request:office_learning'),
       render: (_, record) => record.learningOrganization?.name,
     },
     {
       width: 240,
-      title: t('trial:consultantor_short'),
+      title: t('trial_request:consultantor_short'),
       render: (_, record) => {
         if (!record.consultant) {
           return null;
@@ -181,7 +181,7 @@ export const Table = ({
     },
     {
       width: 240,
-      title: t('trial:admin'),
+      title: t('trial_request:admin'),
       render: (_, record) => {
         if (!record.admin) {
           return null;
@@ -201,7 +201,7 @@ export const Table = ({
     },
     {
       width: 240,
-      title: t('trial:lecture'),
+      title: t('trial_request:lecture'),
       render: (_, record) => {
         if (!record.lecturer) {
           return null;
@@ -223,27 +223,27 @@ export const Table = ({
       width: 80,
       align: 'center',
       fixed: 'right',
-      title: t('trial:action'),
+      title: t('trial_request:action'),
       render: (_, record) => {
         return (
           <TableActions
             items={[
               {
                 key: '1',
-                label: t('trial:edit'),
+                label: t('trial_request:edit'),
                 icon: <EditOutlined />,
                 onClick: () => onEdit?.(record),
                 hidden: !editable,
               },
               {
                 key: '2',
-                label: t('trial:view'),
+                label: t('trial_request:view'),
                 icon: <EyeOutlined />,
                 onClick: () => onView?.(record),
               },
               {
                 key: '3',
-                label: t('trial:delete'),
+                label: t('trial_request:delete'),
                 icon: <DeleteOutlined />,
                 danger: true,
                 onClick: () => onDelete?.(record.id),
@@ -287,14 +287,14 @@ export const Table = ({
       <SickyAction isVisible={!!selectedRows.length}>
         <div className="min-w-[400px] flex items-center justify-between">
           <Highlighter
-            textToHighlight={t('trial:total_records_selected', {
+            textToHighlight={t('trial_request:total_records_selected', {
               total: selectedRows.length,
             })}
             searchWords={[selectedRows.length.toString()]}
             highlightClassName="bg-transparent font-semibold"
           />
           <Button danger onClick={() => onDeleteMany?.(selectedRows)}>
-            {t('trial:delete')}
+            {t('trial_request:delete')}
           </Button>
         </div>
       </SickyAction>

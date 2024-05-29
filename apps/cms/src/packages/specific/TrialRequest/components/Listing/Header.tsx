@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const Header = ({ onCreate, onExport, onImport, isExporting, creatable, exportable, importable }: Props) => {
-  const { t } = useTranslation(['trial']);
+  const { t } = useTranslation(['trial_request']);
 
   return (
     <HeaderListing
@@ -23,10 +23,10 @@ export const Header = ({ onCreate, onExport, onImport, isExporting, creatable, e
       onCreate={onCreate}
       onExport={onExport}
       onImport={onImport}
-      title={t('trial:trials')}
-      createBtn={t('trial:add_new')}
-      exportBtn={t('trial:export')}
-      importBtn={t('trial:import')}
+      title={t('trial_request:trials')}
+      createBtn={t('trial_request:add_new')}
+      exportBtn={t('trial_request:export')}
+      importBtn={t('trial_request:import')}
     />
   );
 };

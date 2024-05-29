@@ -50,7 +50,7 @@ export const FormSearchNFilter = ({
   onFilter,
   containerClassName,
 }: FormFilterProps) => {
-  const { t } = useTranslation(['common', 'trial']);
+  const { t } = useTranslation(['common', 'trial_request']);
 
   const {
     handleSubmit,
@@ -92,7 +92,7 @@ export const FormSearchNFilter = ({
       containerClassName={containerClassName}
       isSubmiting={isSubmiting}
       search={{
-        placeholder: t('trial:search_placeholder'),
+        placeholder: t('trial_request:search_placeholder'),
         searchValue: searchValue,
         onSearch: onSearch,
       }}
@@ -115,9 +115,9 @@ export const FormSearchNFilter = ({
         form: (
           <Form method="GET" id={UID} onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-3">
-              <Field label={t('trial:status')} error={errors.status?.message}>
+              <Field label={t('trial_request:status')} error={errors.status?.message}>
                 <SelectTrialRequestStatus
-                  placeholder={t('trial:status')}
+                  placeholder={t('trial_request:status')}
                   trialRequestStatus={status}
                   onChange={value => {
                     setValue('status', value);
@@ -125,9 +125,9 @@ export const FormSearchNFilter = ({
                   }}
                 />
               </Field>
-              <Field label={t('trial:course_roadmap')} error={errors.status?.message}>
+              <Field label={t('trial_request:course_roadmap')} error={errors.status?.message}>
                 <SelectCourseRoadmap
-                  placeholder={t('trial:course_roadmap')}
+                  placeholder={t('trial_request:course_roadmap')}
                   courseRoadmap={courseRoadmapId}
                   onChange={value => {
                     setValue('courseRoadmapId', value);
@@ -135,9 +135,9 @@ export const FormSearchNFilter = ({
                   }}
                 />
               </Field>
-              <Field label={t('trial:class_type')} error={errors.classType?.message}>
+              <Field label={t('trial_request:class_type')} error={errors.classType?.message}>
                 <SelectDemoType
-                  placeholder={t('trial:class_type')}
+                  placeholder={t('trial_request:class_type')}
                   demoType={classType}
                   onChange={value => {
                     setValue('classType', value);
@@ -145,9 +145,9 @@ export const FormSearchNFilter = ({
                   }}
                 />
               </Field>
-              <Field label={t('trial:learning_type')} error={errors.learningType?.message}>
+              <Field label={t('trial_request:learning_type')} error={errors.learningType?.message}>
                 <SelectStudyMode
-                  placeholder={t('trial:learning_type')}
+                  placeholder={t('trial_request:learning_type')}
                   studyMode={learningType}
                   onChange={value => {
                     setValue('learningType', value);
@@ -155,9 +155,9 @@ export const FormSearchNFilter = ({
                   }}
                 />
               </Field>
-              <Field label={t('trial:office_learning')} error={errors.departmentId?.message}>
+              <Field label={t('trial_request:office_learning')} error={errors.departmentId?.message}>
                 <SelectDepartment
-                  placeholder={t('trial:office_learning')}
+                  placeholder={t('trial_request:office_learning')}
                   department={departmentId}
                   onChange={value => {
                     setValue('departmentId', value);
@@ -166,39 +166,39 @@ export const FormSearchNFilter = ({
                 />
               </Field>
               <Field
-                label={t('trial:owner_admin')}
+                label={t('trial_request:owner_admin')}
                 className={classNames(session?.profile?.roles.includes(Role.Admin) ? 'block' : 'hidden')}
               >
                 <SelectSingle
                   options={[
-                    { label: t('trial:all'), value: 0, rawData: undefined },
-                    { label: t('trial:me'), value: 1, rawData: undefined },
+                    { label: t('trial_request:all'), value: 0, rawData: undefined },
+                    { label: t('trial_request:me'), value: 1, rawData: undefined },
                   ]}
                   value={Number(isAdminOwner)}
                   onChange={value => setValue('isAdminOwner', Boolean(value))}
                 />
               </Field>
               <Field
-                label={t('trial:owner_lecture')}
+                label={t('trial_request:owner_lecture')}
                 className={classNames(session?.profile?.roles.includes(Role.Lecturer) ? 'block' : 'hidden')}
               >
                 <SelectSingle
                   options={[
-                    { label: t('trial:all'), value: 0, rawData: undefined },
-                    { label: t('trial:me'), value: 1, rawData: undefined },
+                    { label: t('trial_request:all'), value: 0, rawData: undefined },
+                    { label: t('trial_request:me'), value: 1, rawData: undefined },
                   ]}
                   value={Number(isLecturerOwner)}
                   onChange={value => setValue('isLecturerOwner', Boolean(value))}
                 />
               </Field>
               <Field
-                label={t('trial:owner_consultantor')}
+                label={t('trial_request:owner_consultantor')}
                 className={classNames(session?.profile?.roles.includes(Role.Consultant) ? 'block' : 'hidden')}
               >
                 <SelectSingle
                   options={[
-                    { label: t('trial:all'), value: 0, rawData: undefined },
-                    { label: t('trial:me'), value: 1, rawData: undefined },
+                    { label: t('trial_request:all'), value: 0, rawData: undefined },
+                    { label: t('trial_request:me'), value: 1, rawData: undefined },
                   ]}
                   value={Number(isConsultantOwner)}
                   onChange={value => setValue('isConsultantOwner', Boolean(value))}

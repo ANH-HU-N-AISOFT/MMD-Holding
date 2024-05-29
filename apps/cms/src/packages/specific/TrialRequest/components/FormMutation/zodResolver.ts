@@ -8,27 +8,27 @@ import { TrialRequestStatus } from '~/packages/common/SelectVariants/TrialReques
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMessageSelectField';
 
-export const getFormMutationSchema = (t: TFunction<['common', 'trial']>) => {
+export const getFormMutationSchema = (t: TFunction<['common', 'trial_request']>) => {
   const studentId = {
-    required: getRequiredMessageSelectField(t, 'trial:student'),
+    required: getRequiredMessageSelectField(t, 'trial_request:student'),
   };
   const consultantId = {
-    required: getRequiredMessageSelectField(t, 'trial:consultantor'),
+    required: getRequiredMessageSelectField(t, 'trial_request:consultantor'),
   };
   const courseRoadmapId = {
-    required: getRequiredMessageSelectField(t, 'trial:course_roadmap'),
+    required: getRequiredMessageSelectField(t, 'trial_request:course_roadmap'),
   };
   const learningOrganizationId = {
-    required: getRequiredMessageSelectField(t, 'trial:expect_department'),
+    required: getRequiredMessageSelectField(t, 'trial_request:expect_department'),
   };
   const status = {
-    required: getRequiredMessageSelectField(t, 'trial:status'),
+    required: getRequiredMessageSelectField(t, 'trial_request:status'),
   };
   const classType = {
-    required: getRequiredMessageSelectField(t, 'trial:class_type'),
+    required: getRequiredMessageSelectField(t, 'trial_request:class_type'),
   };
   const notes = {
-    length: getRangeLengthMessage(t, 'trial:notes', 0, 256),
+    length: getRangeLengthMessage(t, 'trial_request:notes', 0, 256),
   };
   return object({
     studentId: string({ required_error: studentId.required }),
@@ -69,6 +69,6 @@ export const getFormMutationSchema = (t: TFunction<['common', 'trial']>) => {
   });
 };
 
-export const getFormMutationResolver = (t: TFunction<['common', 'trial']>) => {
+export const getFormMutationResolver = (t: TFunction<['common', 'trial_request']>) => {
   return zodResolver(getFormMutationSchema(t));
 };

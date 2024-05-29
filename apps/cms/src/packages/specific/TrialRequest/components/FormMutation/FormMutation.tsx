@@ -34,7 +34,7 @@ interface Props {
 }
 
 export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubmiting, onSubmit, disabled }: Props) => {
-  const { t } = useTranslation(['common', 'trial']);
+  const { t } = useTranslation(['common', 'trial_request']);
 
   const disabledField = disabled || isSubmiting;
 
@@ -53,7 +53,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
       onInvalid: console.log,
     },
     defaultValues,
-    resolver: getFormMutationResolver(t as TFunction<['common', 'trial']>),
+    resolver: getFormMutationResolver(t as TFunction<['common', 'trial_request']>),
   });
 
   const studentId = watch('studentId');
@@ -96,10 +96,10 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
       <Form method="POST" id={uid} onSubmit={handleSubmit}>
         <BoxFields>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-            <Field withRequiredMark label={t('trial:student_name')} error={errors.studentId?.message}>
+            <Field withRequiredMark label={t('trial_request:student_name')} error={errors.studentId?.message}>
               <SelectStudent
                 disabled={disabledField}
-                placeholder={t('trial:student_name')}
+                placeholder={t('trial_request:student_name')}
                 student={studentId}
                 onChange={(value, option) => {
                   setValue('studentId', value);
@@ -113,39 +113,39 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                 }}
               />
             </Field>
-            <Field label={t('trial:student_phone')}>
+            <Field label={t('trial_request:student_phone')}>
               <Input
                 value={displayStudentPhone ?? undefined}
                 addonBefore={<div>+84</div>}
                 disabled
-                placeholder={t('trial:student_phone')}
+                placeholder={t('trial_request:student_phone')}
               />
             </Field>
-            <Field label={t('trial:student_school')}>
+            <Field label={t('trial_request:student_school')}>
               <SelectSchool
                 school={displayStudentSchool ?? undefined}
                 cityCode="GET_ALL"
                 disabled
-                placeholder={t('trial:student_school')}
+                placeholder={t('trial_request:student_school')}
               />
             </Field>
-            <Field label={t('trial:student_source')}>
+            <Field label={t('trial_request:student_source')}>
               <SelectSourceEnum
                 sourceEnum={displayStudentSource ?? undefined}
                 disabled
-                placeholder={t('trial:student_source')}
+                placeholder={t('trial_request:student_source')}
               />
             </Field>
-            <Field label={t('trial:sale_employee')}>
+            <Field label={t('trial_request:sale_employee')}>
               <SelectSaleEmployees organizations="GET_ALL" saleEmployees={displaySaleEmployees ?? undefined} disabled />
             </Field>
-            <Field withRequiredMark label={t('trial:consultantor')} error={errors.consultantId?.message}>
+            <Field withRequiredMark label={t('trial_request:consultantor')} error={errors.consultantId?.message}>
               <SelectEmployee
                 organizationId="GET_ALL"
-                emptyText={t('trial:must_select_expect_department')}
+                emptyText={t('trial_request:must_select_expect_department')}
                 roles={[Role.Consultant]}
                 disabled={disabledField}
-                placeholder={t('trial:consultantor')}
+                placeholder={t('trial_request:consultantor')}
                 employee={consultantId}
                 onChange={value => {
                   setValue('consultantId', value);
@@ -156,9 +156,9 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               />
             </Field>
             <div className="md:col-span-2">
-              <Divider orientation="center">{t('trial:detail')}</Divider>
+              <Divider orientation="center">{t('trial_request:detail')}</Divider>
             </div>
-            <Field withRequiredMark label={t('trial:status')} error={errors.status?.message}>
+            <Field withRequiredMark label={t('trial_request:status')} error={errors.status?.message}>
               <SelectTrialRequestStatus
                 allowClear={false}
                 trialRequestStatus={status ?? undefined}
@@ -169,10 +169,10 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                   }
                 }}
                 disabled={disabledField}
-                placeholder={t('trial:status')}
+                placeholder={t('trial_request:status')}
               />
             </Field>
-            <Field withRequiredMark label={t('trial:class_type')} error={errors.classType?.message}>
+            <Field withRequiredMark label={t('trial_request:class_type')} error={errors.classType?.message}>
               <SelectDemoType
                 allowClear={false}
                 demoType={classType ?? undefined}
@@ -183,10 +183,10 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                   }
                 }}
                 disabled={disabledField}
-                placeholder={t('trial:class_type')}
+                placeholder={t('trial_request:class_type')}
               />
             </Field>
-            <Field withRequiredMark label={t('trial:course_roadmap')} error={errors.courseRoadmapId?.message}>
+            <Field withRequiredMark label={t('trial_request:course_roadmap')} error={errors.courseRoadmapId?.message}>
               <SelectCourseRoadmap
                 allowClear={false}
                 courseRoadmap={courseRoadmapId ?? undefined}
@@ -197,10 +197,14 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                   }
                 }}
                 disabled={disabledField}
-                placeholder={t('trial:course_roadmap')}
+                placeholder={t('trial_request:course_roadmap')}
               />
             </Field>
-            <Field withRequiredMark label={t('trial:expect_department')} error={errors.learningOrganizationId?.message}>
+            <Field
+              withRequiredMark
+              label={t('trial_request:expect_department')}
+              error={errors.learningOrganizationId?.message}
+            >
               <SelectDepartment
                 allowClear={false}
                 department={learningOrganizationId ?? undefined}
@@ -211,14 +215,14 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                   }
                 }}
                 disabled={disabledField}
-                placeholder={t('trial:expect_department')}
+                placeholder={t('trial_request:expect_department')}
               />
             </Field>
-            <Field label={t('trial:learning_date')} error={errors.learningDate?.message}>
+            <Field label={t('trial_request:learning_date')} error={errors.learningDate?.message}>
               <DatePicker
                 disabledDate={disablePast}
                 disabled={disabledField}
-                placeholder={t('trial:learning_date')}
+                placeholder={t('trial_request:learning_date')}
                 className="w-full"
                 value={learningDate ? dayjs(learningDate) : undefined}
                 onChange={value => {
@@ -229,13 +233,13 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                 }}
               />
             </Field>
-            <Field label={t('trial:learning_time')} error={errors.learningTime?.message}>
+            <Field label={t('trial_request:learning_time')} error={errors.learningTime?.message}>
               <DatePicker
                 picker="time"
                 format="HH:mm"
                 disabledDate={disablePast}
                 disabled={disabledField}
-                placeholder={t('trial:learning_time')}
+                placeholder={t('trial_request:learning_time')}
                 className="w-full"
                 value={learningTime ? dayjs(learningTime, 'HH:mm') : undefined}
                 onChange={value => {
@@ -247,7 +251,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               />
             </Field>
             <div className="md:col-span-2">
-              <Field label={t('trial:learning_type')} error={errors.learningType?.message}>
+              <Field label={t('trial_request:learning_type')} error={errors.learningType?.message}>
                 <Radio.Group
                   disabled={disabledField}
                   onChange={event => {
@@ -258,18 +262,18 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                   }}
                   value={learningType}
                 >
-                  <Radio value={StudyMode.Offline}>{t('trial:offline')}</Radio>
-                  <Radio value={StudyMode.Online}>{t('trial:online')}</Radio>
+                  <Radio value={StudyMode.Offline}>{t('trial_request:offline')}</Radio>
+                  <Radio value={StudyMode.Online}>{t('trial_request:online')}</Radio>
                 </Radio.Group>
               </Field>
             </div>
-            <Field label={t('trial:lecture')} error={errors.lectureId?.message}>
+            <Field label={t('trial_request:lecture')} error={errors.lectureId?.message}>
               <SelectEmployee
                 organizationId="GET_ALL"
-                emptyText={t('trial:must_select_expect_department')}
+                emptyText={t('trial_request:must_select_expect_department')}
                 roles={[Role.Lecturer]}
                 allowClear
-                placeholder={t('trial:lecture')}
+                placeholder={t('trial_request:lecture')}
                 disabled={disabledField}
                 employee={lectureId ?? undefined}
                 onChange={value => {
@@ -280,13 +284,13 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                 }}
               />
             </Field>
-            <Field label={t('trial:admin')} error={errors.adminId?.message}>
+            <Field label={t('trial_request:admin')} error={errors.adminId?.message}>
               <SelectEmployee
                 organizationId="GET_ALL"
-                emptyText={t('trial:must_select_expect_department')}
+                emptyText={t('trial_request:must_select_expect_department')}
                 roles={[Role.Admin]}
                 allowClear
-                placeholder={t('trial:admin')}
+                placeholder={t('trial_request:admin')}
                 disabled={disabledField}
                 employee={adminId ?? undefined}
                 onChange={value => {
@@ -298,10 +302,10 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               />
             </Field>
             <div className="md:col-span-2">
-              <Divider orientation="center">{t('trial:extra_information')}</Divider>
+              <Divider orientation="center">{t('trial_request:extra_information')}</Divider>
             </div>
             <div className="md:col-span-2">
-              <Field label={t('trial:notes')} error={errors.notes?.message}>
+              <Field label={t('trial_request:notes')} error={errors.notes?.message}>
                 <Input.TextArea
                   rows={6}
                   minLength={0}
@@ -315,7 +319,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                     }
                   }}
                   disabled={disabledField}
-                  placeholder={t('trial:notes')}
+                  placeholder={t('trial_request:notes')}
                 />
               </Field>
             </div>

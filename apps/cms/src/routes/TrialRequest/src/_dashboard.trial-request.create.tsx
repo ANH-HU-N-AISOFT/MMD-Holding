@@ -92,7 +92,7 @@ export const loader = async ({
 const FormCreateUid = 'FORM_CREATE';
 export const Page = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation(['trial']);
+  const { t } = useTranslation(['trial_request']);
 
   const navigation = useNavigation();
   const actionData = useActionData<typeof action>();
@@ -106,11 +106,11 @@ export const Page = () => {
     if (actionData) {
       if (actionData.hasError) {
         notification.error({
-          message: t('trial:create_failure'),
+          message: t('trial_request:create_failure'),
           description: handleGetMessageToToast(t, actionData),
         });
       } else {
-        notification.success({ message: t('trial:create_success') });
+        notification.success({ message: t('trial_request:create_success') });
         navigate('/trial-request');
       }
     }
@@ -120,7 +120,7 @@ export const Page = () => {
   const session = getSession();
   return (
     <div className="flex flex-col h-full">
-      <Header title={t('trial:add_trial')} onBack={() => navigate('/trial-request')} />
+      <Header title={t('trial_request:add_trial')} onBack={() => navigate('/trial-request')} />
       <div className="flex-1 mb-4">
         <FormMutation
           isSubmiting={isSubmiting}

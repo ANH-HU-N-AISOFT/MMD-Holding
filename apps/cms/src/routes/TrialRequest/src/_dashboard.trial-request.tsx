@@ -85,7 +85,7 @@ export const loader = async ({
 
 export const Page = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation(['trial']);
+  const { t } = useTranslation(['trial_request']);
 
   //#region Listing
   const paramsInUrl = lisitngUrlSearchParamsUtils.decrypt(lisitngUrlSearchParamsUtils.getUrlSearchParams().toString());
@@ -136,7 +136,7 @@ export const Page = () => {
       const response = exportTrialsFetcher.data as ActionDeleteTrialResponse;
       if (response.hasError) {
         notification.error({
-          message: t('trial:export_failure'),
+          message: t('trial_request:export_failure'),
           description: handleGetMessageToToast(t, response),
         });
       }
@@ -162,11 +162,11 @@ export const Page = () => {
       const response = deleteTrialFetcher.data as ActionDeleteTrialResponse;
       if (response.hasError) {
         notification.error({
-          message: t('trial:delete_failure'),
+          message: t('trial_request:delete_failure'),
           description: handleGetMessageToToast(t, response),
         });
       } else {
-        notification.success({ message: t('trial:delete_success') });
+        notification.success({ message: t('trial_request:delete_success') });
         handleRequest({});
         setIsOpenModalDeleteTrial(false);
       }
@@ -248,8 +248,8 @@ export const Page = () => {
         open={!!isOpenModalDeleteTrial}
         onCancel={() => setIsOpenModalDeleteTrial(false)}
         onOk={handleDelete}
-        title={t('trial:delete_title')}
-        description={t('trial:delete_description')}
+        title={t('trial_request:delete_title')}
+        description={t('trial_request:delete_description')}
         loading={isDeleting}
       />
     </>
