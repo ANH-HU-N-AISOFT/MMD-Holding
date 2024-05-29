@@ -19,7 +19,7 @@ import { SelectSaleEmployees } from '~/packages/common/SelectVariants/SelectSale
 import { SelectSchool } from '~/packages/common/SelectVariants/SelectSchool';
 import { SelectStudent } from '~/packages/common/SelectVariants/SelectStudent';
 import { SelectSourceEnum } from '~/packages/common/SelectVariants/SourceEnum/SelectSourceEnum';
-import { useGetPromtions } from '~/packages/specific/Promotion/hooks/useGetPromotions';
+import { useGetGiftsOfOrganization } from '~/packages/specific/Promotion/hooks/useGetGiftsOfOrganization';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 import { currencyParser } from '~/utils/functions/currency/currencyParser';
 
@@ -29,7 +29,6 @@ interface Props {
 }
 
 export const Consultant = ({ disabledField, form }: Props) => {
-  const { loading, data } = useGetPromtions({ variants: 'gift', pageSize: 9999 });
   const {
     setValue,
     trigger,
@@ -57,6 +56,8 @@ export const Consultant = ({ disabledField, form }: Props) => {
   const note = watch('note');
   const displayGiftPrice = watch('displayGiftPrice');
   const calculateQuantityCourseRoadMap = watch('calculateQuantityCourseRoadMap');
+
+  const { loading, data, setOrganizationId } = useGetGiftsOfOrganization({ defaultOrganization: expectDepartmentId });
 
   const { t } = useTranslation(['consultant_form']);
   return (
@@ -126,6 +127,7 @@ export const Consultant = ({ disabledField, form }: Props) => {
           placeholder={t('consultant_form:expect_department')}
           department={expectDepartmentId}
           onChange={value => {
+            setOrganizationId(value);
             setValue('expectDepartmentId', value);
             if (errors.expectDepartmentId) {
               trigger('expectDepartmentId');
@@ -342,8 +344,9 @@ export const Consultant = ({ disabledField, form }: Props) => {
               <Skeleton.Input />
               <Skeleton.Input />
             </div>
+            {!expectDepartmentId && <div>{t('consultant_form:must_select_expect_department')}</div>}
             <div className="grid grid-cols-1 gap-2">
-              {data?.items.map(item => {
+              {(expectDepartmentId ? data?.items : [])?.map(item => {
                 return (
                   <Checkbox
                     disabled={disabledField}
