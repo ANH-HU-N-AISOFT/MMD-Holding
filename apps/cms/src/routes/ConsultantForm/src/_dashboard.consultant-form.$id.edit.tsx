@@ -35,7 +35,7 @@ import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidate
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request, params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant] });
+  isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant] });
   if (!params['id']) {
     return redirect('/consultant-form', {});
   }
@@ -77,7 +77,7 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
 
 type LoaderResponse = SimpleResponse<{ consultantForm: ConsultantForm }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant] });
+  isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant] });
   if (!params['id']) {
     return redirect('/consultant-form', {});
   }

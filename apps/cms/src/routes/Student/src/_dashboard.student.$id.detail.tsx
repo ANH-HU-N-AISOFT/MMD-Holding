@@ -34,7 +34,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ student: Student }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
+  isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] });
   if (!params['id']) {
     return redirect('/student', {});
   }
@@ -115,13 +115,16 @@ export const Page = () => {
         <div className="flex-1 mb-4">
           <Detail student={loaderData.info?.student} />
         </div>
-        {isCanShow({ accept: [Role.Admin] }) && (
+        {isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }) && (
           <Footer
             onDelete={() => setIsOpenModalDeleteStudent(loaderData.info?.student.id ?? false)}
             onEdit={() => navigate(`/student/${loaderData.info?.student.id}/edit`)}
             Other={
               <>
                 <Button
+                  className={
+                    isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }) ? '' : '!hidden'
+                  }
                   onClick={() => {
                     const createSearchParams = createAppointmentUrlSearchParamsUtils.encrypt({
                       studentId: loaderData.info?.student.id,
@@ -132,6 +135,7 @@ export const Page = () => {
                   {t('student:book_appointment')}
                 </Button>
                 <Button
+                  className={isCanShow({ accept: [Role.SuperAdmin, Role.Consultant] }) ? '' : '!hidden'}
                   onClick={() => {
                     const createSearchParams = createConsultantFormUrlSearchParamsUtils.encrypt({
                       studentId: loaderData.info?.student.id,
@@ -142,6 +146,9 @@ export const Page = () => {
                   {t('student:create_consultant')}
                 </Button>
                 <Button
+                  className={
+                    isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }) ? '' : '!hidden'
+                  }
                   onClick={() => {
                     const createSearchParams = createTrialUrlSearchParamsUtils.encrypt({
                       studentId: loaderData.info?.student.id,

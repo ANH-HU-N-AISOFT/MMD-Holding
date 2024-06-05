@@ -31,7 +31,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<TrialRequest>>> => {
-  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
+  isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale, Role.Lecturer] });
   const t = i18next.t;
   const {
     search,
@@ -183,7 +183,7 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.Admin] })}
+          creatable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant] })}
           importable={false}
           exportable={false}
           isExporting={isExporting}
@@ -222,8 +222,8 @@ export const Page = () => {
           onSearch={value => handleRequest({ page: 1, search: value })}
         />
         <Table
-          deletable={isCanShow({ accept: [Role.Admin] })}
-          editable={isCanShow({ accept: [Role.Admin] })}
+          deletable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant] })}
+          editable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant] })}
           loading={isFetchingList || isSavingTrialRequestStatus}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}

@@ -38,7 +38,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Student>>> => {
-  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
+  isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] });
   const t = i18next.t;
   const { page = 1, search, department } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
@@ -202,9 +202,9 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.Admin, Role.Consultant, Role.Sale] })}
-          importable={isCanShow({ accept: [Role.Admin, Role.Consultant, Role.Sale] })}
-          exportable={isCanShow({ accept: [Role.Admin, Role.Consultant, Role.Sale] })}
+          creatable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
+          importable={isCanShow({ accept: [Role.SuperAdmin] })}
+          exportable={isCanShow({ accept: [Role.SuperAdmin] })}
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/student/create')}
@@ -222,9 +222,13 @@ export const Page = () => {
           onSearch={value => handleRequest({ page: 1, search: value })}
         />
         <Table
-          deletable={isCanShow({ accept: [Role.Admin, Role.Consultant, Role.Sale] })}
-          editable={isCanShow({ accept: [Role.Admin, Role.Consultant, Role.Sale] })}
-          passwordResetable={isCanShow({ accept: [Role.Admin, Role.Consultant, Role.Sale] })}
+          deletable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
+          editable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
+          passwordResetable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
+          departmentViewable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
+          appointmentBookable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
+          consultantCreatable={isCanShow({ accept: [Role.SuperAdmin, Role.Consultant] })}
+          trialCreatable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant] })}
           loading={isFetchingList}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}

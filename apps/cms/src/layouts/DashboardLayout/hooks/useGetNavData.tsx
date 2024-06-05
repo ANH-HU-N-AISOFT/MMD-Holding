@@ -11,6 +11,8 @@ import {
 import { MenuProps } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from '~/overrides/@remix';
+import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 export const useGetNavData = () => {
   const { t } = useTranslation(['dashboard_layout']);
@@ -32,25 +34,22 @@ export const useGetNavData = () => {
           key: '/department',
           label: t('dashboard_layout:menu.department_list'),
           onClick: () => navigate('/department'),
+          className: isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }) ? '' : '!hidden',
         },
         {
           key: '/employee',
           label: t('dashboard_layout:menu.user_list'),
           onClick: () => navigate('/employee'),
+          className: isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }) ? '' : '!hidden',
         },
       ],
     },
-    // {
-    //   key: '/appointment-booking',
-    //   icon: <CalendarOutlined />,
-    //   label: t('dashboard_layout:menu.appointment_booking'),
-    //   onClick: () => navigate('/appointment-booking'),
-    // },
     {
       key: '/appointment',
       icon: <ScheduleOutlined />,
       label: t('dashboard_layout:menu.appointment'),
       onClick: () => navigate('/appointment'),
+      className: isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }) ? '' : '!hidden',
     },
     {
       key: '/input-check',
@@ -67,26 +66,31 @@ export const useGetNavData = () => {
           key: '/consultant-form',
           label: t('dashboard_layout:menu.consultant_form'),
           onClick: () => navigate('/consultant-form'),
+          className: isCanShow({ accept: [Role.SuperAdmin, Role.Consultant, Role.Sale] }) ? '' : '!hidden',
         },
         {
           key: '/promotion',
           label: t('dashboard_layout:menu.promotion'),
           onClick: () => navigate('/promotion'),
+          className: isCanShow({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] }) ? '' : '!hidden',
         },
         {
           key: '/course-combo',
           label: t('dashboard_layout:menu.course_combo'),
           onClick: () => navigate('/course-combo'),
+          className: isCanShow({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] }) ? '' : '!hidden',
         },
         {
           key: '/course-roadmap',
           label: t('dashboard_layout:menu.course_roadmap'),
           onClick: () => navigate('/course-roadmap'),
+          className: isCanShow({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] }) ? '' : '!hidden',
         },
         {
           key: '/course',
           label: t('dashboard_layout:menu.course'),
           onClick: () => navigate('/course'),
+          className: isCanShow({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] }) ? '' : '!hidden',
         },
       ],
     },
@@ -95,6 +99,9 @@ export const useGetNavData = () => {
       icon: <ExperimentOutlined />,
       label: t('dashboard_layout:menu.trial_request'),
       onClick: () => navigate('/trial-request'),
+      className: isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale, Role.Lecturer] })
+        ? ''
+        : '!hidden',
     },
     {
       key: '/contract_signing',
@@ -118,6 +125,7 @@ export const useGetNavData = () => {
       icon: <UserOutlined />,
       label: t('dashboard_layout:menu.student'),
       onClick: () => navigate('/student'),
+      className: isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }) ? '' : '!hidden',
     },
   ];
 

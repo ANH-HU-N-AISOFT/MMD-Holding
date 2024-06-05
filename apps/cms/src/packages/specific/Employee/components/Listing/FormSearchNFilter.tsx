@@ -98,8 +98,8 @@ export const FormSearchNFilter = ({
             <Field label={t('employee:role')}>
               <SelectRoles
                 ignoreRoles={[Role.Student]}
-                roles={roles?.split(',').filter((item): item is Role => {
-                  return Object.values(Role).includes(item as Role);
+                roles={roles?.split(',').filter((item): item is Exclude<Role, Role.SuperAdmin> => {
+                  return item !== Role.SuperAdmin && Object.values(Role).includes(item as Role);
                 })}
                 onChange={value => {
                   setValue('roles', value?.join(','));

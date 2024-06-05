@@ -13,7 +13,7 @@ import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ params, request }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
+  isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] });
 
   try {
     if (!params['id']) {

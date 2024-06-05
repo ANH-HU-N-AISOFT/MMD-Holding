@@ -7,7 +7,7 @@ import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  isCanAccessRoute({ accept: [Role.Admin] });
+  isCanAccessRoute({ accept: [Role.SuperAdmin] });
   try {
     if (!params['id']) {
       return redirect('/promotion', {});

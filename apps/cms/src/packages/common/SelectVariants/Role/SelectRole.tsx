@@ -5,8 +5,8 @@ import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 import { getRoleMappingToLabels } from '~/packages/common/SelectVariants/Role/constants/RoleMappingToLabels';
 
 interface Props {
-  role?: Role;
-  onChange?: SelectSingleProps<Role>['onChange'];
+  role?: Exclude<Role, Role.SuperAdmin>;
+  onChange?: SelectSingleProps<Exclude<Role, Role.SuperAdmin>>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
 }
@@ -27,9 +27,10 @@ export const SelectRole = ({ role, disabled, allowClear = true, onChange }: Prop
       onChange={onChange}
       options={Object.values(Role).map(item => {
         return {
-          label: roleMappingToLabels[item],
+          label: roleMappingToLabels[item as keyof typeof roleMappingToLabels],
           value: item,
           rawData: item,
+          hidden: [Role.SuperAdmin].includes(item),
         };
       })}
     />

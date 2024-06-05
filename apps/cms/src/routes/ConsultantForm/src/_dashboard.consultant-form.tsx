@@ -31,7 +31,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<ConsultantForm>>> => {
-  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
+  isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant, Role.Sale] });
   const t = i18next.t;
   const { search, page = 1, courseRoadmapId, status } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
@@ -165,7 +165,7 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.Admin, Role.Consultant] })}
+          creatable={isCanShow({ accept: [Role.SuperAdmin, Role.Consultant] })}
           importable={false}
           exportable={false}
           isExporting={isExporting}
@@ -192,8 +192,9 @@ export const Page = () => {
           onSearch={value => handleRequest({ page: 1, search: value })}
         />
         <Table
-          deletable={isCanShow({ accept: [Role.Admin] })}
-          editable={isCanShow({ accept: [Role.Admin] })}
+          deletable={isCanShow({ accept: [Role.SuperAdmin, Role.Consultant] })}
+          editable={isCanShow({ accept: [Role.SuperAdmin, Role.Consultant] })}
+          trialCreatable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant] })}
           loading={isFetchingList}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}

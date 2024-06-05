@@ -35,7 +35,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Department>>> => {
-  await isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
+  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] });
   const t = i18next.t;
   const { page = 1, search, businessStatus, layout } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
@@ -176,8 +176,8 @@ export const Page = () => {
             onEdit={record => navigate(`/department/${record.id}/edit`)}
             onView={record => navigate(`/department/${record.id}/detail`)}
             onViewPresentDepartment={record => window.open(`/employee/${record.unitManager?.id}/detail`)}
-            deletable={isCanShow({ accept: [Role.Admin] })}
-            editable={isCanShow({ accept: [Role.Admin] })}
+            deletable={isCanShow({ accept: [Role.SuperAdmin] })}
+            editable={isCanShow({ accept: [Role.SuperAdmin] })}
             searchParams={paramsInUrl}
           />
         </BoxFields>
@@ -196,8 +196,8 @@ export const Page = () => {
         onView={record => navigate(`/department/${record.id}/detail`)}
         onViewManageDepartment={record => window.open(`/department/${record.managementUnit?.id}/detail`)}
         onViewPresentDepartment={record => window.open(`/employee/${record.unitManager?.employeeId}/detail`)}
-        deletable={isCanShow({ accept: [Role.Admin] })}
-        editable={isCanShow({ accept: [Role.Admin] })}
+        deletable={isCanShow({ accept: [Role.SuperAdmin] })}
+        editable={isCanShow({ accept: [Role.SuperAdmin] })}
       />
     );
   };
@@ -206,9 +206,9 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.Admin] })}
-          importable={isCanShow({ accept: [Role.Admin] })}
-          exportable={isCanShow({ accept: [Role.Admin] })}
+          creatable={isCanShow({ accept: [Role.SuperAdmin] })}
+          importable={isCanShow({ accept: [Role.SuperAdmin] })}
+          exportable={isCanShow({ accept: [Role.SuperAdmin] })}
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/department/create')}

@@ -31,7 +31,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ trialRequest: TrialRequest }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
+  isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale, Role.Lecturer] });
   if (!params['id']) {
     return redirect('/trial-request', {});
   }
@@ -111,7 +111,7 @@ export const Page = () => {
         <div className="flex-1 mb-4">
           <Detail trialRequest={loaderData.info?.trialRequest} />
         </div>
-        {isCanShow({ accept: [Role.Admin] }) && (
+        {isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant] }) && (
           <Footer
             onDelete={() => setIsOpenModalDeleteTrial(loaderData.info?.trialRequest.id ?? false)}
             onEdit={() => navigate(`/trial-request/${loaderData.info?.trialRequest.id}/edit`)}

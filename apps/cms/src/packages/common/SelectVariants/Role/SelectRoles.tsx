@@ -5,14 +5,14 @@ import { SelectMultiple, SelectMultipleProps } from '~/components/AntCustom/Sele
 import { getRoleMappingToLabels } from '~/packages/common/SelectVariants/Role/constants/RoleMappingToLabels';
 
 interface Props {
-  roles?: Role[];
-  onChange?: SelectMultipleProps<Role[]>['onChange'];
+  roles?: Exclude<Role, Role.SuperAdmin>[];
+  onChange?: SelectMultipleProps<Exclude<Role, Role.SuperAdmin>[]>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
   ignoreRoles?: Role[];
 }
 
-export const SelectRoles = ({ roles, disabled, allowClear = true, onChange, ignoreRoles: hiddenRoles }: Props) => {
+export const SelectRoles = ({ roles, disabled, allowClear = true, onChange, ignoreRoles = [] }: Props) => {
   const { t } = useTranslation(['common', 'enum']);
   const roleMappingToLabels = useMemo(() => {
     return getRoleMappingToLabels(t);
@@ -28,10 +28,10 @@ export const SelectRoles = ({ roles, disabled, allowClear = true, onChange, igno
       onChange={onChange}
       options={Object.values(Role).map(item => {
         return {
-          label: roleMappingToLabels[item],
+          label: roleMappingToLabels[item as keyof typeof roleMappingToLabels],
           value: item,
           rawData: item,
-          hidden: hiddenRoles?.includes(item),
+          hidden: [...ignoreRoles, Role.SuperAdmin]?.includes(item),
         };
       })}
     />

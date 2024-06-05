@@ -193,9 +193,9 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.Admin, Role.Sale] })}
-          importable={isCanShow({ accept: [Role.Admin, Role.Sale] })}
-          exportable={isCanShow({ accept: [Role.Admin, Role.Consultant, Role.Sale] })}
+          creatable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
+          importable={isCanShow({ accept: [Role.SuperAdmin] })}
+          exportable={isCanShow({ accept: [Role.SuperAdmin] })}
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/appointment/create')}
@@ -228,8 +228,8 @@ export const Page = () => {
           onSearch={value => handleRequest({ page: 1, search: value })}
         />
         <Table
-          deletable={isCanShow({ accept: [Role.Admin, Role.Sale, Role.Consultant] })}
-          editable={isCanShow({ accept: [Role.Admin, Role.Sale] })}
+          deletable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
+          editable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
           loading={isFetchingList || isSavingAppointmentStatus}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}

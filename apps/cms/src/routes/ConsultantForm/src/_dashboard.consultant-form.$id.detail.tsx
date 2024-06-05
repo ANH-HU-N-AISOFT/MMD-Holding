@@ -31,7 +31,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ consultantForm: ConsultantForm }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
+  isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant, Role.Sale] });
   if (!params['id']) {
     return redirect('/consultant-form', {});
   }
@@ -114,7 +114,7 @@ export const Page = () => {
         <div className="flex-1 mb-4">
           <Detail consultantForm={loaderData.info?.consultantForm} />
         </div>
-        {isCanShow({ accept: [Role.Admin] }) && (
+        {isCanShow({ accept: [Role.SuperAdmin, Role.Consultant] }) && (
           <Footer
             onDelete={() => setIsOpenModalDeleteConsultantForm(loaderData.info?.consultantForm.id ?? false)}
             onEdit={() => navigate(`/consultant-form/${loaderData.info?.consultantForm.id}/edit`)}

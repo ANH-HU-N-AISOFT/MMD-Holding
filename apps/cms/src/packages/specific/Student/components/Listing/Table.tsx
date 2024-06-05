@@ -23,17 +23,21 @@ export interface Props
     'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading'
   > {
   onEdit?: (record: Student) => void;
+  editable?: boolean;
   onDelete?: (recordKeys: string) => void;
   onDeleteMany?: (recordKeys: string[]) => void;
-  onView?: (record: Student) => void;
-  onResetPassword?: (record: Student) => void;
-  onViewDepartment?: (record: Required<Student>['organizations'][number]) => void;
-  onBookAppointment?: (record: Student) => void;
-  onCreateConsultant?: (record: Student) => void;
-  onCreateTrial?: (record: Student) => void;
-  editable?: boolean;
   deletable?: boolean;
+  onResetPassword?: (record: Student) => void;
   passwordResetable?: boolean;
+  onView?: (record: Student) => void;
+  onViewDepartment?: (record: Required<Student>['organizations'][number]) => void;
+  departmentViewable: boolean;
+  onBookAppointment?: (record: Student) => void;
+  appointmentBookable: boolean;
+  onCreateConsultant?: (record: Student) => void;
+  consultantCreatable: boolean;
+  onCreateTrial?: (record: Student) => void;
+  trialCreatable: boolean;
 }
 
 export const Table = ({
@@ -54,6 +58,10 @@ export const Table = ({
   deletable,
   editable,
   passwordResetable,
+  appointmentBookable,
+  consultantCreatable,
+  departmentViewable,
+  trialCreatable,
   ...props
 }: Props) => {
   const { t } = useTranslation(['common', 'student']);
@@ -144,6 +152,9 @@ export const Table = ({
         return (
           <ul className="grid grid-cols-1 pl-3">
             {record.organizations?.map(item => {
+              if (!departmentViewable) {
+                <li key={item.id}>{[item.name, item.code].join(' - ')}</li>;
+              }
               return (
                 <li key={item.id}>
                   <Typography.Link onClick={() => onViewDepartment?.(item)} className="block" key={item.id}>
@@ -183,18 +194,21 @@ export const Table = ({
                 label: t('student:book_appointment'),
                 icon: <ScheduleOutlined />,
                 onClick: () => onBookAppointment?.(record),
+                hidden: !appointmentBookable,
               },
               {
                 key: '6',
                 label: t('student:create_consultant'),
                 icon: <QuestionCircleOutlined />,
                 onClick: () => onCreateConsultant?.(record),
+                hidden: !consultantCreatable,
               },
               {
                 key: '7',
                 label: t('student:create_trial'),
                 icon: <ExperimentOutlined />,
                 onClick: () => onCreateTrial?.(record),
+                hidden: !trialCreatable,
               },
               {
                 key: '4',

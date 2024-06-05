@@ -1,8 +1,11 @@
 import { TFunction } from 'i18next';
 import { Role } from './Role';
 
-export const getRoleMappingToLabels = (t: TFunction<['common', 'enum']>): Record<Role, string> => {
+export const getRoleMappingToLabels = (
+  t: TFunction<['common', 'enum']>,
+): Record<Exclude<Role, Role.SuperAdmin>, string> => {
   return {
+    // [Role.SuperAdmin]: t('enum:role.options.SuperAdmin'),
     [Role.Admin]: t('enum:role.options.Admin'),
     [Role.Consultant]: t('enum:role.options.Consultant'),
     [Role.Lecturer]: t('enum:role.options.Lecturer'),

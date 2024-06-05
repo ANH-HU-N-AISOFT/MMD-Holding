@@ -37,7 +37,7 @@ export interface Employee {
   };
   user?: {
     userName: string;
-    roles: Role[];
+    roles: Exclude<Role, Role.SuperAdmin>[];
     accessStatus: EmployeeAccessStatus;
   };
   employee?: {

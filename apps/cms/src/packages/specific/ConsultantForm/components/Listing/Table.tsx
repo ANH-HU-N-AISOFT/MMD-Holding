@@ -17,11 +17,12 @@ export interface Props
     'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading'
   > {
   editable?: boolean;
-  deletable?: boolean;
   onEdit?: (record: ConsultantForm) => void;
+  deletable?: boolean;
   onDelete?: (recordKeys: string) => void;
   onDeleteMany?: (recordKeys: string[]) => void;
   onView?: (record: ConsultantForm) => void;
+  trialCreatable: boolean;
   onCreateTrial?: (record: ConsultantForm) => void;
 }
 
@@ -38,6 +39,7 @@ export const Table = ({
   onCreateTrial,
   deletable,
   editable,
+  trialCreatable,
   ...props
 }: Props) => {
   const { t } = useTranslation(['common', 'consultant_form']);
@@ -206,6 +208,7 @@ export const Table = ({
                 label: t('consultant_form:create_trial'),
                 icon: <ExperimentOutlined />,
                 onClick: () => onCreateTrial?.(record),
+                hidden: !trialCreatable,
               },
               {
                 key: '3',

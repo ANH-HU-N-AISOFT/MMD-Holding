@@ -67,7 +67,7 @@ export const RoleSystem = ({
       >
         <SelectRoles
           ignoreRoles={[Role.Student]}
-          roles={roles?.filter((role): role is Role => !!role)}
+          roles={roles?.filter((role): role is Exclude<Role, Role.SuperAdmin> => !!role)}
           onChange={value => {
             setValue('roleSystem.roles', value);
             if (errors.roleSystem?.roles) {
