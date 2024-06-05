@@ -16,7 +16,6 @@ import * as Dashboard from './routes/_dashboard.dashboard';
 import * as Appointment from './routes/_dashboard.input-assessment-schedule';
 import * as InputCheck from './routes/_dashboard.input-check';
 import * as PromotionProgramManagement from './routes/_dashboard.promotion-program-management';
-import * as TestStudy from './routes/_dashboard.test-study';
 import * as RootLayout from './routes/_index';
 import AppointmentRoutes from './routes/Appointment';
 import ConsultantFormRoutes from './routes/ConsultantForm';
@@ -146,15 +145,6 @@ const router = createBrowserRouter([
             element: (
               <Suspense fallback={null}>
                 <PromotionProgramManagement.Page />
-              </Suspense>
-            ),
-          },
-          {
-            path: '/test-study',
-            errorElement: <TestStudy.ErrorBoundary />,
-            element: (
-              <Suspense fallback={null}>
-                <TestStudy.Page />
               </Suspense>
             ),
           },

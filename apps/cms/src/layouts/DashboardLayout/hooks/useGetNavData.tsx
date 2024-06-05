@@ -69,11 +69,6 @@ export const useGetNavData = () => {
           onClick: () => navigate('/consultant-form'),
         },
         {
-          key: '/trial-request',
-          label: t('dashboard_layout:menu.trial_request'),
-          onClick: () => navigate('/trial-request'),
-        },
-        {
           key: '/promotion',
           label: t('dashboard_layout:menu.promotion'),
           onClick: () => navigate('/promotion'),
@@ -96,10 +91,10 @@ export const useGetNavData = () => {
       ],
     },
     {
-      key: '/test-study',
+      key: '/trial-request',
       icon: <ExperimentOutlined />,
-      label: t('dashboard_layout:menu.test_study'),
-      onClick: () => navigate('/test-study'),
+      label: t('dashboard_layout:menu.trial_request'),
+      onClick: () => navigate('/trial-request'),
     },
     {
       key: '/contract_signing',

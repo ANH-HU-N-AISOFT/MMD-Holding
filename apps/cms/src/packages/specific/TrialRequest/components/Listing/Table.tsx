@@ -11,6 +11,7 @@ import { SickyAction } from '~/components/StickyAction';
 import { TableActions } from '~/components/TableActions/TableActions';
 import { TooltipDetailInformation } from '~/components/TooltipDetailInformation/TooltipDetailInformation';
 import { getDemoTypeMappingToLabels } from '~/packages/common/SelectVariants/DemoType/constants/DemoTypeMappingToLabels';
+import { getStudyModeMappingToLabels } from '~/packages/common/SelectVariants/StudyMode/constants/StudyModeMappingToLabels';
 import { TrialRequestStatus } from '~/packages/common/SelectVariants/TrialRequestStatus/constants/TrialRequestStatus';
 import { getTrialRequestStatusMappingToLabels } from '~/packages/common/SelectVariants/TrialRequestStatus/constants/TrialRequestStatusMappingToLabels';
 
@@ -50,6 +51,9 @@ export const Table = ({
   }, [t]);
   const DemoTypeMappingToLabels = useMemo(() => {
     return getDemoTypeMappingToLabels(t);
+  }, [t]);
+  const StudyModeMappingToLabels = useMemo(() => {
+    return getStudyModeMappingToLabels(t);
   }, [t]);
 
   const [selectedRows, _setSelectedRows] = useState<string[]>([]);
@@ -124,7 +128,7 @@ export const Table = ({
           <div className="flex items-center justify-between gap-2">
             <Tag color={TrialRequestStatusMappingToColors[record.status]}>
               {TrialRequestStatusMappingToLabels[record.status]}
-            </Tag>{' '}
+            </Tag>
             <Dropdown
               menu={{
                 items: Object.values(TrialRequestStatus).reduce<ItemType[]>((result, item) => {
@@ -152,7 +156,15 @@ export const Table = ({
     {
       width: 240,
       title: t('trial_request:class_trial'),
-      render: (_, record) => DemoTypeMappingToLabels[record.demoType],
+      render: (_, record) => {
+        return (
+          <div className="grid grid-cols-1 gap-1">
+            <div>{record.courseRoadmap?.name}</div>
+            <div>{DemoTypeMappingToLabels[record.demoType]}</div>
+            <div>{StudyModeMappingToLabels[record.studyMode]}</div>
+          </div>
+        );
+      },
     },
     {
       width: 240,
