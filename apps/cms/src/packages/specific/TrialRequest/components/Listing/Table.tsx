@@ -18,7 +18,7 @@ import { getTrialRequestStatusMappingToLabels } from '~/packages/common/SelectVa
 export interface Props
   extends Pick<
     TableListingProps<TrialRequest>,
-    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading'
+    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading' | 'paginationMode'
   > {
   editable?: boolean;
   deletable?: boolean;
@@ -27,6 +27,11 @@ export interface Props
   onDeleteMany?: (recordKeys: string[]) => void;
   onView?: (record: TrialRequest) => void;
   onUpdateStatus?: (params: { record: TrialRequest; status: TrialRequestStatus }) => void;
+  onViewAdmin?: (record: TrialRequest) => void;
+  onViewConsultant?: (record: TrialRequest) => void;
+  onViewLecture?: (record: TrialRequest) => void;
+  onViewExpectLearningDepartment?: (record: TrialRequest) => void;
+  hideColumnStudentName?: boolean;
 }
 
 export const Table = ({
@@ -42,6 +47,11 @@ export const Table = ({
   onUpdateStatus,
   deletable,
   editable,
+  hideColumnStudentName,
+  onViewAdmin,
+  onViewConsultant,
+  onViewExpectLearningDepartment,
+  onViewLecture,
   ...props
 }: Props) => {
   const { t } = useTranslation(['common', 'trial_request', 'employee']);
@@ -111,6 +121,7 @@ export const Table = ({
     {
       width: 185,
       title: t('trial_request:student_name'),
+      hidden: hideColumnStudentName,
       render: (_, record) => {
         return (
           <Typography.Link onClick={() => onView?.(record)}>
@@ -129,26 +140,28 @@ export const Table = ({
             <Tag color={TrialRequestStatusMappingToColors[record.status]}>
               {TrialRequestStatusMappingToLabels[record.status]}
             </Tag>
-            <Dropdown
-              menu={{
-                items: Object.values(TrialRequestStatus).reduce<ItemType[]>((result, item) => {
-                  if (item === record.status) {
-                    return result;
-                  }
-                  return result.concat({
-                    key: item,
-                    onClick: () => onUpdateStatus?.({ record: record, status: item }),
-                    label: (
-                      <Tag color={TrialRequestStatusMappingToColors[item]}>
-                        {TrialRequestStatusMappingToLabels[item]}
-                      </Tag>
-                    ),
-                  });
-                }, []),
-              }}
-            >
-              <EditOutlined className="text-status-blue cursor-pointer" />
-            </Dropdown>
+            {editable && (
+              <Dropdown
+                menu={{
+                  items: Object.values(TrialRequestStatus).reduce<ItemType[]>((result, item) => {
+                    if (item === record.status) {
+                      return result;
+                    }
+                    return result.concat({
+                      key: item,
+                      onClick: () => onUpdateStatus?.({ record: record, status: item }),
+                      label: (
+                        <Tag color={TrialRequestStatusMappingToColors[item]}>
+                          {TrialRequestStatusMappingToLabels[item]}
+                        </Tag>
+                      ),
+                    });
+                  }, []),
+                }}
+              >
+                <EditOutlined className="text-status-blue cursor-pointer" />
+              </Dropdown>
+            )}
           </div>
         );
       },
@@ -169,7 +182,13 @@ export const Table = ({
     {
       width: 240,
       title: t('trial_request:office_learning'),
-      render: (_, record) => record.learningOrganization?.name,
+      render: (_, record) => {
+        return (
+          <Typography.Link onClick={() => onViewExpectLearningDepartment?.(record)}>
+            {record.learningOrganization?.name}
+          </Typography.Link>
+        );
+      },
     },
     {
       width: 240,
@@ -179,7 +198,7 @@ export const Table = ({
           return null;
         }
         return (
-          <div>
+          <Typography.Link onClick={() => onViewConsultant?.(record)}>
             <TooltipDetailInformation
               title={[record.consultant?.fullName].filter(Boolean).join(' - ')}
               extra={[
@@ -187,7 +206,7 @@ export const Table = ({
                 [t('employee:work_email'), record.consultant?.workEmail].join(': '),
               ]}
             />
-          </div>
+          </Typography.Link>
         );
       },
     },
@@ -199,7 +218,7 @@ export const Table = ({
           return null;
         }
         return (
-          <div>
+          <Typography.Link onClick={() => onViewAdmin?.(record)}>
             <TooltipDetailInformation
               title={[record.admin?.fullName].filter(Boolean).join(' - ')}
               extra={[
@@ -207,7 +226,7 @@ export const Table = ({
                 [t('employee:work_email'), record.admin?.workEmail].join(': '),
               ]}
             />
-          </div>
+          </Typography.Link>
         );
       },
     },
@@ -219,7 +238,7 @@ export const Table = ({
           return null;
         }
         return (
-          <div>
+          <Typography.Link onClick={() => onViewLecture?.(record)}>
             <TooltipDetailInformation
               title={[record.lecturer?.fullName].filter(Boolean).join(' - ')}
               extra={[
@@ -227,7 +246,7 @@ export const Table = ({
                 [t('employee:work_email'), record.lecturer?.workEmail].join(': '),
               ]}
             />
-          </div>
+          </Typography.Link>
         );
       },
     },
@@ -279,7 +298,6 @@ export const Table = ({
         totalRecords={totalRecords}
         rowKey={record => record.id}
         tableLayout="fixed"
-        paginationMode="sticky"
         plural={({ from, to }) => {
           return t('common:showing_range_results', {
             from,

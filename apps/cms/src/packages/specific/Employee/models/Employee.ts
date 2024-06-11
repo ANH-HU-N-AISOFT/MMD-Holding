@@ -28,6 +28,7 @@ export interface Employee {
     id: string;
     fullName: string;
   };
+  organizationId?: string;
   organization?: {
     id: string;
     fullName: string;

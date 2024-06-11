@@ -1,16 +1,15 @@
 import { useRequest } from 'ahooks';
 import { useEffect, useState } from 'react';
-import { CourseRoadmap } from '../models/CourseRoadmap';
-import { getCourseRoadmaps } from '../services/getCourseRoadmaps';
+import { getEmployees } from '../services/getEmployees';
 
 interface Props {
-  courseId?: CourseRoadmap['courseId'];
+  departmentId: string;
 }
 
-export const useGetRoadMaps = ({ courseId }: Props) => {
+export const useGetEmployeesOfDepartment = ({ departmentId }: Props) => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
-  const { loading, data, run } = useRequest(getCourseRoadmaps, { manual: true });
+  const { loading, data, run } = useRequest(getEmployees, { manual: true });
 
   const handleSearch = (value: string) => {
     setSearch(value);
@@ -24,11 +23,12 @@ export const useGetRoadMaps = ({ courseId }: Props) => {
     run({
       query: search,
       page,
+      perPage: 8,
       sortByName: -1,
-      courseId,
+      organizationId: departmentId,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search, page, courseId]);
+  }, [search, page, departmentId]);
 
   return {
     loading,

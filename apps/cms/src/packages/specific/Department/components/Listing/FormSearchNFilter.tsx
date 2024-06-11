@@ -20,6 +20,7 @@ interface FormFilterProps {
   searchValue?: string;
   onSearch?: (value: string) => void;
   containerClassName?: string;
+  hideFilter?: boolean;
 }
 
 const UID = 'FORM_FILTER_LISTING_DEPARTMENT';
@@ -31,6 +32,7 @@ export const FormSearchNFilter = ({
   onResetFilter,
   onFilter,
   containerClassName,
+  hideFilter,
 }: FormFilterProps) => {
   const { t } = useTranslation(['common', 'department']);
 
@@ -71,6 +73,7 @@ export const FormSearchNFilter = ({
         onSearch: onSearch,
       }}
       filter={{
+        hideFilter: hideFilter,
         uid: UID,
         onReset: handleResetFormFilterValues,
         count: getCountForFilterDrawer({ fieldKeys: ['businessStatus'], formFilterValues }),

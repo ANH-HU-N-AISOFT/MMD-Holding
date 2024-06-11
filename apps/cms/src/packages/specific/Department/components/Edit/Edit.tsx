@@ -51,8 +51,8 @@ export const Edit = ({ department, ...formProps }: Props) => {
             children: <h1 className="text-2xl">Tính năng đang phát triển</h1>,
           },
           {
-            key: 'staff',
-            label: t('department:staff'),
+            key: 'employee',
+            label: t('department:employee'),
             children: <h1 className="text-2xl">Tính năng đang phát triển</h1>,
           },
           {

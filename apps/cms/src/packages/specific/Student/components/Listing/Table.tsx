@@ -20,7 +20,7 @@ import { TableActions } from '~/components/TableActions/TableActions';
 export interface Props
   extends Pick<
     TableListingProps<Student>,
-    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading'
+    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading' | 'paginationMode'
   > {
   onEdit?: (record: Student) => void;
   editable?: boolean;
@@ -38,6 +38,7 @@ export interface Props
   consultantCreatable: boolean;
   onCreateTrial?: (record: Student) => void;
   trialCreatable: boolean;
+  hideColumnDepartment?: boolean;
 }
 
 export const Table = ({
@@ -62,6 +63,7 @@ export const Table = ({
   consultantCreatable,
   departmentViewable,
   trialCreatable,
+  hideColumnDepartment,
   ...props
 }: Props) => {
   const { t } = useTranslation(['common', 'student']);
@@ -148,6 +150,7 @@ export const Table = ({
     {
       width: 240,
       title: t('student:department_name'),
+      hidden: hideColumnDepartment,
       render: (_, record) => {
         return (
           <ul className="grid grid-cols-1 pl-3">
@@ -243,7 +246,6 @@ export const Table = ({
         totalRecords={totalRecords}
         rowKey={record => record.id}
         tableLayout="fixed"
-        paginationMode="sticky"
         plural={({ from, to }) => {
           return t('common:showing_range_results', {
             from,

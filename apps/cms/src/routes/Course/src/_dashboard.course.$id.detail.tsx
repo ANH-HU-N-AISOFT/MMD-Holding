@@ -31,7 +31,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ course: Course }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  isCanAccessRoute({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] });
+  await isCanAccessRoute({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] });
   if (!params['id']) {
     return redirect('/course', {});
   }

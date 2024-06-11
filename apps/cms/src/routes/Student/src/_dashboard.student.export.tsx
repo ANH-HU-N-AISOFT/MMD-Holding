@@ -10,7 +10,7 @@ import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request }: ActionFunctionArgs) => {
-  isCanAccessRoute({ accept: [Role.SuperAdmin] });
+  await isCanAccessRoute({ accept: [Role.SuperAdmin] });
   const t = i18next.t;
   const { search, department } = lisitngUrlSearchParamsUtils.decrypt(request);
 

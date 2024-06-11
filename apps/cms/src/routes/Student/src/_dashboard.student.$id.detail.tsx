@@ -1,4 +1,4 @@
-import { HomeOutlined } from '@ant-design/icons';
+import { ExperimentOutlined, HomeOutlined, QuestionCircleOutlined, ScheduleOutlined } from '@ant-design/icons';
 import { Button, Result, notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -34,7 +34,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ student: Student }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] });
+  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] });
   if (!params['id']) {
     return redirect('/student', {});
   }
@@ -101,7 +101,6 @@ export const Page = () => {
       />
     );
   }
-
   return (
     <>
       <div className="flex flex-col h-full">
@@ -119,47 +118,44 @@ export const Page = () => {
           <Footer
             onDelete={() => setIsOpenModalDeleteStudent(loaderData.info?.student.id ?? false)}
             onEdit={() => navigate(`/student/${loaderData.info?.student.id}/edit`)}
-            Other={
-              <>
-                <Button
-                  className={
-                    isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }) ? '' : '!hidden'
-                  }
-                  onClick={() => {
-                    const createSearchParams = createAppointmentUrlSearchParamsUtils.encrypt({
-                      studentId: loaderData.info?.student.id,
-                    });
-                    navigate(`/appointment/create${createSearchParams}`);
-                  }}
-                >
-                  {t('student:book_appointment')}
-                </Button>
-                <Button
-                  className={isCanShow({ accept: [Role.SuperAdmin, Role.Consultant] }) ? '' : '!hidden'}
-                  onClick={() => {
-                    const createSearchParams = createConsultantFormUrlSearchParamsUtils.encrypt({
-                      studentId: loaderData.info?.student.id,
-                    });
-                    navigate(`/consultant-form/create${createSearchParams}`);
-                  }}
-                >
-                  {t('student:create_consultant')}
-                </Button>
-                <Button
-                  className={
-                    isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }) ? '' : '!hidden'
-                  }
-                  onClick={() => {
-                    const createSearchParams = createTrialUrlSearchParamsUtils.encrypt({
-                      studentId: loaderData.info?.student.id,
-                    });
-                    navigate(`/trial-request/create${createSearchParams}`);
-                  }}
-                >
-                  {t('student:create_trial')}
-                </Button>
-              </>
-            }
+            moreActions={[
+              {
+                key: '1',
+                icon: <ScheduleOutlined />,
+                label: t('student:book_appointment'),
+                hidden: !isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }),
+                onClick: () => {
+                  const createSearchParams = createAppointmentUrlSearchParamsUtils.encrypt({
+                    studentId: loaderData.info?.student.id,
+                  });
+                  navigate(`/appointment/create${createSearchParams}`);
+                },
+              },
+              {
+                key: '2',
+                icon: <QuestionCircleOutlined />,
+                label: t('student:create_consultant'),
+                hidden: !isCanShow({ accept: [Role.SuperAdmin, Role.Consultant] }),
+                onClick: () => {
+                  const createSearchParams = createConsultantFormUrlSearchParamsUtils.encrypt({
+                    studentId: loaderData.info?.student.id,
+                  });
+                  navigate(`/consultant-form/create${createSearchParams}`);
+                },
+              },
+              {
+                key: '3',
+                icon: <ExperimentOutlined />,
+                label: t('student:create_trial'),
+                hidden: !isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }),
+                onClick: () => {
+                  const createSearchParams = createTrialUrlSearchParamsUtils.encrypt({
+                    studentId: loaderData.info?.student.id,
+                  });
+                  navigate(`/trial-request/create${createSearchParams}`);
+                },
+              },
+            ]}
           />
         )}
       </div>

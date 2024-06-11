@@ -3,11 +3,11 @@ import { Dropdown } from 'antd';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useMemo } from 'react';
 
-interface Props {
+export interface TableActionsProps {
   items: Array<ItemType & { hidden?: boolean }>;
 }
 
-export const TableActions = ({ items }: Props) => {
+export const TableActions = ({ items }: TableActionsProps) => {
   const items_ = useMemo(() => {
     return items.filter(item => !item.hidden);
   }, [items]);

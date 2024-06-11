@@ -13,7 +13,7 @@ import { TableActions } from '~/components/TableActions/TableActions';
 export interface Props
   extends Pick<
     TableListingProps<Department>,
-    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading'
+    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading' | 'paginationMode'
   > {
   editable?: boolean;
   deletable?: boolean;
@@ -23,6 +23,7 @@ export interface Props
   onView?: (record: Department) => void;
   onViewManageDepartment?: (record: Department) => void;
   onViewPresentDepartment?: (record: Department) => void;
+  hideColumnManageDepartment?: boolean;
 }
 
 export const Table = ({
@@ -39,6 +40,7 @@ export const Table = ({
   onViewPresentDepartment,
   deletable,
   editable,
+  hideColumnManageDepartment,
   ...props
 }: Props) => {
   const { t } = useTranslation(['common', 'department']);
@@ -112,6 +114,7 @@ export const Table = ({
     {
       width: 240,
       title: t('department:manage_department'),
+      hidden: hideColumnManageDepartment,
       render: (_, record) => {
         return (
           <Typography.Link onClick={() => onViewManageDepartment?.(record)}>
@@ -191,7 +194,6 @@ export const Table = ({
         totalRecords={totalRecords}
         rowKey={record => record.id}
         tableLayout="fixed"
-        paginationMode="sticky"
         plural={({ from, to }) => {
           return t('common:showing_range_results', {
             from,

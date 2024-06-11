@@ -1,6 +1,6 @@
 import { Tabs } from 'antd';
 import { TFunction } from 'i18next';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
@@ -29,7 +29,11 @@ interface Props {
   hidePasswordField?: boolean;
   needPasswordValidation?: boolean;
   onResetPassword?: () => void;
+  tabActive?: TabKey;
+  setTabActive?: Dispatch<SetStateAction<TabKey>>;
 }
+
+export type TabKey = 'personalInformation' | 'roleSystem';
 
 export const FormMutation = ({
   uid,
@@ -41,9 +45,14 @@ export const FormMutation = ({
   disabled,
   hidePasswordField = false,
   needPasswordValidation = true,
+  setTabActive,
+  tabActive,
 }: Props) => {
   const { t } = useTranslation(['common', 'student']);
-  const [tabActive, setTabActive] = useState('personalInformation');
+  const [tabActiveState, setTabActiveState] = useState<TabKey>('personalInformation');
+
+  const setTabActive_ = setTabActive ?? setTabActiveState;
+  const tabActive_ = tabActive ?? tabActiveState;
 
   const disabledField = disabled || isSubmiting;
 
@@ -54,9 +63,9 @@ export const FormMutation = ({
       onInvalid: errors => {
         console.log(errors);
         if (errors.personalInformation) {
-          setTabActive('personalInformation');
+          setTabActive_('personalInformation');
         } else if (errors.roleSystem) {
-          setTabActive('roleSystem');
+          setTabActive_('roleSystem');
         }
       },
     },
@@ -89,8 +98,9 @@ export const FormMutation = ({
     <div>
       <Form method="POST" id={uid} onSubmit={handleSubmit}>
         <Tabs
-          activeKey={tabActive}
-          onChange={setTabActive}
+          className="AntTab__tablist--hidden"
+          activeKey={tabActive_}
+          onChange={value => setTabActive_(value as TabKey)}
           items={[
             {
               key: 'personalInformation',

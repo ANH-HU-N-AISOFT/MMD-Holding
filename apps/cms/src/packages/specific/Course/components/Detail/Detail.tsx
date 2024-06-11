@@ -4,7 +4,7 @@ import { FormMutation } from '../FormMutation/FormMutation';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { FormSearchNFilter } from '~/packages/specific/CourseRoadmap/components/Listing/FormSearchNFilter';
 import { Table } from '~/packages/specific/CourseRoadmap/components/Listing/Table';
-import { useGetRoadMaps } from '~/packages/specific/CourseRoadmap/hooks/useGetRoadMaps';
+import { useGetRoadMapsOfCourse } from '~/packages/specific/CourseRoadmap/hooks/useGetRoadMapsOfCourse';
 
 interface Props {
   course: Course;
@@ -13,7 +13,7 @@ interface Props {
 export const Detail = ({ course }: Props) => {
   const { t } = useTranslation(['course']);
 
-  const { data, loading, page, changePage, search, changeSearch } = useGetRoadMaps({ courseId: course.id });
+  const { data, loading, page, changePage, search, changeSearch } = useGetRoadMapsOfCourse({ courseId: course.id });
 
   return (
     <div className="grid grid-cols-1 gap-4">

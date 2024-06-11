@@ -34,7 +34,7 @@ import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidate
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request, params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  isCanAccessRoute({ accept: [Role.SuperAdmin] });
+  await isCanAccessRoute({ accept: [Role.SuperAdmin] });
   if (!params['id']) {
     return redirect('/course-roadmap', {});
   }
@@ -73,7 +73,7 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
 
 type LoaderResponse = SimpleResponse<{ courseRoadmap: CourseRoadmap }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  isCanAccessRoute({ accept: [Role.SuperAdmin] });
+  await isCanAccessRoute({ accept: [Role.SuperAdmin] });
   if (!params['id']) {
     return redirect('/course-roadmap', {});
   }

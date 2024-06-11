@@ -16,6 +16,7 @@ interface GetConsultantForms {
   query?: string;
   status?: FormStatus;
   courseRoadmapId?: string;
+  studentId?: string;
 }
 export const getConsultantForms = async ({
   page,
@@ -24,6 +25,7 @@ export const getConsultantForms = async ({
   sortByName,
   courseRoadmapId,
   status,
+  studentId,
 }: GetConsultantForms) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     url: '/consultation-forms',
@@ -34,6 +36,7 @@ export const getConsultantForms = async ({
       sortByName,
       courseRoadmapId,
       status,
+      studentId,
     },
   });
 

@@ -20,6 +20,7 @@ interface FormFilterProps {
   searchValue?: string;
   onSearch?: (value: string) => void;
   containerClassName?: string;
+  hideFilter?: boolean;
 }
 
 const UID = 'FORM_FILTER_LISTING_CONSULTANT_FORM';
@@ -31,6 +32,7 @@ export const FormSearchNFilter = ({
   onResetFilter,
   onFilter,
   containerClassName,
+  hideFilter,
 }: FormFilterProps) => {
   const { t } = useTranslation(['common', 'consultant_form']);
 
@@ -65,6 +67,7 @@ export const FormSearchNFilter = ({
         onSearch: onSearch,
       }}
       filter={{
+        hideFilter: hideFilter,
         uid: UID,
         onReset: handleResetFormFilterValues,
         count: getCountForFilterDrawer({ fieldKeys: ['courseRoadmapId', 'status'], formFilterValues }),

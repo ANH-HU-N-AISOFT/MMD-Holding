@@ -1,7 +1,9 @@
 import classNames from 'classnames';
+import { isEmpty } from 'ramda';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../AntCustom';
+import { TableActions, TableActionsProps } from '../TableActions/TableActions';
 
 interface Props {
   onDelete?: () => void;
@@ -10,9 +12,10 @@ interface Props {
   className?: string;
   fitted?: boolean;
   Other?: ReactNode;
+  moreActions?: TableActionsProps['items'];
 }
 
-export const Footer = ({ onDelete, onEdit, isLoading, className, fitted, Other }: Props) => {
+export const Footer = ({ onDelete, onEdit, isLoading, className, fitted, Other, moreActions = [] }: Props) => {
   const { t } = useTranslation(['components']);
 
   const cancelText_ = t('components:Detail.delete').toString();
@@ -32,7 +35,7 @@ export const Footer = ({ onDelete, onEdit, isLoading, className, fitted, Other }
   return (
     <div
       className={classNames(
-        'border-t-solid sticky bottom-0 z-10 flex flex-col items-end justify-end gap-2 border-t border-t-neutral-300 bg-white py-4 px-8 sm:flex-row sm:items-center rounded-bl-[inherit] rounded-br-[inherit] -ml-4 -mr-4 md:-mr-8 md:-ml-8',
+        'border-t-solid sticky bottom-0 z-10 flex flex-col items-end justify-end gap-2 border-t border-t-neutral-300 bg-white py-4 px-4 md:px-8 sm:flex-row sm:items-center rounded-bl-[inherit] rounded-br-[inherit] -ml-4 -mr-4 md:-mr-8 md:-ml-8',
         className,
       )}
     >
@@ -40,6 +43,7 @@ export const Footer = ({ onDelete, onEdit, isLoading, className, fitted, Other }
         {DeleteButton}
         {Other}
         {EditButton}
+        {!isEmpty(moreActions) && <TableActions items={moreActions} />}
       </div>
     </div>
   );

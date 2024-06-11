@@ -34,7 +34,7 @@ import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant] });
+  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant] });
   const t = i18next.t;
   try {
     const { errors, data } = await getValidatedFormData<FormValues>(
@@ -70,7 +70,7 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<{ student: Student | undefined }>> => {
-  isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant] });
+  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant] });
   try {
     const { studentId } = createUrlSearchParamsUtils.decrypt(request);
     if (studentId) {

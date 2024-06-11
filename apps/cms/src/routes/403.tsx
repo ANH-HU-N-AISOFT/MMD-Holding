@@ -14,7 +14,7 @@ export const Page: FC = () => {
       <div className="h-[100dvh] flex flex-col justify-center items-center">
         <h1 className="text-8xl font-extrabold text-status-red">403</h1>
         <p className="text-4xl font-medium text-gray-800">{t('page403:title')}</p>
-        <p className="text-xl text-gray-800 my-4">{t('page403:title')}</p>
+        <p className="text-xl text-gray-800 my-4">{t('page403:description')}</p>
         <div className="grid grid-cols-2 gap-2">
           <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/')}>
             {t('page403:back_to_home')}

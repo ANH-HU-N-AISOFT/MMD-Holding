@@ -29,6 +29,7 @@ interface FormFilterProps {
   onSearch?: (value: string) => void;
   containerClassName?: string;
   counts?: Record<AppointmentStatus, number>;
+  hideFilter?: boolean;
 }
 
 const UID = 'FORM_FILTER_LISTING_APPOINTMENT';
@@ -41,6 +42,7 @@ export const FormSearchNFilter = ({
   onFilter,
   containerClassName,
   counts,
+  hideFilter,
 }: FormFilterProps) => {
   const { t } = useTranslation(['common', 'appointment', 'enum']);
   const { isMobile } = useMobile();
@@ -71,6 +73,77 @@ export const FormSearchNFilter = ({
   useDeepCompareEffect(() => {
     reset(formFilterValues);
   }, [formFilterValues]);
+
+  if (hideFilter) {
+    return (
+      <SearchNFilter
+        inputClassName="md:!max-w-[600px]"
+        containerClassName={classNames(containerClassName)}
+        isSubmiting={isSubmiting}
+        search={{
+          placeholder: t('appointment:search_placeholder'),
+          searchValue: searchValue,
+          onSearch: onSearch,
+        }}
+        filter={{
+          hideFilter: hideFilter,
+          uid: UID,
+          onReset: handleResetFormFilterValues,
+          count: getCountForFilterDrawer({
+            fieldKeys: ['organizationId', 'isOwner'],
+            formFilterValues,
+          }),
+          form: (
+            <Form method="GET" id={UID} onSubmit={handleSubmit}>
+              <Field label={t('appointment:owner')}>
+                <SelectSingle
+                  options={[
+                    { label: t('appointment:all'), value: 0, rawData: undefined },
+                    { label: t('appointment:me'), value: 1, rawData: undefined },
+                  ]}
+                  value={Number(isOwner)}
+                  onChange={value => setValue('isOwner', Boolean(value))}
+                />
+              </Field>
+              {/* <Field label={t('appointment:status')}>
+              <SelectAppointmentStatus
+                allowClear={false}
+                placeholder={t('appointment:status')}
+                withAllOption
+                appointmentStatus={status ?? 'all'}
+                onChange={value => setValue('status', value)}
+              />
+            </Field> */}
+              {/* <Field label={t('appointment:appointment_date')}>
+              <DatePicker
+                className="w-full"
+                placeholder={t('appointment:appointment_date')}
+                value={date ? dayjs(date) : undefined}
+                onChange={value => setValue('date', value?.toISOString())}
+              />
+            </Field> */}
+              {/* <Field label={t('appointment:test_shift')}>
+              <Select className="w-full" placeholder={t('appointment:test_shift')} />
+            </Field>
+            <Field label={t('appointment:test')}>
+              <SelectIeltsTestEnum
+                ieltsTest={test as IeltsTestEnum | undefined}
+                onChange={value => setValue('test', value)}
+              />
+            </Field> */}
+              <Field label={t('appointment:expect_inspection_department')}>
+                <SelectDepartment
+                  placeholder={t('appointment:expect_inspection_department')}
+                  department={organizationId}
+                  onChange={value => setValue('organizationId', value)}
+                />
+              </Field>
+            </Form>
+          ),
+        }}
+      />
+    );
+  }
 
   return (
     <div
@@ -169,6 +242,7 @@ export const FormSearchNFilter = ({
           onSearch: onSearch,
         }}
         filter={{
+          hideFilter: hideFilter,
           uid: UID,
           onReset: handleResetFormFilterValues,
           count: getCountForFilterDrawer({

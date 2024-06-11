@@ -18,6 +18,7 @@ interface GetAppointments {
   status?: AppointmentStatus;
   isOwner?: boolean;
   organizationId?: string;
+  studentId?: string;
 }
 export const getAppointments = async ({
   page,
@@ -27,6 +28,7 @@ export const getAppointments = async ({
   organizationId,
   sortByDate,
   status,
+  studentId,
 }: GetAppointments) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     url: '/appointments',
@@ -38,6 +40,7 @@ export const getAppointments = async ({
       organizationId,
       sortByDate,
       status,
+      studentId,
     },
   });
 

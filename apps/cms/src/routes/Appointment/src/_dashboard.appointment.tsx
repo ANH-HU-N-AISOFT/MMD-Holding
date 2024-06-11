@@ -34,7 +34,7 @@ export const loader = async ({
 }: LoaderFunctionArgs): Promise<
   TypedResponse<SimpleListingLoaderResponse<Appointment> & { counts: Record<AppointmentStatus, number> }>
 > => {
-  isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
+  await isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
   const t = i18next.t;
   const { search, page = 1, organizationId, status, isOwner } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {

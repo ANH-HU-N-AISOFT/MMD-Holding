@@ -7,7 +7,7 @@ import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant] });
+  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant] });
   try {
     if (!params['id']) {
       return redirect('/consultant-form', {});

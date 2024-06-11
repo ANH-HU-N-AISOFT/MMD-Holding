@@ -30,7 +30,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Course>>> => {
-  isCanAccessRoute({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] });
+  await isCanAccessRoute({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] });
   const t = i18next.t;
   const { search, page = 1, status } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {

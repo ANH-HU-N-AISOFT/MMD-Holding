@@ -29,8 +29,8 @@ export const leavesToTreeDataNode = (data: Department[], searchParams: ListingSe
     }
     if (
       searchParams.search &&
-      (treeNode.generalInformation.name.includes(searchParams.search) ||
-        treeNode.generalInformation.code.includes(searchParams.search))
+      (treeNode.generalInformation.name.toLowerCase().includes(searchParams.search?.toLowerCase?.()) ||
+        treeNode.generalInformation.code.toLowerCase().includes(searchParams.search?.toLowerCase?.()))
     ) {
       treeNode.matched = true;
     }

@@ -3,6 +3,9 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Department } from '../../models/Department';
 import { FormMutation } from '../FormMutation/FormMutation';
+import { EmployeesOfDepartment } from './components/EmployeesOfDepartment';
+import { StudentsOfDepartment } from './components/StudentsOfDepartment';
+import { SubDepartmentsOfDepartment } from './components/SubDepartmentsOfDepartment';
 
 interface Props {
   department: Department;
@@ -45,17 +48,17 @@ export const Detail = ({ department }: Props) => {
           {
             key: 'subordinate_department',
             label: t('department:subordinate_department'),
-            children: <h1 className="text-2xl">Tính năng đang phát triển</h1>,
+            children: <SubDepartmentsOfDepartment department={department} />,
           },
           {
-            key: 'staff',
-            label: t('department:staff'),
-            children: <h1 className="text-2xl">Tính năng đang phát triển</h1>,
+            key: 'employee',
+            label: t('department:employee'),
+            children: <EmployeesOfDepartment department={department} />,
           },
           {
             key: 'student',
             label: t('department:student'),
-            children: <h1 className="text-2xl">Tính năng đang phát triển</h1>,
+            children: <StudentsOfDepartment department={department} />,
           },
         ]}
       />

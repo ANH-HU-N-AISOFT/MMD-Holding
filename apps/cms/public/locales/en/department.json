@@ -32,7 +32,7 @@
   "department_with_name": "Đơn vị - {{ name }}",
   "general_information": "Thông tin chung",
   "subordinate_department": "Đơn vị trực thuộc",
-  "staff": "Nhân viên",
+  "employee": "Nhân viên",
   "student": "Học viên",
   "field_code_invalid": "Giá trị không được phép chứa dấu cách và ký tự đặc biệt",
   "update_failure": "Cập nhật thất bại",

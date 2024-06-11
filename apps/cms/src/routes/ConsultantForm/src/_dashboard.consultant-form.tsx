@@ -31,7 +31,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<ConsultantForm>>> => {
-  isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant, Role.Sale] });
+  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant, Role.Sale] });
   const t = i18next.t;
   const { search, page = 1, courseRoadmapId, status } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {

@@ -14,7 +14,7 @@ import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter'
 export interface Props
   extends Pick<
     TableListingProps<ConsultantForm>,
-    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading'
+    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading' | 'paginationMode'
   > {
   editable?: boolean;
   onEdit?: (record: ConsultantForm) => void;
@@ -24,6 +24,7 @@ export interface Props
   onView?: (record: ConsultantForm) => void;
   trialCreatable: boolean;
   onCreateTrial?: (record: ConsultantForm) => void;
+  hideColumnStudentName?: boolean;
 }
 
 export const Table = ({
@@ -40,6 +41,7 @@ export const Table = ({
   deletable,
   editable,
   trialCreatable,
+  hideColumnStudentName,
   ...props
 }: Props) => {
   const { t } = useTranslation(['common', 'consultant_form']);
@@ -103,6 +105,7 @@ export const Table = ({
     {
       width: 185,
       title: t('consultant_form:student_name'),
+      hidden: hideColumnStudentName,
       render: (_, record) => {
         return (
           <Typography.Link onClick={() => onView?.(record)}>
@@ -236,7 +239,6 @@ export const Table = ({
         totalRecords={totalRecords}
         rowKey={record => record.id}
         tableLayout="fixed"
-        paginationMode="sticky"
         plural={({ from, to }) => {
           return t('common:showing_range_results', {
             from,

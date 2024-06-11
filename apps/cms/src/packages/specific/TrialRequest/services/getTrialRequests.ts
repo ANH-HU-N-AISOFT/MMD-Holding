@@ -25,6 +25,7 @@ interface GetTrialRequests {
   isAdminOwner?: boolean;
   isConsultantOwner?: boolean;
   isLecturerOwner?: boolean;
+  studentId?: string;
 }
 export const getTrialRequests = async ({
   page,
@@ -39,6 +40,7 @@ export const getTrialRequests = async ({
   isLecturerOwner,
   learningOrganizationId,
   studyMode,
+  studentId,
 }: GetTrialRequests) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     url: '/trial-requests',
@@ -55,6 +57,7 @@ export const getTrialRequests = async ({
       isLecturerOwner,
       learningOrganizationId,
       studyMode,
+      studentId,
     },
   });
 

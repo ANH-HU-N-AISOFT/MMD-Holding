@@ -18,7 +18,7 @@ import { getIeltsTestEnumMappingToLabels } from '~/packages/common/SelectVariant
 export interface Props
   extends Pick<
     TableListingProps<Appointment>,
-    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading'
+    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading' | 'paginationMode'
   > {
   onEdit?: (record: Appointment) => void;
   onDelete?: (recordKeys: string) => void;
@@ -31,6 +31,7 @@ export interface Props
   onUpdateStatus?: (params: { record: Appointment; status: AppointmentStatus }) => void;
   editable?: boolean;
   deletable?: boolean;
+  hideColumnStudentName?: boolean;
 }
 
 export const Table = ({
@@ -50,6 +51,7 @@ export const Table = ({
   onUpdateStatus,
   deletable,
   editable,
+  hideColumnStudentName,
   ...props
 }: Props) => {
   const { t } = useTranslation(['common', 'appointment', 'employee']);
@@ -118,6 +120,7 @@ export const Table = ({
     {
       width: 210,
       title: t('appointment:student_name'),
+      hidden: hideColumnStudentName,
       render: (_, record) => {
         return (
           <Typography.Link onClick={() => onView?.(record)}>
@@ -137,24 +140,28 @@ export const Table = ({
             <Tag color={AppointmentStatusMappingToColors[record.status]}>
               {AppointmentStatusMappingToLabels[record.status]}
             </Tag>
-            <Dropdown
-              menu={{
-                items: Object.values(AppointmentStatus).reduce<ItemType[]>((result, item) => {
-                  if (item === record.status) {
-                    return result;
-                  }
-                  return result.concat({
-                    key: item,
-                    onClick: () => onUpdateStatus?.({ record: record, status: item }),
-                    label: (
-                      <Tag color={AppointmentStatusMappingToColors[item]}>{AppointmentStatusMappingToLabels[item]}</Tag>
-                    ),
-                  });
-                }, []),
-              }}
-            >
-              <EditOutlined className="text-status-blue cursor-pointer" />
-            </Dropdown>
+            {editable && (
+              <Dropdown
+                menu={{
+                  items: Object.values(AppointmentStatus).reduce<ItemType[]>((result, item) => {
+                    if (item === record.status) {
+                      return result;
+                    }
+                    return result.concat({
+                      key: item,
+                      onClick: () => onUpdateStatus?.({ record: record, status: item }),
+                      label: (
+                        <Tag color={AppointmentStatusMappingToColors[item]}>
+                          {AppointmentStatusMappingToLabels[item]}
+                        </Tag>
+                      ),
+                    });
+                  }, []),
+                }}
+              >
+                <EditOutlined className="text-status-blue cursor-pointer" />
+              </Dropdown>
+            )}
           </div>
         );
       },
@@ -306,7 +313,6 @@ export const Table = ({
         totalRecords={totalRecords}
         rowKey={record => record.id}
         tableLayout="fixed"
-        paginationMode="sticky"
         plural={({ from, to }) => {
           return t('common:showing_range_results', {
             from,

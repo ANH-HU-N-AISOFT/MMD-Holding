@@ -1,10 +1,4 @@
 /* Table */
-.TableListing__container.ant-table-wrapper
-  .ant-table-pagination
-  .ant-pagination-total-text {
-  @apply basis-full  md:!flex-1 !m-0 md:!me-2;
-}
-
 .TableListing__container.ant-table-wrapper .ant-spin-nested-loading {
   @apply h-full;
 }
@@ -27,4 +21,19 @@
 }
 .TableListing--paginationSticky.ant-table-wrapper .ant-table {
   @apply flex-1 bg-transparent mb-4;
+}
+.TableListing--paginationSticky.ant-table-wrapper
+  .ant-table-pagination
+  .ant-pagination-total-text {
+  @apply basis-full  md:!flex-1 !m-0 md:!me-2;
+}
+
+.TableListing__container:not(.TableListing--paginationSticky).ant-table-wrapper
+  .ant-table-pagination {
+  @apply justify-center sm:justify-end;
+}
+.TableListing__container:not(.TableListing--paginationSticky).ant-table-wrapper
+  .ant-table-pagination
+  .ant-pagination-total-text {
+  @apply basis-full text-center sm:text-left sm:flex-1 m-0 md:me-2;
 }

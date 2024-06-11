@@ -14,7 +14,7 @@ import { getCourseStatusMappingToLabels } from '~/packages/common/SelectVariants
 export interface Props
   extends Pick<
     TableListingProps<Course>,
-    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading'
+    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading' | 'paginationMode'
   > {
   editable?: boolean;
   deletable?: boolean;
@@ -194,7 +194,6 @@ export const Table = ({
         totalRecords={totalRecords}
         rowKey={record => record.id}
         tableLayout="fixed"
-        paginationMode="sticky"
         plural={({ from, to }) => {
           return t('common:showing_range_results', {
             from,

@@ -15,7 +15,7 @@ import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter'
 export interface Props
   extends Pick<
     TableListingProps<CourseCombo>,
-    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading'
+    'currentPage' | 'pageSize' | 'totalRecords' | 'dataSource' | 'onChange' | 'loading' | 'paginationMode'
   > {
   editable?: boolean;
   deletable?: boolean;
@@ -207,7 +207,6 @@ export const Table = ({
         totalRecords={totalRecords}
         rowKey={record => record.id}
         tableLayout="fixed"
-        paginationMode="sticky"
         plural={({ from, to }) => {
           return t('common:showing_range_results', {
             from,

@@ -31,7 +31,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<TrialRequest>>> => {
-  isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale, Role.Lecturer] });
+  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale, Role.Lecturer] });
   const t = i18next.t;
   const {
     search,
@@ -233,6 +233,12 @@ export const Page = () => {
           onDelete={data => setIsOpenModalDeleteTrial(data)}
           onEdit={record => navigate(`/trial-request/${record.id}/edit`)}
           onView={record => navigate(`/trial-request/${record.id}/detail`)}
+          onViewAdmin={record => window.open(`/employee/${record.admin?.id}/detail`)}
+          onViewConsultant={record => window.open(`/employee/${record.consultant?.id}/detail`)}
+          onViewLecture={record => window.open(`/employee/${record.lecturer?.id}/detail`)}
+          onViewExpectLearningDepartment={record => {
+            window.open(`/department/${record.learningOrganization?.id}/detail`);
+          }}
           onUpdateStatus={({ record, status }) => {
             update({ id: record.id, status, revalidate: () => handleRequest({}) });
           }}

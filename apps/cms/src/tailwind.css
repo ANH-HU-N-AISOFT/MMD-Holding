@@ -6,3 +6,7 @@ body {
   @apply text-sm;
   font-family: "Inter", sans-serif;
 }
+
+.AntTab__tablist--hidden .ant-tabs-nav {
+  @apply hidden;
+}
