@@ -48,6 +48,9 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
   }, [validateResponse]);
 
   const invalidRecords: T['items'] = useMemo(() => {
+    if (!validateResponse?.hasError) {
+      return [];
+    }
     return (validateResponse?.items ?? []).filter((_, index) => {
       return validateResponse?.errors.find(error => error.itemIndex === index);
     });
@@ -112,6 +115,7 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
       width={1600}
     >
       <Tabs
+        className={validateResponse?.hasError ? '' : 'hidden'}
         onChange={value => setTabActive(value as typeof tabActive)}
         activeKey={tabActive}
         items={[
@@ -136,11 +140,11 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
             width: 140,
             fixed: 'right',
             align: 'center',
-            hidden: tabActive === 'valid',
+            hidden: !validateResponse?.hasError || tabActive === 'valid',
             title: t('components:ModalPreview.status'),
             render: (_, _record, index) => {
               const realIndex = pageSize * (currentPage - 1) + index;
-              const hasError = nth(realIndex, validateResponse?.errors ?? []);
+              const hasError = validateResponse?.hasError && nth(realIndex, validateResponse?.errors ?? []);
               if (hasError) {
                 return <Tag color="error">{t('components:ModalPreview.invalid')}</Tag>;
               }
@@ -150,7 +154,7 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
           {
             width: 240,
             fixed: 'right',
-            hidden: tabActive === 'valid',
+            hidden: !validateResponse?.hasError || tabActive === 'valid',
             title: t('components:ModalPreview.message'),
             render: (_, _record, index) => {
               const realIndex = pageSize * (currentPage - 1) + index;

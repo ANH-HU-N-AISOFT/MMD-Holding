@@ -189,7 +189,7 @@ export const Page = () => {
       <div className="flex flex-col h-full">
         <Header
           creatable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
-          importable={isCanShow({ accept: [Role.SuperAdmin] })}
+          importable={false}
           exportable={isCanShow({ accept: [Role.SuperAdmin] })}
           isExporting={isExporting}
           onExport={handleExport}

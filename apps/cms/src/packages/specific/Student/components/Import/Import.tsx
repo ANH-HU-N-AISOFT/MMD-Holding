@@ -71,6 +71,7 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
         onImportSuccess={handleImport}
         importService={async validRecords => {
           await importStudents({ data: validRecords });
+          setOpenModalPreviewState(false);
         }}
         onCancel={() => setOpenModalPreviewState(false)}
         validateResponse={openModalPreviewState || undefined}
@@ -128,7 +129,7 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
           },
           {
             width: 160,
-            title: t('student:department'),
+            title: t('student:department_code'),
             render: (_, record) => {
               return (
                 <ul className="list-disc pl-3">
@@ -140,8 +141,8 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
             },
           },
           {
-            width: 160,
-            title: t('student:sale_employees'),
+            width: 180,
+            title: t('student:sale_employees_code'),
             render: (_, record) => {
               return (
                 <ul className="list-disc pl-3">

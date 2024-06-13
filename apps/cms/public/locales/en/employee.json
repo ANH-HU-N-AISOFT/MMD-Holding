@@ -76,5 +76,7 @@
   "not_found": "Không tìm thấy nhân viên",
   "back_to_list": "Quay lại danh sách",
   "employee": "Nhân viên",
-  "must_select_department": "Vui lòng chọn đơn vị để tiếp tục"
+  "must_select_department": "Vui lòng chọn đơn vị để tiếp tục",
+  "department_code": "Mã đơn vị",
+  "direction_manager_code": "Mã nhân viên sales"
 }

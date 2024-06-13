@@ -68,5 +68,7 @@
   "create_trial": "Yêu cầu học thử",
   "appointment": "Lịch hẹn",
   "consultant_form": "Phiếu tư vấn",
-  "trial_request": "Yêu cầu học thử"
+  "trial_request": "Yêu cầu học thử",
+  "sale_employees_code": "Mã nhân viên sales",
+  "department_code": "Mã đơn vị"
 }

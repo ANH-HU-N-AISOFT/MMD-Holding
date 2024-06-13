@@ -62,6 +62,7 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
         onImportSuccess={handleImport}
         importService={async validRecords => {
           await importDepartments({ data: validRecords });
+          setOpenModalPreviewState(false);
         }}
         onCancel={() => setOpenModalPreviewState(false)}
         validateResponse={openModalPreviewState || undefined}
@@ -77,7 +78,7 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
           },
           {
             width: 240,
-            title: t('department:manage_department'),
+            title: t('department:manage_department_code'),
             render: (_, record) => {
               return record.managementUnitCode;
             },
@@ -96,7 +97,7 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
           },
           {
             width: 240,
-            title: t('department:present_department'),
+            title: t('department:present_department_code'),
             render: (_, record) => {
               return record.unitManagerCode;
             },

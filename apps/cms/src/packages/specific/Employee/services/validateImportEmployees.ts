@@ -17,11 +17,13 @@ export interface ResponseSuccess {
     emergencyContactRelationship: string;
     notes: string;
     organizationCode: string;
+    jobTitles: string[];
     directManagerCode: string;
     workStatus: string;
     contractType: string;
     contractStartDate: string;
     contractEndDate: string;
+    roles: string[];
     username: string;
     accessStatus: string;
     password: string;

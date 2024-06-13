@@ -27,7 +27,9 @@ export const importDepartments = async ({ data }: ImportDepartments) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     method: 'POST',
     url: '/organizations/import/save',
-    data,
+    data: {
+      items: data,
+    },
   });
   return response.data;
 };

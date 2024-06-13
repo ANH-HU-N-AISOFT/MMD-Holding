@@ -13,6 +13,9 @@ import { EmploymentContractType } from '~/packages/common/SelectVariants/Employm
 import { getEmploymentContractTypeMappingToLabels } from '~/packages/common/SelectVariants/EmploymentContractType/constants/EmploymentContractTypeMappingToLabels';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
 import { getGenderEnumMappingToLabels } from '~/packages/common/SelectVariants/Gender/constants/GenderEnumMappingToLabels';
+import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
+import { getJobTitleMappingToLabels } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleMappingToLabels';
+import { getRoleMappingToLabels } from '~/packages/common/SelectVariants/Role/constants/RoleMappingToLabels';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { getSystemAccessStatusMappingToLabels } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatusMappingToLabels';
 import { getPublicEnv } from '~/utils/enviroment/getPublicEnv';
@@ -39,6 +42,12 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
   }, [t]);
   const EmploymentContractTypeMappingToLabels = useMemo(() => {
     return getEmploymentContractTypeMappingToLabels(t);
+  }, [t]);
+  const JobTitleMappingToLabels = useMemo(() => {
+    return getJobTitleMappingToLabels(t);
+  }, [t]);
+  const RoleMappingToLabels = useMemo(() => {
+    return getRoleMappingToLabels(t);
   }, [t]);
 
   const [openModalValidateState, setOpenModalValidateState] = useState(false);
@@ -77,6 +86,7 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
         onImportSuccess={handleImport}
         importService={async validRecords => {
           await importEmployees({ data: validRecords });
+          setOpenModalPreviewState(false);
         }}
         onCancel={() => setOpenModalPreviewState(false)}
         validateResponse={openModalPreviewState || undefined}
@@ -172,9 +182,23 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
           },
           {
             width: 160,
-            title: t('employee:department'),
+            title: t('employee:department_code'),
             render: (_, record) => {
               return record.organizationCode;
+            },
+          },
+          {
+            width: 160,
+            title: t('employee:job_title'),
+            render: (_, record) => {
+              return record.jobTitles.map(item => JobTitleMappingToLabels[item as JobTitleEnum]).join(', ');
+            },
+          },
+          {
+            width: 180,
+            title: t('employee:direction_manager_code'),
+            render: (_, record) => {
+              return record.directManagerCode;
             },
           },
           {
@@ -187,13 +211,6 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
                   {EmployeeStatusMappingToLabels[record.workStatus as EmployeeStatus]}
                 </Tag>
               );
-            },
-          },
-          {
-            width: 160,
-            title: t('employee:direction_manager'),
-            render: (_, record) => {
-              return record.directManagerCode;
             },
           },
           {
@@ -215,6 +232,13 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
             title: t('employee:contract_end_effect_date'),
             render: (_, record) => {
               return record.contractEndDate ? dayjs(record.contractEndDate).format('DD/MM/YYYY') : null;
+            },
+          },
+          {
+            width: 160,
+            title: t('employee:role'),
+            render: (_, record) => {
+              return record.roles.map(role => RoleMappingToLabels[role as keyof typeof RoleMappingToLabels]).join(', ');
             },
           },
           {

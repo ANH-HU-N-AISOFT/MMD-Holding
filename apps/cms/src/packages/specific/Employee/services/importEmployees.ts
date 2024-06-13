@@ -40,7 +40,9 @@ export const importEmployees = async ({ data }: ImportEmployees) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     method: 'POST',
     url: '/employees/import/save',
-    data,
+    data: {
+      items: data,
+    },
   });
   return response.data;
 };

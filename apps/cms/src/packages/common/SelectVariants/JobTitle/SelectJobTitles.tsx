@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const SelectJobTitles = ({ jobTitles, disabled, allowClear = true, onChange }: Props) => {
-  const { t } = useTranslation(['common', 'enum']);
+  const { t } = useTranslation(['enum']);
 
   const jobTitleMappingToLabels = useMemo(() => {
     return getJobTitleMappingToLabels(t);

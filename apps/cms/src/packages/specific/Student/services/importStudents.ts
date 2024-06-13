@@ -32,7 +32,9 @@ export const importStudents = async ({ data }: ImportStudents) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     method: 'POST',
     url: '/students/import/save',
-    data,
+    data: {
+      items: data,
+    },
   });
   return response.data;
 };

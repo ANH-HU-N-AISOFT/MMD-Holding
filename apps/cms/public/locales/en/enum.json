@@ -33,6 +33,7 @@
   "role": {
     "label": "Phân quyền",
     "options": {
+      "SuperAdmin": "Super admin",
       "Admin": "Admin",
       "Sale": "Nhân viên sales",
       "Lecturer": "Giảng viên",
