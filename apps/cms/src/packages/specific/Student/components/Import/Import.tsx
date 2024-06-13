@@ -12,6 +12,7 @@ import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constant
 import { getSourceEnumMappingToLabels } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnumMappingToLabels';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { getSystemAccessStatusMappingToLabels } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatusMappingToLabels';
+import { getPublicEnv } from '~/utils/enviroment/getPublicEnv';
 
 interface Props {
   revalidate: () => void;
@@ -62,7 +63,7 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
         importType={t('student:students')}
         open={openModalValidateState}
         onCancel={() => setOpenModalValidateState(false)}
-        downSampleUrl="https://api.apispeed.online/students/import/download-template"
+        downSampleUrl={`${getPublicEnv('VITE_RESTFUL_API')}/students/import/download-template`}
         validateService={validateImportStudents}
         onValidateSuccess={handleValidate}
       />
@@ -100,7 +101,6 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
           },
           {
             width: 90,
-            align: 'center',
             title: t('student:gender'),
             render: (_, record) => GenderEnumMappingToLabels[record.gender as GenderEnum],
           },
@@ -154,7 +154,6 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
           },
           {
             width: 160,
-            align: 'center',
             title: t('student:username'),
             render: (_, record) => record.username,
           },
@@ -166,9 +165,10 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
           },
           {
             width: 160,
-            align: 'center',
             title: t('student:password'),
-            render: (_, record) => <Input.Password readOnly value={record.password} variant="borderless" />,
+            render: (_, record) => (
+              <Input.Password className="!px-0" readOnly value={record.password} variant="borderless" />
+            ),
           },
         ]}
       />

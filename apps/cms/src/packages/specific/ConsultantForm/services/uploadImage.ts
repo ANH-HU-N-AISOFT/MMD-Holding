@@ -6,14 +6,14 @@ export interface UploadImage {
 }
 
 export interface ResponseSuccess {
-  fieldname: 'file';
-  originalname: 'Screenshot-0521-114146.png';
-  encoding: '7bit';
-  mimetype: 'image/png';
-  destination: './uploads/consultations';
-  filename: 'file-1716744085369-777935517.png';
-  path: 'https://api.apispeed.online/uploads/consultations/file-1716744085369-777935517.png';
-  size: 207678;
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  destination: string;
+  filename: string;
+  path: string;
+  size: number;
 }
 
 export const uploadImage = async ({ file }: UploadImage) => {

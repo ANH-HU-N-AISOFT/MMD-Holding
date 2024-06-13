@@ -43,7 +43,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-      <Field withRequiredMark label={t('employee:fullName')} error={errors.personalInformation?.fullName?.message}>
+      <Field withRequiredMark label={t('employee:full_name')} error={errors.personalInformation?.fullName?.message}>
         <Input
           value={fullName}
           onChange={event => {
@@ -53,7 +53,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
             }
           }}
           disabled={disabledField}
-          placeholder={t('employee:fullName')}
+          placeholder={t('employee:full_name')}
         />
       </Field>
       <Field withRequiredMark label={t('employee:phone')} error={errors.personalInformation?.phone?.message}>

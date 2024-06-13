@@ -1,6 +1,6 @@
 import { notification } from 'antd';
 import i18next from 'i18next';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { updateURLSearchParamsOfBrowserWithoutNavigation } from 'utilities';
 import {
@@ -19,6 +19,7 @@ import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
 import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { Import, ImportActions } from '~/packages/specific/Employee/components/Import/Import';
 import { FormSearchNFilter } from '~/packages/specific/Employee/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Employee/components/Listing/Header';
 import { Table } from '~/packages/specific/Employee/components/Listing/Table';
@@ -97,6 +98,10 @@ export const Page = () => {
     getNearestPageAvailable: page => handleRequest({ page }),
     urlSearchParamsUtils: lisitngUrlSearchParamsUtils,
   });
+  //#endregion
+
+  //#region Import
+  const importActions = useRef<ImportActions | null>(null);
   //#endregion
 
   //#region Export
@@ -211,7 +216,7 @@ export const Page = () => {
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/employee/create')}
-          onImport={() => undefined}
+          onImport={() => importActions.current?.open?.()}
         />
         <FormSearchNFilter
           containerClassName="justify-end mb-1"
@@ -243,6 +248,18 @@ export const Page = () => {
           onViewDepartment={record => window.open(`/department/${record.organization?.id}/detail`)}
         />
       </div>
+      <Import
+        ref={importActions}
+        revalidate={() => {
+          handleRequest({
+            department: undefined,
+            page: 1,
+            roles: undefined,
+            search: undefined,
+            status: undefined,
+          });
+        }}
+      />
       <ModalConfirmDelete
         open={!!isOpenModalDeleteEmployee}
         onCancel={() => setIsOpenModalDeleteEmployee(false)}

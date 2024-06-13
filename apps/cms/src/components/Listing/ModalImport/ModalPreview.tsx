@@ -160,6 +160,16 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
                   {error?.messages.map((item, index) => {
                     return <li key={index}>{item}</li>;
                   })}
+                  {/* <Collapsed
+                    className="-ml-3 pt-2"
+                    disabled={!error?.messages || error?.messages?.length <= 3}
+                    LessState={error?.messages?.slice(0, 3)?.map((item, index) => {
+                      return <li key={index}>{item}</li>;
+                    })}
+                    MoreState={error?.messages?.map((item, index) => {
+                      return <li key={index}>{item}</li>;
+                    })}
+                  /> */}
                 </ul>
               );
             },

@@ -10,3 +10,6 @@ body {
 .AntTab__tablist--hidden .ant-tabs-nav {
   @apply hidden;
 }
+.ant-tag {
+  @apply !m-0;
+}

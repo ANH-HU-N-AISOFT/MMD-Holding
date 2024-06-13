@@ -1,7 +1,7 @@
 import { ClusterOutlined, TableOutlined } from '@ant-design/icons';
 import { Select, Typography, notification } from 'antd';
 import i18next from 'i18next';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { updateURLSearchParamsOfBrowserWithoutNavigation } from 'utilities';
 import {
@@ -17,6 +17,7 @@ import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
 import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { Import, ImportActions } from '~/packages/specific/Department/components/Import/Import';
 import { FormSearchNFilter } from '~/packages/specific/Department/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Department/components/Listing/Header';
 import { Table } from '~/packages/specific/Department/components/Listing/Table';
@@ -93,6 +94,10 @@ export const Page = () => {
     getNearestPageAvailable: page => handleRequest({ page }),
     urlSearchParamsUtils: lisitngUrlSearchParamsUtils,
   });
+  //#endregion
+
+  //#region Import
+  const importActions = useRef<ImportActions | null>(null);
   //#endregion
 
   //#region Export
@@ -207,7 +212,7 @@ export const Page = () => {
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/department/create')}
-          onImport={() => undefined}
+          onImport={() => importActions.current?.open?.()}
         />
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2 mb-1">
           <div className="order-2 sm:order-1 sm:basis-[480px]">
@@ -257,6 +262,17 @@ export const Page = () => {
         </div>
         {renderList()}
       </div>
+      <Import
+        ref={importActions}
+        revalidate={() => {
+          handleRequest({
+            businessStatus: undefined,
+            layout: 'table',
+            page: 1,
+            search: undefined,
+          });
+        }}
+      />
       <ModalConfirmDelete
         open={!!isOpenModalDeleteDepartment}
         onCancel={() => setIsOpenModalDeleteDepartment(false)}

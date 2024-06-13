@@ -40,7 +40,7 @@ export const TableForTreeLayout = ({
   searchParams = {},
   ...props
 }: Props) => {
-  const { t } = useTranslation(['common', 'department']);
+  const { t } = useTranslation(['enum', 'department', 'common']);
   const [rowsExpanding, setRowsExpanding] = useState<string[]>([]);
   const businessStatusMappingToLabels = useMemo(() => {
     return getBusinessStatusMappingToLabels(t);

@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const SelectRole = ({ role, disabled, allowClear = true, onChange }: Props) => {
-  const { t } = useTranslation(['common', 'enum']);
+  const { t } = useTranslation(['enum']);
   const roleMappingToLabels = useMemo(() => {
     return getRoleMappingToLabels(t);
   }, [t]);

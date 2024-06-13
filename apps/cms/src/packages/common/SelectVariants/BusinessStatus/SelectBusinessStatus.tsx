@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const SelectBusinessStatus = ({ businessStatus, disabled, allowClear = true, placeholder, onChange }: Props) => {
-  const { t } = useTranslation(['common', 'enum']);
+  const { t } = useTranslation(['enum']);
 
   const businessStatusMappingToLabels = useMemo(() => {
     return getBusinessStatusMappingToLabels(t);

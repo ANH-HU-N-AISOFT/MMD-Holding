@@ -23,8 +23,8 @@ export const getFormMutationSchema = ({
   needPassword: boolean;
 }) => {
   const fullName = {
-    required: getRequiredMessage(t, 'employee:fullName'),
-    length: getRangeLengthMessage(t, 'employee:fullName', 1, 100),
+    required: getRequiredMessage(t, 'employee:full_name'),
+    length: getRangeLengthMessage(t, 'employee:full_name', 1, 100),
     invalid: t('employee:full_name_invalid'),
   };
   const phone = {

@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const SelectEmployeeStatus = ({ employeeStatus, disabled, allowClear = true, placeholder, onChange }: Props) => {
-  const { t } = useTranslation(['common', 'enum']);
+  const { t } = useTranslation(['enum']);
   const employeeStatusMappingToLabels = useMemo(() => {
     return getEmployeeStatusMappingToLabels(t);
   }, [t]);
