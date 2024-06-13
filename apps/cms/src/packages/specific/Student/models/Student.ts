@@ -1,7 +1,7 @@
-import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
+import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 
 export interface Student {
   id: string;
@@ -50,6 +50,6 @@ export interface Student {
   user?: {
     userName: string;
     roles: Role[];
-    accessStatus: EmployeeAccessStatus;
+    accessStatus: SystemAccessStatus;
   };
 }

@@ -7,7 +7,6 @@ import {
   ActionResponse as ActionDeleteAppointmentResponse,
   action as actionDeleteAppointment,
 } from './_dashboard.appointment.$id.delete';
-import { ModalImport } from '~/components/Listing/ModalImport/ModalImport';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
@@ -116,10 +115,6 @@ export const Page = () => {
   });
   //#endregion
 
-  //#region Import
-  const [isOpenModalImport, setIsOpenModalImport] = useState(false);
-  //#endregion
-
   //#region Export
   const exportAppointmentsFetcher = useFetcher();
 
@@ -199,7 +194,7 @@ export const Page = () => {
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/appointment/create')}
-          onImport={() => setIsOpenModalImport(true)}
+          onImport={() => undefined}
         />
         <FormSearchNFilter
           counts={counts}
@@ -248,12 +243,6 @@ export const Page = () => {
           }}
         />
       </div>
-      <ModalImport
-        downSampleUrl=""
-        open={isOpenModalImport}
-        onCancel={() => setIsOpenModalImport(false)}
-        onOk={() => alert('Coming soon')}
-      />
       <ModalConfirmDelete
         open={!!isOpenModalDeleteAppointment}
         onCancel={() => setIsOpenModalDeleteAppointment(false)}

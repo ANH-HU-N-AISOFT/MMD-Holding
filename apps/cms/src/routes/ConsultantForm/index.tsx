@@ -5,6 +5,7 @@ import * as DeleteConsultantForm from './src/_dashboard.consultant-form.$id.dele
 import * as ConsultantFormDetail from './src/_dashboard.consultant-form.$id.detail';
 import * as EditConsultantForm from './src/_dashboard.consultant-form.$id.edit';
 import * as CreateConsultantForm from './src/_dashboard.consultant-form.create';
+import * as ExportConsultantForm from './src/_dashboard.consultant-form.export';
 
 const ConsultantFormRoutes: RouteObject[] = [
   {
@@ -42,6 +43,10 @@ const ConsultantFormRoutes: RouteObject[] = [
   {
     path: '/consultant-form/:id/delete',
     action: DeleteConsultantForm.action,
+  },
+  {
+    path: '/consultant-form/export',
+    action: ExportConsultantForm.action,
   },
 ];
 

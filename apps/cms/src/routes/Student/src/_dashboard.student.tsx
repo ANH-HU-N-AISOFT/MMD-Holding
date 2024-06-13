@@ -1,6 +1,6 @@
 import { notification } from 'antd';
 import i18next from 'i18next';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { updateURLSearchParamsOfBrowserWithoutNavigation } from 'utilities';
 import {
@@ -12,7 +12,6 @@ import {
   action as actionResetPassword,
 } from './_dashboard.student.$id.reset-password';
 import { Modal } from '~/components/AntCustom/Modal';
-import { ModalImport } from '~/components/Listing/ModalImport/ModalImport';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
@@ -20,6 +19,7 @@ import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { createUrlSearchParamsUtils } from '~/packages/specific/Appointment/utils/createUrlSearchParamsUtils';
+import { Import, ImportActions } from '~/packages/specific/Student/components/Import/Import';
 import { FormSearchNFilter } from '~/packages/specific/Student/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Student/components/Listing/Header';
 import { Table } from '~/packages/specific/Student/components/Listing/Table';
@@ -99,7 +99,7 @@ export const Page = () => {
   //#endregion
 
   //#region Import
-  const [isOpenModalImport, setIsOpenModalImport] = useState(false);
+  const importActions = useRef<ImportActions | null>(null);
   //#endregion
 
   //#region Export
@@ -208,7 +208,7 @@ export const Page = () => {
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/student/create')}
-          onImport={() => setIsOpenModalImport(true)}
+          onImport={() => importActions.current?.open?.()}
         />
         <FormSearchNFilter
           containerClassName="justify-end mb-1"
@@ -254,12 +254,6 @@ export const Page = () => {
           }}
         />
       </div>
-      <ModalImport
-        downSampleUrl=""
-        open={isOpenModalImport}
-        onCancel={() => setIsOpenModalImport(false)}
-        onOk={() => alert('Coming soon')}
-      />
       <ModalConfirmDelete
         open={!!isOpenModalDeleteStudent}
         onCancel={() => setIsOpenModalDeleteStudent(false)}
@@ -267,6 +261,16 @@ export const Page = () => {
         title={t('student:delete_title')}
         description={t('student:delete_description')}
         loading={isDeleting}
+      />
+      <Import
+        ref={importActions}
+        revalidate={() => {
+          handleRequest({
+            department: undefined,
+            page: 1,
+            search: undefined,
+          });
+        }}
       />
       <Modal
         title={t('student:reset_password')}

@@ -8,12 +8,27 @@
     "reset": "Xoá bộ lọc",
     "apply": "Lọc"
   },
-  "ModalImport": {
+  "ModalValidate": {
     "upload_and_preview": "Tải lên xem trước",
-    "title": "Import {{ type }} từ file csv",
+    "title": "Import {{ type }} từ file xlsx",
     "download_sample": "Tải xuống biểu mẫu",
     "add_file": "Chọn file",
-    "replace_file": "Chọn file khác"
+    "replace_file": "Chọn file khác",
+    "error_title": "Import thất bại",
+    "error_description": "Vui lòng giữ nguyên format như file biểu mẫu"
+  },
+  "ModalPreview": {
+    "title": "Import {{ type }} từ file xlsx",
+    "import_error": "Import thất bại",
+    "import_success": "Import thành công",
+    "import": "Import",
+    "status": "Trạng thái",
+    "message": "Ghi chú",
+    "valid": "Hợp lệ",
+    "invalid": "Không hợp lệ",
+    "all": "Tất cả",
+    "warning_invaid_records_title": "Cảnh báo! Các bản ghi không hợp lệ sẽ được bỏ qua",
+    "view_detail": "Xem chi tiết"
   },
   "ModalDelete": {
     "ok": "Xoá",

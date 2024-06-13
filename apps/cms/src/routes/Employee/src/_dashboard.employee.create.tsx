@@ -8,10 +8,10 @@ import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBound
 import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
 import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { VIETNAM_VALUE } from '~/packages/common/SelectVariants/SelectRegion';
+import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { FormMutation, FormValues } from '~/packages/specific/Employee/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Employee/components/FormMutation/zodResolver';
 import { createEmployee } from '~/packages/specific/Employee/services/createEmployee';
@@ -115,7 +115,7 @@ export const Page = () => {
               workStatus: EmployeeStatus.WORKING,
             },
             roleSystem: {
-              accessStatus: EmployeeAccessStatus.GRANTED,
+              accessStatus: SystemAccessStatus.GRANTED,
               password: 'Abc@123456',
             },
           }}

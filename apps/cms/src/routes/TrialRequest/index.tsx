@@ -5,6 +5,7 @@ import * as DeleteTrialRequest from './src/_dashboard.trial-request.$id.delete';
 import * as TrialRequestDetail from './src/_dashboard.trial-request.$id.detail';
 import * as EditTrialRequest from './src/_dashboard.trial-request.$id.edit';
 import * as CreateTrialRequest from './src/_dashboard.trial-request.create';
+import * as ExportTrialRequest from './src/_dashboard.trial-request.export';
 
 const TrialRequestRoutes: RouteObject[] = [
   {
@@ -42,6 +43,10 @@ const TrialRequestRoutes: RouteObject[] = [
   {
     path: '/trial-request/:id/delete',
     action: DeleteTrialRequest.action,
+  },
+  {
+    path: '/trial-request/export',
+    action: ExportTrialRequest.action,
   },
 ];
 

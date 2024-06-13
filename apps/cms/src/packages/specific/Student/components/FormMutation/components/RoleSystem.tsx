@@ -4,10 +4,10 @@ import { DeepPartial } from 'typescript-utilities';
 import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { SelectEmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/SelectEmployeeAccessStatus';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectRoles } from '~/packages/common/SelectVariants/Role/SelectRoles';
 import { SelectDepartments } from '~/packages/common/SelectVariants/SelectDepartments';
+import { SelectSystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/SelectSystemAccessStatus';
 
 interface Props {
   onResetPassword?: () => void;
@@ -77,8 +77,8 @@ export const RoleSystem = ({
         label={t('employee:employee_access_status')}
         error={errors.roleSystem?.accessStatus?.message}
       >
-        <SelectEmployeeAccessStatus
-          employeeAccessStatus={accessStatus}
+        <SelectSystemAccessStatus
+          systemAccessStatus={accessStatus}
           onChange={value => {
             setValue('roleSystem.accessStatus', value);
             if (errors.roleSystem?.accessStatus) {

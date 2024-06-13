@@ -9,7 +9,6 @@ import {
   action as actionDeleteDepartment,
 } from './_dashboard.department.$id.delete';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
-import { ModalImport } from '~/components/Listing/ModalImport/ModalImport';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { GetAllParams } from '~/constants/GetAllParams';
@@ -94,10 +93,6 @@ export const Page = () => {
     getNearestPageAvailable: page => handleRequest({ page }),
     urlSearchParamsUtils: lisitngUrlSearchParamsUtils,
   });
-  //#endregion
-
-  //#region Import
-  const [isOpenModalImport, setIsOpenModalImport] = useState(false);
   //#endregion
 
   //#region Export
@@ -212,7 +207,7 @@ export const Page = () => {
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/department/create')}
-          onImport={() => setIsOpenModalImport(true)}
+          onImport={() => undefined}
         />
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2 mb-1">
           <div className="order-2 sm:order-1 sm:basis-[480px]">
@@ -262,12 +257,6 @@ export const Page = () => {
         </div>
         {renderList()}
       </div>
-      <ModalImport
-        downSampleUrl=""
-        open={isOpenModalImport}
-        onCancel={() => setIsOpenModalImport(false)}
-        onOk={() => alert('Coming soon')}
-      />
       <ModalConfirmDelete
         open={!!isOpenModalDeleteDepartment}
         onCancel={() => setIsOpenModalDeleteDepartment(false)}

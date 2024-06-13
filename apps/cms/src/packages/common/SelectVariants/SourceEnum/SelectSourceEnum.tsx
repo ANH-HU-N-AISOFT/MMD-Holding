@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const SelectSourceEnum = ({ sourceEnum, disabled, allowClear = true, onChange, placeholder }: Props) => {
-  const { t } = useTranslation(['common', 'enum']);
+  const { t } = useTranslation(['enum']);
 
   const sourceEnumMappingToLabels = useMemo(() => {
     return getSourceEnumMappingToLabels(t);

@@ -246,7 +246,6 @@ export const Table = ({
             total: totalRecords,
           });
         }}
-        onChange={onChange}
         singular={({ from, to }) => {
           return t('common:showing_range_result', {
             from,
@@ -254,6 +253,7 @@ export const Table = ({
             total: totalRecords,
           });
         }}
+        onChange={onChange}
       />
       <SickyAction isVisible={!!selectedRows.length}>
         <div className="min-w-[400px] flex items-center justify-between">

@@ -1,7 +1,7 @@
 import { Student } from '../models/Student';
-import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
 import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
+import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface UpdateStudent {
@@ -23,7 +23,7 @@ export interface UpdateStudent {
     organizationIds: string[];
     supporterIds?: string[];
     username: string;
-    accessStatus: EmployeeAccessStatus;
+    accessStatus: SystemAccessStatus;
   };
 }
 

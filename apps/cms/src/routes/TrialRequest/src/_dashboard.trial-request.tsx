@@ -7,7 +7,6 @@ import {
   ActionResponse as ActionDeleteTrialResponse,
   action as actionDeleteTrial,
 } from './_dashboard.trial-request.$id.delete';
-import { ModalImport } from '~/components/Listing/ModalImport/ModalImport';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
@@ -109,10 +108,6 @@ export const Page = () => {
   });
   //#endregion
 
-  //#region Import
-  const [isOpenModalImport, setIsOpenModalImport] = useState(false);
-  //#endregion
-
   //#region Export
   const exportTrialsFetcher = useFetcher();
 
@@ -185,11 +180,11 @@ export const Page = () => {
         <Header
           creatable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant] })}
           importable={false}
-          exportable={false}
+          exportable={isCanShow({ accept: [Role.SuperAdmin] })}
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/trial-request/create')}
-          onImport={() => setIsOpenModalImport(true)}
+          onImport={() => undefined}
         />
         <FormSearchNFilter
           containerClassName="justify-end mb-1"
@@ -244,12 +239,6 @@ export const Page = () => {
           }}
         />
       </div>
-      <ModalImport
-        downSampleUrl=""
-        open={isOpenModalImport}
-        onCancel={() => setIsOpenModalImport(false)}
-        onOk={() => alert('Coming soon')}
-      />
       <ModalConfirmDelete
         open={!!isOpenModalDeleteTrial}
         onCancel={() => setIsOpenModalDeleteTrial(false)}

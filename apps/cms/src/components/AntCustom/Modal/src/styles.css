@@ -15,3 +15,12 @@
 .Modal__container .ant-modal-body {
   @apply px-5 py-4;
 }
+
+.Modal__container .ant-modal-footer {
+  position: sticky;
+  bottom: 0px;
+  background-color: inherit;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+  z-index: 2;
+}

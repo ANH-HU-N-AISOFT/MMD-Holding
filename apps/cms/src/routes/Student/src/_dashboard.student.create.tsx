@@ -9,8 +9,8 @@ import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, us
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
-import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { FormMutation, FormValues } from '~/packages/specific/Student/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Student/components/FormMutation/zodResolver';
 import { createStudent } from '~/packages/specific/Student/services/createStudent';
@@ -102,7 +102,7 @@ export const Page = () => {
               departments: getSession()?.profile?.organizationId ? [getSession()?.profile?.organizationId] : [],
             },
             roleSystem: {
-              accessStatus: EmployeeAccessStatus.GRANTED,
+              accessStatus: SystemAccessStatus.GRANTED,
               password: 'Abc@123456',
             },
           }}

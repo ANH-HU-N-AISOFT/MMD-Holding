@@ -1,10 +1,10 @@
 import { Employee } from '../models/Employee';
-import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
 import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
 import { EmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/constants/EmploymentContractType';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
 import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface CreateEmployee {
@@ -32,7 +32,7 @@ export interface CreateEmployee {
   roles: Role[];
   username: string;
   password: string;
-  accessStatus: EmployeeAccessStatus;
+  accessStatus: SystemAccessStatus;
 }
 
 export type ResponseSuccess = Employee;

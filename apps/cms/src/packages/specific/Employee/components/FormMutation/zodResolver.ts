@@ -2,12 +2,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { array, enum as enum_, literal, object, string } from 'zod';
 
 import type { TFunction } from 'i18next';
-import { EmployeeAccessStatus } from '~/packages/common/SelectVariants/EmployeeAccessStatus/constants/EmployeeAccessStatus';
 import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
 import { EmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/constants/EmploymentContractType';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
 import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { getInvalidMessage } from '~/utils/functions/getInvalidMessage';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessage } from '~/utils/functions/getRequiredMessage';
@@ -196,7 +196,7 @@ export const getFormMutationSchema = ({
         .min(5, username.length)
         .max(12, username.length)
         .regex(/^[\p{L}0-9]*$/u, username.invalid),
-      accessStatus: enum_([EmployeeAccessStatus.BLOCKED, EmployeeAccessStatus.GRANTED], {
+      accessStatus: enum_([SystemAccessStatus.BLOCKED, SystemAccessStatus.GRANTED], {
         required_error: accessStatus.required,
       }),
       password: needPassword

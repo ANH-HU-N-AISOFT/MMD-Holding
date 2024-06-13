@@ -40,7 +40,7 @@
       "Consultant": "Tư vấn viên"
     }
   },
-  "employeeAccessStatus": {
+  "systemAccessStatus": {
     "label": "Trạng thái truy cập",
     "options": {
       "GRANTED": "Được quyền truy cập",

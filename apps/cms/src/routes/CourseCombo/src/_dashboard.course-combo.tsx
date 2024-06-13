@@ -7,7 +7,6 @@ import {
   ActionResponse as ActionDeleteCourseResponse,
   action as actionDeleteCourse,
 } from './_dashboard.course-combo.$id.delete';
-import { ModalImport } from '~/components/Listing/ModalImport/ModalImport';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
@@ -90,10 +89,6 @@ export const Page = () => {
   });
   //#endregion
 
-  //#region Import
-  const [isOpenModalImport, setIsOpenModalImport] = useState(false);
-  //#endregion
-
   //#region Export
   const exportCoursesFetcher = useFetcher();
 
@@ -166,7 +161,7 @@ export const Page = () => {
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/course-combo/create')}
-          onImport={() => setIsOpenModalImport(true)}
+          onImport={() => undefined}
         />
         <FormSearchNFilter
           containerClassName="justify-end mb-1"
@@ -199,12 +194,6 @@ export const Page = () => {
           onViewRoadMap={roadmap => window.open(`/course-roadmap/${roadmap.id}/detail`)}
         />
       </div>
-      <ModalImport
-        downSampleUrl=""
-        open={isOpenModalImport}
-        onCancel={() => setIsOpenModalImport(false)}
-        onOk={() => alert('Coming soon')}
-      />
       <ModalConfirmDelete
         open={!!isOpenModalDeleteCourse}
         onCancel={() => setIsOpenModalDeleteCourse(false)}

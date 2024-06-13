@@ -12,7 +12,6 @@ import {
   action as actionResetPassword,
 } from './_dashboard.employee.$id.reset-password';
 import { Modal } from '~/components/AntCustom/Modal';
-import { ModalImport } from '~/components/Listing/ModalImport/ModalImport';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
@@ -98,10 +97,6 @@ export const Page = () => {
     getNearestPageAvailable: page => handleRequest({ page }),
     urlSearchParamsUtils: lisitngUrlSearchParamsUtils,
   });
-  //#endregion
-
-  //#region Import
-  const [isOpenModalImport, setIsOpenModalImport] = useState(false);
   //#endregion
 
   //#region Export
@@ -216,7 +211,7 @@ export const Page = () => {
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/employee/create')}
-          onImport={() => setIsOpenModalImport(true)}
+          onImport={() => undefined}
         />
         <FormSearchNFilter
           containerClassName="justify-end mb-1"
@@ -248,12 +243,6 @@ export const Page = () => {
           onViewDepartment={record => window.open(`/department/${record.organization?.id}/detail`)}
         />
       </div>
-      <ModalImport
-        downSampleUrl=""
-        open={isOpenModalImport}
-        onCancel={() => setIsOpenModalImport(false)}
-        onOk={() => alert('Coming soon')}
-      />
       <ModalConfirmDelete
         open={!!isOpenModalDeleteEmployee}
         onCancel={() => setIsOpenModalDeleteEmployee(false)}
