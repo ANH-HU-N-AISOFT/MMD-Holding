@@ -31,6 +31,7 @@ interface Props {
   onResetPassword?: () => void;
   tabActive?: TabKey;
   setTabActive?: Dispatch<SetStateAction<TabKey>>;
+  hideTabs?: boolean;
 }
 
 export type TabKey = 'personalInformation' | 'roleSystem';
@@ -47,6 +48,7 @@ export const FormMutation = ({
   needPasswordValidation = true,
   setTabActive,
   tabActive,
+  hideTabs = false,
 }: Props) => {
   const { t } = useTranslation(['common', 'student']);
   const [tabActiveState, setTabActiveState] = useState<TabKey>('personalInformation');
@@ -98,7 +100,7 @@ export const FormMutation = ({
     <div>
       <Form method="POST" id={uid} onSubmit={handleSubmit}>
         <Tabs
-          className="AntTab__tablist--hidden"
+          className={hideTabs ? 'AntTab__tablist--hidden' : ''}
           activeKey={tabActive_}
           onChange={value => setTabActive_(value as TabKey)}
           items={[

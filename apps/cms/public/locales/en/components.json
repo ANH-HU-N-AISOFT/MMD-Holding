@@ -21,14 +21,16 @@
     "title": "Import {{ type }} từ file xlsx",
     "import_error": "Import thất bại",
     "import_success": "Import thành công",
-    "import": "Import",
+    "import_records": "Import",
+    "import_and_skip_error_records": "Import và Bỏ qua các bản ghi lỗi",
     "status": "Trạng thái",
     "message": "Ghi chú",
     "valid": "Hợp lệ",
     "invalid": "Không hợp lệ",
     "all": "Tất cả",
     "warning_invaid_records_title": "Cảnh báo! Các bản ghi không hợp lệ sẽ được bỏ qua",
-    "view_detail": "Xem chi tiết"
+    "view_detail": "Xem chi tiết",
+    "upload_new": "Upload dữ liệu mới"
   },
   "ModalDelete": {
     "ok": "Xoá",

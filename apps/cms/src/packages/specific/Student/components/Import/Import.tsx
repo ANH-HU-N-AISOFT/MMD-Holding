@@ -68,6 +68,10 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
         onValidateSuccess={handleValidate}
       />
       <ModalPreview
+        onUploadNew={() => {
+          setOpenModalPreviewState(false);
+          setOpenModalValidateState(true);
+        }}
         onImportSuccess={handleImport}
         importService={async validRecords => {
           await importStudents({ data: validRecords });
@@ -87,6 +91,11 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
             width: 160,
             title: t('student:phone'),
             render: (_, record) => record.phoneNumber,
+          },
+          {
+            width: 240,
+            title: t('student:email'),
+            render: (_, record) => record.email,
           },
           {
             width: 150,

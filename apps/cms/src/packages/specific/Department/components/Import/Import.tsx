@@ -59,6 +59,10 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
         onValidateSuccess={handleValidate}
       />
       <ModalPreview
+        onUploadNew={() => {
+          setOpenModalPreviewState(false);
+          setOpenModalValidateState(true);
+        }}
         onImportSuccess={handleImport}
         importService={async validRecords => {
           await importDepartments({ data: validRecords });

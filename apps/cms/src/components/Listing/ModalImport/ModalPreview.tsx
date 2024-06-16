@@ -1,5 +1,4 @@
-import { ModalProps, Tabs, Tag, notification } from 'antd';
-import { nth } from 'ramda';
+import { Button, ModalProps, Tabs, Tag, notification } from 'antd';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ListingColumnType, TableListing } from '../TableListing';
@@ -11,18 +10,21 @@ import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGe
 export interface ModalPreviewProps<T extends ValidateServiceResponse> extends Pick<ModalProps, 'open' | 'onCancel'> {
   importType: string;
   validateResponse: T | undefined;
-  importService: (
-    validRecords: T['items'],
-    inValidRecords: Array<T['items'][number] & { messages: string[] }>,
-  ) => Promise<void>;
+  importService: (validRecords: ValidNRawRecord<T>[], inValidRecords: InvalidRecord<T>[]) => Promise<void>;
   onImportSuccess: () => void;
   columns: ListingColumnType<T['items'][number]>[];
+  onUploadNew: () => void;
 }
 
+type InvalidRecord<T extends ValidateServiceResponse> = T['items'][number] & {
+  messages: string[];
+};
+type ValidNRawRecord<T extends ValidateServiceResponse> = T['items'][number];
 export const ModalPreview = <T extends ValidateServiceResponse>({
   importService,
   onImportSuccess,
   onCancel,
+  onUploadNew,
   open,
   importType,
   validateResponse,
@@ -34,31 +36,33 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
   const [currentPage, setCurrentPage] = useState(1);
   const [tabActive, setTabActive] = useState<'all' | 'valid' | 'invalid'>('all');
 
-  const validRecords = useMemo(() => {
-    return (validateResponse?.items ?? []).reduce<Array<T['items'][number] & { messages: string[] }>>(
-      (result, item, index) => {
-        const error = validateResponse?.errors.find(error => error.itemIndex === index);
-        return result.concat({
-          ...item,
-          messages: error?.messages,
-        });
-      },
-      [],
-    );
-  }, [validateResponse]);
-
-  const invalidRecords: T['items'] = useMemo(() => {
-    if (!validateResponse?.hasError) {
-      return [];
-    }
+  const validRecords: ValidNRawRecord<T>[] = useMemo(() => {
     return (validateResponse?.items ?? []).filter((_, index) => {
-      return validateResponse?.errors.find(error => error.itemIndex === index);
+      return !validateResponse?.errors.find(error => error.itemIndex === index)?.messages.length;
     });
   }, [validateResponse]);
 
-  const data = useMemo(() => {
+  const invalidRecords: InvalidRecord<T>[] = useMemo(() => {
+    if (!validateResponse?.hasError) {
+      return [];
+    }
+
+    return (validateResponse?.items ?? []).reduce<InvalidRecord<T>[]>((result, item, index) => {
+      const error = validateResponse?.errors.find(error => error.itemIndex === index);
+      if (error?.messages.length) {
+        return result.concat({
+          ...item,
+          messages: error.messages,
+        } as InvalidRecord<T>);
+      }
+      return result;
+    }, []);
+  }, [validateResponse]);
+  console.log(invalidRecords);
+
+  const data: InvalidRecord<T>[] | ValidNRawRecord<T>[] = useMemo(() => {
     if (tabActive === 'all') {
-      return validateResponse?.items;
+      return validateResponse?.items ?? [];
     }
     if (tabActive === 'invalid') {
       return invalidRecords;
@@ -66,7 +70,7 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
     if (tabActive === 'valid') {
       return validRecords;
     }
-    return validateResponse?.items;
+    return validateResponse?.items ?? [];
   }, [validateResponse, validRecords, invalidRecords, tabActive]);
 
   const handleCancel: ModalProps['onCancel'] = event => {
@@ -99,7 +103,7 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
   };
 
   const totalRecords = data?.length ?? 0;
-  const pageSize = 10;
+  const pageSize = 20;
   return (
     <Modal
       open={open}
@@ -108,26 +112,61 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
         setTabActive('all');
       }}
       onCancel={handleCancel}
-      onOk={handleImport}
       confirmLoading={isImporting}
       title={t('components:ModalPreview.title', { type: importType.toLowerCase() })}
-      okText={t('components:ModalPreview.import')}
       width={1600}
+      footer={() => {
+        return (
+          <div className="flex items-center gap-2 justify-end">
+            <Button onClick={onCancel}>{t('components:Modal.cancel')}</Button>
+            <Button className={!invalidRecords.length ? 'hidden' : ''} onClick={onUploadNew}>
+              {t('components:ModalPreview.upload_new')}
+            </Button>
+            <Button loading={isImporting} type="primary" onClick={handleImport}>
+              {invalidRecords.length
+                ? t('components:ModalPreview.import_and_skip_error_records')
+                : t('components:ModalPreview.import_records')}
+            </Button>
+          </div>
+        );
+      }}
     >
       <Tabs
         className={validateResponse?.hasError ? '' : 'hidden'}
         onChange={value => setTabActive(value as typeof tabActive)}
         activeKey={tabActive}
         items={[
-          { key: 'all', label: t('components:ModalPreview.all') },
-          { key: 'valid', label: t('components:ModalPreview.valid') },
-          { key: 'invalid', label: t('components:ModalPreview.invalid') },
+          {
+            key: 'all',
+            label: (
+              <div>
+                {t('components:ModalPreview.all')} ({validateResponse?.items?.length ?? 0})
+              </div>
+            ),
+          },
+          {
+            key: 'valid',
+            label: (
+              <div>
+                {t('components:ModalPreview.valid')} ({validRecords.length ?? 0})
+              </div>
+            ),
+          },
+          {
+            key: 'invalid',
+            label: (
+              <div>
+                {t('components:ModalPreview.invalid')} ({invalidRecords.length ?? 0})
+              </div>
+            ),
+          },
         ]}
       />
       <TableListing
         onChange={setCurrentPage}
         currentPage={currentPage}
         pageSize={pageSize}
+        dataSource={data}
         columns={[
           {
             width: 54,
@@ -142,9 +181,15 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
             align: 'center',
             hidden: !validateResponse?.hasError || tabActive === 'valid',
             title: t('components:ModalPreview.status'),
-            render: (_, _record, index) => {
-              const realIndex = pageSize * (currentPage - 1) + index;
-              const hasError = validateResponse?.hasError && nth(realIndex, validateResponse?.errors ?? []);
+            render: (_, record, index) => {
+              let hasError = false;
+              if (tabActive === 'all') {
+                const realIndex = pageSize * (currentPage - 1) + index;
+                hasError = !!validateResponse?.errors.find(error => error.itemIndex === realIndex)?.messages.length;
+              } else {
+                const record_ = record as InvalidRecord<T>;
+                hasError = !!record_.messages.length;
+              }
               if (hasError) {
                 return <Tag color="error">{t('components:ModalPreview.invalid')}</Tag>;
               }
@@ -156,12 +201,18 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
             fixed: 'right',
             hidden: !validateResponse?.hasError || tabActive === 'valid',
             title: t('components:ModalPreview.message'),
-            render: (_, _record, index) => {
-              const realIndex = pageSize * (currentPage - 1) + index;
-              const error = validateResponse?.errors.find(error => error.itemIndex === realIndex);
+            render: (_, record, index) => {
+              let messages: string[] = [];
+              if (tabActive === 'all') {
+                const realIndex = pageSize * (currentPage - 1) + index;
+                messages = validateResponse?.errors.find(error => error.itemIndex === realIndex)?.messages ?? [];
+              } else {
+                const record_ = record as InvalidRecord<T>;
+                messages = record_.messages ?? [];
+              }
               return (
                 <ul className="list-disc pl-3">
-                  {error?.messages.map((item, index) => {
+                  {messages.map((item, index) => {
                     return <li key={index}>{item}</li>;
                   })}
                   {/* <Collapsed
@@ -179,7 +230,6 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
             },
           },
         ]}
-        dataSource={data}
         plural={({ from, to }) => {
           return t('common:showing_range_results', {
             from,
