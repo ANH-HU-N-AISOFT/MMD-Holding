@@ -195,7 +195,7 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
             width: 160,
             title: t('employee:job_title'),
             render: (_, record) => {
-              return record.jobTitles.map(item => JobTitleMappingToLabels[item as JobTitleEnum]).join(', ');
+              return record.jobTitles?.map(item => JobTitleMappingToLabels[item as JobTitleEnum]).join(', ');
             },
           },
           {
@@ -242,7 +242,9 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
             width: 160,
             title: t('employee:role'),
             render: (_, record) => {
-              return record.roles.map(role => RoleMappingToLabels[role as keyof typeof RoleMappingToLabels]).join(', ');
+              return record.roles
+                ?.map(role => RoleMappingToLabels[role as keyof typeof RoleMappingToLabels])
+                .join(', ');
             },
           },
           {

@@ -142,7 +142,7 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
             render: (_, record) => {
               return (
                 <ul className="list-disc pl-3">
-                  {record.organizationCodes.map((item, index) => {
+                  {record.organizationCodes?.map((item, index) => {
                     return <li key={index}>{item}</li>;
                   })}
                 </ul>
@@ -155,7 +155,7 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
             render: (_, record) => {
               return (
                 <ul className="list-disc pl-3">
-                  {record.supporterCodes.map((item, index) => {
+                  {record.supporterCodes?.map((item, index) => {
                     return <li key={index}>{item}</li>;
                   })}
                 </ul>

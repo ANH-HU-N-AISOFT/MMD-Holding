@@ -3,15 +3,15 @@ import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {
   items: Array<{
-    name: string;
-    code: string;
-    managementUnitCode: string;
-    businessStatus: string;
-    address: string;
-    phoneNumber: string;
-    email: string;
-    unitManagerCode: string;
-    foundationDate: string;
+    name?: string;
+    code?: string;
+    managementUnitCode?: string;
+    businessStatus?: string;
+    address?: string;
+    phoneNumber?: string;
+    email?: string;
+    unitManagerCode?: string;
+    foundationDate?: string;
   }>;
   errors?: Array<{
     itemIndex: number;
