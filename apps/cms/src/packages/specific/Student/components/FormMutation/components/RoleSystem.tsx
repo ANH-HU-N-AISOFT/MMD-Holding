@@ -24,7 +24,7 @@ export const RoleSystem = ({
   hidePasswordField,
   needPasswordValidation,
 }: Props) => {
-  const { t } = useTranslation(['common', 'employee']);
+  const { t } = useTranslation(['common', 'student']);
 
   const {
     setValue,
@@ -41,8 +41,8 @@ export const RoleSystem = ({
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
       <Field
         withRequiredMark
-        label={t('employee:department')}
-        help={t('employee:department_help_text')}
+        label={t('student:department')}
+        help={t('student:department_help_text')}
         error={errors.personalInformation?.departments?.message}
       >
         <SelectDepartments
@@ -56,10 +56,10 @@ export const RoleSystem = ({
           disabled={disabledField}
         />
       </Field>
-      <Field withRequiredMark label={t('employee:role')} help={t('employee:role_help_text')}>
+      <Field withRequiredMark label={t('student:role')} help={t('student:role_help_text')}>
         <SelectRoles disabled roles={[Role.Student]} />
       </Field>
-      <Field withRequiredMark label={t('employee:username')} error={errors.roleSystem?.username?.message}>
+      <Field withRequiredMark label={t('student:username')} error={errors.roleSystem?.username?.message}>
         <Input
           value={username}
           onChange={event => {
@@ -69,14 +69,10 @@ export const RoleSystem = ({
             }
           }}
           disabled={disabledField}
-          placeholder={t('employee:username')}
+          placeholder={t('student:username')}
         />
       </Field>
-      <Field
-        withRequiredMark
-        label={t('employee:employee_access_status')}
-        error={errors.roleSystem?.accessStatus?.message}
-      >
+      <Field withRequiredMark label={t('student:access_status')} error={errors.roleSystem?.accessStatus?.message}>
         <SelectSystemAccessStatus
           systemAccessStatus={accessStatus}
           onChange={value => {
@@ -91,10 +87,10 @@ export const RoleSystem = ({
       {!hidePasswordField && (
         <Field
           withRequiredMark
-          label={t('employee:password')}
+          label={t('student:password')}
           help={
             needPasswordValidation ? undefined : (
-              <Typography.Link onClick={onResetPassword}>{t('employee:reset_password')}</Typography.Link>
+              <Typography.Link onClick={onResetPassword}>{t('student:reset_password')}</Typography.Link>
             )
           }
           error={errors.roleSystem?.password?.message}
@@ -108,7 +104,7 @@ export const RoleSystem = ({
               }
             }}
             disabled={!needPasswordValidation || disabledField}
-            placeholder={t('employee:password')}
+            placeholder={t('student:password')}
           />
         </Field>
       )}

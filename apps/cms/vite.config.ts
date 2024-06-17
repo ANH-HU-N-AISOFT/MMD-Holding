@@ -16,7 +16,8 @@ export default defineConfig({
 
   preview: {
     port: 4300,
-    host: 'localhost',
+    strictPort: true,
+    host: true,
   },
 
   plugins: [react(), nxViteTsPaths()],

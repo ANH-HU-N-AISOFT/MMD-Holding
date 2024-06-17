@@ -2,23 +2,35 @@ import { AxiosError } from 'axios';
 import type { RTHandleError } from './@types/RemixJsonFunction';
 import type { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 
-interface ResponseFailure {
-  statusCode: number;
-  message: string | string[];
-  errorCode: string;
-}
+type ResponseFailure =
+  | Blob
+  | {
+      statusCode: number;
+      message: string | string[];
+      errorCode: string;
+    };
 export const SEPARATOR = '_';
-export const handleAxiosError = <Model = any, FieldsError = any>(
+export const handleAxiosError = async <Model = any, FieldsError = any>(
   error: AxiosError,
-): RTHandleError<SimpleResponse<Model, FieldsError>> => {
+): Promise<RTHandleError<SimpleResponse<Model, FieldsError>>> => {
   console.log('handleAxiosError', error);
-  const response = error.response?.data as ResponseFailure;
+  const responseData = error.response?.data as ResponseFailure;
+  let message = '';
+  try {
+    const messageErrorFromResponse =
+      responseData instanceof Blob ? JSON.parse(await responseData.text()).message : responseData.message;
+    message = Array.isArray(messageErrorFromResponse)
+      ? messageErrorFromResponse.join(SEPARATOR)
+      : messageErrorFromResponse?.toString();
+  } catch {
+    message = error.message;
+  }
   return [
     {
       message: 'AxiosError',
       hasError: true,
-      error: typeof response?.message === 'string' ? response.message : response.message.join(SEPARATOR),
-      errorCode: response?.errorCode,
+      error: message,
+      errorCode: 'errorCode' in responseData ? responseData?.errorCode : '400',
       info: undefined,
     },
     { status: 400 },

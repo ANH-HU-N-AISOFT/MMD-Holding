@@ -22,7 +22,7 @@ export const useUpdateAppointmentStatusOfRecord = () => {
       });
       revalidate();
     } catch (error) {
-      const message = handleGetMessageToToast(t, handleCatchClauseSimpleAtClient(error));
+      const message = handleGetMessageToToast(t, await handleCatchClauseSimpleAtClient(error));
       notification.error({
         message: t('appointment:update_failure'),
         description: message,

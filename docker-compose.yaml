@@ -1,11 +1,11 @@
-version: "3.8"
+version: "3.9"
 
 services:
-  simple-remixjs:
+  cms:
     build:
       context: .
-      dockerfile: ./apps/simple-remixjs/Dockerfile
+      dockerfile: ./apps/cms/Dockerfile
     ports:
-      - "8080:3000"
+      - "4200:4200"
     volumes:
       - .:/app

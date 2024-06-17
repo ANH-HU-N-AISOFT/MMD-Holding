@@ -52,7 +52,6 @@ export const handleGetMessageToToast = (
   actionResponse: SimpleResponse<any, any> | SerializeFrom<SimpleResponse<any, any>>,
 ): ReactNode => {
   const { hasError, errorCode, error } = actionResponse;
-
   if (!hasError) {
     return undefined;
   }

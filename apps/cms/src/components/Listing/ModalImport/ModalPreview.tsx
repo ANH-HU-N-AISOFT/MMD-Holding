@@ -92,7 +92,7 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
       //   });
       // }
     } catch (error) {
-      const actionResponse = handleCatchClauseSimpleAtClient(error);
+      const actionResponse = await handleCatchClauseSimpleAtClient(error);
       notification.error({
         message: t('components:ModalPreview.import_error'),
         description: handleGetMessageToToast(t, actionResponse),

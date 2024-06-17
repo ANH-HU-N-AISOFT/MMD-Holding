@@ -61,7 +61,7 @@ export const loader = async ({
         hits: [],
         pagination: { pageSize: 0, totalPages: 1, totalRecords: 0 },
       },
-      toastMessage: handleGetMessageToToast(t, handleCatchClauseSimpleAtClient(error)),
+      toastMessage: handleGetMessageToToast(t, await handleCatchClauseSimpleAtClient(error)),
     });
   }
 };
