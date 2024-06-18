@@ -61,3 +61,5 @@ out
 # Storybook
 build-storybook.log
 
+# External_resources
+external_resources

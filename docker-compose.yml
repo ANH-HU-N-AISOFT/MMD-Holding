@@ -1,0 +1,11 @@
+version: "1.0"
+
+services:
+  cms:
+    build:
+      context: .
+      dockerfile: ./apps/cms/Dockerfile
+    ports:
+      - "4200:80"
+    volumes:
+      - ./apps/cms:/app
