@@ -54,5 +54,8 @@
   "Collapsed": {
     "show_more": "Xem thêm",
     "show_less": "Rút gọn"
+  },
+  "UploadSingle": {
+    "choose_file": "Chọn file"
   }
 }

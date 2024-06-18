@@ -29,6 +29,7 @@ i18n
       'promotion',
       'consultant_form',
       'trial_request',
+      'contract_template',
     ],
     supportedLngs: ['en'],
     fallbackNS: 'en',

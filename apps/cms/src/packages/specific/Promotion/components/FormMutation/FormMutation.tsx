@@ -244,9 +244,8 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <Field label={t('promotion:note')} error={errors.note?.message}>
                 <Input.TextArea
                   rows={6}
-                  minLength={0}
-                  maxLength={256}
                   showCount
+                  maxLength={256}
                   value={note ?? undefined}
                   onChange={event => {
                     setValue('note', event.target.value);

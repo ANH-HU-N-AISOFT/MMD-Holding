@@ -1,0 +1,3 @@
+.UploadSingle__container .ant-upload.ant-upload-btn {
+  @apply p-2;
+}

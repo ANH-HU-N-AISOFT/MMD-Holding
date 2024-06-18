@@ -1,13 +1,16 @@
 import { DeleteOutlined, InboxOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Image } from 'antd';
+import { Image, notification } from 'antd';
 import classNames from 'classnames';
 import { range } from 'ramda';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { uploadImage } from '../../../services/uploadImage';
 import { FormValues } from '../FormMutation';
 import { UploadMultiple } from '~/components/AntCustom/Upload';
 import { FileState } from '~/components/AntCustom/Upload/src/types/FileState';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
+import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 
 interface Props {
   form: ReturnType<typeof useRemixForm<Partial<FormValues>>>;
@@ -19,6 +22,8 @@ interface StateItem {
   order: number;
 }
 export const TestResult = ({ disabledField, form }: Props) => {
+  const { t } = useTranslation(['consultant_form', 'common']);
+
   const {
     setValue,
     trigger,
@@ -68,8 +73,16 @@ export const TestResult = ({ disabledField, form }: Props) => {
           }
         }}
         request={async ({ file }) => {
-          const response = await uploadImage({ file });
-          return { path: response.path, order: Date.now() };
+          try {
+            const response = await uploadImage({ file });
+            return { path: response.path, order: Date.now() };
+          } catch (error) {
+            notification.error({
+              message: t('common:upload_failure'),
+              description: handleGetMessageToToast(t, await handleCatchClauseSimpleAtClient(error)),
+            });
+            return;
+          }
         }}
       >
         <p className="ant-upload-drag-icon">

@@ -4,6 +4,7 @@ import type auth from 'public/locales/en/auth.json';
 import type common from 'public/locales/en/common.json';
 import type components from 'public/locales/en/components.json';
 import type consultant_form from 'public/locales/en/consultant_form.json';
+import type contract_template from 'public/locales/en/contract_template.json';
 import type course from 'public/locales/en/course.json';
 import type course_combo from 'public/locales/en/course_combo.json';
 import type course_roadmap from 'public/locales/en/course_roadmap.json';
@@ -43,6 +44,7 @@ declare module 'i18next' {
       promotion: typeof promotion;
       consultant_form: typeof consultant_form;
       trial_request: typeof trial_request;
+      contract_template: typeof contract_template;
     };
   }
 }

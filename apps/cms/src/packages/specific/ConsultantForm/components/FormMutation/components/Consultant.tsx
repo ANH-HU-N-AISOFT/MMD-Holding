@@ -379,9 +379,8 @@ export const Consultant = ({ disabledField, form }: Props) => {
         <Field label={t('consultant_form:note')} error={errors.note?.message}>
           <Input.TextArea
             rows={6}
-            minLength={0}
-            maxLength={256}
             showCount
+            maxLength={256}
             disabled={disabledField}
             placeholder={t('consultant_form:note')}
             value={note ?? undefined}

@@ -13,7 +13,10 @@ export interface Props<Response extends AnyRecord>
   value?: FileState<Response>[];
   defaultValue?: FileState<Response>[];
   /** Function to handle the file upload request. */
-  request: (params: { file: File; onUploadProgress: AxiosRequestConfig['onUploadProgress'] }) => Promise<Response>;
+  request: (params: {
+    file: File;
+    onUploadProgress: AxiosRequestConfig['onUploadProgress'];
+  }) => Promise<Response | void>;
   /** Callback function triggered when the state of the files changes. */
   onStateChange?: (filesState: FileState<Response>[] | undefined) => void;
   /** Maximum number of files that can be uploaded. */
@@ -127,18 +130,32 @@ export const UploadMultiple = <Response extends AnyRecord>({
               });
             },
           });
-          setValueState(state => {
-            return state.map(item => {
-              if (item.uid === uid) {
-                return {
-                  ...item,
-                  response,
-                  status: 'success',
-                };
-              }
-              return item;
+          if (response) {
+            setValueState(state => {
+              return state.map(item => {
+                if (item.uid === uid) {
+                  return {
+                    ...item,
+                    response,
+                    status: 'success',
+                  };
+                }
+                return item;
+              });
             });
-          });
+          } else {
+            setValueState(state => {
+              return state.map(item => {
+                if (item.uid === uid) {
+                  return {
+                    ...item,
+                    status: 'failure',
+                  };
+                }
+                return item;
+              });
+            });
+          }
         } catch (error) {
           setValueState(state => {
             return state.map(item => {

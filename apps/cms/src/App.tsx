@@ -6,19 +6,12 @@ import * as InternalError from './routes/500';
 import * as AuthLayout from './routes/_auth';
 import * as Login from './routes/_auth.login';
 import * as DashboardLayout from './routes/_dashboard';
-import * as AppointmentBooking from './routes/_dashboard.appointment-booking';
-import * as ContractManagement from './routes/_dashboard.contract-management';
-import * as ContractTemplateManagement from './routes/_dashboard.contract-template-management';
-import * as CourseComboManagement from './routes/_dashboard.course-combo-management';
-import * as CourseManagementIndividual from './routes/_dashboard.course-management-individual';
-import * as CourseRegistrationForCustomer from './routes/_dashboard.course-registration-for-customer';
 import * as Dashboard from './routes/_dashboard.dashboard';
-import * as Appointment from './routes/_dashboard.input-assessment-schedule';
 import * as InputCheck from './routes/_dashboard.input-check';
-import * as PromotionProgramManagement from './routes/_dashboard.promotion-program-management';
 import * as RootLayout from './routes/_index';
 import AppointmentRoutes from './routes/Appointment';
 import ConsultantFormRoutes from './routes/ConsultantForm';
+import ContractTemplateRoutes from './routes/ContractTemplate';
 import CourseRoutes from './routes/Course';
 import CourseComboRoutes from './routes/CourseCombo';
 import CourseRoadmapRoutes from './routes/CourseRoadmap';
@@ -68,83 +61,11 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: '/appointment-booking',
-            errorElement: <AppointmentBooking.ErrorBoundary />,
-            element: (
-              <Suspense fallback={null}>
-                <AppointmentBooking.Page />
-              </Suspense>
-            ),
-          },
-          {
-            path: '/contract-management',
-            errorElement: <ContractManagement.ErrorBoundary />,
-            element: (
-              <Suspense fallback={null}>
-                <ContractManagement.Page />
-              </Suspense>
-            ),
-          },
-          {
-            path: '/contract-template-management',
-            errorElement: <ContractTemplateManagement.ErrorBoundary />,
-            element: (
-              <Suspense fallback={null}>
-                <ContractTemplateManagement.Page />
-              </Suspense>
-            ),
-          },
-          {
-            path: '/course-combo-management',
-            errorElement: <CourseComboManagement.ErrorBoundary />,
-            element: (
-              <Suspense fallback={null}>
-                <CourseComboManagement.Page />
-              </Suspense>
-            ),
-          },
-          {
-            path: '/course-management-individual',
-            errorElement: <CourseManagementIndividual.ErrorBoundary />,
-            element: (
-              <Suspense fallback={null}>
-                <CourseManagementIndividual.Page />
-              </Suspense>
-            ),
-          },
-          {
-            path: '/course-registration-for-customer',
-            errorElement: <CourseRegistrationForCustomer.ErrorBoundary />,
-            element: (
-              <Suspense fallback={null}>
-                <CourseRegistrationForCustomer.Page />
-              </Suspense>
-            ),
-          },
-          {
-            path: '/input-assessment-schedule',
-            errorElement: <Appointment.ErrorBoundary />,
-            element: (
-              <Suspense fallback={null}>
-                <Appointment.Page />
-              </Suspense>
-            ),
-          },
-          {
             path: '/input-check',
             errorElement: <InputCheck.ErrorBoundary />,
             element: (
               <Suspense fallback={null}>
                 <InputCheck.Page />
-              </Suspense>
-            ),
-          },
-          {
-            path: '/promotion-program-management',
-            errorElement: <PromotionProgramManagement.ErrorBoundary />,
-            element: (
-              <Suspense fallback={null}>
-                <PromotionProgramManagement.Page />
               </Suspense>
             ),
           },
@@ -158,6 +79,7 @@ const router = createBrowserRouter([
           ...PromotionRoutes,
           ...ConsultantFormRoutes,
           ...TrialRequestRoutes,
+          ...ContractTemplateRoutes,
         ],
       },
     ],

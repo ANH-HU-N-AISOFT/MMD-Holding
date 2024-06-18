@@ -190,9 +190,8 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <Field label={t('course_roadmap:description')} error={errors.description?.message}>
                 <Input.TextArea
                   rows={6}
-                  minLength={0}
-                  maxLength={256}
                   showCount
+                  maxLength={256}
                   value={description ?? undefined}
                   onChange={event => {
                     setValue('description', event.target.value);

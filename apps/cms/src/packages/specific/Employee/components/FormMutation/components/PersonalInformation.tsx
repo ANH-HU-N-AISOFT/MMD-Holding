@@ -252,9 +252,8 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         <Field label={t('employee:note')} error={errors.personalInformation?.notes?.message}>
           <Input.TextArea
             rows={6}
-            minLength={0}
-            maxLength={256}
             showCount
+            maxLength={256}
             value={notes ?? undefined}
             onChange={event => {
               setValue('personalInformation.notes', event.target.value);

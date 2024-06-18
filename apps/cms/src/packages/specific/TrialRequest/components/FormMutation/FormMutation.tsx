@@ -308,9 +308,8 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <Field label={t('trial_request:notes')} error={errors.notes?.message}>
                 <Input.TextArea
                   rows={6}
-                  minLength={0}
-                  maxLength={256}
                   showCount
+                  maxLength={256}
                   value={notes ?? undefined}
                   onChange={event => {
                     setValue('notes', event.target.value);

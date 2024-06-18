@@ -109,14 +109,24 @@ export const useGetNavData = () => {
       label: t('dashboard_layout:menu.contract_signing'),
       children: [
         {
-          key: '/contract-template-management',
-          label: t('dashboard_layout:menu.contract_template_management'),
-          onClick: () => navigate('/contract-template-management'),
+          key: '/contract-template',
+          label: t('dashboard_layout:menu.contract_template'),
+          onClick: () => navigate('/contract-template'),
         },
         {
-          key: '/contract-management',
-          label: t('dashboard_layout:menu.contract_management'),
-          onClick: () => navigate('/contract-management'),
+          key: '/contract',
+          label: t('dashboard_layout:menu.contract_list'),
+          onClick: () => navigate('/contract'),
+        },
+        {
+          key: '/registration-form-template',
+          label: t('dashboard_layout:menu.registration_form_template'),
+          onClick: () => navigate('/registration-form-template'),
+        },
+        {
+          key: '/registration-form',
+          label: t('dashboard_layout:menu.registration_form_list'),
+          onClick: () => navigate('/registration-form'),
         },
       ],
     },

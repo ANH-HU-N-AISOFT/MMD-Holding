@@ -6,14 +6,19 @@ import { ReactNode, useEffect, useState } from 'react';
 import { useDeepCompareEffect, useIsMounted } from 'reactjs';
 import { AnyRecord } from 'typescript-utilities';
 import { v4 } from 'uuid';
-import { FileState } from './types/FileState';
+import { FileState } from '../types/FileState';
+import { DefaultChildren } from './DefaultChildren';
+import './styles.css';
 
 export interface Props<Response extends AnyRecord>
   extends Pick<AntUploadProps, 'className' | 'children' | 'disabled' | 'accept'> {
   /** The current file state value */
   value?: FileState<Response>;
   /** Function to handle the upload request */
-  request: (params: { file: File; onUploadProgress: AxiosRequestConfig['onUploadProgress'] }) => Promise<Response>;
+  request: (params: {
+    file: File;
+    onUploadProgress: AxiosRequestConfig['onUploadProgress'];
+  }) => Promise<Response | void>;
   /** Callback to handle state change */
   onStateChange?: (filesState: FileState<Response> | undefined) => void;
 }
@@ -62,68 +67,83 @@ export const UploadSingle = <Response extends AnyRecord>({
   }, [value]);
 
   return (
-    <AntUpload.Dragger
-      multiple={false}
-      showUploadList={false}
-      accept={accept}
-      children={children}
-      disabled={disabled}
-      className={classNames('UploadSingle__container', className)}
-      customRequest={async ({ file }) => {
-        if (!(file instanceof File)) {
-          return;
-        }
-        const uid = v4();
-        setValueState({
-          file: {
-            name: file.name,
-            size: file.size,
-            originalFile: file,
-          },
-          uid,
-          status: 'loading',
-          progressPercent: 0,
-          response: undefined,
-        });
-        try {
-          const response = await request({
-            file,
-            onUploadProgress: event => {
-              const progress = event.progress ?? 0;
-              const percent = progress * 100;
+    <div className={classNames('UploadSingle__container', className)}>
+      <AntUpload.Dragger
+        multiple={false}
+        showUploadList={false}
+        accept={accept}
+        children={children}
+        disabled={disabled}
+        customRequest={async ({ file }) => {
+          if (!(file instanceof File)) {
+            return;
+          }
+          const uid = v4();
+          setValueState({
+            file: {
+              name: file.name,
+              size: file.size,
+              originalFile: file,
+            },
+            uid,
+            status: 'loading',
+            progressPercent: 0,
+            response: undefined,
+          });
+          try {
+            const response = await request({
+              file,
+              onUploadProgress: event => {
+                const progress = event.progress ?? 0;
+                const percent = progress * 100;
+                setValueState(state => {
+                  if (state) {
+                    return {
+                      ...state,
+                      progressPercent: percent,
+                    };
+                  }
+                  return;
+                });
+              },
+            });
+            if (response) {
               setValueState(state => {
                 if (state) {
                   return {
                     ...state,
-                    progressPercent: percent,
+                    response,
+                    status: 'success',
                   };
                 }
                 return;
               });
-            },
-          });
-          setValueState(state => {
-            if (state) {
-              return {
-                ...state,
-                response,
-                status: 'success',
-              };
+            } else {
+              setValueState(state => {
+                if (state) {
+                  return {
+                    ...state,
+                    status: 'failure',
+                  };
+                }
+                return;
+              });
             }
-            return;
-          });
-        } catch (error) {
-          setValueState(state => {
-            if (state) {
-              return {
-                ...state,
-                status: 'failure',
-              };
-            }
-            return;
-          });
-        }
-      }}
-    />
+          } catch (error) {
+            setValueState(state => {
+              if (state) {
+                return {
+                  ...state,
+                  status: 'failure',
+                };
+              }
+              return;
+            });
+          }
+        }}
+      />
+    </div>
   );
 };
+
+UploadSingle.DefaultChildren = DefaultChildren;
