@@ -5,7 +5,6 @@ import * as DeleteContractTemplate from './src/_dashboard.contract-template.$id.
 import * as ContractTemplateDetail from './src/_dashboard.contract-template.$id.detail';
 import * as EditContractTemplate from './src/_dashboard.contract-template.$id.edit';
 import * as CreateContractTemplate from './src/_dashboard.contract-template.create';
-import * as ExportContractTemplates from './src/_dashboard.contract-template.export';
 
 const ContractTemplateRoutes: RouteObject[] = [
   {
@@ -39,10 +38,10 @@ const ContractTemplateRoutes: RouteObject[] = [
     element: <CreateContractTemplate.Page />,
     errorElement: <CreateContractTemplate.ErrorBoundary />,
   },
-  {
-    path: '/contract-template/export',
-    action: ExportContractTemplates.action,
-  },
+  // {
+  //   path: '/contract-template/export',
+  //   action: ExportContractTemplates.action,
+  // },
   {
     path: '/contract-template/:id/delete',
     action: DeleteContractTemplate.action,

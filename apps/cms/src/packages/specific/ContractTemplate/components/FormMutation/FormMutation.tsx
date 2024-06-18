@@ -14,6 +14,7 @@ import { Field } from '~/components/Field/Field';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { fetchApi } from '~/utils/functions/fetchApi';
+import { getFileNameFromUrl } from '~/utils/functions/getFileNameFromUrl';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 
@@ -79,10 +80,11 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
     setUploadFilesState(
       defaultValues.file
         ? {
-            file: { name: '', size: 0 },
+            file: { name: getFileNameFromUrl(defaultValues.file), size: 0 },
             status: 'success',
             uid: v4(),
             response: { src: defaultValues.file },
+            progressPercent: 100,
           }
         : undefined,
     );
@@ -120,7 +122,6 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             <Field tagName="div" withRequiredMark label={t('contract_template:file')} error={errors.file?.message}>
               <div className="grid grid-cols-1 gap-1">
                 <UploadSingle<StateItem>
-                  accept=".doc*"
                   onStateChange={setUploadFilesState}
                   request={async ({ file, onUploadProgress }) => {
                     try {
@@ -129,7 +130,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                         url: 'https://jsonplaceholder.typicode.com/todos',
                         onUploadProgress,
                       });
-                      return { src: URL.createObjectURL(file) };
+                      return { src: `https://projects.wojtekmaj.pl/react-pdf/assets/${file.name}` };
                     } catch (error) {
                       notification.error({
                         message: t('common:upload_failure'),
@@ -141,7 +142,15 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                 >
                   <UploadSingle.DefaultChildren />
                 </UploadSingle>
-                <DefaultResult fileState={uploadFilesState} onRemove={() => setUploadFilesState(undefined)} />
+                <DefaultResult
+                  onClick={() => {
+                    if (uploadFilesState?.response) {
+                      window.open(uploadFilesState?.response?.src);
+                    }
+                  }}
+                  fileState={uploadFilesState}
+                  onRemove={() => setUploadFilesState(undefined)}
+                />
               </div>
             </Field>
             <Field label={t('contract_template:description')} error={errors.description?.message}>

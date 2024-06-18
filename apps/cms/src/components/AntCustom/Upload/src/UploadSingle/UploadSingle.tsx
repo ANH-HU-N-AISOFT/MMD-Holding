@@ -69,6 +69,7 @@ export const UploadSingle = <Response extends AnyRecord>({
   return (
     <div className={classNames('UploadSingle__container', className)}>
       <AntUpload.Dragger
+        className="cursor-pointer"
         multiple={false}
         showUploadList={false}
         accept={accept}

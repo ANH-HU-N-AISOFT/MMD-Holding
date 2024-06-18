@@ -5,27 +5,31 @@ import { FileState } from '../types/FileState';
 interface Props {
   fileState?: FileState<any>;
   onRemove: () => void;
+  onClick: () => void;
 }
 
-export const DefaultResult = ({ fileState, onRemove }: Props) => {
+export const DefaultResult = ({ fileState, onRemove, onClick }: Props) => {
   if (!fileState) {
     return null;
   }
 
   return (
-    <div className="rounded-xl border border-solid border-neutral-300 p-2 bg-white">
+    <div className="rounded-xl border border-solid border-neutral-300 p-2 bg-white cursor-default">
       <div className="flex gap-3">
         <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-neutral-200">
           <FileTextOutlined className="text-lg text-neutral-700" />
         </div>
         <div className="flex-auto basis-full items-center">
-          <div className="text-left mb-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium text-neutral-700">
+          <div
+            className="text-left mb-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium text-neutral-700 cursor-pointer hover:text-brand-base transition-all"
+            onClick={onClick}
+          >
             {fileState.file.name}
           </div>
           {fileState.progressPercent !== undefined && (
             <Progress
               color={fileState.status === 'failure' ? 'red' : fileState.status === 'success' ? 'green' : 'blue'}
-              percent={fileState.progressPercent}
+              percent={fileState.status === 'success' ? 100 : fileState.progressPercent}
               size="small"
             />
           )}
