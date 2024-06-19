@@ -107,21 +107,19 @@ export const useGetNavData = () => {
       key: '/contract_signing',
       icon: <FileDoneOutlined />,
       label: t('dashboard_layout:menu.contract_signing'),
+      className: isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale, Role.Lecturer] })
+        ? ''
+        : '!hidden',
       children: [
         {
-          key: '/contract-template',
-          label: t('dashboard_layout:menu.contract_template'),
-          onClick: () => navigate('/contract-template'),
+          key: '/document-template',
+          label: t('dashboard_layout:menu.document_template'),
+          onClick: () => navigate('/document-template'),
         },
         {
           key: '/contract',
           label: t('dashboard_layout:menu.contract_list'),
           onClick: () => navigate('/contract'),
-        },
-        {
-          key: '/registration-form-template',
-          label: t('dashboard_layout:menu.registration_form_template'),
-          onClick: () => navigate('/registration-form-template'),
         },
         {
           key: '/registration-form',

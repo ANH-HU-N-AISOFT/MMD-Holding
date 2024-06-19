@@ -156,5 +156,19 @@
       "online": "Online",
       "offline": "Offline"
     }
+  },
+  "document_template_status": {
+    "label": "Trạng thái",
+    "options": {
+      "ACTIVE": "Hoạt động",
+      "IN_ACTIVE": "Không hoạt động"
+    }
+  },
+  "document_template_type": {
+    "label": "Loại tài liệu",
+    "options": {
+      "CONTRACT": "Hợp đồng",
+      "REGISTRATION_FORM": "Phiếu đăng ký"
+    }
   }
 }

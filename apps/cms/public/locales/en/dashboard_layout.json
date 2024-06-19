@@ -22,9 +22,8 @@
 
     "test_study": "Học thử",
     "contract_signing": "Ký hợp đồng",
-    "contract_template": "Mẫu hợp đồng",
+    "document_template": "Mẫu tài liệu",
     "contract_list": "Danh sách hợp đồng",
-    "registration_form_template": "Mẫu phiếu đăng ký",
     "registration_form_list": "Danh sách phiếu đăng ký"
   },
   "logout": "Đăng xuất",

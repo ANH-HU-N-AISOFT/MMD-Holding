@@ -6,9 +6,10 @@ interface Props {
   fileState?: FileState<any>;
   onRemove: () => void;
   onClick: () => void;
+  disabled?: boolean;
 }
 
-export const DefaultResult = ({ fileState, onRemove, onClick }: Props) => {
+export const DefaultResult = ({ fileState, onRemove, onClick, disabled }: Props) => {
   if (!fileState) {
     return null;
   }
@@ -34,14 +35,16 @@ export const DefaultResult = ({ fileState, onRemove, onClick }: Props) => {
             />
           )}
         </div>
-        <div className="flex flex-shrink-0 flex-grow justify-end">
-          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-neutral-200">
-            <CloseOutlined
-              className="cursor-pointer text-sm text-neutral-700 transition-all hover:text-primary-base"
-              onClick={onRemove}
-            />
+        {!disabled && (
+          <div className="flex flex-shrink-0 flex-grow justify-end">
+            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-neutral-200">
+              <CloseOutlined
+                className="cursor-pointer text-sm text-neutral-700 transition-all hover:text-primary-base"
+                onClick={onRemove}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
