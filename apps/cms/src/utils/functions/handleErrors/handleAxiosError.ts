@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import type { RTHandleError } from './@types/RemixJsonFunction';
 import type { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { redirect } from '~/overrides/@remix';
 
 type ResponseFailure =
   | Blob
@@ -13,7 +14,9 @@ export const SEPARATOR = '_';
 export const handleAxiosError = async <Model = any, FieldsError = any>(
   error: AxiosError,
 ): Promise<RTHandleError<SimpleResponse<Model, FieldsError>>> => {
-  console.log('handleAxiosError', error);
+  if (error.response?.status === 403) {
+    throw redirect('/403', {});
+  }
   const responseData = error.response?.data as ResponseFailure;
   let message = '';
   try {

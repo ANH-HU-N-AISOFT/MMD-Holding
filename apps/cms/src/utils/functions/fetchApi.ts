@@ -7,9 +7,7 @@ import { getPublicEnv } from '~/utils/enviroment/getPublicEnv';
 export const fetchApi = new FetchAPI({
   baseConfig: {
     baseURL: getPublicEnv('VITE_RESTFUL_API'),
-    headers: {
-      'x-api-key': getPublicEnv('VITE_API_KEY'),
-    },
+    headers: {},
   },
   refreshTokenConfig: {
     url: endpoint,

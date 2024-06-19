@@ -45,6 +45,7 @@ node_modules
 build
 public/build
 .env
+.env.production
 .data
 
 # Nx cache
@@ -60,4 +61,5 @@ out
 
 # Storybook
 build-storybook.log
+
 

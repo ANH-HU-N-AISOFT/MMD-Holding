@@ -43,6 +43,7 @@ Thumbs.db
 build
 public/build
 .env
+.env.production
 .vercel
 .nx
 

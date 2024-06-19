@@ -12,6 +12,13 @@
         "outputPath": "{projectRoot}/dist"
       }
     },
+    "deploy-production": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["^build"],
+      "options": {
+        "command": "scp -r {projectRoot}/dist/* root@103.221.222.239:/root/app/mmd/data/web"
+      }
+    },
     "dev": {
       "executor": "@nx/vite:dev-server",
       "options": {
