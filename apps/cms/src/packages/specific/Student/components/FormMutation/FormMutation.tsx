@@ -32,6 +32,7 @@ interface Props {
   tabActive?: TabKey;
   setTabActive?: Dispatch<SetStateAction<TabKey>>;
   hideTabs?: boolean;
+  isEdit?: boolean;
 }
 
 export type TabKey = 'personalInformation' | 'roleSystem';
@@ -49,6 +50,7 @@ export const FormMutation = ({
   setTabActive,
   tabActive,
   hideTabs = false,
+  isEdit = false,
 }: Props) => {
   const { t } = useTranslation(['common', 'student']);
   const [tabActiveState, setTabActiveState] = useState<TabKey>('personalInformation');
@@ -109,7 +111,7 @@ export const FormMutation = ({
               label: t('student:personal_information'),
               children: (
                 <BoxFields>
-                  <PersonalInformation form={form} disabledField={disabledField} />
+                  <PersonalInformation isEdit={isEdit} form={form} disabledField={disabledField} />
                 </BoxFields>
               ),
             },

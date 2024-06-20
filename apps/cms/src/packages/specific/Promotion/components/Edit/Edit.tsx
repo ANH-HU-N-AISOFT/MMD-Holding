@@ -15,6 +15,7 @@ export const Edit = ({ promotion, ...formProps }: Props) => {
   return (
     <FormMutation
       {...formProps}
+      isEdit
       defaultValues={{
         code: promotion.code,
         departments: promotion.organizationIds,

@@ -15,6 +15,7 @@ export const Edit = ({ student, onResetPassword, ...formProps }: Props) => {
   return (
     <FormMutation
       {...formProps}
+      isEdit
       onResetPassword={onResetPassword}
       needPasswordValidation={false}
       defaultValues={{

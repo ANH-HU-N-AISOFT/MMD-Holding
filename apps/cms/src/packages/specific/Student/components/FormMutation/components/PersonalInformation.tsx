@@ -19,9 +19,10 @@ import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumbe
 interface Props {
   form: ReturnType<typeof useRemixForm<DeepPartial<FormValues>>>;
   disabledField: boolean;
+  isEdit: boolean;
 }
 
-export const PersonalInformation = ({ form, disabledField }: Props) => {
+export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
   const { t } = useTranslation(['common', 'student']);
 
   const {
@@ -137,7 +138,7 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       </Field>
       <Field label={t('student:date_of_birth')} error={errors.personalInformation?.dateOfBirth?.message}>
         <DatePicker
-          disabledDate={disableFuture}
+          disabledDate={isEdit ? undefined : disableFuture}
           format="DD/MM/YYYY"
           value={dateOfBirth ? dayjs(dateOfBirth) : undefined}
           onChange={value => {

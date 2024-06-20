@@ -70,7 +70,7 @@ export const FormMutation = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
             <StudentInformation isEdit={isEdit} form={form} disabledField={disabledField} />
             <CourseInformation form={form} disabledField={disabledField} />
-            <FeeInformation form={form} disabledField={disabledField} />
+            <FeeInformation isEdit={isEdit} form={form} disabledField={disabledField} />
             <ChangeCourseOrPromotionInformation form={form} disabledField={disabledField} />
           </div>
         </BoxFields>

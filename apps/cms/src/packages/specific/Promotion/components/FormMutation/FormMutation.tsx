@@ -28,9 +28,18 @@ interface Props {
   fieldsError?: Partial<Record<keyof FormValues, string>>;
   onSubmit?: (values: FormValues) => void;
   disabled?: boolean;
+  isEdit?: boolean;
 }
 
-export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubmiting, onSubmit, disabled }: Props) => {
+export const FormMutation = ({
+  uid,
+  defaultValues = {},
+  fieldsError = {},
+  isSubmiting,
+  onSubmit,
+  disabled,
+  isEdit = false,
+}: Props) => {
   const { t } = useTranslation(['common', 'promotion']);
 
   const disabledField = disabled || isSubmiting;
@@ -132,7 +141,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               error={errors.startDate?.message ?? errors.endDate?.message}
             >
               <DateRangePicker
-                disabledDate={disablePast}
+                disabledDate={isEdit ? undefined : disablePast}
                 className="w-full"
                 allowClear
                 value={startDate && endDate ? ([dayjs(startDate), dayjs(endDate)] as [Dayjs, Dayjs]) : undefined}

@@ -34,7 +34,7 @@ interface Props {
   fieldsError?: Partial<Record<keyof FormValues, string>>;
   onSubmit?: (values: FormValues) => void;
   disabled?: boolean;
-  isUpdate?: boolean;
+  isEdit?: boolean;
 }
 
 export const FormMutation = ({
@@ -44,7 +44,7 @@ export const FormMutation = ({
   isSubmiting,
   onSubmit,
   disabled,
-  isUpdate,
+  isEdit,
 }: Props) => {
   const { t } = useTranslation(['common', 'appointment']);
 
@@ -122,7 +122,7 @@ export const FormMutation = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
             <Field withRequiredMark label={t('appointment:student')} error={errors.studentId?.message}>
               <SelectStudent
-                disabled={disabledField || isUpdate}
+                disabled={disabledField || isEdit}
                 student={studentId}
                 onChange={(value, option) => {
                   setValue('studentId', value);
@@ -253,7 +253,7 @@ export const FormMutation = ({
             </Field>
             <Field withRequiredMark label={t('appointment:appointment_date')} error={errors.appointmentDate?.message}>
               <DatePicker
-                disabledDate={disablePast}
+                disabledDate={isEdit ? undefined : disablePast}
                 disabled={disabledField}
                 placeholder={t('appointment:appointment_date')}
                 className="w-full"
@@ -271,7 +271,7 @@ export const FormMutation = ({
               <DatePicker
                 picker="time"
                 format="HH:mm"
-                disabledDate={disablePast}
+                disabledDate={isEdit ? undefined : disablePast}
                 disabled={disabledField}
                 placeholder={t('appointment:appointment_time')}
                 className="w-full"

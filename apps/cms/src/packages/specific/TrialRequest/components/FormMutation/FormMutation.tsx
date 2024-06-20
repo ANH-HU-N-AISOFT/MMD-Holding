@@ -31,9 +31,18 @@ interface Props {
   fieldsError?: Partial<Record<keyof FormValues, string>>;
   onSubmit?: (values: FormValues) => void;
   disabled?: boolean;
+  isEdit?: boolean;
 }
 
-export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubmiting, onSubmit, disabled }: Props) => {
+export const FormMutation = ({
+  uid,
+  defaultValues = {},
+  fieldsError = {},
+  isSubmiting,
+  onSubmit,
+  disabled,
+  isEdit = false,
+}: Props) => {
   const { t } = useTranslation(['common', 'trial_request']);
 
   const disabledField = disabled || isSubmiting;
@@ -220,7 +229,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </Field>
             <Field label={t('trial_request:learning_date')} error={errors.learningDate?.message}>
               <DatePicker
-                disabledDate={disablePast}
+                disabledDate={isEdit ? undefined : disablePast}
                 disabled={disabledField}
                 placeholder={t('trial_request:learning_date')}
                 className="w-full"
@@ -237,7 +246,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <DatePicker
                 picker="time"
                 format="HH:mm"
-                disabledDate={disablePast}
+                disabledDate={isEdit ? undefined : disablePast}
                 disabled={disabledField}
                 placeholder={t('trial_request:learning_time')}
                 className="w-full"

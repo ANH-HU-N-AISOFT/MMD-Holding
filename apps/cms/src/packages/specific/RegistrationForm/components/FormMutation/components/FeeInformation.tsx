@@ -12,9 +12,10 @@ import { disablePast } from '~/utils/functions/disableDatePicker';
 interface Props {
   form: ReturnType<typeof useRemixForm<Partial<FormValues>>>;
   disabledField: boolean;
+  isEdit: boolean;
 }
 
-export const FeeInformation = ({ form, disabledField }: Props) => {
+export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
   const { t } = useTranslation(['common', 'registration_form']);
 
   const {
@@ -256,7 +257,7 @@ export const FeeInformation = ({ form, disabledField }: Props) => {
           error={errors.commitmentCompletionDate?.message}
         >
           <DatePicker
-            disabledDate={disablePast}
+            disabledDate={isEdit ? undefined : disablePast}
             className="!w-full"
             placeholder={t('registration_form:commitment_completion_date')}
             disabled={disabledField}

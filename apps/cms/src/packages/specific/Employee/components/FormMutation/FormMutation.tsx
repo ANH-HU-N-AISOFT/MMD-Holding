@@ -25,6 +25,7 @@ interface Props {
   hidePasswordField?: boolean;
   needPasswordValidation?: boolean;
   onResetPassword?: () => void;
+  isEdit?: boolean;
 }
 
 export const FormMutation = ({
@@ -37,6 +38,7 @@ export const FormMutation = ({
   disabled,
   hidePasswordField = false,
   needPasswordValidation = true,
+  isEdit = false,
 }: Props) => {
   const { t } = useTranslation(['common', 'employee']);
   const [tabActive, setTabActive] = useState('personalInformation');
@@ -95,7 +97,7 @@ export const FormMutation = ({
               label: t('employee:personal_information'),
               children: (
                 <BoxFields>
-                  <PersonalInformation form={form} disabledField={disabledField} />
+                  <PersonalInformation isEdit={isEdit} form={form} disabledField={disabledField} />
                 </BoxFields>
               ),
             },

@@ -19,7 +19,7 @@ interface Props {
   isEdit: boolean;
 }
 
-export const StudentInformation = ({ form, disabledField }: Props) => {
+export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
   const { t } = useTranslation(['common', 'registration_form']);
 
   const {
@@ -109,7 +109,7 @@ export const StudentInformation = ({ form, disabledField }: Props) => {
       <Field label={t('registration_form:date_of_birth')} error={errors.studentDateOfBirth?.message}>
         <DatePicker
           disabled={disabledField}
-          disabledDate={disableFuture}
+          disabledDate={isEdit ? undefined : disableFuture}
           className="!w-full"
           placeholder={t('registration_form:date_of_birth')}
           value={formValues.studentDateOfBirth ? dayjs(formValues.studentDateOfBirth) : undefined}
