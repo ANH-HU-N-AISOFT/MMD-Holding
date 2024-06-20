@@ -15,6 +15,7 @@ export const sessionSchema = object({
     fullName: string(),
     avatar: string(),
     organizationId: string().optional(),
+    organizationCode: string().optional(),
   }).optional(),
   permissions: array(
     object({

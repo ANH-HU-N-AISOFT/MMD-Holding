@@ -11,6 +11,7 @@ export interface Props {
   className?: string;
   fieldWrapperClassName?: string;
   labelWrapperClassName?: string;
+  htmlFor?: string;
 }
 
 export const FieldError = ({
@@ -37,7 +38,7 @@ export const Field = ({
 }: Props): ReactNode => {
   const renderRequiredMark = (): ReactNode => {
     if (withRequiredMark) {
-      return <span className="ml-1 text-sm font-medium text-status-red">*</span>;
+      return <span className="ml-1 text-sm text-status-red">*</span>;
     }
     return null;
   };
@@ -48,8 +49,8 @@ export const Field = ({
       className: classNames('cursor-pointer', className),
     },
     <>
-      <div className={classNames('mb-2', labelWrapperClassName)}>
-        <span className={classNames('text-sm font-medium text-neutral-500')}>{label}</span>
+      <div className={classNames('mb-2 font-medium', labelWrapperClassName)}>
+        <span className={classNames('text-sm text-neutral-500')}>{label}</span>
         {renderRequiredMark()}
       </div>
       <div className={classNames('mb-2', fieldWrapperClassName)}>{children}</div>

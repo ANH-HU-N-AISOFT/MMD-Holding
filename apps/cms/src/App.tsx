@@ -19,6 +19,7 @@ import DocumentTemplateRoutes from './routes/DocumentTemplate';
 import EmployeeRoutes from './routes/Employee';
 import * as Logout from './routes/logout';
 import PromotionRoutes from './routes/Promotion';
+import RegistrationFormRoutes from './routes/RegistrationForm';
 import StudentRoutes from './routes/Student';
 import TrialRequestRoutes from './routes/TrialRequest';
 
@@ -80,6 +81,7 @@ const router = createBrowserRouter([
           ...ConsultantFormRoutes,
           ...TrialRequestRoutes,
           ...DocumentTemplateRoutes,
+          ...RegistrationFormRoutes,
         ],
       },
     ],

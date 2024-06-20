@@ -32,6 +32,7 @@ export const loader = async () => {
         fullName: profileResponse.data.fullName,
         organizationName: profileResponse.data.organization?.fullName ?? '',
         organizationId: profileResponse.data.organization?.id,
+        organizationCode: profileResponse.data.organization?.code,
       },
     });
 

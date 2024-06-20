@@ -18,6 +18,7 @@ import type page403 from 'public/locales/en/page403.json';
 import type page404 from 'public/locales/en/page404.json';
 import type page500 from 'public/locales/en/page500.json';
 import type promotion from 'public/locales/en/promotion.json';
+import type registration_form from 'public/locales/en/registration_form.json';
 import type student from 'public/locales/en/student.json';
 import type trial_request from 'public/locales/en/trial_request.json';
 

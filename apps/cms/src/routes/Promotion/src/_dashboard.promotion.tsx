@@ -99,27 +99,6 @@ export const Page = () => {
   });
   //#endregion
 
-  //#region Export
-  const exportPromotionsFetcher = useFetcher();
-
-  const isExporting = useMemo(() => {
-    return exportPromotionsFetcher.state === 'loading' || exportPromotionsFetcher.state === 'submitting';
-  }, [exportPromotionsFetcher]);
-
-  useEffect(() => {
-    if (exportPromotionsFetcher.data && exportPromotionsFetcher.state === 'idle') {
-      const response = exportPromotionsFetcher.data as ActionDeletePromotionResponse;
-      if (response.hasError) {
-        notification.error({
-          message: t('promotion:export_failure'),
-          description: handleGetMessageToToast(t, response),
-        });
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [exportPromotionsFetcher.state]);
-  //#endregion
-
   //#region Delete
   const deletePromotionFetcher = useFetcher<typeof actionDeletePromotion>();
 
@@ -157,7 +136,7 @@ export const Page = () => {
           creatable={isCanShow(isCanCreatePromotion)}
           importable={isCanShow(isCanImportPromotion)}
           exportable={isCanShow(isCanExportPromotion)}
-          isExporting={isExporting}
+          isExporting={false}
           onExport={() => notification.info({ message: 'Chức năng đang phát triển' })}
           onCreate={() => navigate('/promotion/create')}
           onImport={() => notification.info({ message: 'Chức năng đang phát triển' })}

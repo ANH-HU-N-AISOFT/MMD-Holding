@@ -7,8 +7,10 @@ export interface DatePickerProps extends Omit<AntDatePickerProps, 'onChange'> {
   onChange?: (value: undefined | Dayjs) => void;
 }
 
-// @ts-ignore
-export const DatePicker: FC<DatePickerProps> = AntDatePicker;
+export const DatePicker: FC<DatePickerProps> = ({ format = 'DD/MM/YYYY', ...props }) => {
+  // @ts-ignore
+  return <AntDatePicker {...props} format={format} />;
+};
 
 export interface DateRangePickerProps extends Omit<AntRangePickerProps, 'onChange'> {
   onChange?: (value: undefined | [Dayjs, Dayjs]) => void;

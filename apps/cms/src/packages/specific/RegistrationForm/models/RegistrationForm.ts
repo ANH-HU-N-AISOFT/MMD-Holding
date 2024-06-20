@@ -1,73 +1,61 @@
-import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
-import { PaymentMethod } from '~/packages/common/SelectVariants/PaymentMethod/constants/PaymentMethod';
+import { FormValues } from '../components/FormMutation/FormMutation';
 
-export interface RegistrationForm {
+export type RegistrationForm = FormValues & {
   id: string;
-  code: string;
-  student?: {
-    id: string;
-    fullName: string;
-    phoneNumber: string;
-    email: string;
-    dateOfBirth: string;
-    gender: GenderEnum;
-    currentAddress: string;
-    province?: {
-      id: string;
-      name: string;
-      code: string;
-    };
-    district?: {
-      id: string;
-      name: string;
-      code: string;
-    };
-    parentPhone: string;
-    notifyParentsOfResults?: boolean;
-  };
-  course?: Array<{
-    id: string;
-    name: string;
-    code: string;
-    numberSessions: number;
-    sessionDuration: number;
-    price: number;
-    notes: string;
-  }>;
-  paymentMethod: PaymentMethod;
+  createdAt: string;
+};
 
-  benefitDeposit: number;
-  receiptNumber: string;
-  volumeNumber: string;
-  firstTuitionFee: number;
-  firstReceiptNumber: string;
-  firstVolumeNumber: string;
-  secondTuitionFee?: number;
-  secondReceiptNumber?: string;
-  secondVolumeNumber?: string;
-  thirdTuitionFee?: number;
-  thirdReceiptNumber?: string;
-  thirdVolumeNumber?: string;
-  commitmentCompletionDate: Date;
-  notes?: string;
-  programChange: {
-    changeRegistrationDate: Date;
-    newDiscount?: string;
-    newTuitionFee: number;
-  };
-  courseChange: {
-    changeRegistrationDate: Date;
-    newCourse?: string;
-    newTuitionFeeAfterDiscount: number;
-  };
-  additionalCourseRegistration1: {
-    additionalRegistrationDate: Date;
-    additionalCourse?: string;
-    additionalTuitionFee: number;
-  };
-  additionalCourseRegistration2?: {
-    additionalRegistrationDate: Date;
-    additionalCourse?: string;
-    additionalTuitionFee: number;
-  };
-}
+// export interface RegistrationForm {
+//   id: string;
+//   code: string;
+//   student?: {
+//     studentId: string;
+//     studentPhone: string;
+//     studentEmail: string;
+//     studentDateOfBirth: string | undefined | null;
+//     studentGender: string | undefined | null;
+//     studentCurrentAddress: string;
+//     studentCityName: string;
+//     studentCityId: string;
+//     studentCityCode: string | undefined | null;
+//     studentDistrict: string | undefined | null;
+//     studentParentPhone: string;
+//     notifyResultToParent: boolean | undefined | null;
+//   };
+
+//   course?: Array<{
+//     id: string;
+//     name: string;
+//   }>;
+//   paymentMethod: PaymentMethod;
+
+//   benefitDeposit: number | undefined | null;
+//   receiptNumber: string;
+//   volumeNumber: string;
+//   firstTuitionFee: number;
+//   firstReceiptNumber: string;
+//   firstVolumeNumber: string;
+//   secondTuitionFee?: number;
+//   secondReceiptNumber?: string;
+//   secondVolumeNumber?: string;
+//   thirdTuitionFee?: number;
+//   thirdReceiptNumber?: string;
+//   thirdVolumeNumber?: string;
+//   commitmentCompletionDate: string;
+//   notes?: string;
+
+//   registrationDateOfProgramChange: string;
+//   newDiscountOfProgramChange: string;
+//   newTuitionFeeOfProgramChange: number;
+//   registrationDateOfCourseChange: string;
+//   newDiscountOfCourseChange: string;
+//   newTuitionFeeOfCourseChange: number;
+//   registrationDateOfAdditionalCourseRegistration1: string;
+//   additionalCourseOfAdditionalCourseRegistration1: string;
+//   additionalTuitionFeeOfAdditionalCourseRegistration1: number;
+//   registrationDateOfAdditionalCourseRegistration2: string;
+//   additionalCourseOfAdditionalCourseRegistration2: string;
+//   additionalTuitionFeeOfAdditionalCourseRegistration2: number;
+
+//   createdAt?: string;
+// }

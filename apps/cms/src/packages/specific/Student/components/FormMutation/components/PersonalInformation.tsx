@@ -182,8 +182,10 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
       <Field label={t('student:parent_phone')} error={errors.personalInformation?.parentPhone?.message}>
         <Input
           value={parentPhone ?? undefined}
+          addonBefore={<div>+84</div>}
           onChange={event => {
-            setValue('personalInformation.parentPhone', event.target.value);
+            const value = takeOnlyNumber(event);
+            setValue('personalInformation.parentPhone', value);
             if (errors.personalInformation?.parentPhone) {
               trigger('personalInformation.parentPhone');
             }

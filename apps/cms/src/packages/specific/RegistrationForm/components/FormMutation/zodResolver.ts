@@ -26,8 +26,9 @@ export const getFormMutationSchema = (t: TFunction<['common', 'registration_form
     invalid: getInvalidMessage(t, 'registration_form:student_email'),
   };
   const studentCurrentAddress = {
+    required: getRequiredMessage(t, 'registration_form:current_address'),
     length: getRangeLengthMessage(t, 'registration_form:current_address', 3, 64),
-    invalid: t('registration_form:current_address_invalid'),
+    invalid: getInvalidMessage(t, 'registration_form:current_address'),
   };
   const studentParentPhone = {
     required: getRequiredMessage(t, 'registration_form:parent_phone'),
@@ -40,10 +41,10 @@ export const getFormMutationSchema = (t: TFunction<['common', 'registration_form
     required: getRequiredMessageSelectField(t, 'registration_form:total_number_sessions'),
   };
   const originPrice = {
-    required: getRequiredMessageSelectField(t, 'registration_form:origin_price'),
+    required: getRequiredMessageSelectField(t, 'registration_form:fee_origin'),
   };
   const salePrice = {
-    required: getRequiredMessageSelectField(t, 'registration_form:origin_price'),
+    required: getRequiredMessageSelectField(t, 'registration_form:fee_after_apply_promotion'),
   };
   const promotion = {
     required: getRequiredMessageSelectField(t, 'registration_form:promotion'),
@@ -69,10 +70,17 @@ export const getFormMutationSchema = (t: TFunction<['common', 'registration_form
   const thirdTuitionFee = {
     min: getGreaterOrEqualThanMessage(t, 'registration_form:third_tuition_fee', 0),
   };
+  const commitmentCompletionDate = {
+    required: getRequiredMessageSelectField(t, 'registration_form:commitment_completion_date'),
+  };
+  const notes = {
+    length: getRangeLengthMessage(t, 'registration_form:notes', 0, 256),
+  };
 
   return object({
     code: string({ required_error: code.required }).trim().min(1, code.required),
     studentId: string({ required_error: studentId.required }),
+    studentName: string(),
     studentPhone: string({ required_error: studentPhone.required })
       .trim()
       .min(1, studentPhone.required)
@@ -80,13 +88,15 @@ export const getFormMutationSchema = (t: TFunction<['common', 'registration_form
     studentEmail: string({ required_error: studentEmail.required }).trim().regex(isEmail, studentEmail.invalid),
     studentDateOfBirth: string().optional().nullable(),
     studentGender: enum_([GenderEnum.FEMALE, GenderEnum.MALE]).optional().nullable(),
-    studentCurrentAddress: string()
+    studentCurrentAddress: string({ required_error: studentCurrentAddress.required })
       .trim()
       .min(3, studentCurrentAddress.length)
       .max(64, studentCurrentAddress.length)
       .regex(/^[\p{L}0-9\s/]*$/u, studentCurrentAddress.invalid),
-    studentCity: string().trim().optional().or(literal('')).nullable(),
-    studentDistrict: string().trim().optional().or(literal('')).nullable(),
+    studentCityName: string().trim().optional().or(literal('')).nullable(),
+    studentCityId: string().optional().nullable(),
+    studentCityCode: string().optional().nullable(),
+    studentDistrict: string().optional().nullable(),
     studentParentPhone: string({ required_error: studentParentPhone.required })
       .trim()
       .min(1, studentParentPhone.required)
@@ -94,7 +104,14 @@ export const getFormMutationSchema = (t: TFunction<['common', 'registration_form
     notifyResultToParent: boolean().optional().nullable(),
 
     // Thông tin khoá học
-    courseIds: array(string(), { required_error: course.required }).min(1, course.required),
+    courses: array(
+      object({
+        id: string(),
+        name: string(),
+        numberSession: number(),
+      }),
+      { required_error: course.required },
+    ).min(1, course.required),
     totalNumberSessions: number({ required_error: totalNumberSessions.required }),
     originPrice: number({ required_error: originPrice.required }).min(0, originPrice.required),
     salePrice: number({ required_error: salePrice.required }).min(0, originPrice.required),
@@ -120,6 +137,22 @@ export const getFormMutationSchema = (t: TFunction<['common', 'registration_form
     thirdTuitionFee: number().min(0, thirdTuitionFee.min).optional().nullable(),
     thirdReceiptNumber: string().trim().or(literal('')).optional().nullable(),
     thirdVolumeNumber: string().trim().or(literal('')).optional().nullable(),
+
+    commitmentCompletionDate: string({ required_error: commitmentCompletionDate.required }),
+    notes: string().trim().min(0, notes.length).max(256, notes.length).trim().optional().or(literal('')).nullable(),
+
+    registrationDateOfProgramChange: string().optional().nullable(),
+    newDiscountOfProgramChange: string().optional().nullable(),
+    newTuitionFeeOfProgramChange: number().optional().nullable(),
+    registrationDateOfCourseChange: string().optional().nullable(),
+    newDiscountOfCourseChange: string().optional().nullable(),
+    newTuitionFeeOfCourseChange: number().optional().nullable(),
+    registrationDateOfAdditionalCourseRegistration1: string().optional().nullable(),
+    additionalCourseOfAdditionalCourseRegistration1: string().optional().nullable(),
+    additionalTuitionFeeOfAdditionalCourseRegistration1: number().optional().nullable(),
+    registrationDateOfAdditionalCourseRegistration2: string().optional().nullable(),
+    additionalCourseOfAdditionalCourseRegistration2: string().optional().nullable(),
+    additionalTuitionFeeOfAdditionalCourseRegistration2: number().optional().nullable(),
   });
 };
 

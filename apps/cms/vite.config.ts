@@ -1,6 +1,6 @@
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { defineConfig, splitVendorChunkPlugin } from 'vite';
 import path from 'path';
 
 export default defineConfig({
@@ -19,7 +19,7 @@ export default defineConfig({
     host: 'localhost',
   },
 
-  plugins: [react(), nxViteTsPaths()],
+  plugins: [react(), splitVendorChunkPlugin(), nxViteTsPaths()],
 
   // Uncomment this if you are using workers.
   worker: {

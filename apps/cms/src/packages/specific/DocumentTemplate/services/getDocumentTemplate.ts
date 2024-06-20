@@ -17,7 +17,7 @@ export const getDocumentTemplate = async ({ id }: GetDocumentTemplate) => {
   const documentTemplate = documentTemplates.find(template => template.id === id);
 
   if (!documentTemplate) {
-    throw new Error('Contact template not exist');
+    throw new Error('Document template not exist');
   }
 
   return documentTemplate;
