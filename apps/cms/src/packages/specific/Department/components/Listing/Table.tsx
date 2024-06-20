@@ -118,7 +118,7 @@ export const Table = ({
       render: (_, record) => {
         return (
           <Typography.Link onClick={() => onViewManageDepartment?.(record)}>
-            {[record.managementUnit?.fullName, record.managementUnit?.code].filter(Boolean).join(' - ')}
+            {[record.managementUnit?.name, record.managementUnit?.code].filter(Boolean).join(' - ')}
           </Typography.Link>
         );
       },

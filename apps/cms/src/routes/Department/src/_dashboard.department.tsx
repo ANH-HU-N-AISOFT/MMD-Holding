@@ -29,6 +29,7 @@ import { FormSearchNFilter } from '~/packages/specific/Department/components/Lis
 import { Header } from '~/packages/specific/Department/components/Listing/Header';
 import { Table } from '~/packages/specific/Department/components/Listing/Table';
 import { TableForTreeLayout } from '~/packages/specific/Department/components/Listing/TableForTreeLayout';
+import { QuantityDepartmentsPerPage } from '~/packages/specific/Department/constants/QuantityDepartmentsPerPage';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 import { ListingSearchParams } from '~/packages/specific/Department/types/ListingSearchParams';
@@ -57,12 +58,12 @@ export const loader = async ({
       info: {
         hits: response.items,
         pagination: {
-          totalPages: response.headers['x-pages-count'],
-          totalRecords: response.headers['x-total-count'],
-          pageSize: response.headers['x-per-page'],
+          totalPages: response.total,
+          totalRecords: response.total,
+          pageSize: QuantityDepartmentsPerPage,
         },
       },
-      page: Math.min(page, response.headers['x-pages-count'] || 1),
+      page,
     });
   } catch (error) {
     return json({

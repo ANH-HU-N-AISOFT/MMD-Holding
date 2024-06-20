@@ -8,7 +8,7 @@ export enum CapHanhChinh {
 
 export interface ManagementUnit {
   id: string;
-  fullName: string;
+  name: string;
   code: string;
   phoneNumber: string;
   email: string;

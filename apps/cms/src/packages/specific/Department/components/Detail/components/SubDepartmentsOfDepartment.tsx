@@ -1,3 +1,4 @@
+import { QuantityDepartmentsPerPage } from '../../../constants/QuantityDepartmentsPerPage';
 import { Department } from '../../../models/Department';
 import { FormSearchNFilter } from '~/packages/specific/Department/components/Listing/FormSearchNFilter';
 import { Table } from '~/packages/specific/Department/components/Listing/Table';
@@ -26,8 +27,8 @@ export const SubDepartmentsOfDepartment = ({ department }: Props) => {
         paginationMode="none"
         currentPage={page}
         onChange={changePage}
-        pageSize={data?.headers['x-per-page'] ?? 0}
-        totalRecords={data?.headers['x-total-count'] ?? 0}
+        pageSize={QuantityDepartmentsPerPage}
+        totalRecords={data?.total ?? 0}
         loading={loading}
         dataSource={data?.items}
         deletable={false}
