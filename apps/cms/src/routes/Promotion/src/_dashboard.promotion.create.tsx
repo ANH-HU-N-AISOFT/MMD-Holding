@@ -2,6 +2,7 @@ import { notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isCanCreatePromotion } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
@@ -11,7 +12,6 @@ import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { PromotionScope } from '~/packages/common/SelectVariants/PromotionScope/constants/PromotionScope';
 import { PromotionStatus } from '~/packages/common/SelectVariants/PromotionStatus/constants/PromotionStatus';
 import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormMutation, FormValues } from '~/packages/specific/Promotion/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Promotion/components/FormMutation/zodResolver';
 import { createPromotion } from '~/packages/specific/Promotion/services/createPromotion';
@@ -22,7 +22,7 @@ import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin] });
+  await isCanAccessRoute(isCanCreatePromotion);
   const t = i18next.t;
   try {
     const { errors, data } = await getValidatedFormData<FormValues>(
@@ -54,6 +54,11 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
   } catch (error) {
     return handleCatchClauseSimple(error);
   }
+};
+
+export const loader = async () => {
+  await isCanAccessRoute(isCanCreatePromotion);
+  return json({});
 };
 
 const FormCreateUid = 'FORM_CREATE';

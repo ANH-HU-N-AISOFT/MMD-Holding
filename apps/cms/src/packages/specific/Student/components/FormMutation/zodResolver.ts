@@ -135,7 +135,7 @@ export const getFormMutationSchema = ({
             .min(8, password.length)
             .max(12, password.length)
             .regex(isStrongPassword, password.invalid)
-        : string().optional().nullable(),
+        : string().trim().or(literal('')).optional().nullable(),
     }),
   });
 };

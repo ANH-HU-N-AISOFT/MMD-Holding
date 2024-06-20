@@ -1,13 +1,13 @@
+import { isCanDeleteCourse } from './utils/Is';
 import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { deleteCourse } from '~/packages/specific/Course/services/deleteCourse';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin] });
+  await isCanAccessRoute(isCanDeleteCourse);
   try {
     if (!params['id']) {
       return redirect('/course', {});

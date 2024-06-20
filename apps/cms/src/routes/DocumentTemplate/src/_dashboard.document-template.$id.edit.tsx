@@ -3,6 +3,7 @@ import { Button, Result, notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isCanEditDocumentTemplate } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
@@ -19,7 +20,6 @@ import {
 } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Edit } from '~/packages/specific/DocumentTemplate/components/Edit/Edit';
 import { FormValues } from '~/packages/specific/DocumentTemplate/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/DocumentTemplate/components/FormMutation/zodResolver';
@@ -34,7 +34,7 @@ import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidate
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request, params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin] });
+  await isCanAccessRoute(isCanEditDocumentTemplate);
   if (!params['id']) {
     return redirect('/document-template', {});
   }
@@ -70,7 +70,7 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
 
 type LoaderResponse = SimpleResponse<{ documentTemplate: DocumentTemplate }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin] });
+  await isCanAccessRoute(isCanEditDocumentTemplate);
   if (!params['id']) {
     return redirect('/document-template', {});
   }

@@ -45,6 +45,7 @@ declare module 'i18next' {
       consultant_form: typeof consultant_form;
       trial_request: typeof trial_request;
       document_template: typeof document_template;
+      registration_form: typeof registration_form;
     };
   }
 }

@@ -1,15 +1,18 @@
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { Session } from '~/packages/common/Auth/models/Session';
+import { getSession } from '~/packages/common/Auth/sessionStorage';
+import { ActionType, ResourceType } from '~/packages/common/SelectVariants/Permission/Permission';
 
 interface IsCanShow {
-  roles?: Role[];
-  accept: Role[];
-  not?: Role[];
+  actionType: ActionType;
+  resourceType: ResourceType;
+  permissionsOfUser?: Session['permissions'];
+  isMock?: boolean;
 }
 
-export const isCanShow = (_: IsCanShow) => {
-  // if (!roles?.length) {
-  //   return false;
-  // }
-  // return accept.some(item => roles.includes(item)) || not.some(item => roles.includes(item));
-  return true;
+export const isCanShow = ({ actionType, resourceType, permissionsOfUser, isMock }: IsCanShow) => {
+  if (isMock) {
+    return true;
+  }
+  const permissionsOfUser_ = permissionsOfUser ?? getSession()?.permissions;
+  return !!permissionsOfUser_?.find(item => item.actionType === actionType && item.resourceType === resourceType);
 };

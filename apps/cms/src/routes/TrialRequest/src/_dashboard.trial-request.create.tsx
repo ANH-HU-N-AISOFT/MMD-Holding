@@ -2,6 +2,7 @@ import { notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isCanCreateTrialRequest } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
@@ -33,7 +34,7 @@ import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant] });
+  await isCanAccessRoute(isCanCreateTrialRequest);
   const t = i18next.t;
   try {
     const { errors, data } = await getValidatedFormData<FormValues>(
@@ -70,7 +71,7 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<{ student: Student | undefined }>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant] });
+  await isCanAccessRoute(isCanCreateTrialRequest);
   try {
     const { studentId } = createUrlSearchParamsUtils.decrypt(request);
     if (studentId) {

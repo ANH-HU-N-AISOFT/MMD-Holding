@@ -1,19 +1,45 @@
 // auth.server.ts
 import { notification } from 'antd';
 import { localStorage } from 'utilities';
-import { array, object, string } from 'zod';
+import { array, object, string, enum as enum_ } from 'zod';
+import { ActionType, ResourceType } from '../SelectVariants/Permission/Permission';
+import { Role } from '../SelectVariants/Role/constants/Role';
 import { KeyOfSessionInCookie } from './constants/KeyOfSessionInCookie';
 import { Session } from './models/Session';
 
 export const sessionSchema = object({
   profile: object({
     id: string(),
-    roles: array(string()),
+    roles: array(enum_([Role.Admin, Role.Consultant, Role.Lecturer, Role.Sale, Role.Student, Role.SuperAdmin])),
     organizationName: string(),
     fullName: string(),
     avatar: string(),
     organizationId: string().optional(),
   }).optional(),
+  permissions: array(
+    object({
+      actionType: enum_([
+        ActionType.CREATE,
+        ActionType.DELETE,
+        ActionType.EXPORT,
+        ActionType.IMPORT,
+        ActionType.READ,
+        ActionType.UPDATE,
+      ]),
+      resourceType: enum_([
+        ResourceType.APPOINTMENT,
+        ResourceType.CONSULTATION,
+        ResourceType.COURSE,
+        ResourceType.COURSE_COMBO,
+        ResourceType.COURSE_ROADMAP,
+        ResourceType.EMPLOYEE,
+        ResourceType.ORGANIZATION,
+        ResourceType.PROMOTION,
+        ResourceType.STUDENT,
+        ResourceType.TRIAL_REQUEST,
+      ]),
+    }),
+  ).optional(),
   token: object({
     accessToken: string(),
     refreshToken: string(),

@@ -6,6 +6,7 @@ import {
   ActionResponse as ActionDeleteCourseResponse,
   action as actionDeleteCourse,
 } from './_dashboard.course.$id.delete';
+import { isCanDeleteCourse, isCanEditCourse, isCanReadCourse } from './utils/Is';
 import { Footer } from '~/components/Detail/Footer';
 import { Header } from '~/components/Detail/Header';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
@@ -20,7 +21,6 @@ import {
   useNavigate,
 } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Detail } from '~/packages/specific/Course/components/Detail/Detail';
 import { Course } from '~/packages/specific/Course/models/Course';
 import { getCourse } from '~/packages/specific/Course/services/getCourse';
@@ -31,7 +31,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ course: Course }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] });
+  await isCanAccessRoute(isCanReadCourse);
   if (!params['id']) {
     return redirect('/course', {});
   }
@@ -111,12 +111,12 @@ export const Page = () => {
         <div className="flex-1 mb-4">
           <Detail course={loaderData.info?.course} />
         </div>
-        {isCanShow({ accept: [Role.SuperAdmin] }) && (
-          <Footer
-            onDelete={() => setIsOpenModalDeleteCourse(loaderData.info?.course.id ?? false)}
-            onEdit={() => navigate(`/course/${loaderData.info?.course.id}/edit`)}
-          />
-        )}
+        <Footer
+          onDelete={() => setIsOpenModalDeleteCourse(loaderData.info?.course.id ?? false)}
+          onEdit={() => navigate(`/course/${loaderData.info?.course.id}/edit`)}
+          deletable={isCanShow(isCanDeleteCourse)}
+          editable={isCanShow(isCanEditCourse)}
+        />
       </div>
       <ModalConfirmDelete
         open={!!isOpenModalDeleteCourse}

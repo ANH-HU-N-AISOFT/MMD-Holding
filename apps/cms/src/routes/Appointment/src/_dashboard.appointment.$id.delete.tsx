@@ -1,13 +1,13 @@
+import { isCanDeleteAppointment } from './utils/Is';
 import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { deleteAppointment } from '~/packages/specific/Appointment/services/deleteAppointment';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] });
+  await isCanAccessRoute(isCanDeleteAppointment);
   try {
     if (!params['id']) {
       return redirect('/appointment', {});

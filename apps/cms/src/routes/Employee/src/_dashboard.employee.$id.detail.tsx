@@ -6,6 +6,7 @@ import {
   ActionResponse as ActionDeleteEmployeeResponse,
   action as actionDeleteEmployee,
 } from './_dashboard.employee.$id.delete';
+import { isCanDeleteEmployee, isCanEditEmployee, isCanReadEmployee } from './utils/Is';
 import { Footer } from '~/components/Detail/Footer';
 import { Header } from '~/components/Detail/Header';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
@@ -20,7 +21,6 @@ import {
   useNavigate,
 } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Detail } from '~/packages/specific/Employee/components/Detail/Detail';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployee } from '~/packages/specific/Employee/services/getEmployee';
@@ -31,7 +31,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ employee: Employee }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Lecturer, Role.Sale] });
+  await isCanAccessRoute(isCanReadEmployee);
   if (!params['id']) {
     return redirect('/employee', {});
   }
@@ -112,12 +112,12 @@ export const Page = () => {
         <div className="flex-1 mb-4">
           <Detail employee={loaderData.info?.employee} />
         </div>
-        {isCanShow({ accept: [Role.SuperAdmin] }) && (
-          <Footer
-            onDelete={() => setIsOpenModalDeleteEmployee(loaderData.info?.employee.employeeId ?? false)}
-            onEdit={() => navigate(`/employee/${loaderData.info?.employee.employeeId}/edit`)}
-          />
-        )}
+        <Footer
+          onDelete={() => setIsOpenModalDeleteEmployee(loaderData.info?.employee.employeeId ?? false)}
+          onEdit={() => navigate(`/employee/${loaderData.info?.employee.employeeId}/edit`)}
+          deletable={isCanShow(isCanDeleteEmployee)}
+          editable={isCanShow(isCanEditEmployee)}
+        />
       </div>
       <ModalConfirmDelete
         open={!!isOpenModalDeleteEmployee}

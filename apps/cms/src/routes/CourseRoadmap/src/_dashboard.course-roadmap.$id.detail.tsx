@@ -6,6 +6,7 @@ import {
   ActionResponse as ActionDeleteCourseResponse,
   action as actionDeleteCourse,
 } from './_dashboard.course-roadmap.$id.delete';
+import { isCanDeleteCourseRoadmap, isCanEditCourseRoadmap, isCanReadCourseRoadmap } from './utils/Is';
 import { Footer } from '~/components/Detail/Footer';
 import { Header } from '~/components/Detail/Header';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
@@ -20,7 +21,6 @@ import {
   useNavigate,
 } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Detail } from '~/packages/specific/CourseRoadmap/components/Detail/Detail';
 import { CourseRoadmap } from '~/packages/specific/CourseRoadmap/models/CourseRoadmap';
 import { getCourseRoadmap } from '~/packages/specific/CourseRoadmap/services/getCourseRoadmap';
@@ -31,7 +31,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ courseRoadmap: CourseRoadmap }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] });
+  await isCanAccessRoute(isCanReadCourseRoadmap);
   if (!params['id']) {
     return redirect('/course-roadmap', {});
   }
@@ -111,12 +111,12 @@ export const Page = () => {
         <div className="flex-1 mb-4">
           <Detail courseRoadmap={loaderData.info?.courseRoadmap} />
         </div>
-        {isCanShow({ accept: [Role.SuperAdmin] }) && (
-          <Footer
-            onDelete={() => setIsOpenModalDeleteCourse(loaderData.info?.courseRoadmap.id ?? false)}
-            onEdit={() => navigate(`/course-roadmap/${loaderData.info?.courseRoadmap.id}/edit`)}
-          />
-        )}
+        <Footer
+          onDelete={() => setIsOpenModalDeleteCourse(loaderData.info?.courseRoadmap.id ?? false)}
+          onEdit={() => navigate(`/course-roadmap/${loaderData.info?.courseRoadmap.id}/edit`)}
+          deletable={isCanShow(isCanDeleteCourseRoadmap)}
+          editable={isCanShow(isCanEditCourseRoadmap)}
+        />
       </div>
       <ModalConfirmDelete
         open={!!isOpenModalDeleteCourse}

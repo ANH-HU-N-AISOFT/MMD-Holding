@@ -6,6 +6,7 @@ import {
   ActionResponse as ActionDeletePromotionResponse,
   action as actionDeletePromotion,
 } from './_dashboard.promotion.$id.delete';
+import { isCanDeletePromotion, isCanEditPromotion, isCanReadPromotion } from './utils/Is';
 import { Footer } from '~/components/Detail/Footer';
 import { Header } from '~/components/Detail/Header';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
@@ -20,7 +21,6 @@ import {
   useNavigate,
 } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Detail } from '~/packages/specific/Promotion/components/Detail/Detail';
 import { Promotion } from '~/packages/specific/Promotion/models/Promotion';
 import { getPromotion } from '~/packages/specific/Promotion/services/getPromotion';
@@ -31,7 +31,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ promotion: Promotion }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] });
+  await isCanAccessRoute(isCanReadPromotion);
   if (!params['id']) {
     return redirect('/promotion', {});
   }
@@ -111,12 +111,12 @@ export const Page = () => {
         <div className="flex-1 mb-4">
           <Detail promotion={loaderData.info?.promotion} />
         </div>
-        {isCanShow({ accept: [Role.SuperAdmin] }) && (
-          <Footer
-            onDelete={() => setIsOpenModalDeletePromotion(loaderData.info?.promotion.id ?? false)}
-            onEdit={() => navigate(`/promotion/${loaderData.info?.promotion.id}/edit`)}
-          />
-        )}
+        <Footer
+          onDelete={() => setIsOpenModalDeletePromotion(loaderData.info?.promotion.id ?? false)}
+          onEdit={() => navigate(`/promotion/${loaderData.info?.promotion.id}/edit`)}
+          deletable={isCanShow(isCanDeletePromotion)}
+          editable={isCanShow(isCanEditPromotion)}
+        />
       </div>
       <ModalConfirmDelete
         open={!!isOpenModalDeletePromotion}

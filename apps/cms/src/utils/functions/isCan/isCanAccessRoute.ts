@@ -1,20 +1,24 @@
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { redirect } from '~/overrides/@remix';
+import { Session } from '~/packages/common/Auth/models/Session';
+import { getSession } from '~/packages/common/Auth/sessionStorage';
+import { ActionType, ResourceType } from '~/packages/common/SelectVariants/Permission/Permission';
 
 interface IsCanAccess {
-  accept: Role[];
-  not?: Role[];
+  actionType: ActionType;
+  resourceType: ResourceType;
+  permissionsOfUser?: Session['permissions'];
+  isMock?: boolean;
 }
 
-export const isCanAccessRoute = async (_: IsCanAccess) => {
-  // let roles: string[] = [];
-  // try {
-  //   const session = getSession();
-  //   roles = session?.profile?.roles ?? [];
-  // } catch {
-  //   return destroySession();
-  // }
-  // if (!roles.length || !accept.some(item => roles.includes(item)) || not.some(item => roles.includes(item))) {
-  //   throw redirect('/403', {});
-  // }
-  return true;
+export const isCanAccessRoute = async ({ actionType, resourceType, permissionsOfUser, isMock }: IsCanAccess) => {
+  if (isMock) {
+    return;
+  }
+  const permissionsOfUser_ = permissionsOfUser ?? getSession()?.permissions;
+  const isCanAccess = !!permissionsOfUser_?.find(
+    item => item.actionType === actionType && item.resourceType === resourceType,
+  );
+  if (!isCanAccess) {
+    throw redirect('/403', {});
+  }
 };

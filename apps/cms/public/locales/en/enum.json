@@ -157,18 +157,26 @@
       "offline": "Offline"
     }
   },
-  "document_template_status": {
+  "documentTemplateStatus": {
     "label": "Trạng thái",
     "options": {
       "ACTIVE": "Hoạt động",
       "IN_ACTIVE": "Không hoạt động"
     }
   },
-  "document_template_type": {
+  "documentTemplateType": {
     "label": "Loại tài liệu",
     "options": {
       "CONTRACT": "Hợp đồng",
       "REGISTRATION_FORM": "Phiếu đăng ký"
+    }
+  },
+  "paymentMethod": {
+    "label": "Hình thức thanh toán",
+    "options": {
+      "BANK": "Chuyển khoản",
+      "CASH": "Tiên mặt",
+      "POS": "Quẹt POS (Trả góp)"
     }
   }
 }

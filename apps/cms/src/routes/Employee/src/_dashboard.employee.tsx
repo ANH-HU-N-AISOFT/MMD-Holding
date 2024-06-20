@@ -11,6 +11,14 @@ import {
   ActionResponse as ActionResetPasswordResponse,
   action as actionResetPassword,
 } from './_dashboard.employee.$id.reset-password';
+import {
+  isCanCreateEmployee,
+  isCanDeleteEmployee,
+  isCanEditEmployee,
+  isCanExportEmployee,
+  isCanImportEmployee,
+  isCanReadEmployee,
+} from './utils/Is';
 import { Modal } from '~/components/AntCustom/Modal';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
@@ -18,7 +26,6 @@ import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, use
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
 import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Import, ImportActions } from '~/packages/specific/Employee/components/Import/Import';
 import { FormSearchNFilter } from '~/packages/specific/Employee/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Employee/components/Listing/Header';
@@ -38,7 +45,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Employee>>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] });
+  await isCanAccessRoute(isCanReadEmployee);
   const t = i18next.t;
   const { page = 1, search, department, roles, status } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
@@ -210,9 +217,9 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.SuperAdmin] })}
-          importable={isCanShow({ accept: [Role.SuperAdmin] })}
-          exportable={isCanShow({ accept: [Role.SuperAdmin] })}
+          creatable={isCanShow(isCanCreateEmployee)}
+          importable={isCanShow(isCanImportEmployee)}
+          exportable={isCanShow(isCanExportEmployee)}
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/employee/create')}
@@ -232,9 +239,9 @@ export const Page = () => {
           onSearch={value => handleRequest({ page: 1, search: value })}
         />
         <Table
-          deletable={isCanShow({ accept: [Role.SuperAdmin] })}
-          editable={isCanShow({ accept: [Role.SuperAdmin] })}
-          passwordResetable={isCanShow({ accept: [Role.SuperAdmin] })}
+          deletable={isCanShow(isCanDeleteEmployee)}
+          editable={isCanShow(isCanEditEmployee)}
+          passwordResetable={isCanShow(isCanEditEmployee)}
           loading={isFetchingList}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}

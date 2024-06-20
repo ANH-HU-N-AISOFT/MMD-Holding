@@ -1,7 +1,7 @@
 import i18next from 'i18next';
+import { isCanExportTrialRequest } from './utils/Is';
 import { ActionFunctionArgs, json } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { exportTrialRequests } from '~/packages/specific/TrialRequest/services/exportTrialRequests';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/TrialRequest/utils/lisitngUrlSearchParamsUtils';
 import { downloadAxiosResponseAsCSV } from '~/utils/functions/downloadAxiosResponseAsCSV';
@@ -10,7 +10,7 @@ import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request }: ActionFunctionArgs) => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin] });
+  await isCanAccessRoute(isCanExportTrialRequest);
   const t = i18next.t;
   const {
     search,

@@ -6,6 +6,7 @@ import {
   ActionResponse as ActionDeleteDocumentTemplateResponse,
   action as actionDeleteDocumentTemplate,
 } from './_dashboard.document-template.$id.delete';
+import { isCanDeleteDocumentTemplate, isCanEditDocumentTemplate, isCanReadDocumentTemplate } from './utils/Is';
 import { Footer } from '~/components/Detail/Footer';
 import { Header } from '~/components/Detail/Header';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
@@ -20,7 +21,6 @@ import {
   useNavigate,
 } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Detail } from '~/packages/specific/DocumentTemplate/components/Detail/Detail';
 import { DocumentTemplate } from '~/packages/specific/DocumentTemplate/models/DocumentTemplate';
 import { getDocumentTemplate } from '~/packages/specific/DocumentTemplate/services/getDocumentTemplate';
@@ -31,7 +31,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ documentTemplate: DocumentTemplate }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Lecturer, Role.Sale] });
+  await isCanAccessRoute(isCanReadDocumentTemplate);
   if (!params['id']) {
     return redirect('/document-template', {});
   }
@@ -114,12 +114,12 @@ export const Page = () => {
         <div className="flex-1 mb-4">
           <Detail documentTemplate={loaderData.info?.documentTemplate} />
         </div>
-        {isCanShow({ accept: [Role.SuperAdmin] }) && (
-          <Footer
-            onDelete={() => setIsOpenModalDeleteDocumentTemplate(loaderData.info?.documentTemplate.id ?? false)}
-            onEdit={() => navigate(`/document-template/${loaderData.info?.documentTemplate.id}/edit`)}
-          />
-        )}
+        <Footer
+          onDelete={() => setIsOpenModalDeleteDocumentTemplate(loaderData.info?.documentTemplate.id ?? false)}
+          onEdit={() => navigate(`/document-template/${loaderData.info?.documentTemplate.id}/edit`)}
+          deletable={isCanShow(isCanDeleteDocumentTemplate)}
+          editable={isCanShow(isCanEditDocumentTemplate)}
+        />
       </div>
       <ModalConfirmDelete
         open={!!isOpenModalDeleteDocumentTemplate}

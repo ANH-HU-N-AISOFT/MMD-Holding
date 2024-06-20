@@ -5,7 +5,7 @@ export const getDocumentTemplateStatusMappingToLabels = (
   t: TFunction<['common', 'enum']>,
 ): Record<DocumentTemplateStatus, string> => {
   return {
-    [DocumentTemplateStatus.ACTIVE]: t('enum:document_template_status.options.ACTIVE'),
-    [DocumentTemplateStatus.IN_ACTIVE]: t('enum:document_template_status.options.IN_ACTIVE'),
+    [DocumentTemplateStatus.ACTIVE]: t('enum:documentTemplateStatus.options.ACTIVE'),
+    [DocumentTemplateStatus.IN_ACTIVE]: t('enum:documentTemplateStatus.options.IN_ACTIVE'),
   };
 };

@@ -13,24 +13,50 @@ interface Props {
   fitted?: boolean;
   Other?: ReactNode;
   moreActions?: TableActionsProps['items'];
+  deletable: boolean;
+  editable: boolean;
 }
 
-export const Footer = ({ onDelete, onEdit, isLoading, className, fitted, Other, moreActions = [] }: Props) => {
+export const Footer = ({
+  onDelete,
+  onEdit,
+  isLoading,
+  className,
+  fitted,
+  Other,
+  moreActions = [],
+  deletable,
+  editable,
+}: Props) => {
   const { t } = useTranslation(['components']);
 
   const cancelText_ = t('components:Detail.delete').toString();
   const okText_ = t('components:Detail.edit').toString();
 
-  const DeleteButton = (
-    <Button danger disabled={isLoading} onClick={onDelete}>
-      {cancelText_}
-    </Button>
-  );
-  const EditButton = (
-    <Button type="primary" loading={isLoading} disabled={isLoading} onClick={onEdit}>
-      {okText_}
-    </Button>
-  );
+  const renderDeleteButton = () => {
+    if (!deletable) {
+      return null;
+    }
+    return (
+      <Button danger disabled={isLoading} onClick={onDelete}>
+        {cancelText_}
+      </Button>
+    );
+  };
+  const renderEditButton = () => {
+    if (!editable) {
+      return null;
+    }
+    return (
+      <Button type="primary" loading={isLoading} disabled={isLoading} onClick={onEdit}>
+        {okText_}
+      </Button>
+    );
+  };
+
+  if (!deletable && !editable) {
+    return null;
+  }
 
   return (
     <div
@@ -40,9 +66,9 @@ export const Footer = ({ onDelete, onEdit, isLoading, className, fitted, Other, 
       )}
     >
       <div className={classNames('flex items-center justify-end gap-3', fitted ? 'w-full' : '')}>
-        {DeleteButton}
+        {renderDeleteButton()}
         {Other}
-        {EditButton}
+        {renderEditButton()}
         {!isEmpty(moreActions) && <TableActions items={moreActions} />}
       </div>
     </div>

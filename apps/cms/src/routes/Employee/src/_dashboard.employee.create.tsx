@@ -2,6 +2,7 @@ import { notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isCanCreateEmployee } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
@@ -9,7 +10,6 @@ import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, us
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { VIETNAM_VALUE } from '~/packages/common/SelectVariants/SelectRegion';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { FormMutation, FormValues } from '~/packages/specific/Employee/components/FormMutation/FormMutation';
@@ -22,7 +22,7 @@ import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin] });
+  await isCanAccessRoute(isCanCreateEmployee);
   const t = i18next.t;
   try {
     const { errors, data } = await getValidatedFormData<FormValues>(
@@ -70,8 +70,8 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
 };
 
 export const loader = async () => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin] });
-  return null;
+  await isCanAccessRoute(isCanCreateEmployee);
+  return json({});
 };
 
 const FormCreateUid = 'FORM_CREATE';

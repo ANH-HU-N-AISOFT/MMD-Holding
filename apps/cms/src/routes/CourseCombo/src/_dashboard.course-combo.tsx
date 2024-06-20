@@ -7,12 +7,19 @@ import {
   ActionResponse as ActionDeleteCourseResponse,
   action as actionDeleteCourse,
 } from './_dashboard.course-combo.$id.delete';
+import {
+  isCanCreateCourseCombo,
+  isCanDeleteCourseCombo,
+  isCanEditCourseCombo,
+  isCanExportCourseCombo,
+  isCanImportCourseCombo,
+  isCanReadCourseCombo,
+} from './utils/Is';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormSearchNFilter } from '~/packages/specific/CourseCombo/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/CourseCombo/components/Listing/Header';
 import { Table } from '~/packages/specific/CourseCombo/components/Listing/Table';
@@ -29,7 +36,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<CourseCombo>>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] });
+  await isCanAccessRoute(isCanReadCourseCombo);
   const t = i18next.t;
   const { search, page = 1, status } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
@@ -155,13 +162,13 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.SuperAdmin] })}
-          importable={false}
-          exportable={false}
+          creatable={isCanShow(isCanCreateCourseCombo)}
+          importable={isCanShow(isCanImportCourseCombo)}
+          exportable={isCanShow(isCanExportCourseCombo)}
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/course-combo/create')}
-          onImport={() => undefined}
+          onImport={() => notification.info({ message: 'Chức năng đang được phát triển' })}
         />
         <FormSearchNFilter
           containerClassName="justify-end mb-1"
@@ -180,8 +187,8 @@ export const Page = () => {
           onSearch={value => handleRequest({ page: 1, search: value })}
         />
         <Table
-          deletable={isCanShow({ accept: [Role.SuperAdmin] })}
-          editable={isCanShow({ accept: [Role.SuperAdmin] })}
+          deletable={isCanShow(isCanDeleteCourseCombo)}
+          editable={isCanShow(isCanEditCourseCombo)}
           loading={isFetchingList}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}

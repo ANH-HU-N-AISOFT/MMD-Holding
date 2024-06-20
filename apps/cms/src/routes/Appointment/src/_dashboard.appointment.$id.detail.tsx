@@ -6,6 +6,7 @@ import {
   ActionResponse as ActionDeleteAppointmentResponse,
   action as actionDeleteAppointment,
 } from './_dashboard.appointment.$id.delete';
+import { isCanDeleteAppointment, isCanEditAppointment, isCanReadAppointment } from './utils/Is';
 import { Footer } from '~/components/Detail/Footer';
 import { Header } from '~/components/Detail/Header';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
@@ -20,7 +21,6 @@ import {
   useNavigate,
 } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Detail } from '~/packages/specific/Appointment/components/Detail/Detail';
 import { Appointment } from '~/packages/specific/Appointment/models/Appointment';
 import { getAppointment } from '~/packages/specific/Appointment/services/getAppointment';
@@ -31,7 +31,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ appointment: Appointment }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] });
+  await isCanAccessRoute(isCanReadAppointment);
   if (!params['id']) {
     return redirect('/appointment', {});
   }
@@ -114,12 +114,12 @@ export const Page = () => {
         <div className="flex-1 mb-4">
           <Detail appointment={loaderData.info?.appointment} />
         </div>
-        {isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }) && (
-          <Footer
-            onDelete={() => setIsOpenModalDeleteAppointment(loaderData.info?.appointment.id ?? false)}
-            onEdit={() => navigate(`/appointment/${loaderData.info?.appointment.id}/edit`)}
-          />
-        )}
+        <Footer
+          onDelete={() => setIsOpenModalDeleteAppointment(loaderData.info?.appointment.id ?? false)}
+          onEdit={() => navigate(`/appointment/${loaderData.info?.appointment.id}/edit`)}
+          deletable={isCanShow(isCanDeleteAppointment)}
+          editable={isCanShow(isCanEditAppointment)}
+        />
       </div>
       <ModalConfirmDelete
         open={!!isOpenModalDeleteAppointment}

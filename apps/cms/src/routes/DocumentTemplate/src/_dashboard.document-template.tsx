@@ -7,12 +7,19 @@ import {
   ActionResponse as ActionDeleteDocumentTemplateResponse,
   action as actionDeleteDocumentTemplate,
 } from './_dashboard.document-template.$id.delete';
+import {
+  isCanCreateDocumentTemplate,
+  isCanDeleteDocumentTemplate,
+  isCanEditDocumentTemplate,
+  isCanExportDocumentTemplate,
+  isCanImportDocumentTemplate,
+  isCanReadDocumentTemplate,
+} from './utils/Is';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormSearchNFilter } from '~/packages/specific/DocumentTemplate/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/DocumentTemplate/components/Listing/Header';
 import { Table } from '~/packages/specific/DocumentTemplate/components/Listing/Table';
@@ -29,7 +36,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<DocumentTemplate>>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Lecturer, Role.Sale] });
+  await isCanAccessRoute(isCanReadDocumentTemplate);
   const t = i18next.t;
   const { search, page = 1, createdAt, status, type } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
@@ -97,17 +104,6 @@ export const Page = () => {
     return exportDocumentTemplatesFetcher.state === 'loading' || exportDocumentTemplatesFetcher.state === 'submitting';
   }, [exportDocumentTemplatesFetcher]);
 
-  const handleExport = () => {
-    const searchParamsToLoader = lisitngUrlSearchParamsUtils.encrypt({ ...paramsInUrl });
-    exportDocumentTemplatesFetcher.submit(
-      {},
-      {
-        method: 'POST',
-        action: '/document-template/export' + searchParamsToLoader,
-      },
-    );
-  };
-
   useEffect(() => {
     if (exportDocumentTemplatesFetcher.data && exportDocumentTemplatesFetcher.state === 'idle') {
       const response = exportDocumentTemplatesFetcher.data as ActionDeleteDocumentTemplateResponse;
@@ -159,13 +155,13 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin] })}
-          importable={false}
-          exportable={false}
+          creatable={isCanShow(isCanCreateDocumentTemplate)}
+          importable={isCanShow(isCanImportDocumentTemplate)}
+          exportable={isCanShow(isCanExportDocumentTemplate)}
           isExporting={isExporting}
-          onExport={handleExport}
+          onExport={() => notification.info({ message: 'Chức năng đang được phát triển' })}
           onCreate={() => navigate('/document-template/create')}
-          onImport={() => undefined}
+          onImport={() => notification.info({ message: 'Chức năng đang được phát triển' })}
         />
         <FormSearchNFilter
           containerClassName="justify-end mb-1"
@@ -188,8 +184,8 @@ export const Page = () => {
           onSearch={value => handleRequest({ page: 1, search: value })}
         />
         <Table
-          deletable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin] })}
-          editable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin] })}
+          deletable={isCanShow(isCanDeleteDocumentTemplate)}
+          editable={isCanShow(isCanEditDocumentTemplate)}
           loading={isFetchingList}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}

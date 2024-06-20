@@ -1,13 +1,13 @@
+import { isCanDeleteConsultantForm } from './utils/Is';
 import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { deleteConsultantForm } from '~/packages/specific/ConsultantForm/services/deleteConsultantForm';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant] });
+  await isCanAccessRoute(isCanDeleteConsultantForm);
   try {
     if (!params['id']) {
       return redirect('/consultant-form', {});

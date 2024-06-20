@@ -7,12 +7,19 @@ import {
   ActionResponse as ActionDeleteTrialResponse,
   action as actionDeleteTrial,
 } from './_dashboard.trial-request.$id.delete';
+import {
+  isCanCreateTrialRequest,
+  isCanDeleteTrialRequest,
+  isCanEditTrialRequest,
+  isCanExportTrialRequest,
+  isCanImportTrialRequest,
+  isCanReadTrialRequest,
+} from './utils/Is';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormSearchNFilter } from '~/packages/specific/TrialRequest/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/TrialRequest/components/Listing/Header';
 import { Table } from '~/packages/specific/TrialRequest/components/Listing/Table';
@@ -30,7 +37,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<TrialRequest>>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale, Role.Lecturer] });
+  await isCanAccessRoute(isCanReadTrialRequest);
   const t = i18next.t;
   const {
     search,
@@ -178,13 +185,13 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant] })}
-          importable={false}
-          exportable={isCanShow({ accept: [Role.SuperAdmin] })}
+          creatable={isCanShow(isCanCreateTrialRequest)}
+          importable={isCanShow(isCanImportTrialRequest)}
+          exportable={isCanShow(isCanExportTrialRequest)}
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/trial-request/create')}
-          onImport={() => undefined}
+          onImport={() => notification.info({ message: 'Chức năng đang được phát triển' })}
         />
         <FormSearchNFilter
           containerClassName="justify-end mb-1"
@@ -217,8 +224,8 @@ export const Page = () => {
           onSearch={value => handleRequest({ page: 1, search: value })}
         />
         <Table
-          deletable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant] })}
-          editable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant] })}
+          deletable={isCanShow(isCanDeleteTrialRequest)}
+          editable={isCanShow(isCanEditTrialRequest)}
           loading={isFetchingList || isSavingTrialRequestStatus}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}

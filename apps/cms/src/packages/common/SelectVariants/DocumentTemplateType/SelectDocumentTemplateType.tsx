@@ -30,7 +30,7 @@ export const SelectDocumentTemplateType = ({
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={placeholder ?? t('enum:document_template_type.label')}
+      placeholder={placeholder ?? t('enum:documentTemplateType.label')}
       value={documentTemplateType}
       onChange={onChange}
       options={Object.values(DocumentTemplateType).map(item => {

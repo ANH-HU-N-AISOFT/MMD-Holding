@@ -7,13 +7,20 @@ import {
   ActionResponse as ActionDeleteAppointmentResponse,
   action as actionDeleteAppointment,
 } from './_dashboard.appointment.$id.delete';
+import {
+  isCanCreateAppointment,
+  isCanDeleteAppointment,
+  isCanEditAppointment,
+  isCanExportAppointment,
+  isCanImportAppointment,
+  isCanReadAppointment,
+} from './utils/Is';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
 import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormSearchNFilter } from '~/packages/specific/Appointment/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Appointment/components/Listing/Header';
 import { Table } from '~/packages/specific/Appointment/components/Listing/Table';
@@ -33,7 +40,7 @@ export const loader = async ({
 }: LoaderFunctionArgs): Promise<
   TypedResponse<SimpleListingLoaderResponse<Appointment> & { counts: Record<AppointmentStatus, number> }>
 > => {
-  await isCanAccessRoute({ accept: [Role.Admin, Role.Consultant, Role.Sale] });
+  await isCanAccessRoute(isCanReadAppointment);
   const t = i18next.t;
   const { search, page = 1, organizationId, status, isOwner } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
@@ -188,13 +195,13 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
-          importable={false}
-          exportable={isCanShow({ accept: [Role.SuperAdmin] })}
+          creatable={isCanShow(isCanCreateAppointment)}
+          importable={isCanShow(isCanImportAppointment)}
+          exportable={isCanShow(isCanExportAppointment)}
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/appointment/create')}
-          onImport={() => undefined}
+          onImport={() => notification.info({ message: 'Chức năng đang được phát triển' })}
         />
         <FormSearchNFilter
           counts={counts}
@@ -223,8 +230,8 @@ export const Page = () => {
           onSearch={value => handleRequest({ page: 1, search: value })}
         />
         <Table
-          deletable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
-          editable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
+          deletable={isCanShow(isCanDeleteAppointment)}
+          editable={isCanShow(isCanEditAppointment)}
           loading={isFetchingList || isSavingAppointmentStatus}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}

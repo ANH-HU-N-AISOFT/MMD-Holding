@@ -1,8 +1,8 @@
 import i18next from 'i18next';
+import { isCanEditEmployee } from './utils/Is';
 import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/@remix';
 import { validateFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormValues } from '~/packages/specific/Employee/components/ResetPassword/ResetPassword';
 import { getFormResetPasswordResolver } from '~/packages/specific/Employee/components/ResetPassword/zodResolver';
 import { resetPassword } from '~/packages/specific/Employee/services/resetPassword';
@@ -13,7 +13,8 @@ import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ params, request }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin] });
+  // FIXME: Có cần thêm permission mới ?
+  await isCanAccessRoute(isCanEditEmployee);
 
   try {
     if (!params['id']) {

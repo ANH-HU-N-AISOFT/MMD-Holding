@@ -11,7 +11,7 @@ import {
 import { MenuProps } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from '~/overrides/@remix';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { ActionType, ResourceType } from '~/packages/common/SelectVariants/Permission/Permission';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 export const useGetNavData = () => {
@@ -29,18 +29,25 @@ export const useGetNavData = () => {
       key: '/organizational-structure',
       icon: <ClusterOutlined />,
       label: t('dashboard_layout:menu.organizational_structure'),
+      className:
+        isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.ORGANIZATION }) ||
+        isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.EMPLOYEE })
+          ? ''
+          : '!hidden',
       children: [
         {
           key: '/department',
           label: t('dashboard_layout:menu.department_list'),
           onClick: () => navigate('/department'),
-          className: isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }) ? '' : '!hidden',
+          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.ORGANIZATION })
+            ? ''
+            : '!hidden',
         },
         {
           key: '/employee',
-          label: t('dashboard_layout:menu.user_list'),
+          label: t('dashboard_layout:menu.employee'),
           onClick: () => navigate('/employee'),
-          className: isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }) ? '' : '!hidden',
+          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.EMPLOYEE }) ? '' : '!hidden',
         },
       ],
     },
@@ -49,7 +56,7 @@ export const useGetNavData = () => {
       icon: <ScheduleOutlined />,
       label: t('dashboard_layout:menu.appointment'),
       onClick: () => navigate('/appointment'),
-      className: isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }) ? '' : '!hidden',
+      className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.APPOINTMENT }) ? '' : '!hidden',
     },
     {
       key: '/input-check',
@@ -61,36 +68,50 @@ export const useGetNavData = () => {
       key: '/consultation',
       icon: <QuestionCircleOutlined />,
       label: t('dashboard_layout:menu.consultation'),
+      className:
+        isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.CONSULTATION }) ||
+        isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.PROMOTION }) ||
+        isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.COURSE_COMBO }) ||
+        isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.COURSE_ROADMAP }) ||
+        isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.COURSE })
+          ? ''
+          : '!hidden',
       children: [
         {
           key: '/consultant-form',
           label: t('dashboard_layout:menu.consultant_form'),
           onClick: () => navigate('/consultant-form'),
-          className: isCanShow({ accept: [Role.SuperAdmin, Role.Consultant, Role.Sale] }) ? '' : '!hidden',
+          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.CONSULTATION })
+            ? ''
+            : '!hidden',
         },
         {
           key: '/promotion',
           label: t('dashboard_layout:menu.promotion'),
           onClick: () => navigate('/promotion'),
-          className: isCanShow({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] }) ? '' : '!hidden',
+          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.PROMOTION }) ? '' : '!hidden',
         },
         {
           key: '/course-combo',
           label: t('dashboard_layout:menu.course_combo'),
           onClick: () => navigate('/course-combo'),
-          className: isCanShow({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] }) ? '' : '!hidden',
+          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.COURSE_COMBO })
+            ? ''
+            : '!hidden',
         },
         {
           key: '/course-roadmap',
           label: t('dashboard_layout:menu.course_roadmap'),
           onClick: () => navigate('/course-roadmap'),
-          className: isCanShow({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] }) ? '' : '!hidden',
+          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.COURSE_ROADMAP })
+            ? ''
+            : '!hidden',
         },
         {
           key: '/course',
           label: t('dashboard_layout:menu.course'),
           onClick: () => navigate('/course'),
-          className: isCanShow({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] }) ? '' : '!hidden',
+          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.COURSE }) ? '' : '!hidden',
         },
       ],
     },
@@ -99,17 +120,13 @@ export const useGetNavData = () => {
       icon: <ExperimentOutlined />,
       label: t('dashboard_layout:menu.trial_request'),
       onClick: () => navigate('/trial-request'),
-      className: isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale, Role.Lecturer] })
-        ? ''
-        : '!hidden',
+      className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.TRIAL_REQUEST }) ? '' : '!hidden',
     },
     {
       key: '/contract_signing',
       icon: <FileDoneOutlined />,
       label: t('dashboard_layout:menu.contract_signing'),
-      className: isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale, Role.Lecturer] })
-        ? ''
-        : '!hidden',
+      // FIXME: Permission
       children: [
         {
           key: '/document-template',
@@ -133,7 +150,7 @@ export const useGetNavData = () => {
       icon: <UserOutlined />,
       label: t('dashboard_layout:menu.student'),
       onClick: () => navigate('/student'),
-      className: isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }) ? '' : '!hidden',
+      className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.STUDENT }) ? '' : '!hidden',
     },
   ];
 

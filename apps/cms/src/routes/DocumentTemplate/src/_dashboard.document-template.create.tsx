@@ -2,6 +2,7 @@ import { notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isCanCreateDocumentTemplate } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
@@ -10,7 +11,6 @@ import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { DocumentTemplateStatus } from '~/packages/common/SelectVariants/DocumentTemplateStatus/constants/DocumentTemplateStatus';
 import { DocumentTemplateType } from '~/packages/common/SelectVariants/DocumentTemplateType/constants/DocumentTemplateType';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormMutation, FormValues } from '~/packages/specific/DocumentTemplate/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/DocumentTemplate/components/FormMutation/zodResolver';
 import { createDocumentTemplate } from '~/packages/specific/DocumentTemplate/services/createDocumentTemplate';
@@ -21,7 +21,7 @@ import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin] });
+  await isCanAccessRoute(isCanCreateDocumentTemplate);
   const t = i18next.t;
   try {
     const { errors, data } = await getValidatedFormData<FormValues>(
@@ -49,6 +49,12 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
 };
 
 const FormCreateUid = 'FORM_CREATE';
+
+export const loader = async () => {
+  await isCanAccessRoute(isCanCreateDocumentTemplate);
+  return json({});
+};
+
 export const Page = () => {
   const navigate = useNavigate();
   const { t } = useTranslation(['document_template']);

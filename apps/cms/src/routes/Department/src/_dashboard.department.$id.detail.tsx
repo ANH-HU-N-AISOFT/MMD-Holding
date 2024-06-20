@@ -6,6 +6,7 @@ import {
   ActionResponse as ActionDeleteDepartmentResponse,
   action as actionDeleteDepartment,
 } from './_dashboard.department.$id.delete';
+import { isCanDeleteDepartment, isCanEditDepartment, isCanReadDepartment } from './utils/Is';
 import { Footer } from '~/components/Detail/Footer';
 import { Header } from '~/components/Detail/Header';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
@@ -20,7 +21,6 @@ import {
   useNavigate,
 } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Detail } from '~/packages/specific/Department/components/Detail/Detail';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartment } from '~/packages/specific/Department/services/getDepartment';
@@ -31,7 +31,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ department: Department }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] });
+  await isCanAccessRoute(isCanReadDepartment);
   if (!params['id']) {
     return redirect('/department', {});
   }
@@ -112,12 +112,12 @@ export const Page = () => {
         <div className="flex-1 mb-4">
           <Detail department={loaderData.info?.department} />
         </div>
-        {isCanShow({ accept: [Role.SuperAdmin] }) && (
-          <Footer
-            onDelete={() => setIsOpenModalDeleteDepartment(loaderData.info?.department.id ?? false)}
-            onEdit={() => navigate(`/department/${loaderData.info?.department.id}/edit`)}
-          />
-        )}
+        <Footer
+          onDelete={() => setIsOpenModalDeleteDepartment(loaderData.info?.department.id ?? false)}
+          onEdit={() => navigate(`/department/${loaderData.info?.department.id}/edit`)}
+          deletable={isCanShow(isCanDeleteDepartment)}
+          editable={isCanShow(isCanEditDepartment)}
+        />
       </div>
       <ModalConfirmDelete
         open={!!isOpenModalDeleteDepartment}

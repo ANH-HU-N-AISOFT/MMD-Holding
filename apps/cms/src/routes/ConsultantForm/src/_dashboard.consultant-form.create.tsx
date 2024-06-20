@@ -2,6 +2,7 @@ import { notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isCanCreateConsultantForm } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
@@ -19,7 +20,6 @@ import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { FormStatus } from '~/packages/common/SelectVariants/FormStatus/constants/FormStatus';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { CourseRoadmapOrCombo } from '~/packages/specific/ConsultantForm/components/FormMutation/constants';
 import { FormMutation, FormValues } from '~/packages/specific/ConsultantForm/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/ConsultantForm/components/FormMutation/zodResolver';
@@ -34,7 +34,7 @@ import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant] });
+  await isCanAccessRoute(isCanCreateConsultantForm);
   const t = i18next.t;
   try {
     const { errors, data } = await getValidatedFormData<FormValues>(
@@ -70,7 +70,7 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<{ student: Student | undefined }>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant] });
+  await isCanAccessRoute(isCanCreateConsultantForm);
   try {
     const { studentId } = createUrlSearchParamsUtils.decrypt(request);
     if (studentId) {

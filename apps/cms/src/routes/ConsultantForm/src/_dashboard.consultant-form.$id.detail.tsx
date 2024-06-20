@@ -6,6 +6,7 @@ import {
   ActionResponse as ActionDeleteConsultantFormResponse,
   action as actionDeleteConsultantForm,
 } from './_dashboard.consultant-form.$id.delete';
+import { isCanDeleteConsultantForm, isCanEditConsultantForm, isCanReadConsultantForm } from './utils/Is';
 import { Footer } from '~/components/Detail/Footer';
 import { Header } from '~/components/Detail/Header';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
@@ -20,7 +21,6 @@ import {
   useNavigate,
 } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Detail } from '~/packages/specific/ConsultantForm/components/Detail/Detail';
 import { ConsultantForm } from '~/packages/specific/ConsultantForm/models/ConsultantForm';
 import { getConsultantForm } from '~/packages/specific/ConsultantForm/services/getConsultantForm';
@@ -31,7 +31,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ consultantForm: ConsultantForm }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Consultant, Role.Sale] });
+  await isCanAccessRoute(isCanReadConsultantForm);
   if (!params['id']) {
     return redirect('/consultant-form', {});
   }
@@ -114,12 +114,12 @@ export const Page = () => {
         <div className="flex-1 mb-4">
           <Detail consultantForm={loaderData.info?.consultantForm} />
         </div>
-        {isCanShow({ accept: [Role.SuperAdmin, Role.Consultant] }) && (
-          <Footer
-            onDelete={() => setIsOpenModalDeleteConsultantForm(loaderData.info?.consultantForm.id ?? false)}
-            onEdit={() => navigate(`/consultant-form/${loaderData.info?.consultantForm.id}/edit`)}
-          />
-        )}
+        <Footer
+          onDelete={() => setIsOpenModalDeleteConsultantForm(loaderData.info?.consultantForm.id ?? false)}
+          onEdit={() => navigate(`/consultant-form/${loaderData.info?.consultantForm.id}/edit`)}
+          deletable={isCanShow(isCanDeleteConsultantForm)}
+          editable={isCanShow(isCanEditConsultantForm)}
+        />
       </div>
       <ModalConfirmDelete
         open={!!isOpenModalDeleteConsultantForm}

@@ -3,6 +3,7 @@ import { Button, Result, notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isCanEditPromotion } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
@@ -20,7 +21,6 @@ import {
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Edit } from '~/packages/specific/Promotion/components/Edit/Edit';
 import { FormValues } from '~/packages/specific/Promotion/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Promotion/components/FormMutation/zodResolver';
@@ -35,7 +35,7 @@ import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidate
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request, params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin] });
+  await isCanAccessRoute(isCanEditPromotion);
   if (!params['id']) {
     return redirect('/promotion', {});
   }
@@ -78,7 +78,7 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
 
 type LoaderResponse = SimpleResponse<{ promotion: Promotion }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin] });
+  await isCanAccessRoute(isCanEditPromotion);
   if (!params['id']) {
     return redirect('/promotion', {});
   }

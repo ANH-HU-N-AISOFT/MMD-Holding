@@ -30,6 +30,7 @@ i18n
       'consultant_form',
       'trial_request',
       'document_template',
+      'registration_form',
     ],
     supportedLngs: ['en'],
     fallbackNS: 'en',

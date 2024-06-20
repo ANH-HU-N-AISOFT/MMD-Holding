@@ -6,6 +6,7 @@ import {
   ActionResponse as ActionDeleteStudentResponse,
   action as actionDeleteStudent,
 } from './_dashboard.student.$id.delete';
+import { isCanDeleteStudent, isCanEditStudent, isCanReadStudent } from './utils/Is';
 import { Footer } from '~/components/Detail/Footer';
 import { Header } from '~/components/Detail/Header';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
@@ -20,13 +21,15 @@ import {
   useNavigate,
 } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { createUrlSearchParamsUtils as createAppointmentUrlSearchParamsUtils } from '~/packages/specific/Appointment/utils/createUrlSearchParamsUtils';
 import { createUrlSearchParamsUtils as createConsultantFormUrlSearchParamsUtils } from '~/packages/specific/ConsultantForm/utils/createUrlSearchParamsUtils';
 import { Detail } from '~/packages/specific/Student/components/Detail/Detail';
 import { Student } from '~/packages/specific/Student/models/Student';
 import { getStudent } from '~/packages/specific/Student/services/getStudent';
 import { createUrlSearchParamsUtils as createTrialUrlSearchParamsUtils } from '~/packages/specific/TrialRequest/utils/createUrlSearchParamsUtils';
+import { isCanCreateAppointment } from '~/routes/Appointment/src/utils/Is';
+import { isCanCreateConsultantForm } from '~/routes/ConsultantForm/src/utils/Is';
+import { isCanCreateTrialRequest } from '~/routes/TrialRequest/src/utils/Is';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
@@ -34,7 +37,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ student: Student }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] });
+  await isCanAccessRoute(isCanReadStudent);
   if (!params['id']) {
     return redirect('/student', {});
   }
@@ -114,50 +117,50 @@ export const Page = () => {
         <div className="flex-1 mb-4">
           <Detail student={loaderData.info?.student} />
         </div>
-        {isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }) && (
-          <Footer
-            onDelete={() => setIsOpenModalDeleteStudent(loaderData.info?.student.id ?? false)}
-            onEdit={() => navigate(`/student/${loaderData.info?.student.id}/edit`)}
-            moreActions={[
-              {
-                key: '1',
-                icon: <ScheduleOutlined />,
-                label: t('student:book_appointment'),
-                hidden: !isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }),
-                onClick: () => {
-                  const createSearchParams = createAppointmentUrlSearchParamsUtils.encrypt({
-                    studentId: loaderData.info?.student.id,
-                  });
-                  navigate(`/appointment/create${createSearchParams}`);
-                },
+        <Footer
+          onDelete={() => setIsOpenModalDeleteStudent(loaderData.info?.student.id ?? false)}
+          onEdit={() => navigate(`/student/${loaderData.info?.student.id}/edit`)}
+          deletable={isCanShow(isCanDeleteStudent)}
+          editable={isCanShow(isCanEditStudent)}
+          moreActions={[
+            {
+              key: '1',
+              icon: <ScheduleOutlined />,
+              label: t('student:book_appointment'),
+              hidden: !isCanShow(isCanCreateAppointment),
+              onClick: () => {
+                const createSearchParams = createAppointmentUrlSearchParamsUtils.encrypt({
+                  studentId: loaderData.info?.student.id,
+                });
+                navigate(`/appointment/create${createSearchParams}`);
               },
-              {
-                key: '2',
-                icon: <QuestionCircleOutlined />,
-                label: t('student:create_consultant'),
-                hidden: !isCanShow({ accept: [Role.SuperAdmin, Role.Consultant] }),
-                onClick: () => {
-                  const createSearchParams = createConsultantFormUrlSearchParamsUtils.encrypt({
-                    studentId: loaderData.info?.student.id,
-                  });
-                  navigate(`/consultant-form/create${createSearchParams}`);
-                },
+            },
+            {
+              key: '2',
+              icon: <QuestionCircleOutlined />,
+              label: t('student:create_consultant'),
+              hidden: !isCanShow(isCanCreateConsultantForm),
+              onClick: () => {
+                const createSearchParams = createConsultantFormUrlSearchParamsUtils.encrypt({
+                  studentId: loaderData.info?.student.id,
+                });
+                navigate(`/consultant-form/create${createSearchParams}`);
               },
-              {
-                key: '3',
-                icon: <ExperimentOutlined />,
-                label: t('student:create_trial'),
-                hidden: !isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] }),
-                onClick: () => {
-                  const createSearchParams = createTrialUrlSearchParamsUtils.encrypt({
-                    studentId: loaderData.info?.student.id,
-                  });
-                  navigate(`/trial-request/create${createSearchParams}`);
-                },
+            },
+            {
+              key: '3',
+              icon: <ExperimentOutlined />,
+              label: t('student:create_trial'),
+              hidden: !isCanShow(isCanCreateTrialRequest),
+              onClick: () => {
+                const createSearchParams = createTrialUrlSearchParamsUtils.encrypt({
+                  studentId: loaderData.info?.student.id,
+                });
+                navigate(`/trial-request/create${createSearchParams}`);
               },
-            ]}
-          />
-        )}
+            },
+          ]}
+        />
       </div>
       <ModalConfirmDelete
         open={!!isOpenModalDeleteStudent}

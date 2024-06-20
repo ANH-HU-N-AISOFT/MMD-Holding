@@ -6,6 +6,7 @@ import {
   ActionResponse as ActionDeleteTrialResponse,
   action as actionDeleteTrial,
 } from './_dashboard.trial-request.$id.delete';
+import { isCanDeleteTrialRequest, isCanEditTrialRequest, isCanReadTrialRequest } from './utils/Is';
 import { Footer } from '~/components/Detail/Footer';
 import { Header } from '~/components/Detail/Header';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
@@ -20,7 +21,6 @@ import {
   useNavigate,
 } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Detail } from '~/packages/specific/TrialRequest/components/Detail/Detail';
 import { TrialRequest } from '~/packages/specific/TrialRequest/models/TrialRequest';
 import { getTrialRequest } from '~/packages/specific/TrialRequest/services/getTrialRequest';
@@ -31,7 +31,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ trialRequest: TrialRequest }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale, Role.Lecturer] });
+  await isCanAccessRoute(isCanReadTrialRequest);
   if (!params['id']) {
     return redirect('/trial-request', {});
   }
@@ -111,12 +111,12 @@ export const Page = () => {
         <div className="flex-1 mb-4">
           <Detail trialRequest={loaderData.info?.trialRequest} />
         </div>
-        {isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant] }) && (
-          <Footer
-            onDelete={() => setIsOpenModalDeleteTrial(loaderData.info?.trialRequest.id ?? false)}
-            onEdit={() => navigate(`/trial-request/${loaderData.info?.trialRequest.id}/edit`)}
-          />
-        )}
+        <Footer
+          onDelete={() => setIsOpenModalDeleteTrial(loaderData.info?.trialRequest.id ?? false)}
+          onEdit={() => navigate(`/trial-request/${loaderData.info?.trialRequest.id}/edit`)}
+          deletable={isCanShow(isCanDeleteTrialRequest)}
+          editable={isCanShow(isCanEditTrialRequest)}
+        />
       </div>
       <ModalConfirmDelete
         open={!!isOpenModalDeleteTrial}

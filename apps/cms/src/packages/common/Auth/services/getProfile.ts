@@ -1,5 +1,5 @@
 import { Employee } from '~/packages/specific/Employee/models/Employee';
 
-export type ResponseSuccess = Employee;
+export type GetProfileResponseSuccess = Employee;
 
-export const endpoint = '/profile';
+export const getProfileEndpoint = '/profile';

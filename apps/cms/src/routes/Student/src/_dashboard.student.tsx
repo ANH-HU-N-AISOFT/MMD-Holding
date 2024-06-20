@@ -11,13 +11,20 @@ import {
   ActionResponse as ActionResetPasswordResponse,
   action as actionResetPassword,
 } from './_dashboard.student.$id.reset-password';
+import {
+  isCanCreateStudent,
+  isCanDeleteStudent,
+  isCanEditStudent,
+  isCanExportStudent,
+  isCanImportStudent,
+  isCanReadStudent,
+} from './utils/Is';
 import { Modal } from '~/components/AntCustom/Modal';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { createUrlSearchParamsUtils } from '~/packages/specific/Appointment/utils/createUrlSearchParamsUtils';
 import { Import, ImportActions } from '~/packages/specific/Student/components/Import/Import';
 import { FormSearchNFilter } from '~/packages/specific/Student/components/Listing/FormSearchNFilter';
@@ -28,6 +35,10 @@ import { Student } from '~/packages/specific/Student/models/Student';
 import { getStudents } from '~/packages/specific/Student/services/getStudents';
 import { ListingSearchParams } from '~/packages/specific/Student/types/ListingSearchParams';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Student/utils/lisitngUrlSearchParamsUtils';
+import { isCanCreateAppointment } from '~/routes/Appointment/src/utils/Is';
+import { isCanCreateConsultantForm } from '~/routes/ConsultantForm/src/utils/Is';
+import { isCanReadDepartment } from '~/routes/Department/src/utils/Is';
+import { isCanCreateTrialRequest } from '~/routes/TrialRequest/src/utils/Is';
 import { fetcherFormData } from '~/utils/functions/formData/fetcherFormData';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
@@ -38,7 +49,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Student>>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] });
+  await isCanAccessRoute(isCanReadStudent);
   const t = i18next.t;
   const { page = 1, search, department } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
@@ -202,9 +213,9 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
-          importable={isCanShow({ accept: [Role.SuperAdmin] })}
-          exportable={isCanShow({ accept: [Role.SuperAdmin] })}
+          creatable={isCanShow(isCanCreateStudent)}
+          importable={isCanShow(isCanImportStudent)}
+          exportable={isCanShow(isCanExportStudent)}
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/student/create')}
@@ -222,13 +233,13 @@ export const Page = () => {
           onSearch={value => handleRequest({ page: 1, search: value })}
         />
         <Table
-          deletable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
-          editable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
-          passwordResetable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
-          departmentViewable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
-          appointmentBookable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] })}
-          consultantCreatable={isCanShow({ accept: [Role.SuperAdmin, Role.Consultant] })}
-          trialCreatable={isCanShow({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant] })}
+          deletable={isCanShow(isCanDeleteStudent)}
+          editable={isCanShow(isCanEditStudent)}
+          passwordResetable={isCanShow(isCanEditStudent)}
+          departmentViewable={isCanShow(isCanReadDepartment)}
+          appointmentBookable={isCanShow(isCanCreateAppointment)}
+          consultantCreatable={isCanShow(isCanCreateConsultantForm)}
+          trialCreatable={isCanShow(isCanCreateTrialRequest)}
           loading={isFetchingList}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}

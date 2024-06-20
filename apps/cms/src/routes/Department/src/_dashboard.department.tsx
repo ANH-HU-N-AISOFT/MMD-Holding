@@ -8,6 +8,14 @@ import {
   ActionResponse as ActionDeleteDepartmentResponse,
   action as actionDeleteDepartment,
 } from './_dashboard.department.$id.delete';
+import {
+  isCanCreateDepartment,
+  isCanDeleteDepartment,
+  isCanEditDepartment,
+  isCanExportDepartment,
+  isCanImportDepartment,
+  isCanReadDepartment,
+} from './utils/Is';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
@@ -16,7 +24,6 @@ import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, use
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
 import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Import, ImportActions } from '~/packages/specific/Department/components/Import/Import';
 import { FormSearchNFilter } from '~/packages/specific/Department/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Department/components/Listing/Header';
@@ -35,7 +42,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Department>>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin, Role.Admin, Role.Consultant, Role.Sale] });
+  await isCanAccessRoute(isCanReadDepartment);
   const t = i18next.t;
   const { page = 1, search, businessStatus, layout } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
@@ -176,8 +183,8 @@ export const Page = () => {
             onEdit={record => navigate(`/department/${record.id}/edit`)}
             onView={record => navigate(`/department/${record.id}/detail`)}
             onViewPresentDepartment={record => window.open(`/employee/${record.unitManager?.id}/detail`)}
-            deletable={isCanShow({ accept: [Role.SuperAdmin] })}
-            editable={isCanShow({ accept: [Role.SuperAdmin] })}
+            deletable={isCanShow(isCanDeleteDepartment)}
+            editable={isCanShow(isCanEditDepartment)}
             searchParams={paramsInUrl}
           />
         </BoxFields>
@@ -196,8 +203,8 @@ export const Page = () => {
         onView={record => navigate(`/department/${record.id}/detail`)}
         onViewManageDepartment={record => window.open(`/department/${record.managementUnit?.id}/detail`)}
         onViewPresentDepartment={record => window.open(`/employee/${record.unitManager?.employeeId}/detail`)}
-        deletable={isCanShow({ accept: [Role.SuperAdmin] })}
-        editable={isCanShow({ accept: [Role.SuperAdmin] })}
+        deletable={isCanShow(isCanDeleteDepartment)}
+        editable={isCanShow(isCanEditDepartment)}
       />
     );
   };
@@ -206,9 +213,9 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.SuperAdmin] })}
-          importable={isCanShow({ accept: [Role.SuperAdmin] })}
-          exportable={isCanShow({ accept: [Role.SuperAdmin] })}
+          creatable={isCanShow(isCanCreateDepartment)}
+          importable={isCanShow(isCanImportDepartment)}
+          exportable={isCanShow(isCanExportDepartment)}
           isExporting={isExporting}
           onExport={handleExport}
           onCreate={() => navigate('/department/create')}

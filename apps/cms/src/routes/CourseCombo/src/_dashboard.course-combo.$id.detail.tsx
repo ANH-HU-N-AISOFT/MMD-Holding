@@ -6,6 +6,7 @@ import {
   ActionResponse as ActionDeleteCourseResponse,
   action as actionDeleteCourse,
 } from './_dashboard.course-combo.$id.delete';
+import { isCanDeleteCourseCombo, isCanEditCourseCombo, isCanReadCourseCombo } from './utils/Is';
 import { Footer } from '~/components/Detail/Footer';
 import { Header } from '~/components/Detail/Header';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
@@ -20,7 +21,6 @@ import {
   useNavigate,
 } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Detail } from '~/packages/specific/CourseCombo/components/Detail/Detail';
 import { CourseCombo } from '~/packages/specific/CourseCombo/models/CourseCombo';
 import { getCourseCombo } from '~/packages/specific/CourseCombo/services/getCourseCombo';
@@ -31,7 +31,7 @@ import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 type LoaderResponse = SimpleResponse<{ courseCombo: CourseCombo }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] });
+  await isCanAccessRoute(isCanReadCourseCombo);
   if (!params['id']) {
     return redirect('/course-combo', {});
   }
@@ -111,12 +111,12 @@ export const Page = () => {
         <div className="flex-1 mb-4">
           <Detail courseCombo={loaderData.info?.courseCombo} />
         </div>
-        {isCanShow({ accept: [Role.SuperAdmin] }) && (
-          <Footer
-            onDelete={() => setIsOpenModalDeleteCourse(loaderData.info?.courseCombo.id ?? false)}
-            onEdit={() => navigate(`/course-combo/${loaderData.info?.courseCombo.id}/edit`)}
-          />
-        )}
+        <Footer
+          onDelete={() => setIsOpenModalDeleteCourse(loaderData.info?.courseCombo.id ?? false)}
+          onEdit={() => navigate(`/course-combo/${loaderData.info?.courseCombo.id}/edit`)}
+          deletable={isCanShow(isCanDeleteCourseCombo)}
+          editable={isCanShow(isCanEditCourseCombo)}
+        />
       </div>
       <ModalConfirmDelete
         open={!!isOpenModalDeleteCourse}

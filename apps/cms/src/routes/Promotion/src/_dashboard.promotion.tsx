@@ -7,12 +7,19 @@ import {
   ActionResponse as ActionDeletePromotionResponse,
   action as actionDeletePromotion,
 } from './_dashboard.promotion.$id.delete';
+import {
+  isCanCreatePromotion,
+  isCanDeletePromotion,
+  isCanEditPromotion,
+  isCanExportPromotion,
+  isCanImportPromotion,
+  isCanReadPromotion,
+} from './utils/Is';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormSearchNFilter } from '~/packages/specific/Promotion/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Promotion/components/Listing/Header';
 import { Table } from '~/packages/specific/Promotion/components/Listing/Table';
@@ -29,7 +36,7 @@ import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalid
 export const loader = async ({
   request,
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Promotion>>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin], not: [Role.SuperAdmin] });
+  await isCanAccessRoute(isCanReadPromotion);
   const t = i18next.t;
   const { search, page = 1, endDate, promotionType, startDate, status } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
@@ -99,17 +106,6 @@ export const Page = () => {
     return exportPromotionsFetcher.state === 'loading' || exportPromotionsFetcher.state === 'submitting';
   }, [exportPromotionsFetcher]);
 
-  const handleExport = () => {
-    const searchParamsToLoader = lisitngUrlSearchParamsUtils.encrypt({ ...paramsInUrl });
-    exportPromotionsFetcher.submit(
-      {},
-      {
-        method: 'POST',
-        action: '/promotion/export' + searchParamsToLoader,
-      },
-    );
-  };
-
   useEffect(() => {
     if (exportPromotionsFetcher.data && exportPromotionsFetcher.state === 'idle') {
       const response = exportPromotionsFetcher.data as ActionDeletePromotionResponse;
@@ -158,13 +154,13 @@ export const Page = () => {
     <>
       <div className="flex flex-col h-full">
         <Header
-          creatable={isCanShow({ accept: [Role.SuperAdmin] })}
-          importable={false}
-          exportable={false}
+          creatable={isCanShow(isCanCreatePromotion)}
+          importable={isCanShow(isCanImportPromotion)}
+          exportable={isCanShow(isCanExportPromotion)}
           isExporting={isExporting}
-          onExport={handleExport}
+          onExport={() => notification.info({ message: 'Chức năng đang phát triển' })}
           onCreate={() => navigate('/promotion/create')}
-          onImport={() => undefined}
+          onImport={() => notification.info({ message: 'Chức năng đang phát triển' })}
         />
         <FormSearchNFilter
           containerClassName="justify-end mb-1"
@@ -189,8 +185,8 @@ export const Page = () => {
           onSearch={value => handleRequest({ page: 1, search: value })}
         />
         <Table
-          deletable={isCanShow({ accept: [Role.SuperAdmin] })}
-          editable={isCanShow({ accept: [Role.SuperAdmin] })}
+          deletable={isCanShow(isCanDeletePromotion)}
+          editable={isCanShow(isCanEditPromotion)}
           loading={isFetchingList}
           currentPage={data.page}
           pageSize={data.info.pagination.pageSize}

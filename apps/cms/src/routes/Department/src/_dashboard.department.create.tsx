@@ -2,13 +2,13 @@ import { notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isCanCreateDepartment } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { FormMutation, FormValues } from '~/packages/specific/Department/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Department/components/FormMutation/zodResolver';
 import { createDepartment } from '~/packages/specific/Department/services/createDepartment';
@@ -19,7 +19,7 @@ import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin] });
+  await isCanAccessRoute(isCanCreateDepartment);
   const t = i18next.t;
   try {
     const { errors, data } = await getValidatedFormData<FormValues>(
@@ -52,8 +52,8 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
 };
 
 export const loader = async () => {
-  await isCanAccessRoute({ accept: [Role.SuperAdmin] });
-  return null;
+  await isCanAccessRoute(isCanCreateDepartment);
+  return json({});
 };
 
 const FormCreateUid = 'FORM_CREATE';
