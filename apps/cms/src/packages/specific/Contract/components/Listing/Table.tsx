@@ -1,5 +1,12 @@
-import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button, Typography } from 'antd';
+import {
+  CloseOutlined,
+  DeleteOutlined,
+  DownloadOutlined,
+  EditOutlined,
+  EyeOutlined,
+  SyncOutlined,
+} from '@ant-design/icons';
+import { Button, Tag, Typography } from 'antd';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import Highlighter from 'react-highlight-words';
@@ -102,10 +109,10 @@ export const Table = ({
       title: t('contract:student'),
       render: (_, record) => {
         return (
-          <Typography.Link onClick={() => onView?.(record)}>
+          <div>
             <Typography.Paragraph className="text-[inherit] !mb-1">{record.studentName}</Typography.Paragraph>
             <Typography.Paragraph className="text-[inherit] !mb-0">{record.studentPhone}</Typography.Paragraph>
-          </Typography.Link>
+          </div>
         );
       },
     },
@@ -122,10 +129,26 @@ export const Table = ({
       },
     },
     {
+      width: 210,
+      title: t('contract:organization'),
+      render: (_, record) => {
+        return record.organizationName;
+      },
+    },
+    {
       width: 180,
       title: t('contract:created_at'),
       render: (_, record) => {
         return record.createdAt ? dayjs(record.createdAt).format('DD/MM/YYYY') : null;
+      },
+    },
+    {
+      width: 160,
+      fixed: 'right',
+      align: 'center',
+      title: t('contract:status'),
+      render: () => {
+        return <Tag color="success">{t('contract:active')}</Tag>;
       },
     },
     {
@@ -148,6 +171,24 @@ export const Table = ({
                 key: '2',
                 label: t('contract:view'),
                 icon: <EyeOutlined />,
+                onClick: () => onView?.(record),
+              },
+              {
+                key: '6',
+                label: t('contract:download'),
+                icon: <DownloadOutlined />,
+                onClick: () => onView?.(record),
+              },
+              {
+                key: '4',
+                label: t('contract:extend'),
+                icon: <SyncOutlined />,
+                onClick: () => onView?.(record),
+              },
+              {
+                key: '5',
+                label: t('contract:cancel'),
+                icon: <CloseOutlined />,
                 onClick: () => onView?.(record),
               },
               {

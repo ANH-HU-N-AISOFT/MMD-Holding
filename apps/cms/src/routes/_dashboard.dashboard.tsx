@@ -1,10 +1,9 @@
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
-import { FormMutation } from '~/packages/specific/Contract/components/FormMutation/FormMutation';
 
 export const Page = () => {
   return (
     <div>
-      <FormMutation isSubmiting={false} uid="" defaultValues={{}} />
+      <h1 className="text-2xl">Tính năng đang phát triển</h1>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { FormValues } from '../components/FormMutation/FormMutation';
 export type RegistrationForm = FormValues & {
   id: string;
   createdAt: string;
+  organization?: string;
 };
 
 // export interface RegistrationForm {

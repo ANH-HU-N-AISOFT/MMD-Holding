@@ -5,6 +5,7 @@ import { Field, useDeepCompareEffect } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
 import { DateRangePicker } from '~/components/AntCustom/DatePicker/DatePicker';
+import { SelectSingle } from '~/components/AntCustom/Select';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
@@ -70,6 +71,9 @@ export const FormSearchNFilter = ({
         form: (
           <Form method="GET" id={UID} onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-3">
+              <Field label={t('contract:organization')}>
+                <SelectSingle placeholder={t('contract:organization')} options={[]} />
+              </Field>
               <Field label={t('contract:created_at')}>
                 <DateRangePicker
                   className="w-full"

@@ -1,6 +1,7 @@
 import { FormValues } from '../components/FormMutation/FormMutation';
 import { RegistrationForm } from '../models/RegistrationForm';
 import { add, registrationForms } from './data';
+import { getSession } from '~/packages/common/Auth/sessionStorage';
 
 export interface CreateRegistrationForm {
   data: FormValues;
@@ -15,6 +16,7 @@ export const createRegistrationForm = async ({ data }: CreateRegistrationForm) =
     ...data,
     id: (maxId + 1).toString(),
     createdAt: new Date().toISOString(),
+    organization: getSession()?.profile?.organizationName,
   };
 
   add(newDocumentTemplate);

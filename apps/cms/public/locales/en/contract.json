@@ -16,7 +16,7 @@
   "create_failure": "Tạo thất bại",
   "update_failure": "Cập nhật thất bại",
   "update_success": "Cập nhật thành công",
-  "search_placeholder": "Nhập tên số hợp đồng, tên, số điện thoại học viên hoặc người giám hộ",
+  "search_placeholder": "Nhập số hợp đồng, tên, số điện thoại học viên hoặc người giám hộ",
   "not_found": "Không tìm thấy hợp đồng",
   "back_to_list": "Quay lại danh sách",
 
@@ -43,5 +43,11 @@
   "prev_month": "Tháng trước",
   "contracts": "Danh sách hợp đồng",
   "contract_with_name": "Hợp đồng - {{ name }}",
-  "add_contract": "Thêm hợp đồng"
+  "add_contract": "Thêm hợp đồng",
+  "status": "Trạng thái",
+  "active": "Còn hiệu lực",
+  "inactive": "Hết hiệu lực",
+  "extend": "Gia hạn hợp đồng",
+  "cancel": "Huỷ hợp đồng",
+  "download": "Tải xuống hợp đồng"
 }

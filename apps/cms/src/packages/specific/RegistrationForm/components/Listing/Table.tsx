@@ -1,5 +1,5 @@
-import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button, Typography } from 'antd';
+import { DeleteOutlined, DownloadOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
+import { Button, Tag, Typography } from 'antd';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import Highlighter from 'react-highlight-words';
@@ -107,10 +107,10 @@ export const Table = ({
       title: t('registration_form:student'),
       render: (_, record) => {
         return (
-          <Typography.Link onClick={() => onView?.(record)}>
+          <div>
             <Typography.Paragraph className="text-[inherit] !mb-1">{record.studentName}</Typography.Paragraph>
             <Typography.Paragraph className="text-[inherit] !mb-0">{record.studentPhone}</Typography.Paragraph>
-          </Typography.Link>
+          </div>
         );
       },
     },
@@ -149,10 +149,26 @@ export const Table = ({
       },
     },
     {
+      width: 210,
+      title: t('registration_form:organization'),
+      render: (_, record) => {
+        return record.organization;
+      },
+    },
+    {
       width: 180,
       title: t('registration_form:created_at'),
       render: (_, record) => {
         return record.createdAt ? dayjs(record.createdAt).format('DD/MM/YYYY') : null;
+      },
+    },
+    {
+      width: 160,
+      fixed: 'right',
+      align: 'center',
+      title: t('registration_form:status'),
+      render: () => {
+        return <Tag color="success">{t('registration_form:active')}</Tag>;
       },
     },
     {
@@ -175,6 +191,12 @@ export const Table = ({
                 key: '2',
                 label: t('registration_form:view'),
                 icon: <EyeOutlined />,
+                onClick: () => onView?.(record),
+              },
+              {
+                key: '6',
+                label: t('registration_form:download'),
+                icon: <DownloadOutlined />,
                 onClick: () => onView?.(record),
               },
               {

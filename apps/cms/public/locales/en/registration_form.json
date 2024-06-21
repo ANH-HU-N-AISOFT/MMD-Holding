@@ -16,7 +16,7 @@
   "create_failure": "Tạo thất bại",
   "update_failure": "Cập nhật thất bại",
   "update_success": "Cập nhật thành công",
-  "search_placeholder": "Nhập tên số phiếu đăng ký, tên hoặc số điện thoại học viên",
+  "search_placeholder": "Nhập số phiếu đăng ký, tên hoặc số điện thoại học viên",
   "not_found": "Không tìm thấy phiếu đăng ký",
   "back_to_list": "Quay lại danh sách",
 
@@ -72,5 +72,10 @@
   "add_registration_form": "Thêm phiếu đăng ký",
   "registration_forms": "Danh sách phiếu đăng ký",
   "created_at": "Ngày đăng ký",
-  "registration_form_with_name": "Phiếu đăng ký - {{ name }}"
+  "registration_form_with_name": "Phiếu đăng ký - {{ name }}",
+  "organization": "Cơ sở",
+  "status": "Trạng thái",
+  "active": "Còn hiệu lực",
+  "inactive": "Hết hiệu lực",
+  "download": "Tải xuống phiếu đăng ký"
 }
