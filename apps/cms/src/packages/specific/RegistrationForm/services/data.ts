@@ -24,12 +24,12 @@ const defaultRecords: RegistrationForm[] = [
     notifyResultToParent: true,
     courses: [
       {
-        id: '7',
-        name: 'Khóa IELTS Advance (6.5 - 7.0+)',
-        numberSession: 30,
+        id: '664614013abde5af8e274801',
+        name: 'Lộ trình học lên B1',
+        numberSession: 10,
       },
     ],
-    totalNumberSessions: 30,
+    totalNumberSessions: 10,
     originPrice: 10000000,
     salePrice: 9000000,
     promotion: 1000000,
@@ -81,8 +81,8 @@ const defaultRecords: RegistrationForm[] = [
     notifyResultToParent: false,
     courses: [
       {
-        id: '1',
-        name: 'Khóa Basic (A0 - A1)',
+        id: '664dfe8df7abfe8e86d69498',
+        name: 'Khóa nền cơ bản',
         numberSession: 20,
       },
     ],
@@ -138,9 +138,9 @@ const defaultRecords: RegistrationForm[] = [
     notifyResultToParent: true,
     courses: [
       {
-        id: '5',
-        name: 'Khóa Intermediate (3.5 - 5.0)',
-        numberSession: 25,
+        id: '6646130f3abde5af8e2747da',
+        name: 'Lộ trình giao tiếp từ con số 0',
+        numberSession: 10,
       },
     ],
     totalNumberSessions: 25,

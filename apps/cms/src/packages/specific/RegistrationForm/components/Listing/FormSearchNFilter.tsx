@@ -5,11 +5,11 @@ import { Field, useDeepCompareEffect } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
 import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
-import { SelectMultiple } from '~/components/AntCustom/Select';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
+import { SelectCourseRoadmaps } from '~/packages/common/SelectVariants/SelectCourseRoadmaps';
 
 export type FormFilterValues = Pick<ListingSearchParams, 'courseIds' | 'createdAt'>;
 
@@ -72,54 +72,13 @@ export const FormSearchNFilter = ({
           <Form method="GET" id={UID} onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-3">
               <Field label={t('registration_form:course')}>
-                <SelectMultiple
+                <SelectCourseRoadmaps
                   placeholder={t('registration_form:course')}
-                  value={formValues.courseIds?.map(item => item.toString())}
+                  courseRoadmaps={formValues.courseIds?.map(item => item.toString())}
+                  label={courseRoadmap => `${courseRoadmap.name} (${courseRoadmap.code})`}
                   onChange={value => {
                     setValue('courseIds', value);
                   }}
-                  options={[
-                    {
-                      label: 'Khóa Basic (A0 - A1)',
-                      value: '1',
-                      rawData: { numberSessions: 20, name: 'Khóa Basic (A0 - A1)' },
-                    },
-                    {
-                      label: 'Khóa Speed Up (A1 - A2)',
-                      value: '2',
-                      rawData: { numberSessions: 20, name: 'Khóa Speed Up (A1 - A2)' },
-                    },
-                    {
-                      label: 'Khóa Communication (A2- A2+)',
-                      value: '3',
-                      rawData: { numberSessions: 20, name: 'Khóa Communication (A2- A2+)' },
-                    },
-                    {
-                      label: 'Khóa Pre Ielts (A2+ - 3.5)',
-                      value: '4',
-                      rawData: { numberSessions: 25, name: 'Khóa Pre Ielts (A2+ - 3.5)' },
-                    },
-                    {
-                      label: 'Khóa Intermediate (3.5 - 5.0)',
-                      value: '5',
-                      rawData: { numberSessions: 25, name: 'Khóa Intermediate (3.5 - 5.0)' },
-                    },
-                    {
-                      label: 'Khóa Upper IELTS (5.0 - 6.5)',
-                      value: '6',
-                      rawData: { numberSessions: 25, name: 'Khóa Upper IELTS (5.0 - 6.5)' },
-                    },
-                    {
-                      label: 'Khóa IELTS Advance (6.5 - 7.0+)',
-                      value: '7',
-                      rawData: { numberSessions: 30, name: 'Khóa IELTS Advance (6.5 - 7.0+)' },
-                    },
-                    {
-                      label: 'Arena Summit (Tăng 0,5 band)',
-                      value: '8',
-                      rawData: { numberSessions: 15, name: 'Arena Summit (Tăng 0,5 band)' },
-                    },
-                  ]}
                 />
               </Field>
               <Field label={t('registration_form:created_at')}>

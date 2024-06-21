@@ -14,9 +14,17 @@ interface Props {
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
+  label?: (courseRoadmap: CourseRoadmap) => string;
 }
 
-export const SelectCourseRoadmaps = ({ disabled, courseRoadmaps, allowClear = true, placeholder, onChange }: Props) => {
+export const SelectCourseRoadmaps = ({
+  disabled,
+  courseRoadmaps,
+  allowClear = true,
+  placeholder,
+  onChange,
+  label,
+}: Props) => {
   const { t } = useTranslation(['course_roadmap']);
 
   return (
@@ -35,9 +43,10 @@ export const SelectCourseRoadmaps = ({ disabled, courseRoadmaps, allowClear = tr
         return response.items;
       }}
       transformToOption={courseRoadmap => {
+        const display = label ? label(courseRoadmap) : courseRoadmap['name'];
         return {
-          label: courseRoadmap['name'],
-          searchValue: courseRoadmap['name'],
+          label: display,
+          searchValue: display,
           value: courseRoadmap['id'],
           rawData: courseRoadmap,
         };

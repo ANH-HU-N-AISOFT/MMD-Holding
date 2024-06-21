@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { Field } from 'reactjs';
 import { calculateSalePrice } from '../../../utils/calculateSalePrice';
 import { FormValues } from '../FormMutation';
-import { SelectMultiple, SelectSingle } from '~/components/AntCustom/Select';
+import { SelectSingle } from '~/components/AntCustom/Select';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectPaymentMethod } from '~/packages/common/SelectVariants/PaymentMethod/SelectPaymentMethod';
+import { SelectCourseRoadmaps } from '~/packages/common/SelectVariants/SelectCourseRoadmaps';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 import { currencyParser } from '~/utils/functions/currency/currencyParser';
 
@@ -32,52 +33,14 @@ export const CourseInformation = ({ form, disabledField }: Props) => {
         <Divider orientation="center">{t('registration_form:course_information')}</Divider>
       </div>
       <Field withRequiredMark label={t('registration_form:course')} error={errors.courses?.message}>
-        <SelectMultiple<string[]>
+        <SelectCourseRoadmaps
           disabled={disabledField}
-          options={[
-            {
-              label: 'Khóa Basic (A0 - A1)',
-              value: '1',
-              rawData: { numberSessions: 20, name: 'Khóa Basic (A0 - A1)' },
-            },
-            {
-              label: 'Khóa Speed Up (A1 - A2)',
-              value: '2',
-              rawData: { numberSessions: 20, name: 'Khóa Speed Up (A1 - A2)' },
-            },
-            {
-              label: 'Khóa Communication (A2- A2+)',
-              value: '3',
-              rawData: { numberSessions: 20, name: 'Khóa Communication (A2- A2+)' },
-            },
-            {
-              label: 'Khóa Pre Ielts (A2+ - 3.5)',
-              value: '4',
-              rawData: { numberSessions: 25, name: 'Khóa Pre Ielts (A2+ - 3.5)' },
-            },
-            {
-              label: 'Khóa Intermediate (3.5 - 5.0)',
-              value: '5',
-              rawData: { numberSessions: 25, name: 'Khóa Intermediate (3.5 - 5.0)' },
-            },
-            {
-              label: 'Khóa Upper IELTS (5.0 - 6.5)',
-              value: '6',
-              rawData: { numberSessions: 25, name: 'Khóa Upper IELTS (5.0 - 6.5)' },
-            },
-            {
-              label: 'Khóa IELTS Advance (6.5 - 7.0+)',
-              value: '7',
-              rawData: { numberSessions: 30, name: 'Khóa IELTS Advance (6.5 - 7.0+)' },
-            },
-            {
-              label: 'Arena Summit (Tăng 0,5 band)',
-              value: '8',
-              rawData: { numberSessions: 15, name: 'Arena Summit (Tăng 0,5 band)' },
-            },
-          ]}
           placeholder={t('registration_form:course')}
-          value={formValues.courses?.map(item => item.id)}
+          courseRoadmaps={formValues.courses?.map(item => item.id)}
+          label={courseRoadmap => {
+            // FIXME: I18n
+            return `${courseRoadmap.name} (${courseRoadmap.code}) - ${courseRoadmap.numberSessions} buổi`;
+          }}
           onChange={(_, options) => {
             const newCourses = options?.map(item => ({
               id: item.value.toString(),
