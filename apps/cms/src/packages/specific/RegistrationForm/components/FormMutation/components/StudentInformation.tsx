@@ -36,11 +36,11 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
       </Field>
       <Field withRequiredMark label={t('registration_form:student')} error={errors.studentId?.message}>
         <SelectStudent
-          // disabled={disabledField || isEdit}
+          label={student => [student.fullName, student.code].join(' - ')}
+          disabled={disabledField || isEdit}
           placeholder={t('registration_form:student')}
           student={formValues.studentId}
           onChange={(value, option) => {
-            console.log(option?.rawData);
             const organizationCodeOfUser = getSession()?.profile?.organizationCode ?? '';
             const studentCode = option?.rawData.code;
             setValue('code', `${organizationCodeOfUser}/${studentCode}`);
@@ -60,6 +60,7 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
             setValue('studentId', value);
 
             if (
+              errors.code ||
               errors.studentName ||
               errors.studentId ||
               errors.studentCityId ||
@@ -73,6 +74,7 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
               errors.studentPhone ||
               errors.notifyResultToParent
             ) {
+              trigger('code');
               trigger('studentName');
               trigger('studentCityId');
               trigger('studentCityName');
@@ -133,23 +135,25 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
           }}
         />
       </Field>
-      <Field
-        withRequiredMark
-        label={t('registration_form:current_address')}
-        error={errors.studentCurrentAddress?.message}
-      >
-        <Input
-          disabled={disabledField}
-          placeholder={t('registration_form:current_address')}
-          value={formValues.studentCurrentAddress ?? undefined}
-          onChange={event => {
-            setValue('studentCurrentAddress', event.target.value);
-            if (errors.studentCurrentAddress) {
-              trigger('studentCurrentAddress');
-            }
-          }}
-        />
-      </Field>
+      <div className="md:col-span-2">
+        <Field
+          withRequiredMark
+          label={t('registration_form:current_address')}
+          error={errors.studentCurrentAddress?.message}
+        >
+          <Input
+            disabled={disabledField}
+            placeholder={t('registration_form:current_address')}
+            value={formValues.studentCurrentAddress ?? undefined}
+            onChange={event => {
+              setValue('studentCurrentAddress', event.target.value);
+              if (errors.studentCurrentAddress) {
+                trigger('studentCurrentAddress');
+              }
+            }}
+          />
+        </Field>
+      </div>
       <Field label={t('registration_form:city')} error={errors.studentCityId?.message}>
         <SelectCity
           fieldKey="id"

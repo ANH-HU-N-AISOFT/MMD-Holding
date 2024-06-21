@@ -11,6 +11,7 @@ import * as InputCheck from './routes/_dashboard.input-check';
 import * as RootLayout from './routes/_index';
 import AppointmentRoutes from './routes/Appointment';
 import ConsultantFormRoutes from './routes/ConsultantForm';
+import ContractRoutes from './routes/Contract';
 import CourseRoutes from './routes/Course';
 import CourseComboRoutes from './routes/CourseCombo';
 import CourseRoadmapRoutes from './routes/CourseRoadmap';
@@ -82,6 +83,7 @@ const router = createBrowserRouter([
           ...TrialRequestRoutes,
           ...DocumentTemplateRoutes,
           ...RegistrationFormRoutes,
+          ...ContractRoutes,
         ],
       },
     ],

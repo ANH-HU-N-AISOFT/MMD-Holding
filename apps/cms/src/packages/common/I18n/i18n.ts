@@ -31,6 +31,7 @@ i18n
       'trial_request',
       'document_template',
       'registration_form',
+      'contract',
     ],
     supportedLngs: ['en'],
     fallbackNS: 'en',

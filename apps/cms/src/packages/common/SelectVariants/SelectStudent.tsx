@@ -13,9 +13,10 @@ interface Props {
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
+  label?: (student: Student) => string;
 }
 
-export const SelectStudent = ({ disabled, student, allowClear = true, placeholder, onChange }: Props) => {
+export const SelectStudent = ({ disabled, student, allowClear = true, placeholder, onChange, label }: Props) => {
   const { t } = useTranslation(['student']);
 
   return (
@@ -33,9 +34,10 @@ export const SelectStudent = ({ disabled, student, allowClear = true, placeholde
         return response.items;
       }}
       transformToOption={student => {
+        const display = label ? label(student) : [student.fullName, student.phoneNumber].filter(Boolean).join(' - ');
         return {
-          label: [student.fullName, student.phoneNumber].filter(Boolean).join(' - '),
-          searchValue: [student.fullName, student.phoneNumber].filter(Boolean).join('-'),
+          label: display,
+          searchValue: display,
           value: student.id,
           rawData: student,
         };
