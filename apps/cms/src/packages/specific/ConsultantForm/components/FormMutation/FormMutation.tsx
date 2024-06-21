@@ -64,7 +64,16 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
 
   return (
     <div>
-      <Form method="POST" id={uid} onSubmit={handleSubmit}>
+      <Form
+        method="POST"
+        id={uid}
+        onSubmit={handleSubmit}
+        onKeyDown={event => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+          }
+        }}
+      >
         <Tabs
           activeKey={tabActive}
           onChange={setTabActive}

@@ -100,7 +100,16 @@ export const FormMutation = ({
 
   return (
     <div>
-      <Form method="POST" id={uid} onSubmit={handleSubmit}>
+      <Form
+        method="POST"
+        id={uid}
+        onSubmit={handleSubmit}
+        onKeyDown={event => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+          }
+        }}
+      >
         <Tabs
           className={hideTabs ? 'AntTab__tablist--hidden' : ''}
           activeKey={tabActive_}

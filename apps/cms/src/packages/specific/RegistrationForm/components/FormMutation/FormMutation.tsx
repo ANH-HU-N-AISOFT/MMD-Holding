@@ -65,7 +65,16 @@ export const FormMutation = ({
 
   return (
     <div>
-      <Form method="POST" id={uid} onSubmit={handleSubmit}>
+      <Form
+        method="POST"
+        id={uid}
+        onSubmit={handleSubmit}
+        onKeyDown={event => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+          }
+        }}
+      >
         <BoxFields>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
             <StudentInformation isEdit={isEdit} form={form} disabledField={disabledField} />
