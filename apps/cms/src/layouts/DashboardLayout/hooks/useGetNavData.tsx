@@ -6,7 +6,6 @@ import {
   HomeOutlined,
   QuestionCircleOutlined,
   ScheduleOutlined,
-  UserOutlined,
 } from '@ant-design/icons';
 import { MenuProps } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -48,6 +47,13 @@ export const useGetNavData = () => {
           label: t('dashboard_layout:menu.employee'),
           onClick: () => navigate('/employee'),
           className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.EMPLOYEE }) ? '' : '!hidden',
+        },
+        {
+          key: '/student',
+          // icon: <UserOutlined />,
+          label: t('dashboard_layout:menu.student'),
+          onClick: () => navigate('/student'),
+          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.STUDENT }) ? '' : '!hidden',
         },
       ],
     },
@@ -144,13 +150,6 @@ export const useGetNavData = () => {
           onClick: () => navigate('/registration-form'),
         },
       ],
-    },
-    {
-      key: '/student',
-      icon: <UserOutlined />,
-      label: t('dashboard_layout:menu.student'),
-      onClick: () => navigate('/student'),
-      className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.STUDENT }) ? '' : '!hidden',
     },
   ];
 

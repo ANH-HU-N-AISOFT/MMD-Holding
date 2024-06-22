@@ -37,7 +37,7 @@ export const getDocumentTemplates = async ({
   const filteredTemplates = documentTemplates.filter(template => {
     const matchesQuery = query
       ? template.name.toLowerCase().includes(query.toLowerCase()) ||
-        template.description.toLowerCase().includes(query.toLowerCase())
+        template.description?.toLowerCase().includes(query.toLowerCase())
       : true;
     const matchesCreatedAt = createdAt ? new Date(template.createdAt).getTime() >= createdAt : true;
     const matchesType = type ? type === template.type : true;

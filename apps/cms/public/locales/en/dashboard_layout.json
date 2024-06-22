@@ -4,7 +4,8 @@
 
     "organizational_structure": "Cơ cấu tổ chức",
     "department_list": "Danh sách đơn vị",
-    "employee": "Danh sách người dùng",
+    "employee": "Danh sách nhân viên",
+    "student": "Danh sách học viên",
 
     "appointment": "Lịch hẹn",
 
@@ -18,7 +19,6 @@
     "consultant_form": "Phiếu tư vấn",
     "trial_request": "Yêu cầu học thử",
 
-    "student": "Học viên",
 
     "test_study": "Học thử",
     "contract_signing": "Ký hợp đồng",

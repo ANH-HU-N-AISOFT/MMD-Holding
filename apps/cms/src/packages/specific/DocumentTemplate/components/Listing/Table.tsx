@@ -101,7 +101,7 @@ export const Table = ({
       render: (_, __, index) => pageSize * (currentPage - 1) + index + 1,
     },
     {
-      width: 200,
+      width: 280,
       title: t('document_template:name'),
       render: (_, record) => {
         return <Typography.Link onClick={() => onView?.(record)}>{record.name}</Typography.Link>;
@@ -122,7 +122,7 @@ export const Table = ({
       },
     },
     {
-      width: 200,
+      width: 160,
       title: t('document_template:status'),
       align: 'center',
       fixed: 'right',

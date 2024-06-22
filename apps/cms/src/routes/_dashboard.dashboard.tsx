@@ -3,7 +3,10 @@ import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBound
 export const Page = () => {
   return (
     <div>
-      <h1 className="text-2xl">Tính năng đang phát triển</h1>
+      <h1 className="mb-8">Trang chủ</h1>
+      <div className="text-center">
+        <img width={900} alt="Background" className="inline-block" src="assets/images/dashboard2.jpg" />
+      </div>
     </div>
   );
 };

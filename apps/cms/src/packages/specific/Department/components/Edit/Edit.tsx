@@ -45,21 +45,6 @@ export const Edit = ({ department, ...formProps }: Props) => {
               />
             ),
           },
-          {
-            key: 'subordinate_department',
-            label: t('department:subordinate_department'),
-            children: <h1 className="text-2xl">Tính năng đang phát triển</h1>,
-          },
-          {
-            key: 'employee',
-            label: t('department:employee'),
-            children: <h1 className="text-2xl">Tính năng đang phát triển</h1>,
-          },
-          {
-            key: 'student',
-            label: t('department:student'),
-            children: <h1 className="text-2xl">Tính năng đang phát triển</h1>,
-          },
         ]}
       />
     </div>

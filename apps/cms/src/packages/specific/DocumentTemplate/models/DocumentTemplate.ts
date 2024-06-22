@@ -4,7 +4,7 @@ import { DocumentTemplateType } from '~/packages/common/SelectVariants/DocumentT
 export interface DocumentTemplate {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   createdAt: string;
   file: string;
   status: DocumentTemplateStatus;
