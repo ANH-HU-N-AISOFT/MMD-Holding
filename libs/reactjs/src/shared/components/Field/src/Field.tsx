@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { createElement } from 'react';
+import { createElement, forwardRef } from 'react';
 import type { ReactNode, HtmlHTMLAttributes } from 'react';
 
 export interface Props {
@@ -26,16 +26,18 @@ export const FieldError = ({
   );
 };
 
-export const Field = ({
-  label,
-  children,
-  error,
-  withRequiredMark,
-  tagName = 'label',
-  className,
-  fieldWrapperClassName,
-  labelWrapperClassName,
-}: Props): ReactNode => {
+export const Field = forwardRef<HTMLElement, Props>((props, ref): ReactNode => {
+  const {
+    label,
+    children,
+    error,
+    withRequiredMark,
+    tagName = 'label',
+    className,
+    fieldWrapperClassName,
+    labelWrapperClassName,
+  } = props;
+
   const renderRequiredMark = (): ReactNode => {
     if (withRequiredMark) {
       return <span className="ml-1 text-sm text-status-red">*</span>;
@@ -47,6 +49,7 @@ export const Field = ({
     tagName,
     {
       className: classNames('cursor-pointer', className),
+      ref: ref,
     },
     <>
       <div className={classNames('mb-2 font-medium', labelWrapperClassName)}>
@@ -57,4 +60,6 @@ export const Field = ({
       {!!error && <FieldError className="mt-2" error={error} />}
     </>,
   );
-};
+});
+
+Field.displayName = 'Field';

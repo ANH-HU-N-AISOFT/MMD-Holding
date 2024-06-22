@@ -47,13 +47,13 @@ export const DashboardLayout = () => {
   }, [isMobile]);
 
   return (
-    <Layout className="!h-[100dvh] overflow-hidden">
+    <Layout className="items-start">
       <Sider
         width={240}
         trigger={null}
         collapsible
         collapsed={collapsed}
-        className="Sidebar__container py-4 border border-solid border-l-transparent border-t-transparent border-b-transparent border-r-neutral-200"
+        className="!h-[100dvh] !sticky left-0 top-0 Sidebar__container py-4 border border-solid border-l-transparent border-t-transparent border-b-transparent border-r-neutral-200 !pb-0"
         theme="light"
       >
         <div className="px-2 mb-4 text-center">
@@ -71,7 +71,7 @@ export const DashboardLayout = () => {
         />
       </Sider>
       <Layout>
-        <Header className="!bg-white !pl-2 !pr-6">
+        <Header className="!bg-white !pl-2 !pr-6 sticky top-0 left-0 z-10">
           <div className="w-full h-full flex items-center justify-between">
             <Button
               type="text"
@@ -85,7 +85,7 @@ export const DashboardLayout = () => {
             </div>
           </div>
         </Header>
-        <Content className="p-4 md:p-8 !pb-0 overflow-y-auto">
+        <Content className="p-4 md:p-8 !pb-0">
           <Suspense fallback={null}>
             <Outlet />
           </Suspense>
