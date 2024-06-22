@@ -23,6 +23,7 @@ const StudentRoutes: RouteObject[] = [
   {
     path: '/student/:id/detail',
     loader: StudentDetail.loader,
+    shouldRevalidate: StudentDetail.shouldRevalidate,
     element: <StudentDetail.Page />,
     errorElement: <StudentDetail.ErrorBoundary />,
   },
@@ -38,6 +39,7 @@ const StudentRoutes: RouteObject[] = [
     path: '/student/create',
     loader: CreateStudent.loader,
     action: CreateStudent.action,
+    shouldRevalidate: CreateStudent.shouldRevalidate,
     element: <CreateStudent.Page />,
     errorElement: <CreateStudent.ErrorBoundary />,
   },

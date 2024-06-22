@@ -23,6 +23,7 @@ const EmployeeRoutes: RouteObject[] = [
   {
     path: '/employee/:id/detail',
     loader: EmployeeDetail.loader,
+    shouldRevalidate: EmployeeDetail.shouldRevalidate,
     element: <EmployeeDetail.Page />,
     errorElement: <EmployeeDetail.ErrorBoundary />,
   },
@@ -38,6 +39,7 @@ const EmployeeRoutes: RouteObject[] = [
     path: '/employee/create',
     loader: CreateEmployee.loader,
     action: CreateEmployee.action,
+    shouldRevalidate: CreateEmployee.shouldRevalidate,
     element: <CreateEmployee.Page />,
     errorElement: <CreateEmployee.ErrorBoundary />,
   },

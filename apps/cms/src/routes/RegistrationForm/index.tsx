@@ -21,6 +21,7 @@ const RegistrationFormRoutes: RouteObject[] = [
   {
     path: '/registration-form/:id/detail',
     loader: RegistrationFormDetail.loader,
+    shouldRevalidate: RegistrationFormDetail.shouldRevalidate,
     element: <RegistrationFormDetail.Page />,
     errorElement: <RegistrationFormDetail.ErrorBoundary />,
   },
@@ -35,6 +36,7 @@ const RegistrationFormRoutes: RouteObject[] = [
   {
     path: '/registration-form/create',
     action: CreateRegistrationForm.action,
+    shouldRevalidate: CreateRegistrationForm.shouldRevalidate,
     element: <CreateRegistrationForm.Page />,
     errorElement: <CreateRegistrationForm.ErrorBoundary />,
   },

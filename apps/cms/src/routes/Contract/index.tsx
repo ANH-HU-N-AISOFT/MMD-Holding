@@ -21,6 +21,7 @@ const ContractRoutes: RouteObject[] = [
   {
     path: '/contract/:id/detail',
     loader: ContractDetail.loader,
+    shouldRevalidate: ContractDetail.shouldRevalidate,
     element: <ContractDetail.Page />,
     errorElement: <ContractDetail.ErrorBoundary />,
   },
@@ -35,6 +36,7 @@ const ContractRoutes: RouteObject[] = [
   {
     path: '/contract/create',
     action: CreateContract.action,
+    shouldRevalidate: CreateContract.shouldRevalidate,
     element: <CreateContract.Page />,
     errorElement: <CreateContract.ErrorBoundary />,
   },

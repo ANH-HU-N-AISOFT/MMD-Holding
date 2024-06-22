@@ -22,6 +22,7 @@ const AppointmentRoutes: RouteObject[] = [
   {
     path: '/appointment/:id/detail',
     loader: AppointmentDetail.loader,
+    shouldRevalidate: AppointmentDetail.shouldRevalidate,
     element: <AppointmentDetail.Page />,
     errorElement: <AppointmentDetail.ErrorBoundary />,
   },
@@ -37,6 +38,7 @@ const AppointmentRoutes: RouteObject[] = [
     path: '/appointment/create',
     loader: CreateAppointment.loader,
     action: CreateAppointment.action,
+    shouldRevalidate: CreateAppointment.shouldRevalidate,
     element: <CreateAppointment.Page />,
     errorElement: <CreateAppointment.ErrorBoundary />,
   },

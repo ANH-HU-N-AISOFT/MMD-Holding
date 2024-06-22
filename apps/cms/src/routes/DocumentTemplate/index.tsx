@@ -21,6 +21,7 @@ const DocumentTemplateRoutes: RouteObject[] = [
   {
     path: '/document-template/:id/detail',
     loader: DocumentTemplateDetail.loader,
+    shouldRevalidate: DocumentTemplateDetail.shouldRevalidate,
     element: <DocumentTemplateDetail.Page />,
     errorElement: <DocumentTemplateDetail.ErrorBoundary />,
   },
@@ -35,6 +36,7 @@ const DocumentTemplateRoutes: RouteObject[] = [
   {
     path: '/document-template/create',
     action: CreateDocumentTemplate.action,
+    shouldRevalidate: CreateDocumentTemplate.shouldRevalidate,
     element: <CreateDocumentTemplate.Page />,
     errorElement: <CreateDocumentTemplate.ErrorBoundary />,
   },

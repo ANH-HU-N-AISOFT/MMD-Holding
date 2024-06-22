@@ -21,6 +21,7 @@ const PromotionRoutes: RouteObject[] = [
   {
     path: '/promotion/:id/detail',
     loader: PromotionDetail.loader,
+    shouldRevalidate: PromotionDetail.shouldRevalidate,
     element: <PromotionDetail.Page />,
     errorElement: <PromotionDetail.ErrorBoundary />,
   },
@@ -35,6 +36,7 @@ const PromotionRoutes: RouteObject[] = [
   {
     path: '/promotion/create',
     action: CreatePromotion.action,
+    shouldRevalidate: CreatePromotion.shouldRevalidate,
     element: <CreatePromotion.Page />,
     errorElement: <CreatePromotion.ErrorBoundary />,
   },

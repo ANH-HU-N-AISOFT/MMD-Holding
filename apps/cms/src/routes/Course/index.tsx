@@ -22,6 +22,7 @@ const CourseRoutes: RouteObject[] = [
   {
     path: '/course/:id/detail',
     loader: CourseDetail.loader,
+    shouldRevalidate: CourseDetail.shouldRevalidate,
     element: <CourseDetail.Page />,
     errorElement: <CourseDetail.ErrorBoundary />,
   },
@@ -36,6 +37,7 @@ const CourseRoutes: RouteObject[] = [
   {
     path: '/course/create',
     action: CreateCourse.action,
+    shouldRevalidate: CreateCourse.shouldRevalidate,
     element: <CreateCourse.Page />,
     errorElement: <CreateCourse.ErrorBoundary />,
   },

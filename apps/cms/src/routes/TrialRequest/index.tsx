@@ -22,6 +22,7 @@ const TrialRequestRoutes: RouteObject[] = [
   {
     path: '/trial-request/:id/detail',
     loader: TrialRequestDetail.loader,
+    shouldRevalidate: TrialRequestDetail.shouldRevalidate,
     element: <TrialRequestDetail.Page />,
     errorElement: <TrialRequestDetail.ErrorBoundary />,
   },
@@ -37,6 +38,7 @@ const TrialRequestRoutes: RouteObject[] = [
     path: '/trial-request/create',
     loader: CreateTrialRequest.loader,
     action: CreateTrialRequest.action,
+    shouldRevalidate: CreateTrialRequest.shouldRevalidate,
     element: <CreateTrialRequest.Page />,
     errorElement: <CreateTrialRequest.ErrorBoundary />,
   },

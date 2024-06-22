@@ -22,6 +22,7 @@ const CourseRoadmapRoutes: RouteObject[] = [
   {
     path: '/course-roadmap/:id/detail',
     loader: CourseRoadmapDetail.loader,
+    shouldRevalidate: CourseRoadmapDetail.shouldRevalidate,
     element: <CourseRoadmapDetail.Page />,
     errorElement: <CourseRoadmapDetail.ErrorBoundary />,
   },
@@ -36,6 +37,7 @@ const CourseRoadmapRoutes: RouteObject[] = [
   {
     path: '/course-roadmap/create',
     action: CreateCourseRoadmap.action,
+    shouldRevalidate: CreateCourseRoadmap.shouldRevalidate,
     element: <CreateCourseRoadmap.Page />,
     errorElement: <CreateCourseRoadmap.ErrorBoundary />,
   },

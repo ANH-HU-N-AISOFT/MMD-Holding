@@ -22,6 +22,7 @@ const CourseComboRoutes: RouteObject[] = [
   {
     path: '/course-combo/:id/detail',
     loader: CourseComboDetail.loader,
+    shouldRevalidate: CourseComboDetail.shouldRevalidate,
     element: <CourseComboDetail.Page />,
     errorElement: <CourseComboDetail.ErrorBoundary />,
   },
@@ -36,6 +37,7 @@ const CourseComboRoutes: RouteObject[] = [
   {
     path: '/course-combo/create',
     action: CreateCourseCombo.action,
+    shouldRevalidate: CreateCourseCombo.shouldRevalidate,
     element: <CreateCourseCombo.Page />,
     errorElement: <CreateCourseCombo.ErrorBoundary />,
   },

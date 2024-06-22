@@ -22,6 +22,7 @@ const DepartmentRoutes: RouteObject[] = [
   {
     path: '/department/:id/detail',
     loader: DepartmentDetail.loader,
+    shouldRevalidate: DepartmentDetail.shouldRevalidate,
     element: <DepartmentDetail.Page />,
     errorElement: <DepartmentDetail.ErrorBoundary />,
   },
@@ -37,6 +38,7 @@ const DepartmentRoutes: RouteObject[] = [
     path: '/department/create',
     loader: CreateDepartment.loader,
     action: CreateDepartment.action,
+    shouldRevalidate: CreateDepartment.shouldRevalidate,
     element: <CreateDepartment.Page />,
     errorElement: <CreateDepartment.ErrorBoundary />,
   },
