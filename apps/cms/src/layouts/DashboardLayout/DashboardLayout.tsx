@@ -47,7 +47,7 @@ export const DashboardLayout = () => {
   }, [isMobile]);
 
   return (
-    <Layout className="items-start">
+    <Layout>
       <Sider
         width={240}
         trigger={null}
@@ -70,7 +70,7 @@ export const DashboardLayout = () => {
           defaultOpenKeys={defaultOpenKeys}
         />
       </Sider>
-      <Layout>
+      <Layout className="!min-h-[100dvh]">
         <Header className="!bg-white !pl-2 !pr-6 sticky top-0 left-0 z-10">
           <div className="w-full h-full flex items-center justify-between">
             <Button
