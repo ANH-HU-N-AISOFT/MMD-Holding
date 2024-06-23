@@ -5,7 +5,8 @@ import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Appointment/uti
 export const getDefaultListingAppointmentsUrl = () => {
   const pathname = '/appointment';
   const isAdmin = getSession()?.profile?.roles.includes(Role.Admin);
-  if (isAdmin) {
+  const isSale = getSession()?.profile?.roles.includes(Role.Sale);
+  if (isAdmin || isSale) {
     return pathname;
   }
 
