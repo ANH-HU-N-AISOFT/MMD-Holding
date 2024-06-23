@@ -87,7 +87,7 @@ export const Page = () => {
     <div className="flex flex-col h-full">
       <Header title={t('department:add_department')} onBack={() => navigate('/department')} />
       <div className="flex-1 mb-4">
-        <FormMutation isSubmiting={isSubmiting} uid={FormCreateUid} />
+        <FormMutation isSubmiting={isSubmiting} uid={FormCreateUid} department={undefined} />
       </div>
       <Footer
         isLoading={isSubmiting}

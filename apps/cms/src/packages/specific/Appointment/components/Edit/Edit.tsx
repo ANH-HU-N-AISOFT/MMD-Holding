@@ -16,6 +16,7 @@ export const Edit = ({ appointment, ...formProps }: Props) => {
     <FormMutation
       {...formProps}
       isEdit
+      appointment={appointment}
       defaultValues={{
         admin: appointment.admin?.id,
         appointmentDate: appointment.appointmentDate,

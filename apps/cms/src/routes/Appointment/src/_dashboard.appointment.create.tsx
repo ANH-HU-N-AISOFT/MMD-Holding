@@ -125,6 +125,7 @@ export const Page = () => {
       <Header title={t('appointment:add_appointment')} onBack={() => navigate('/appointment')} />
       <div className="flex-1 mb-4">
         <FormMutation
+          appointment={undefined}
           defaultValues={{
             appointmentStatus: AppointmentStatus.SCHEDULED,
             expectInspectionDepartmentId: getSession()?.profile?.organizationId,

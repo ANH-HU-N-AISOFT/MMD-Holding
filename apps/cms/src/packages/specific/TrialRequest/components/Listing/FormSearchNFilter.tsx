@@ -157,6 +157,7 @@ export const FormSearchNFilter = ({
               </Field>
               <Field label={t('trial_request:office_learning')} error={errors.departmentId?.message}>
                 <SelectDepartment
+                  extraDepartments={[]}
                   placeholder={t('trial_request:office_learning')}
                   department={departmentId}
                   onChange={value => {

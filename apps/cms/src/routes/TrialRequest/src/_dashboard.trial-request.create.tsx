@@ -125,6 +125,7 @@ export const Page = () => {
       <Header title={t('trial_request:add_trial')} onBack={() => navigate('/trial-request')} />
       <div className="flex-1 mb-4">
         <FormMutation
+          trialRequest={undefined}
           isSubmiting={isSubmiting}
           uid={FormCreateUid}
           defaultValues={{

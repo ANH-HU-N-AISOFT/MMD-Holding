@@ -11,6 +11,7 @@ export const Detail = ({ trialRequest }: Props) => {
       isSubmiting={false}
       uid=""
       disabled
+      trialRequest={trialRequest}
       defaultValues={{
         adminId: trialRequest.admin?.id,
         classType: trialRequest.demoType,

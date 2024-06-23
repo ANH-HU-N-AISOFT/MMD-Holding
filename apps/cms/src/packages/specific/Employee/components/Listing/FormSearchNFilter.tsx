@@ -89,6 +89,7 @@ export const FormSearchNFilter = ({
             </Field>
             <Field label={t('employee:department_name')}>
               <SelectDepartment
+                extraDepartments={[]}
                 fieldValue="id"
                 fieldLabel={['name', 'code']}
                 placeholder={t('employee:department_name')}

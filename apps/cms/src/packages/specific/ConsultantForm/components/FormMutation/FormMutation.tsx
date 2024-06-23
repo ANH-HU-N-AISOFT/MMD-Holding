@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
 import { TypeOf } from 'zod';
+import { ConsultantForm } from '../../models/ConsultantForm';
 import { Consultant } from './components/Consultant';
 import { TestResult } from './components/TestResult';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
@@ -20,9 +21,18 @@ interface Props {
   fieldsError?: Partial<Record<keyof FormValues, string>>;
   onSubmit?: (values: FormValues) => void;
   disabled?: boolean;
+  consultantForm: ConsultantForm | undefined;
 }
 
-export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubmiting, onSubmit, disabled }: Props) => {
+export const FormMutation = ({
+  uid,
+  defaultValues = {},
+  fieldsError = {},
+  isSubmiting,
+  onSubmit,
+  disabled,
+  consultantForm,
+}: Props) => {
   const { t } = useTranslation(['common', 'consultant_form']);
 
   const [tabActive, setTabActive] = useState('consultant');
@@ -83,7 +93,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               label: t('consultant_form:consultant'),
               children: (
                 <BoxFields>
-                  <Consultant form={form} disabledField={disabledField} />
+                  <Consultant consultantForm={consultantForm} form={form} disabledField={disabledField} />
                 </BoxFields>
               ),
             },

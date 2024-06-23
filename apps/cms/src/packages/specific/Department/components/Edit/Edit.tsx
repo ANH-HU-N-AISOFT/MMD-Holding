@@ -30,6 +30,7 @@ export const Edit = ({ department, ...formProps }: Props) => {
             children: (
               <FormMutation
                 {...formProps}
+                department={department}
                 defaultValues={{
                   address: department.address,
                   businessStatus: department.businessStatus,

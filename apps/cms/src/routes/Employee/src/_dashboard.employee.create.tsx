@@ -106,6 +106,7 @@ export const Page = () => {
       <Header title={t('employee:add_employee')} onBack={() => navigate('/employee')} />
       <div className="flex-1 mb-4">
         <FormMutation
+          employee={undefined}
           isSubmiting={isSubmiting}
           uid={FormCreateUid}
           defaultValues={{

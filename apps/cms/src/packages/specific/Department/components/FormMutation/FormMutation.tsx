@@ -4,6 +4,7 @@ import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
 import { TypeOf } from 'zod';
+import { Department } from '../../models/Department';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
@@ -26,9 +27,18 @@ interface Props {
   fieldsError?: Partial<Record<keyof FormValues, string>>;
   onSubmit?: (values: FormValues) => void;
   disabled?: boolean;
+  department: Department | undefined;
 }
 
-export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubmiting, onSubmit, disabled }: Props) => {
+export const FormMutation = ({
+  uid,
+  defaultValues = {},
+  fieldsError = {},
+  isSubmiting,
+  onSubmit,
+  disabled,
+  department,
+}: Props) => {
   const { t } = useTranslation(['common', 'department']);
 
   const disabledField = disabled || isSubmiting;
@@ -130,6 +140,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               error={errors.manageDepartmentId?.message}
             >
               <SelectManagementUnit
+                extraDepartments={department?.managementUnit ? [department.managementUnit] : []}
                 managementUnit={manageDepartmentId}
                 onChange={value => {
                   setValue('manageDepartmentId', value);

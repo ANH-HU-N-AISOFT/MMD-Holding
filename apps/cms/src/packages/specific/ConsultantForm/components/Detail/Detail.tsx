@@ -13,6 +13,7 @@ export const Detail = ({ consultantForm }: Props) => {
       uid=""
       disabled
       isSubmiting={false}
+      consultantForm={consultantForm}
       defaultValues={{
         consultantId: consultantForm.consultant?.id,
         expectDepartmentId: consultantForm.learningOrganization?.id,

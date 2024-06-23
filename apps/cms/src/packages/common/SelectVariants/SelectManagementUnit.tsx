@@ -1,3 +1,4 @@
+import { prop, uniqBy } from 'ramda';
 import { useTranslation } from 'react-i18next';
 import {
   SelectSingleDecoupling,
@@ -7,16 +8,24 @@ import { GetAllParams } from '~/constants/GetAllParams';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 
+type DepartmentFields = Pick<Department, 'id' | 'code' | 'name'>;
 interface Props {
-  managementUnit?: Department['id'];
-  onChange?: SelectSingleDecouplingProps<Department, Department['id']>['onChange'];
+  managementUnit?: DepartmentFields['id'];
+  onChange?: SelectSingleDecouplingProps<DepartmentFields, Department['id']>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
+  extraDepartments: DepartmentFields[];
 }
 
-export const SelectManagementUnit = ({ disabled, managementUnit, allowClear = true, onChange }: Props) => {
+export const SelectManagementUnit = ({
+  disabled,
+  managementUnit,
+  allowClear = true,
+  onChange,
+  extraDepartments = [],
+}: Props) => {
   const { t } = useTranslation(['department']);
-
+  console.log(extraDepartments);
   return (
     <SelectSingleDecoupling
       allowClear={allowClear}
@@ -30,7 +39,7 @@ export const SelectManagementUnit = ({ disabled, managementUnit, allowClear = tr
           isManagementUnit: true,
           sortByName: 1,
         });
-        return response.items;
+        return uniqBy(prop('id'), [...extraDepartments, ...response.items]);
       }}
       transformToOption={department => ({
         label: [department.name, department.code].filter(Boolean).join(' - '),

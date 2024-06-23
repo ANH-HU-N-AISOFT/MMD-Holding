@@ -122,6 +122,7 @@ export const Page = () => {
       <Header title={t('consultant_form:add_consultant_form')} onBack={() => navigate('/consultant-form')} />
       <div className="flex-1 mb-4">
         <FormMutation
+          consultantForm={undefined}
           isSubmiting={isSubmiting}
           uid={FormCreateUid}
           defaultValues={{

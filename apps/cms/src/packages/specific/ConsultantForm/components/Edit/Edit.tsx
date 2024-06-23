@@ -16,6 +16,7 @@ export const Edit = ({ consultantForm, ...formProps }: Props) => {
   return (
     <FormMutation
       {...formProps}
+      consultantForm={consultantForm}
       defaultValues={{
         consultantId: consultantForm.consultant?.id,
         expectDepartmentId: consultantForm.learningOrganization?.id,

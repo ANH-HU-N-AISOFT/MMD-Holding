@@ -4,6 +4,7 @@ import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
 import { TypeOf } from 'zod';
+import { TrialRequest } from '../../models/TrialRequest';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
@@ -32,6 +33,7 @@ interface Props {
   onSubmit?: (values: FormValues) => void;
   disabled?: boolean;
   isEdit?: boolean;
+  trialRequest: TrialRequest | undefined;
 }
 
 export const FormMutation = ({
@@ -42,6 +44,7 @@ export const FormMutation = ({
   onSubmit,
   disabled,
   isEdit = false,
+  trialRequest,
 }: Props) => {
   const { t } = useTranslation(['common', 'trial_request']);
 
@@ -159,7 +162,7 @@ export const FormMutation = ({
             </Field>
             <Field withRequiredMark label={t('trial_request:consultantor')} error={errors.consultantId?.message}>
               <SelectEmployee
-                organizationId="GET_ALL"
+                organizationId={learningOrganizationId}
                 emptyText={t('trial_request:must_select_expect_department')}
                 roles={[Role.Consultant]}
                 disabled={disabledField}
@@ -224,6 +227,7 @@ export const FormMutation = ({
               error={errors.learningOrganizationId?.message}
             >
               <SelectDepartment
+                extraDepartments={trialRequest?.learningOrganization ? [trialRequest.learningOrganization] : []}
                 allowClear={false}
                 department={learningOrganizationId ?? undefined}
                 onChange={value => {
@@ -287,7 +291,7 @@ export const FormMutation = ({
             </div>
             <Field label={t('trial_request:lecture')} error={errors.lectureId?.message}>
               <SelectEmployee
-                organizationId="GET_ALL"
+                organizationId={learningOrganizationId}
                 emptyText={t('trial_request:must_select_expect_department')}
                 roles={[Role.Lecturer]}
                 allowClear
@@ -304,7 +308,7 @@ export const FormMutation = ({
             </Field>
             <Field label={t('trial_request:admin')} error={errors.adminId?.message}>
               <SelectEmployee
-                organizationId="GET_ALL"
+                organizationId={learningOrganizationId}
                 emptyText={t('trial_request:must_select_expect_department')}
                 roles={[Role.Admin]}
                 allowClear

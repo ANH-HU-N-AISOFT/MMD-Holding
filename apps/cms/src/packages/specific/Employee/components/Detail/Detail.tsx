@@ -12,6 +12,7 @@ export const Detail = ({ employee }: Props) => {
       isSubmiting={false}
       uid=""
       disabled
+      employee={employee}
       defaultValues={{
         personalInformation: {
           citizenIdCard: employee.cmnd,

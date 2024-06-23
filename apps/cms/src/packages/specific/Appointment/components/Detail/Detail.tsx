@@ -12,6 +12,7 @@ export const Detail = ({ appointment }: Props) => {
       isSubmiting={false}
       uid=""
       disabled
+      appointment={appointment}
       defaultValues={{
         admin: appointment.admin?.id,
         appointmentDate: appointment.appointmentDate,

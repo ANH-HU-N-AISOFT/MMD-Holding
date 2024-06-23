@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
 import { TypeOf } from 'zod';
+import { Employee } from '../../models/Employee';
 import { PersonalInformation } from './components/PersonalInformation';
 import { PersonnelRecord } from './components/PersonnelRecord';
 import { RoleSystem } from './components/RoleSystem';
@@ -26,6 +27,7 @@ interface Props {
   needPasswordValidation?: boolean;
   onResetPassword?: () => void;
   isEdit?: boolean;
+  employee: Employee | undefined;
 }
 
 export const FormMutation = ({
@@ -39,6 +41,7 @@ export const FormMutation = ({
   hidePasswordField = false,
   needPasswordValidation = true,
   isEdit = false,
+  employee,
 }: Props) => {
   const { t } = useTranslation(['common', 'employee']);
   const [tabActive, setTabActive] = useState('personalInformation');
@@ -115,7 +118,7 @@ export const FormMutation = ({
               label: t('employee:personnel_record'),
               children: (
                 <BoxFields>
-                  <PersonnelRecord form={form} disabledField={disabledField} />
+                  <PersonnelRecord employee={employee} form={form} disabledField={disabledField} />
                 </BoxFields>
               ),
             },
@@ -125,6 +128,7 @@ export const FormMutation = ({
               children: (
                 <BoxFields>
                   <RoleSystem
+                    employee={employee}
                     onResetPassword={onResetPassword}
                     hidePasswordField={hidePasswordField}
                     needPasswordValidation={needPasswordValidation}

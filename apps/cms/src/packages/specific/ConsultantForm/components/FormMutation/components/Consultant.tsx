@@ -2,6 +2,7 @@ import { Checkbox, Divider, Input, InputNumber, Skeleton, Spin } from 'antd';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Field } from 'reactjs';
+import { ConsultantForm } from '../../../models/ConsultantForm';
 import { calculateGiftPrice } from '../../../utils/calculateGiftPrice';
 import { calculateSalePrice } from '../../../utils/calculateSalePrice';
 import { CourseRoadmapOrCombo } from '../constants';
@@ -26,9 +27,10 @@ import { currencyParser } from '~/utils/functions/currency/currencyParser';
 interface Props {
   form: ReturnType<typeof useRemixForm<Partial<FormValues>>>;
   disabledField: boolean;
+  consultantForm: ConsultantForm | undefined;
 }
 
-export const Consultant = ({ disabledField, form }: Props) => {
+export const Consultant = ({ disabledField, form, consultantForm }: Props) => {
   const {
     setValue,
     trigger,
@@ -107,7 +109,7 @@ export const Consultant = ({ disabledField, form }: Props) => {
       </Field>
       <Field withRequiredMark label={t('consultant_form:consultantor')} error={errors.consultantId?.message}>
         <SelectEmployee
-          organizationId="GET_ALL"
+          organizationId={expectDepartmentId}
           emptyText={t('consultant_form:must_select_expect_department')}
           roles={[Role.Consultant]}
           disabled={disabledField}
@@ -123,6 +125,7 @@ export const Consultant = ({ disabledField, form }: Props) => {
       </Field>
       <Field label={t('consultant_form:expect_department')} error={errors.expectDepartmentId?.message}>
         <SelectDepartment
+          extraDepartments={consultantForm?.learningOrganization ? [consultantForm.learningOrganization] : []}
           disabled={disabledField}
           placeholder={t('consultant_form:expect_department')}
           department={expectDepartmentId}

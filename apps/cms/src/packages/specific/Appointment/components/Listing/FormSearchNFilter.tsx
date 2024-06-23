@@ -133,6 +133,7 @@ export const FormSearchNFilter = ({
             </Field> */}
               <Field label={t('appointment:expect_inspection_department')}>
                 <SelectDepartment
+                  extraDepartments={[]}
                   placeholder={t('appointment:expect_inspection_department')}
                   department={organizationId}
                   onChange={value => setValue('organizationId', value)}
@@ -289,6 +290,7 @@ export const FormSearchNFilter = ({
               </Field> */}
               <Field label={t('appointment:expect_inspection_department')}>
                 <SelectDepartment
+                  extraDepartments={[]}
                   placeholder={t('appointment:expect_inspection_department')}
                   department={organizationId}
                   onChange={value => setValue('organizationId', value)}

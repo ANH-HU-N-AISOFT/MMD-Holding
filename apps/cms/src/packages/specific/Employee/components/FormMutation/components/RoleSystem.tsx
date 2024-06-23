@@ -1,6 +1,7 @@
 import { Input, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { DeepPartial } from 'typescript-utilities';
+import { Employee } from '../../../models/Employee';
 import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
@@ -15,6 +16,7 @@ interface Props {
   disabledField: boolean;
   hidePasswordField: boolean;
   needPasswordValidation: boolean;
+  employee: Employee | undefined;
 }
 
 export const RoleSystem = ({
@@ -23,6 +25,7 @@ export const RoleSystem = ({
   disabledField,
   hidePasswordField,
   needPasswordValidation,
+  employee,
 }: Props) => {
   const { t } = useTranslation(['common', 'employee']);
 
@@ -47,6 +50,17 @@ export const RoleSystem = ({
         error={errors.personnelRecord?.department?.message}
       >
         <SelectDepartment
+          extraDepartments={
+            employee?.organization
+              ? [
+                  {
+                    code: employee?.organization.code,
+                    id: employee?.organization.id,
+                    name: employee?.organization.fullName,
+                  },
+                ]
+              : []
+          }
           fieldLabel={['name', 'code']}
           fieldValue="id"
           department={department}

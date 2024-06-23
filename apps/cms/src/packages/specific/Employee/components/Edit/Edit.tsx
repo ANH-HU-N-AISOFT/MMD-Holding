@@ -18,6 +18,7 @@ export const Edit = ({ employee, onResetPassword, ...formProps }: Props) => {
       isEdit
       onResetPassword={onResetPassword}
       needPasswordValidation={false}
+      employee={employee}
       defaultValues={{
         personalInformation: {
           citizenIdCard: employee.cmnd,

@@ -5,6 +5,7 @@ import { uniq } from 'ramda';
 import { useTranslation } from 'react-i18next';
 import { Field, useDeepCompareEffect } from 'reactjs';
 import { TypeOf } from 'zod';
+import { Appointment } from '../../models/Appointment';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { SelectMultiple } from '~/components/AntCustom/Select';
@@ -35,6 +36,7 @@ interface Props {
   onSubmit?: (values: FormValues) => void;
   disabled?: boolean;
   isEdit?: boolean;
+  appointment: Appointment | undefined;
 }
 
 export const FormMutation = ({
@@ -45,6 +47,7 @@ export const FormMutation = ({
   onSubmit,
   disabled,
   isEdit,
+  appointment,
 }: Props) => {
   const { t } = useTranslation(['common', 'appointment']);
 
@@ -195,6 +198,7 @@ export const FormMutation = ({
               error={errors.expectInspectionDepartmentId?.message}
             >
               <SelectDepartment
+                extraDepartments={appointment?.organization ? [appointment?.organization] : []}
                 department={expectInspectionDepartmentId}
                 onChange={value => {
                   setValue('expectInspectionDepartmentId', value);
@@ -326,7 +330,7 @@ export const FormMutation = ({
             </div>
             <Field withRequiredMark label={t('appointment:consultant')} error={errors.consultant?.message}>
               <SelectEmployee
-                organizationId="GET_ALL"
+                organizationId={expectInspectionDepartmentId}
                 emptyText={t('appointment:must_select_expect_inspection_department')}
                 roles={[Role.Consultant]}
                 placeholder={t('appointment:consultant')}
@@ -342,7 +346,7 @@ export const FormMutation = ({
             </Field>
             <Field label={t('appointment:admin')} error={errors.admin?.message}>
               <SelectEmployee
-                organizationId="GET_ALL"
+                organizationId={expectInspectionDepartmentId}
                 emptyText={t('appointment:must_select_expect_inspection_department')}
                 roles={[Role.Admin]}
                 allowClear
@@ -359,7 +363,7 @@ export const FormMutation = ({
             </Field>
             <Field label={t('appointment:tester')}>
               <SelectEmployee
-                organizationId="GET_ALL"
+                organizationId={expectInspectionDepartmentId}
                 emptyText={t('appointment:must_select_expect_inspection_department')}
                 roles={[Role.Lecturer]}
                 allowClear

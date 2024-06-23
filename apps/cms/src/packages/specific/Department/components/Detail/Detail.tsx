@@ -30,6 +30,7 @@ export const Detail = ({ department }: Props) => {
                 isSubmiting={false}
                 uid=""
                 disabled
+                department={department}
                 defaultValues={{
                   address: department.address,
                   businessStatus: department.businessStatus,

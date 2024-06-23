@@ -2,6 +2,7 @@ import { Input } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { DeepPartial } from 'typescript-utilities';
+import { Employee } from '../../../models/Employee';
 import { FormValues } from '../FormMutation';
 import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { Field } from '~/components/Field/Field';
@@ -17,9 +18,10 @@ import { disableBeforeCheckpoint } from '~/utils/functions/disableDatePicker';
 interface Props {
   form: ReturnType<typeof useRemixForm<DeepPartial<FormValues>>>;
   disabledField: boolean;
+  employee: Employee | undefined;
 }
 
-export const PersonnelRecord = ({ form, disabledField }: Props) => {
+export const PersonnelRecord = ({ form, disabledField, employee }: Props) => {
   const { t } = useTranslation(['common', 'employee']);
 
   const {
@@ -60,6 +62,17 @@ export const PersonnelRecord = ({ form, disabledField }: Props) => {
         error={errors.personnelRecord?.department?.message}
       >
         <SelectDepartment
+          extraDepartments={
+            employee?.organization
+              ? [
+                  {
+                    code: employee?.organization.code,
+                    id: employee?.organization.id,
+                    name: employee?.organization.fullName,
+                  },
+                ]
+              : []
+          }
           fieldLabel={['name', 'code']}
           fieldValue="id"
           department={department}
@@ -86,7 +99,7 @@ export const PersonnelRecord = ({ form, disabledField }: Props) => {
       </Field>
       <Field label={t('employee:direction_manager')} error={errors.personnelRecord?.directionManager?.message}>
         <SelectEmployee
-          organizationId="GET_ALL"
+          organizationId={department}
           emptyText={t('employee:must_select_department')}
           employee={directionManager ?? undefined}
           placeholder={t('employee:direction_manager')}

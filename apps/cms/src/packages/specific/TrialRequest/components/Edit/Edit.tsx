@@ -15,6 +15,7 @@ export const Edit = ({ trialRequest, ...formProps }: Props) => {
     <FormMutation
       {...formProps}
       isEdit
+      trialRequest={trialRequest}
       defaultValues={{
         adminId: trialRequest.admin?.id,
         classType: trialRequest.demoType,
