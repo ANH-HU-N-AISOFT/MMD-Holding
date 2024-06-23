@@ -2,6 +2,7 @@ import { notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getDefaultListingTrialRequestsUrl } from '../constants/getDefaultFilterUrl';
 import { isCanCreateTrialRequest } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
@@ -113,7 +114,7 @@ export const Page = () => {
         });
       } else {
         notification.success({ message: t('trial_request:create_success') });
-        navigate('/trial-request');
+        navigate(getDefaultListingTrialRequestsUrl());
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -122,7 +123,7 @@ export const Page = () => {
   const session = getSession();
   return (
     <div className="flex flex-col h-full">
-      <Header title={t('trial_request:add_trial')} onBack={() => navigate('/trial-request')} />
+      <Header title={t('trial_request:add_trial')} onBack={() => navigate(getDefaultListingTrialRequestsUrl())} />
       <div className="flex-1 mb-4">
         <FormMutation
           trialRequest={undefined}
@@ -143,7 +144,7 @@ export const Page = () => {
       <Footer
         isLoading={isSubmiting}
         okConfirmProps={{ form: FormCreateUid, htmlType: 'submit' }}
-        onCancel={() => navigate('/trial-request')}
+        onCancel={() => navigate(getDefaultListingTrialRequestsUrl())}
       />
     </div>
   );

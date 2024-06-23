@@ -2,6 +2,7 @@ import { HomeOutlined } from '@ant-design/icons';
 import { Button, Result, notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getDefaultListingTrialRequestsUrl } from '../constants/getDefaultFilterUrl';
 import {
   ActionResponse as ActionDeleteTrialResponse,
   action as actionDeleteTrial,
@@ -34,7 +35,7 @@ type LoaderResponse = SimpleResponse<{ trialRequest: TrialRequest }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
   await isCanAccessRoute(isCanReadTrialRequest);
   if (!params['id']) {
-    return redirect('/trial-request', {});
+    return redirect(getDefaultListingTrialRequestsUrl(), {});
   }
   try {
     const response = await getTrialRequest({ id: params['id'] });
@@ -78,7 +79,7 @@ export const Page = () => {
         });
       } else {
         notification.success({ message: t('trial_request:delete_success') });
-        navigate('/trial-request');
+        navigate(getDefaultListingTrialRequestsUrl());
         setIsOpenModalDeleteTrial(false);
       }
     }
@@ -92,7 +93,7 @@ export const Page = () => {
         status="404"
         title={t('trial_request:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/trial-request')}>
+          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate(getDefaultListingTrialRequestsUrl())}>
             {t('trial_request:back_to_list')}
           </Button>
         }
@@ -107,7 +108,7 @@ export const Page = () => {
           title={t('trial_request:trial_with_student_name', {
             name: loaderData.info?.trialRequest.student?.fullName,
           })}
-          onBack={() => navigate('/trial-request')}
+          onBack={() => navigate(getDefaultListingTrialRequestsUrl())}
         />
         <div className="flex-1 mb-4">
           <Detail trialRequest={loaderData.info?.trialRequest} />

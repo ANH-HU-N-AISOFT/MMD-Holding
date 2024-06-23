@@ -2,6 +2,7 @@ import { HomeOutlined } from '@ant-design/icons';
 import { Button, Result, notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getDefaultListingAppointmentsUrl } from '../constants/getDefaultFilterUrl';
 import {
   ActionResponse as ActionDeleteAppointmentResponse,
   action as actionDeleteAppointment,
@@ -34,7 +35,7 @@ type LoaderResponse = SimpleResponse<{ appointment: Appointment }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
   await isCanAccessRoute(isCanReadAppointment);
   if (!params['id']) {
-    return redirect('/appointment?isOwner=true', {});
+    return redirect(getDefaultListingAppointmentsUrl(), {});
   }
   try {
     const response = await getAppointment({ id: params['id'] });
@@ -81,7 +82,7 @@ export const Page = () => {
         });
       } else {
         notification.success({ message: t('appointment:delete_success') });
-        navigate('/appointment?isOwner=true');
+        navigate(getDefaultListingAppointmentsUrl());
         setIsOpenModalDeleteAppointment(false);
       }
     }
@@ -95,7 +96,7 @@ export const Page = () => {
         status="404"
         title={t('appointment:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/appointment?isOwner=true')}>
+          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate(getDefaultListingAppointmentsUrl())}>
             {t('appointment:back_to_list')}
           </Button>
         }
@@ -110,7 +111,7 @@ export const Page = () => {
           title={t('appointment:appointment_with_student_name', {
             name: loaderData.info?.appointment.student?.fullName,
           })}
-          onBack={() => navigate('/appointment?isOwner=true')}
+          onBack={() => navigate(getDefaultListingAppointmentsUrl())}
         />
         <div className="flex-1 mb-4">
           <Detail appointment={loaderData.info?.appointment} />

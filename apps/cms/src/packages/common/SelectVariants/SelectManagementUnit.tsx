@@ -25,7 +25,7 @@ export const SelectManagementUnit = ({
   extraDepartments = [],
 }: Props) => {
   const { t } = useTranslation(['department']);
-  console.log(extraDepartments);
+
   return (
     <SelectSingleDecoupling
       allowClear={allowClear}

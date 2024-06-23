@@ -2,6 +2,7 @@ import { notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getDefaultListingAppointmentsUrl } from '../constants/getDefaultFilterUrl';
 import { isCanCreateAppointment } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
@@ -115,14 +116,14 @@ export const Page = () => {
         });
       } else {
         notification.success({ message: t('appointment:create_success') });
-        navigate('/appointment?isOwner=true');
+        navigate(getDefaultListingAppointmentsUrl());
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actionData]);
   return (
     <div className="flex flex-col h-full">
-      <Header title={t('appointment:add_appointment')} onBack={() => navigate('/appointment?isOwner=true')} />
+      <Header title={t('appointment:add_appointment')} onBack={() => navigate(getDefaultListingAppointmentsUrl())} />
       <div className="flex-1 mb-4">
         <FormMutation
           appointment={undefined}
@@ -143,7 +144,7 @@ export const Page = () => {
       <Footer
         isLoading={isSubmiting}
         okConfirmProps={{ form: FormCreateUid, htmlType: 'submit' }}
-        onCancel={() => navigate('/appointment?isOwner=true')}
+        onCancel={() => navigate(getDefaultListingAppointmentsUrl())}
       />
     </div>
   );

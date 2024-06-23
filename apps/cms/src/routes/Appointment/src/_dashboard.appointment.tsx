@@ -110,7 +110,7 @@ export const Page = () => {
       ...paramsInUrl,
       ...params,
     });
-    fetcherData.load('/appointment?isOwner=true' + searchParamsToLoader);
+    fetcherData.load('/appointment' + searchParamsToLoader);
     updateURLSearchParamsOfBrowserWithoutNavigation(searchParamsToLoader);
   };
 

@@ -1,3 +1,4 @@
+import { getDefaultListingTrialRequestsUrl } from '../constants/getDefaultFilterUrl';
 import { isCanDeleteTrialRequest } from './utils/Is';
 import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
@@ -10,7 +11,7 @@ export const action = async ({ params }: ActionFunctionArgs): Promise<TypedRespo
   await isCanAccessRoute(isCanDeleteTrialRequest);
   try {
     if (!params['id']) {
-      return redirect('/trial-request', {});
+      return redirect(getDefaultListingTrialRequestsUrl(), {});
     }
     await deleteTrialRequest({ id: params['id'] });
     return json({

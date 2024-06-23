@@ -11,6 +11,8 @@ import { MenuProps } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from '~/overrides/@remix';
 import { ActionType, ResourceType } from '~/packages/common/SelectVariants/Permission/Permission';
+import { getDefaultListingAppointmentsUrl } from '~/routes/Appointment/constants/getDefaultFilterUrl';
+import { getDefaultListingTrialRequestsUrl } from '~/routes/TrialRequest/constants/getDefaultFilterUrl';
 import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 export const useGetNavData = () => {
@@ -61,7 +63,7 @@ export const useGetNavData = () => {
       key: '/appointment',
       icon: <ScheduleOutlined />,
       label: t('dashboard_layout:menu.appointment'),
-      onClick: () => navigate('/appointment?isOwner=true'),
+      onClick: () => navigate(getDefaultListingAppointmentsUrl()),
       className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.APPOINTMENT }) ? '' : '!hidden',
     },
     {
@@ -125,7 +127,7 @@ export const useGetNavData = () => {
       key: '/trial-request',
       icon: <ExperimentOutlined />,
       label: t('dashboard_layout:menu.trial_request'),
-      onClick: () => navigate('/trial-request'),
+      onClick: () => navigate(getDefaultListingTrialRequestsUrl()),
       className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.TRIAL_REQUEST }) ? '' : '!hidden',
     },
     {

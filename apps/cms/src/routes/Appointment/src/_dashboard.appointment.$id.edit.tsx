@@ -3,6 +3,7 @@ import { Button, Result, notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getDefaultListingAppointmentsUrl } from '../constants/getDefaultFilterUrl';
 import { isCanEditAppointment } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
@@ -36,7 +37,7 @@ export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request, params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
   await isCanAccessRoute(isCanEditAppointment);
   if (!params['id']) {
-    return redirect('/appointment?isOwner=true', {});
+    return redirect(getDefaultListingAppointmentsUrl(), {});
   }
   const t = i18next.t;
   try {
@@ -81,7 +82,7 @@ type LoaderResponse = SimpleResponse<{ appointment: Appointment }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
   await isCanAccessRoute(isCanEditAppointment);
   if (!params['id']) {
-    return redirect('/appointment?isOwner=true', {});
+    return redirect(getDefaultListingAppointmentsUrl(), {});
   }
   try {
     const response = await getAppointment({ id: params['id'] });
@@ -120,7 +121,7 @@ export const Page = () => {
         });
       } else {
         notification.success({ message: t('appointment:update_success') });
-        navigate('/appointment?isOwner=true');
+        navigate(getDefaultListingAppointmentsUrl());
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -132,7 +133,7 @@ export const Page = () => {
         status="404"
         title={t('appointment:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/appointment?isOwner=true')}>
+          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate(getDefaultListingAppointmentsUrl())}>
             {t('appointment:back_to_list')}
           </Button>
         }
@@ -144,7 +145,7 @@ export const Page = () => {
     <div className="flex flex-col h-full">
       <Header
         title={t('appointment:appointment_with_student_name', { name: loaderData.info?.appointment.student?.fullName })}
-        onBack={() => navigate('/appointment?isOwner=true')}
+        onBack={() => navigate(getDefaultListingAppointmentsUrl())}
       />
       <div className="flex-1 mb-4">
         <Edit isSubmiting={isSubmiting} uid={FormUpdate} appointment={loaderData.info?.appointment} />
@@ -152,7 +153,7 @@ export const Page = () => {
       <Footer
         isLoading={isSubmiting}
         okConfirmProps={{ form: FormUpdate, htmlType: 'submit' }}
-        onCancel={() => navigate('/appointment?isOwner=true')}
+        onCancel={() => navigate(getDefaultListingAppointmentsUrl())}
       />
     </div>
   );

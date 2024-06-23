@@ -3,6 +3,7 @@ import { Button, Result, notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getDefaultListingTrialRequestsUrl } from '../constants/getDefaultFilterUrl';
 import { isCanEditTrialRequest } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
@@ -36,7 +37,7 @@ export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request, params }: ActionFunctionArgs): Promise<TypedResponse<ActionResponse>> => {
   await isCanAccessRoute(isCanEditTrialRequest);
   if (!params['id']) {
-    return redirect('/trial-request', {});
+    return redirect(getDefaultListingTrialRequestsUrl(), {});
   }
   const t = i18next.t;
   try {
@@ -79,7 +80,7 @@ type LoaderResponse = SimpleResponse<{ trialRequest: TrialRequest }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
   await isCanAccessRoute(isCanEditTrialRequest);
   if (!params['id']) {
-    return redirect('/trial-request', {});
+    return redirect(getDefaultListingTrialRequestsUrl(), {});
   }
   try {
     const response = await getTrialRequest({ id: params['id'] });
@@ -118,7 +119,7 @@ export const Page = () => {
         });
       } else {
         notification.success({ message: t('trial_request:update_success') });
-        navigate('/trial-request');
+        navigate(getDefaultListingTrialRequestsUrl());
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -130,7 +131,7 @@ export const Page = () => {
         status="404"
         title={t('trial_request:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/trial-request')}>
+          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate(getDefaultListingTrialRequestsUrl())}>
             {t('trial_request:back_to_list')}
           </Button>
         }
@@ -142,7 +143,7 @@ export const Page = () => {
     <div className="flex flex-col h-full">
       <Header
         title={t('trial_request:trial_with_student_name', { name: loaderData.info.trialRequest.student?.fullName })}
-        onBack={() => navigate('/trial-request')}
+        onBack={() => navigate(getDefaultListingTrialRequestsUrl())}
       />
       <div className="flex-1 mb-4">
         <Edit isSubmiting={isSubmiting} uid={FormUpdate} trialRequest={loaderData.info?.trialRequest} />
@@ -150,7 +151,7 @@ export const Page = () => {
       <Footer
         isLoading={isSubmiting}
         okConfirmProps={{ form: FormUpdate, htmlType: 'submit' }}
-        onCancel={() => navigate('/trial-request')}
+        onCancel={() => navigate(getDefaultListingTrialRequestsUrl())}
       />
     </div>
   );
