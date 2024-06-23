@@ -115,14 +115,14 @@ export const Page = () => {
         });
       } else {
         notification.success({ message: t('appointment:create_success') });
-        navigate('/appointment');
+        navigate('/appointment?isOwner=true');
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actionData]);
   return (
     <div className="flex flex-col h-full">
-      <Header title={t('appointment:add_appointment')} onBack={() => navigate('/appointment')} />
+      <Header title={t('appointment:add_appointment')} onBack={() => navigate('/appointment?isOwner=true')} />
       <div className="flex-1 mb-4">
         <FormMutation
           appointment={undefined}
@@ -143,7 +143,7 @@ export const Page = () => {
       <Footer
         isLoading={isSubmiting}
         okConfirmProps={{ form: FormCreateUid, htmlType: 'submit' }}
-        onCancel={() => navigate('/appointment')}
+        onCancel={() => navigate('/appointment?isOwner=true')}
       />
     </div>
   );

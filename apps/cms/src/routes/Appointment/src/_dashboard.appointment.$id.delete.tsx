@@ -10,7 +10,7 @@ export const action = async ({ params }: ActionFunctionArgs): Promise<TypedRespo
   await isCanAccessRoute(isCanDeleteAppointment);
   try {
     if (!params['id']) {
-      return redirect('/appointment', {});
+      return redirect('/appointment?isOwner=true', {});
     }
     await deleteAppointment({ id: params['id'] });
     return json({

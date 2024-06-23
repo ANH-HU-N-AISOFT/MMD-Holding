@@ -34,7 +34,7 @@ type LoaderResponse = SimpleResponse<{ appointment: Appointment }, undefined>;
 export const loader = async ({ params }: LoaderFunctionArgs): Promise<TypedResponse<LoaderResponse>> => {
   await isCanAccessRoute(isCanReadAppointment);
   if (!params['id']) {
-    return redirect('/appointment', {});
+    return redirect('/appointment?isOwner=true', {});
   }
   try {
     const response = await getAppointment({ id: params['id'] });
@@ -81,7 +81,7 @@ export const Page = () => {
         });
       } else {
         notification.success({ message: t('appointment:delete_success') });
-        navigate('/appointment');
+        navigate('/appointment?isOwner=true');
         setIsOpenModalDeleteAppointment(false);
       }
     }
@@ -95,7 +95,7 @@ export const Page = () => {
         status="404"
         title={t('appointment:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/appointment')}>
+          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/appointment?isOwner=true')}>
             {t('appointment:back_to_list')}
           </Button>
         }
@@ -110,7 +110,7 @@ export const Page = () => {
           title={t('appointment:appointment_with_student_name', {
             name: loaderData.info?.appointment.student?.fullName,
           })}
-          onBack={() => navigate('/appointment')}
+          onBack={() => navigate('/appointment?isOwner=true')}
         />
         <div className="flex-1 mb-4">
           <Detail appointment={loaderData.info?.appointment} />

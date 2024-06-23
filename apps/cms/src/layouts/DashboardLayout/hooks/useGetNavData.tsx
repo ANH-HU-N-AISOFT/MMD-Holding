@@ -61,7 +61,7 @@ export const useGetNavData = () => {
       key: '/appointment',
       icon: <ScheduleOutlined />,
       label: t('dashboard_layout:menu.appointment'),
-      onClick: () => navigate('/appointment'),
+      onClick: () => navigate('/appointment?isOwner=true'),
       className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.APPOINTMENT }) ? '' : '!hidden',
     },
     {
