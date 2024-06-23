@@ -16,7 +16,7 @@ import { SelectAppointmentStatus } from '~/packages/common/SelectVariants/Appoin
 import { SelectIeltsTestEnum } from '~/packages/common/SelectVariants/IeltsTestEnum/SelectIeltsTestEnum';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
-import { SelectDepartments } from '~/packages/common/SelectVariants/SelectDepartments';
+import { DepartmentFields, SelectDepartments } from '~/packages/common/SelectVariants/SelectDepartments';
 import { SelectEmployee } from '~/packages/common/SelectVariants/SelectEmployee';
 import { SelectSaleEmployees } from '~/packages/common/SelectVariants/SelectSaleEmployees';
 import { SelectSchool } from '~/packages/common/SelectVariants/SelectSchool';
@@ -174,7 +174,20 @@ export const FormMutation = ({
               <SelectSaleEmployees saleEmployees={studentSaleEmployees ?? undefined} organizations="GET_ALL" disabled />
             </Field>
             <Field label={t('appointment:department')} error={errors.departmentOfSaleEmployees?.message}>
-              <SelectDepartments departments={departmentOfSaleEmployees ?? undefined} disabled />
+              <SelectDepartments
+                extraDepartments={(appointment?.saleEmployees ?? [])?.reduce<DepartmentFields[]>((result, item) => {
+                  if (item.organization) {
+                    return result.concat({
+                      id: item.organization.id,
+                      code: item.organization.code,
+                      name: item.organization.fullName,
+                    });
+                  }
+                  return result;
+                }, [])}
+                departments={departmentOfSaleEmployees ?? undefined}
+                disabled
+              />
             </Field>
             <div className="md:col-span-2">
               <Divider orientation="center">{t('appointment:appointment')}</Divider>

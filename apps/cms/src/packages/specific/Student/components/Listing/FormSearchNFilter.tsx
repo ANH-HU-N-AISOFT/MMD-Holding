@@ -74,6 +74,7 @@ export const FormSearchNFilter = ({
           <Form method="GET" id={UID} onSubmit={handleSubmit}>
             <Field label={t('student:department_name')}>
               <SelectDepartments
+                extraDepartments={[]}
                 placeholder={t('student:department_name')}
                 departments={department?.split(',')}
                 fieldValue="code"

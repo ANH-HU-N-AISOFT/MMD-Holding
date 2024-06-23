@@ -29,6 +29,7 @@ export const Detail = ({ student }: Props) => {
             children: (
               <FormMutation
                 hideTabs
+                student={student}
                 tabActive={tabActive as FormMutationTabKey}
                 setTabActive={setTabActive as Dispatch<SetStateAction<FormMutationTabKey>>}
                 isSubmiting={false}
@@ -65,6 +66,7 @@ export const Detail = ({ student }: Props) => {
             children: (
               <FormMutation
                 hideTabs
+                student={student}
                 tabActive={tabActive as FormMutationTabKey}
                 setTabActive={setTabActive as Dispatch<SetStateAction<FormMutationTabKey>>}
                 isSubmiting={false}

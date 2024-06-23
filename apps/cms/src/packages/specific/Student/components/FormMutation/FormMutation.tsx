@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
 import { TypeOf } from 'zod';
+import { Student } from '../../models/Student';
 import { PersonalInformation } from './components/PersonalInformation';
 import { RoleSystem } from './components/RoleSystem';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
@@ -33,6 +34,7 @@ interface Props {
   setTabActive?: Dispatch<SetStateAction<TabKey>>;
   hideTabs?: boolean;
   isEdit?: boolean;
+  student: Student | undefined;
 }
 
 export type TabKey = 'personalInformation' | 'roleSystem';
@@ -51,6 +53,7 @@ export const FormMutation = ({
   tabActive,
   hideTabs = false,
   isEdit = false,
+  student,
 }: Props) => {
   const { t } = useTranslation(['common', 'student']);
   const [tabActiveState, setTabActiveState] = useState<TabKey>('personalInformation');
@@ -120,7 +123,7 @@ export const FormMutation = ({
               label: t('student:personal_information'),
               children: (
                 <BoxFields>
-                  <PersonalInformation isEdit={isEdit} form={form} disabledField={disabledField} />
+                  <PersonalInformation student={student} isEdit={isEdit} form={form} disabledField={disabledField} />
                 </BoxFields>
               ),
             },
@@ -130,6 +133,7 @@ export const FormMutation = ({
               children: (
                 <BoxFields>
                   <RoleSystem
+                    student={student}
                     onResetPassword={onResetPassword}
                     hidePasswordField={hidePasswordField}
                     needPasswordValidation={needPasswordValidation}

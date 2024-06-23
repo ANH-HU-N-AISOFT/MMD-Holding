@@ -247,6 +247,8 @@ export const FormMutation = ({
             </Field>
             <Field label={t('promotion:department')} error={errors.departments?.message}>
               <SelectDepartments
+                // FIXME: BE cần populate
+                extraDepartments={[]}
                 disabled={scope === PromotionScope.All}
                 departments={departments}
                 onChange={value => {

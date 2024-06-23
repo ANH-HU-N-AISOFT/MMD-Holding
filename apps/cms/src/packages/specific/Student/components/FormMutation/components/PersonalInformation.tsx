@@ -2,6 +2,7 @@ import { Divider, Input, Radio } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { DeepPartial } from 'typescript-utilities';
+import { Student } from '../../../models/Student';
 import { FormValues } from '../FormMutation';
 import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { Field } from '~/components/Field/Field';
@@ -20,9 +21,10 @@ interface Props {
   form: ReturnType<typeof useRemixForm<DeepPartial<FormValues>>>;
   disabledField: boolean;
   isEdit: boolean;
+  student: Student | undefined;
 }
 
-export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
+export const PersonalInformation = ({ form, disabledField, isEdit, student }: Props) => {
   const { t } = useTranslation(['common', 'student']);
 
   const {
@@ -235,6 +237,7 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
         error={errors.personalInformation?.departments?.message}
       >
         <SelectDepartments
+          extraDepartments={student?.organizations ? student.organizations : []}
           departments={departments}
           onChange={value => {
             setValue('personalInformation.departments', value);

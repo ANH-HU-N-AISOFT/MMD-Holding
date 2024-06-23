@@ -1,3 +1,4 @@
+import { prop, uniqBy } from 'ramda';
 import { useTranslation } from 'react-i18next';
 import {
   SelectMultipleDecoupling,
@@ -7,14 +8,16 @@ import { GetAllParams } from '~/constants/GetAllParams';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 
+export type DepartmentFields = Pick<Department, 'id' | 'code' | 'name'>;
 interface Props {
-  departments?: Array<Department['id']>;
-  onChange?: SelectMultipleDecouplingProps<Department, Array<Department['id']>>['onChange'];
+  departments?: Array<DepartmentFields['id']>;
+  onChange?: SelectMultipleDecouplingProps<DepartmentFields, Array<DepartmentFields['id']>>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
-  fieldValue?: keyof Pick<Department, 'id' | 'code'>;
-  fieldLabel?: Array<keyof Pick<Department, 'name' | 'code'>>;
+  fieldValue?: keyof Pick<DepartmentFields, 'id' | 'code'>;
+  fieldLabel?: Array<keyof Pick<DepartmentFields, 'name' | 'code'>>;
+  extraDepartments: DepartmentFields[];
 }
 
 export const SelectDepartments = ({
@@ -25,6 +28,7 @@ export const SelectDepartments = ({
   onChange,
   fieldValue = 'id',
   fieldLabel = ['name', 'code'],
+  extraDepartments,
 }: Props) => {
   const { t } = useTranslation(['employee']);
 
@@ -40,7 +44,7 @@ export const SelectDepartments = ({
           ...GetAllParams,
           sortByName: 1,
         });
-        return response.items;
+        return uniqBy(prop('id'), [...extraDepartments, ...response.items]);
       }}
       transformToOption={department => {
         const label = fieldLabel.map(item => department[item]).join(' - ');

@@ -1,6 +1,7 @@
 import { Input, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { DeepPartial } from 'typescript-utilities';
+import { Student } from '../../../models/Student';
 import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
@@ -15,6 +16,7 @@ interface Props {
   disabledField: boolean;
   hidePasswordField: boolean;
   needPasswordValidation: boolean;
+  student: Student | undefined;
 }
 
 export const RoleSystem = ({
@@ -23,6 +25,7 @@ export const RoleSystem = ({
   disabledField,
   hidePasswordField,
   needPasswordValidation,
+  student,
 }: Props) => {
   const { t } = useTranslation(['common', 'student']);
 
@@ -46,6 +49,7 @@ export const RoleSystem = ({
         error={errors.personalInformation?.departments?.message}
       >
         <SelectDepartments
+          extraDepartments={student?.organizations ? student.organizations : []}
           departments={departments?.filter((item): item is string => Boolean(item))}
           onChange={value => {
             setValue('personalInformation.departments', value);

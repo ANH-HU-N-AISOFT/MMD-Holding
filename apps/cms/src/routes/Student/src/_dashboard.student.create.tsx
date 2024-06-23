@@ -97,6 +97,7 @@ export const Page = () => {
       <Header title={t('student:add_student')} onBack={() => navigate('/student')} />
       <div className="flex-1 mb-4">
         <FormMutation
+          student={undefined}
           defaultValues={{
             personalInformation: {
               notifyResultToParent: false,
