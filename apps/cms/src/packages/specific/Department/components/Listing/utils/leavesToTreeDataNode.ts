@@ -1,5 +1,6 @@
 import { Department } from '../../../models/Department';
 import { ListingSearchParams } from '../../../types/ListingSearchParams';
+import { getSession } from '~/packages/common/Auth/sessionStorage';
 
 export interface TreeNodeData {
   generalInformation: Department;
@@ -35,7 +36,7 @@ export const leavesToTreeDataNode = (data: Department[], searchParams: ListingSe
       treeNode.matched = true;
     }
 
-    if (!node.managementUnit?.id || node.code === 'ROOT') {
+    if (!node.managementUnit?.id || node.code === 'ROOT' || node.id === getSession()?.profile?.organizationId) {
       treeData.push(treeNode); // Add root nodes directly to treeData
     } else {
       const parentTreeNode = map[node.managementUnit?.id];

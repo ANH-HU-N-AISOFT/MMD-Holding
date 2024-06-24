@@ -21,8 +21,6 @@ export const FormLogin = ({ isSubmitting }: FormLoginProps) => {
   } = useRemixForm<Partial<FormLoginValues>>({
     mode: 'onSubmit',
     defaultValues: {
-      username: 'admin1',
-      password: '@Abc123456',
       remember: true,
     },
     submitHandlers: {
