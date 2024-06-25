@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { SelectSingleDecoupling, SelectSingleDecouplingProps } from 'reactjs';
-import { CourseStatus } from '../../../../common/SelectVariants/CourseStatus/constants/CourseStatus';
+import { CourseStatus } from '../../../Course/models/CourseStatus';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { CourseRoadmap } from '~/packages/specific/CourseRoadmap/models/CourseRoadmap';
 import { getCourseRoadmaps } from '~/packages/specific/CourseRoadmap/services/getCourseRoadmaps';

@@ -8,8 +8,8 @@ import { FormValues } from '../FormMutation';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
-import { SelectCity } from '~/packages/common/SelectVariants/SelectCity';
-import { SelectDistrict } from '~/packages/common/SelectVariants/SelectDistrict';
+import { SelectCity } from '~/packages/specific/Location/components/SelectVariants/SelectCity';
+import { SelectDistrict } from '~/packages/specific/Location/components/SelectVariants/SelectDistrict';
 import { SelectStudent } from '~/packages/specific/Student/components/SelectVariants/SelectStudent';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 

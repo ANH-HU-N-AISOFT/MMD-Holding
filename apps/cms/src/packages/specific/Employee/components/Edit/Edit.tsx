@@ -32,7 +32,7 @@ export const Edit = ({ employee, onResetPassword, ...formProps }: Props) => {
           notes: employee.notes,
           personalEmail: employee.personalEmail,
           phone: employee.phoneNumber,
-          region: employee.nationality,
+          country: employee.nationality,
           residenceAddress: employee.permanentAddress,
           workEmail: employee.workEmail,
         },

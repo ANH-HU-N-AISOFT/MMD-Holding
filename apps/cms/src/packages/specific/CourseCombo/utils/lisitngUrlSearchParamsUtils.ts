@@ -1,10 +1,11 @@
 import { UrlSearchParamsUtils } from 'utilities';
-import { any, number, object, string } from 'zod';
+import { any, enum as enum_, number, object } from 'zod';
+import { CourseStatus } from '../../Course/models/CourseStatus';
 
 export const lisitngUrlSearchParamsSchema = object({
   page: number().optional(),
   search: any().optional(),
-  status: string().optional(),
+  status: enum_([CourseStatus.ACTIVE, CourseStatus.IN_ACTIVE]).optional(),
 });
 
 export const lisitngUrlSearchParamsUtils = new UrlSearchParamsUtils({

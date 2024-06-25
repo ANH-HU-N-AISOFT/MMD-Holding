@@ -10,7 +10,7 @@ import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { SelectCourseStatus } from '~/packages/common/SelectVariants/CourseStatus/SelectCourseStatus';
+import { SelectCourseStatus } from '~/packages/specific/Course/components/SelectVariants/SelectCourseStatus';
 import { SelectCourseRoadmaps } from '~/packages/specific/CourseRoadmap/components/SelectVariants/SelectCourseRoadmaps';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 import { currencyParser } from '~/utils/functions/currency/currencyParser';

@@ -9,12 +9,12 @@ import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBound
 import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { VIETNAM_VALUE } from '~/packages/common/SelectVariants/SelectRegion';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { FormMutation, FormValues } from '~/packages/specific/Employee/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Employee/components/FormMutation/zodResolver';
 import { WorkStatus } from '~/packages/specific/Employee/models/WorkStatus';
 import { createEmployee } from '~/packages/specific/Employee/services/createEmployee';
+import { VIETNAM_VALUE } from '~/packages/specific/Location/components/SelectVariants/SelectCountry';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
@@ -46,7 +46,7 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
         fullName: data.personalInformation.fullName,
         gender: data.personalInformation.gender,
         jobTitles: data.personnelRecord.jobTitles,
-        nationality: data.personalInformation.region ?? undefined,
+        nationality: data.personalInformation.country ?? undefined,
         notes: data.personalInformation.notes ?? undefined,
         organizationId: data.personnelRecord.department,
         password: data.roleSystem.password as string,
@@ -111,7 +111,7 @@ export const Page = () => {
           uid={FormCreateUid}
           defaultValues={{
             personalInformation: {
-              region: VIETNAM_VALUE,
+              country: VIETNAM_VALUE,
             },
             personnelRecord: {
               workStatus: WorkStatus.WORKING,

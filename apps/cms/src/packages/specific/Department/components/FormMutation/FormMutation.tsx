@@ -14,8 +14,8 @@ import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { SelectCity } from '~/packages/common/SelectVariants/SelectCity';
 import { SelectPresentDepartment } from '~/packages/specific/Employee/components/SelectVariants/SelectPresentDepartment';
+import { SelectCity } from '~/packages/specific/Location/components/SelectVariants/SelectCity';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
 export interface FormValues extends TypeOf<ReturnType<typeof getFormMutationSchema>> {}

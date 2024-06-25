@@ -17,7 +17,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   try {
     const response = await exportCourseCombos({
       query: search,
-      status: status === 'all' ? undefined : status,
+      status,
     });
 
     downloadAxiosResponseAsCSV({ response, fileName: t('course_combo:course_combos') });

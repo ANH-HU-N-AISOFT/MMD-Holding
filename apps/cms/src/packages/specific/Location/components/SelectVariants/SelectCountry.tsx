@@ -6,14 +6,14 @@ import { Country } from '~/packages/specific/Location/models/Location';
 import { getCountries } from '~/packages/specific/Location/services/getCountries';
 
 interface Props {
-  region?: Country['id'];
+  country?: Country['id'];
   onChange?: SelectSingleProps<Country['id'], Country>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
 }
 
 export const VIETNAM_VALUE = 'Việt Nam';
-export const SelectRegion = ({ region, disabled, allowClear = true, onChange }: Props) => {
+export const SelectCountry = ({ country, disabled, allowClear = true, onChange }: Props) => {
   const { t } = useTranslation(['location']);
   const [isFetching, setIsFetching] = useState(false);
   const [options, setOptions] = useState<SelectOption<Country['id']>[]>([]);
@@ -47,10 +47,10 @@ export const SelectRegion = ({ region, disabled, allowClear = true, onChange }: 
   return (
     <SelectSingle
       allowClear={allowClear}
-      value={region}
+      value={country}
       onChange={onChange}
       disabled={disabled}
-      placeholder={t('location:region')}
+      placeholder={t('location:country')}
       className="w-full"
       loading={isFetching}
       searchValue={searchValue}

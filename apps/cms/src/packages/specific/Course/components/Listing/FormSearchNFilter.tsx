@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { Field, useDeepCompareEffect } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
+import { SelectCourseStatus } from '../SelectVariants/SelectCourseStatus';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
-import { CourseStatus } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatus';
-import { SelectCourseStatus } from '~/packages/common/SelectVariants/CourseStatus/SelectCourseStatus';
+import { CourseStatus } from '~/packages/specific/Course/models/CourseStatus';
 
 export interface FormFilterValues extends Pick<ListingSearchParams, 'status'> {}
 

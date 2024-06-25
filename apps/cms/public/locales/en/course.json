@@ -29,5 +29,9 @@
   "course": "Khoá học",
   "course_roadmaps": "Danh sách lộ trình học",
   "search_course_roadmaps_placeholder": "Nhập tên lộ trình học",
-  "course_roadmap": "Lộ trình học"
+  "course_roadmap": "Lộ trình học",
+
+
+  "ACTIVE": "Mở",
+  "IN_ACTIVE": "Đóng"
 }

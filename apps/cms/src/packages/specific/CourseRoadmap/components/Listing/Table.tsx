@@ -1,4 +1,5 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
+import { TFunction } from 'i18next';
 import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +9,7 @@ import { CourseRoadmapStatusMappingToColors } from '../../constants/CourseRoadma
 import { CourseRoadmap } from '../../models/CourseRoadmap';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
-import { getCourseStatusMappingToLabels } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatusMappingToLabels';
+import { getCourseStatusMappingToLabels } from '~/packages/specific/Course/constants/CourseStatusMappingToLabels';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 
 export interface Props
@@ -45,7 +46,7 @@ export const Table = ({
   const { t } = useTranslation(['common', 'course_roadmap', 'course']);
 
   const CourseRoadmapStatusMappingToLabels = useMemo(() => {
-    return getCourseStatusMappingToLabels(t);
+    return getCourseStatusMappingToLabels(t as unknown as TFunction<['course']>);
   }, [t]);
 
   const [selectedRows, _setSelectedRows] = useState<string[]>([]);

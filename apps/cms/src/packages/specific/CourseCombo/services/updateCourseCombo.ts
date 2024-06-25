@@ -1,5 +1,5 @@
 import { CourseCombo } from '../models/CourseCombo';
-import { CourseStatus } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatus';
+import { CourseStatus } from '~/packages/specific/Course/models/CourseStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface UpdateCourseCombo {

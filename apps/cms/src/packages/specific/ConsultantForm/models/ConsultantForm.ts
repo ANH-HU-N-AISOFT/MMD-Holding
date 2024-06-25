@@ -3,7 +3,7 @@ import { PromotionScope } from '../../Promotion/models/PromotionScope';
 import { PromotionStatus } from '../../Promotion/models/PromotionStatus';
 import { SourceEnum } from '../../Student/models/SourceEnum';
 import { FormStatus } from './FormStatus';
-import { CourseStatus } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatus';
+import { CourseStatus } from '~/packages/specific/Course/models/CourseStatus';
 
 export interface ConsultantForm {
   student?: {

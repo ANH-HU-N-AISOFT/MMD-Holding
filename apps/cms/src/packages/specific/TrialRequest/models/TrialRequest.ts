@@ -2,7 +2,7 @@ import { SourceEnum } from '../../Student/models/SourceEnum';
 import { StudyMode } from '../models/StudyMode';
 import { DemoType } from './DemoType';
 import { TrialRequestStatus } from './TrialRequestStatus';
-import { CourseStatus } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatus';
+import { CourseStatus } from '~/packages/specific/Course/models/CourseStatus';
 
 export interface TrialRequest {
   id: string;

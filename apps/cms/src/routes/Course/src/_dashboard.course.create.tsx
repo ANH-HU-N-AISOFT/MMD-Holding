@@ -9,9 +9,9 @@ import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBound
 import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { CourseStatus } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatus';
 import { FormMutation, FormValues } from '~/packages/specific/Course/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Course/components/FormMutation/zodResolver';
+import { CourseStatus } from '~/packages/specific/Course/models/CourseStatus';
 import { createCourse } from '~/packages/specific/Course/services/createCourse';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';

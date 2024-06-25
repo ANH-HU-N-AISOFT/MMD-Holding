@@ -8,8 +8,8 @@ import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { SelectCourseStatus } from '~/packages/common/SelectVariants/CourseStatus/SelectCourseStatus';
 import { SelectCourse } from '~/packages/specific/Course/components/SelectVariants/SelectCourse';
+import { SelectCourseStatus } from '~/packages/specific/Course/components/SelectVariants/SelectCourseStatus';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 import { currencyParser } from '~/utils/functions/currency/currencyParser';
 

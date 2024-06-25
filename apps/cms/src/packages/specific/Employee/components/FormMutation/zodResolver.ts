@@ -129,7 +129,7 @@ export const getFormMutationSchema = ({
         .optional()
         .or(literal(''))
         .nullable(),
-      region: string().trim().optional().or(literal('')).nullable(),
+      country: string().trim().optional().or(literal('')).nullable(),
       citizenIdCard: string()
         .trim()
         .min(8, citizenIdCard.length)

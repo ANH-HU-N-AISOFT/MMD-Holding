@@ -1,4 +1,4 @@
-import { CourseStatus } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatus';
+import { CourseStatus } from '~/packages/specific/Course/models/CourseStatus';
 
 export interface CourseCombo {
   id: string;

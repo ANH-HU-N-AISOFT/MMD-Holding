@@ -20,7 +20,6 @@ import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
-import { SelectSchool } from '~/packages/common/SelectVariants/SelectSchool';
 import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
 import {
   DepartmentFields,
@@ -28,6 +27,7 @@ import {
 } from '~/packages/specific/Department/components/SelectVariants/SelectDepartments';
 import { SelectEmployee } from '~/packages/specific/Employee/components/SelectVariants/SelectEmployee';
 import { SelectSaleEmployees } from '~/packages/specific/Employee/components/SelectVariants/SelectSaleEmployees';
+import { SelectSchool } from '~/packages/specific/Location/components/SelectVariants/SelectSchool';
 import { SelectSourceEnum } from '~/packages/specific/Student/components/SelectVariants/SelectSourceEnum';
 import { SelectStudent } from '~/packages/specific/Student/components/SelectVariants/SelectStudent';
 

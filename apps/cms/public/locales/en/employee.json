@@ -40,7 +40,7 @@
   "employee_contract_type": "Loại hợp đồng",
   "current_address": "Địa chỉ hiện tại",
   "residence_address": "Địa chỉ thường trú",
-  "region": "Quốc tịch",
+  "country": "Quốc tịch",
   "citizen_id_card": "Số CCCD",
   "emergency_contact": "Liên hệ khẩn cấp",
   "emergency_contact_name": "Tên Người Liên Hệ Khẩn Cấp",

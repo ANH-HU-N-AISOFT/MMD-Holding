@@ -10,11 +10,11 @@ import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
-import { SelectCity } from '~/packages/common/SelectVariants/SelectCity';
-import { SelectDistrict } from '~/packages/common/SelectVariants/SelectDistrict';
-import { SelectSchool } from '~/packages/common/SelectVariants/SelectSchool';
 import { SelectDepartments } from '~/packages/specific/Department/components/SelectVariants/SelectDepartments';
 import { SelectSaleEmployees } from '~/packages/specific/Employee/components/SelectVariants/SelectSaleEmployees';
+import { SelectCity } from '~/packages/specific/Location/components/SelectVariants/SelectCity';
+import { SelectDistrict } from '~/packages/specific/Location/components/SelectVariants/SelectDistrict';
+import { SelectSchool } from '~/packages/specific/Location/components/SelectVariants/SelectSchool';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
 interface Props {

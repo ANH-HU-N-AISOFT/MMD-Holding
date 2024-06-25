@@ -74,7 +74,7 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
           fullName: data.personalInformation.fullName,
           gender: data.personalInformation.gender,
           jobTitles: data.personnelRecord.jobTitles ?? [],
-          nationality: data.personalInformation.region ?? undefined,
+          nationality: data.personalInformation.country ?? undefined,
           notes: data.personalInformation.notes ?? undefined,
           organizationId: data.personnelRecord.department,
           permanentAddress: data.personalInformation.residenceAddress ?? undefined,

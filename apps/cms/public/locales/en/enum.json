@@ -24,13 +24,6 @@
       "BLOCKED": "Khóa truy cập"
     }
   },
-  "courseStatus": {
-    "label": "Trạng thái",
-    "options": {
-      "ACTIVE": "Mở",
-      "IN_ACTIVE": "Đóng"
-    }
-  },
   "documentTemplateStatus": {
     "label": "Trạng thái",
     "options": {

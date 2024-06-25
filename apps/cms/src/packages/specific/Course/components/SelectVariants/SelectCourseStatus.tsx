@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SelectSingle, SelectSingleProps } from 'reactjs';
-import { CourseStatus } from './constants/CourseStatus';
-import { getCourseStatusMappingToLabels } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatusMappingToLabels';
+import { getCourseStatusMappingToLabels } from '../../constants/CourseStatusMappingToLabels';
+import { CourseStatus } from '../../models/CourseStatus';
 
 interface Props {
   courseStatus?: CourseStatus;
@@ -13,9 +13,9 @@ interface Props {
 }
 
 export const SelectCourseStatus = ({ courseStatus, disabled, allowClear = true, placeholder, onChange }: Props) => {
-  const { t } = useTranslation(['common', 'enum']);
+  const { t } = useTranslation(['course']);
 
-  const courseStatusMappingToLabels = useMemo(() => {
+  const CourseStatusMappingToLabels = useMemo(() => {
     return getCourseStatusMappingToLabels(t);
   }, [t]);
 
@@ -24,13 +24,13 @@ export const SelectCourseStatus = ({ courseStatus, disabled, allowClear = true, 
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={placeholder ?? t('enum:courseStatus.label')}
+      placeholder={placeholder ?? t('course:status')}
       value={courseStatus}
       onChange={onChange}
       options={Object.values(CourseStatus).map(item => {
         return {
-          label: courseStatusMappingToLabels[item],
-          searchValue: courseStatusMappingToLabels[item],
+          label: CourseStatusMappingToLabels[item],
+          searchValue: CourseStatusMappingToLabels[item],
           value: item,
           rawData: item,
         };

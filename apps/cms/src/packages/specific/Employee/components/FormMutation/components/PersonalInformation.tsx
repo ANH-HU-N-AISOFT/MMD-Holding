@@ -8,7 +8,7 @@ import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
-import { SelectRegion } from '~/packages/common/SelectVariants/SelectRegion';
+import { SelectCountry } from '~/packages/specific/Location/components/SelectVariants/SelectCountry';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
 interface Props {
@@ -35,7 +35,7 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
   const personalEmail = watch('personalInformation.personalEmail');
   const currentAddress = watch('personalInformation.currentAddress');
   const residenceAddress = watch('personalInformation.residenceAddress');
-  const region = watch('personalInformation.region');
+  const country = watch('personalInformation.country');
   const citizenIdCard = watch('personalInformation.citizenIdCard');
   const emergencyContactName = watch('personalInformation.emergencyContactName');
   const emergencyContactPhone = watch('personalInformation.emergencyContactPhone');
@@ -167,13 +167,13 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
           />
         </Field>
       </div>
-      <Field label={t('employee:region')} error={errors.personalInformation?.region?.message}>
-        <SelectRegion
-          region={region ?? undefined}
+      <Field label={t('employee:country')} error={errors.personalInformation?.country?.message}>
+        <SelectCountry
+          country={country ?? undefined}
           onChange={value => {
-            setValue('personalInformation.region', value);
-            if (errors.personalInformation?.region) {
-              trigger('personalInformation.region');
+            setValue('personalInformation.country', value);
+            if (errors.personalInformation?.country) {
+              trigger('personalInformation.country');
             }
           }}
           disabled={disabledField}

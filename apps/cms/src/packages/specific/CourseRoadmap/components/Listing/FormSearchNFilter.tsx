@@ -7,9 +7,8 @@ import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
-import { CourseStatus } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatus';
-import { SelectCourseStatus } from '~/packages/common/SelectVariants/CourseStatus/SelectCourseStatus';
 import { SelectCourse } from '~/packages/specific/Course/components/SelectVariants/SelectCourse';
+import { SelectCourseStatus } from '~/packages/specific/Course/components/SelectVariants/SelectCourseStatus';
 
 export interface FormFilterValues extends Pick<ListingSearchParams, 'status' | 'courseId'> {}
 
@@ -86,7 +85,7 @@ export const FormSearchNFilter = ({
             <Field label={t('course_roadmap:status')} error={errors.status?.message}>
               <SelectCourseStatus
                 placeholder={t('course_roadmap:status')}
-                courseStatus={status as CourseStatus | undefined}
+                courseStatus={status}
                 onChange={value => {
                   setValue('status', value);
                   trigger('status');

@@ -5,11 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { Button, Tag, Typography } from 'reactjs';
 import { TableActions } from 'reactjs';
 import { CourseStatusMappingToColors } from '../../constants/CourseStatusMappingToColors';
+import { getCourseStatusMappingToLabels } from '../../constants/CourseStatusMappingToLabels';
 import { Course } from '../../models/Course';
 import { Collapsed } from '~/components/Collapsed/Collapsed';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
-import { getCourseStatusMappingToLabels } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatusMappingToLabels';
 
 export interface Props
   extends Pick<
@@ -40,7 +40,7 @@ export const Table = ({
   onViewRoadMap,
   ...props
 }: Props) => {
-  const { t } = useTranslation(['common', 'course']);
+  const { t } = useTranslation(['course', 'common']);
 
   const CourseStatusMappingToLabels = useMemo(() => {
     return getCourseStatusMappingToLabels(t);
