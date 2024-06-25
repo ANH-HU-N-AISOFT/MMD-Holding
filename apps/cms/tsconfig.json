@@ -24,5 +24,6 @@
       "utilities": ["../../libs/utilities/src/index.ts"]
     }
   },
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["dist", "src/packages/locales/**/*.ts"]
 }

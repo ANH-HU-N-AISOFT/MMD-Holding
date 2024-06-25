@@ -1,5 +1,5 @@
-import { DocumentTemplateStatus } from '~/packages/common/SelectVariants/DocumentTemplateStatus/constants/DocumentTemplateStatus';
-import { DocumentTemplateType } from '~/packages/common/SelectVariants/DocumentTemplateType/constants/DocumentTemplateType';
+import { DocumentTemplateStatus } from './DocumentTemplateStatus';
+import { DocumentTemplateType } from './DocumentTemplateType';
 
 export interface DocumentTemplate {
   id: string;

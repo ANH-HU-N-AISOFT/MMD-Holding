@@ -1,7 +1,7 @@
 import { DocumentTemplate } from '../models/DocumentTemplate';
+import { DocumentTemplateStatus } from '../models/DocumentTemplateStatus';
+import { DocumentTemplateType } from '../models/DocumentTemplateType';
 import { add, documentTemplates } from './data';
-import { DocumentTemplateStatus } from '~/packages/common/SelectVariants/DocumentTemplateStatus/constants/DocumentTemplateStatus';
-import { DocumentTemplateType } from '~/packages/common/SelectVariants/DocumentTemplateType/constants/DocumentTemplateType';
 
 export interface CreateDocumentTemplate {
   name: string;

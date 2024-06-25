@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import { isCanExportEmployee } from './utils/Is';
 import { ActionFunctionArgs, json } from '~/overrides/@remix';
-import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { exportEmployees } from '~/packages/specific/Employee/services/exportEmployees';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Employee/utils/lisitngUrlSearchParamsUtils';
 import { downloadAxiosResponseAsCSV } from '~/utils/functions/downloadAxiosResponseAsCSV';

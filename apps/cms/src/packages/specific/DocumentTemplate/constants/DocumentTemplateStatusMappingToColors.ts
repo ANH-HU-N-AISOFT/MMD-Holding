@@ -1,5 +1,5 @@
 import { TagProps } from 'reactjs';
-import { DocumentTemplateStatus } from '~/packages/common/SelectVariants/DocumentTemplateStatus/constants/DocumentTemplateStatus';
+import { DocumentTemplateStatus } from '../models/DocumentTemplateStatus';
 
 export const DocumentTemplateStatusMappingToColors: Record<DocumentTemplateStatus, TagProps['color']> = {
   [DocumentTemplateStatus.ACTIVE]: 'success',

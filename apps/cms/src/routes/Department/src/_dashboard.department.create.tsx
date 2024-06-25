@@ -8,7 +8,7 @@ import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
-import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { FormMutation, FormValues } from '~/packages/specific/Department/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Department/components/FormMutation/zodResolver';
 import { createDepartment } from '~/packages/specific/Department/services/createDepartment';

@@ -1,7 +1,7 @@
 import { keys } from 'ramda';
 import type { RTHandleError } from './@types/RemixJsonFunction';
 import type { FieldErrors, FieldValues } from 'react-hook-form';
-import type { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import type { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 
 export const handleFormResolverError = <FormValues extends FieldValues = any, Model = any, FieldsError = any>(
   errors: FieldErrors<FormValues>,

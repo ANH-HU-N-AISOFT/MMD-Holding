@@ -12,7 +12,7 @@ import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParams
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
+import { getCountForFilterDrawer } from '~/packages/base/utils/getCountForFilterDrawer';
 import { getAppointmentStatusMappingToLabels } from '~/packages/specific/Appointment/constants/AppointmentStatusMappingToLabels';
 import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
 import './styles.css';

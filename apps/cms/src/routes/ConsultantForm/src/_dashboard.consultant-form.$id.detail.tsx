@@ -20,7 +20,7 @@ import {
   useLoaderData,
   useNavigate,
 } from '~/overrides/@remix';
-import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { Detail } from '~/packages/specific/ConsultantForm/components/Detail/Detail';
 import { ConsultantForm } from '~/packages/specific/ConsultantForm/models/ConsultantForm';
 import { getConsultantForm } from '~/packages/specific/ConsultantForm/services/getConsultantForm';

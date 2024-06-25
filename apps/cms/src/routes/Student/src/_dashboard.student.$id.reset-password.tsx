@@ -2,7 +2,7 @@ import i18next from 'i18next';
 import { isCanEditStudent } from './utils/Is';
 import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/@remix';
 import { validateFormData } from '~/overrides/@remix-hook-form';
-import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { FormValues } from '~/packages/specific/Student/components/ResetPassword/ResetPassword';
 import { getFormResetPasswordResolver } from '~/packages/specific/Student/components/ResetPassword/zodResolver';
 import { resetPassword } from '~/packages/specific/Student/services/resetPassword';

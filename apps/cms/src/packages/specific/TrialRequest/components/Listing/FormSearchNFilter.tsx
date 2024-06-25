@@ -10,7 +10,7 @@ import { SelectTrialRequestStatus } from '../SelectVariants/SelectTrialRequestSt
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
+import { getCountForFilterDrawer } from '~/packages/base/utils/getCountForFilterDrawer';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectCourseRoadmap } from '~/packages/specific/CourseRoadmap/components/SelectVariants/SelectCourseRoadmap';

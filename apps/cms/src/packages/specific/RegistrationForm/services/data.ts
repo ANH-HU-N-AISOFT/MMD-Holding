@@ -1,7 +1,7 @@
 import { localStorage } from 'utilities';
+import { PaymentMethod } from '../models/PaymentMethod';
 import { RegistrationForm } from '../models/RegistrationForm';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
-import { PaymentMethod } from '~/packages/common/SelectVariants/PaymentMethod/constants/PaymentMethod';
 
 const KEY = 'registrationForms';
 

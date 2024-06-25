@@ -3,7 +3,7 @@ import i18next from 'i18next';
 import * as ReactDOM from 'react-dom/client';
 import { I18nextProvider } from 'react-i18next';
 import { ThemeProvider } from 'reactjs';
-import '~/packages/common/I18n/i18n';
+import '~/I18n/i18n';
 import { App } from './App';
 import './styles/reset.css';
 import './tailwind.css';

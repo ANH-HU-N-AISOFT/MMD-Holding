@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { object, string, enum as enum_, literal, boolean, array, number } from 'zod';
+import { PaymentMethod } from '../../models/PaymentMethod';
 import type { TFunction } from 'i18next';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
-import { PaymentMethod } from '~/packages/common/SelectVariants/PaymentMethod/constants/PaymentMethod';
 import { getGreaterOrEqualThanMessage } from '~/utils/functions/getGreaterOrEqualThanMessage';
 import { getInvalidMessage } from '~/utils/functions/getInvalidMessage';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';

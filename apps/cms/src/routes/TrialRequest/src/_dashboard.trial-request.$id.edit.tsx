@@ -20,7 +20,7 @@ import {
   useNavigation,
 } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
-import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { Edit } from '~/packages/specific/TrialRequest/components/Edit/Edit';
 import { FormValues } from '~/packages/specific/TrialRequest/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/TrialRequest/components/FormMutation/zodResolver';

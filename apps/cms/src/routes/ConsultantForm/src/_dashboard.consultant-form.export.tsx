@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import { isCanExportConsultantForm } from './utils/Is';
 import { ActionFunctionArgs, json } from '~/overrides/@remix';
-import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { exportConsultantForms } from '~/packages/specific/ConsultantForm/services/exportConsultantForms';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/ConsultantForm/utils/lisitngUrlSearchParamsUtils';
 import { downloadAxiosResponseAsCSV } from '~/utils/functions/downloadAxiosResponseAsCSV';

@@ -20,7 +20,7 @@ import {
   useLoaderData,
   useNavigate,
 } from '~/overrides/@remix';
-import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { Detail } from '~/packages/specific/Department/components/Detail/Detail';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartment } from '~/packages/specific/Department/services/getDepartment';

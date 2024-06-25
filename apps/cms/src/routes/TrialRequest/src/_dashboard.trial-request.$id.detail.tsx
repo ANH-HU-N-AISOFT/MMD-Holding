@@ -21,7 +21,7 @@ import {
   useLoaderData,
   useNavigate,
 } from '~/overrides/@remix';
-import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { Detail } from '~/packages/specific/TrialRequest/components/Detail/Detail';
 import { TrialRequest } from '~/packages/specific/TrialRequest/models/TrialRequest';
 import { getTrialRequest } from '~/packages/specific/TrialRequest/services/getTrialRequest';

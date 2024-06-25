@@ -1,5 +1,5 @@
 import type { RTHandleError } from './@types/RemixJsonFunction';
-import type { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import type { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 
 export const handleNativeError = <Model = any, FieldsError = any>(
   error: Error,

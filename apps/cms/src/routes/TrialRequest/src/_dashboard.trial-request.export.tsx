@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import { isCanExportTrialRequest } from './utils/Is';
 import { ActionFunctionArgs, json } from '~/overrides/@remix';
-import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { exportTrialRequests } from '~/packages/specific/TrialRequest/services/exportTrialRequests';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/TrialRequest/utils/lisitngUrlSearchParamsUtils';
 import { downloadAxiosResponseAsCSV } from '~/utils/functions/downloadAxiosResponseAsCSV';

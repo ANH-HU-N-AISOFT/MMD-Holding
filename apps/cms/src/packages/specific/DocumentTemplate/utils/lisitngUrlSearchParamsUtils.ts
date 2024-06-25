@@ -1,7 +1,7 @@
 import { UrlSearchParamsUtils } from 'utilities';
 import { any, number, object, enum as enum_ } from 'zod';
-import { DocumentTemplateStatus } from '~/packages/common/SelectVariants/DocumentTemplateStatus/constants/DocumentTemplateStatus';
-import { DocumentTemplateType } from '~/packages/common/SelectVariants/DocumentTemplateType/constants/DocumentTemplateType';
+import { DocumentTemplateStatus } from '../models/DocumentTemplateStatus';
+import { DocumentTemplateType } from '../models/DocumentTemplateType';
 
 export const lisitngUrlSearchParamsSchema = object({
   page: number().optional(),

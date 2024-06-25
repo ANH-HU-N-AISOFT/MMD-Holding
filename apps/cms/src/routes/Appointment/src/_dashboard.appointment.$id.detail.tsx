@@ -21,7 +21,7 @@ import {
   useLoaderData,
   useNavigate,
 } from '~/overrides/@remix';
-import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { Detail } from '~/packages/specific/Appointment/components/Detail/Detail';
 import { Appointment } from '~/packages/specific/Appointment/models/Appointment';
 import { getAppointment } from '~/packages/specific/Appointment/services/getAppointment';

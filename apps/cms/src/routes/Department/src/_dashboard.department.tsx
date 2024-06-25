@@ -21,8 +21,8 @@ import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirm
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
-import { useListingData } from '~/packages/@base/hooks/useListingData';
-import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
+import { useListingData } from '~/packages/base/hooks/useListingData';
+import { SimpleListingLoaderResponse } from '~/packages/base/types/SimpleListingLoaderResponse';
 import { Import, ImportActions } from '~/packages/specific/Department/components/Import/Import';
 import { FormSearchNFilter } from '~/packages/specific/Department/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Department/components/Listing/Header';

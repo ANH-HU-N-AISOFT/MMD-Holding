@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { literal, object, string, enum as enum_ } from 'zod';
+import { DocumentTemplateStatus } from '../../models/DocumentTemplateStatus';
+import { DocumentTemplateType } from '../../models/DocumentTemplateType';
 import type { TFunction } from 'i18next';
-import { DocumentTemplateStatus } from '~/packages/common/SelectVariants/DocumentTemplateStatus/constants/DocumentTemplateStatus';
-import { DocumentTemplateType } from '~/packages/common/SelectVariants/DocumentTemplateType/constants/DocumentTemplateType';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessage } from '~/utils/functions/getRequiredMessage';
 import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMessageSelectField';

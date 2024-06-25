@@ -6,11 +6,11 @@ import { useTranslation } from 'react-i18next';
 import { Button, Tag, Typography } from 'reactjs';
 import { TableActions } from 'reactjs';
 import { DocumentTemplateStatusMappingToColors } from '../../constants/DocumentTemplateStatusMappingToColors';
+import { getDocumentTemplateStatusMappingToLabels } from '../../constants/DocumentTemplateStatusMappingToLabels';
+import { getDocumentTemplateTypeMappingToLabels } from '../../constants/DocumentTemplateTypeMappingToLabels';
 import { DocumentTemplate } from '../../models/DocumentTemplate';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
-import { getDocumentTemplateStatusMappingToLabels } from '~/packages/common/SelectVariants/DocumentTemplateStatus/constants/DocumentTemplateStatusMappingToLabels';
-import { getDocumentTemplateTypeMappingToLabels } from '~/packages/common/SelectVariants/DocumentTemplateType/constants/DocumentTemplateTypeMappingToLabels';
 
 export interface Props
   extends Pick<
@@ -39,7 +39,7 @@ export const Table = ({
   editable,
   ...props
 }: Props) => {
-  const { t } = useTranslation(['common', 'document_template']);
+  const { t } = useTranslation(['document_template', 'common']);
 
   const DocumentTemplateStatusMappingToLabels = useMemo(() => {
     return getDocumentTemplateStatusMappingToLabels(t);

@@ -1,6 +1,6 @@
 import { isCanDeleteCourseRoadmap } from './utils/Is';
 import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/@remix';
-import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { deleteCourseRoadmap } from '~/packages/specific/CourseRoadmap/services/deleteCourseRoadmap';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';

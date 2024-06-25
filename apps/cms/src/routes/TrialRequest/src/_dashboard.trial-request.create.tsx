@@ -18,7 +18,7 @@ import {
   useNavigation,
 } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
-import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { Student } from '~/packages/specific/Student/models/Student';

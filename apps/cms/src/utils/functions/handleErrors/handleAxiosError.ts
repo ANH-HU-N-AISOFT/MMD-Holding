@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import type { RTHandleError } from './@types/RemixJsonFunction';
-import type { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import type { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { redirect } from '~/overrides/@remix';
 
 type ResponseFailure =

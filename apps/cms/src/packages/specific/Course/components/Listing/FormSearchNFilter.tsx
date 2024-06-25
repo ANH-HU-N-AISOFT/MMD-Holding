@@ -7,7 +7,7 @@ import { SelectCourseStatus } from '../SelectVariants/SelectCourseStatus';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
+import { getCountForFilterDrawer } from '~/packages/base/utils/getCountForFilterDrawer';
 import { CourseStatus } from '~/packages/specific/Course/models/CourseStatus';
 
 export interface FormFilterValues extends Pick<ListingSearchParams, 'status'> {}

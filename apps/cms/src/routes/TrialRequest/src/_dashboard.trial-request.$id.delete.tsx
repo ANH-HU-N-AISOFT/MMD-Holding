@@ -1,7 +1,7 @@
 import { getDefaultListingTrialRequestsUrl } from '../constants/getDefaultFilterUrl';
 import { isCanDeleteTrialRequest } from './utils/Is';
 import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/@remix';
-import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { deleteTrialRequest } from '~/packages/specific/TrialRequest/services/deleteTrialRequest';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';

@@ -8,7 +8,7 @@ import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
-import { SelectCountry } from '~/packages/specific/Location/components/SelectVariants/SelectCountry';
+import { SelectCountry } from '~/packages/extends/Location/components/SelectVariants/SelectCountry';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
 interface Props {

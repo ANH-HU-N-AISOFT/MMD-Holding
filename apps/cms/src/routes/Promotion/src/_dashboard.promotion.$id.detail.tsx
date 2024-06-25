@@ -20,7 +20,7 @@ import {
   useLoaderData,
   useNavigate,
 } from '~/overrides/@remix';
-import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
+import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { Detail } from '~/packages/specific/Promotion/components/Detail/Detail';
 import { Promotion } from '~/packages/specific/Promotion/models/Promotion';
 import { getPromotion } from '~/packages/specific/Promotion/services/getPromotion';

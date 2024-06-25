@@ -6,8 +6,8 @@ import { SelectSingle } from 'reactjs';
 import { calculateSalePrice } from '../../../utils/calculateSalePrice';
 import { FormValues } from '../FormMutation';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { SelectPaymentMethod } from '~/packages/common/SelectVariants/PaymentMethod/SelectPaymentMethod';
 import { SelectCourseRoadmaps } from '~/packages/specific/CourseRoadmap/components/SelectVariants/SelectCourseRoadmaps';
+import { SelectPaymentMethod } from '~/packages/specific/RegistrationForm/components/SelectVariants/SelectPaymentMethod';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 import { currencyParser } from '~/utils/functions/currency/currencyParser';
 
