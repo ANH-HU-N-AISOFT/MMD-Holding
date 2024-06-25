@@ -1,8 +1,8 @@
 import { ReactNode, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectSingleProps } from 'reactjs';
 import { SourceEnum } from './constants/SourceEnum';
 import { getSourceEnumMappingToLabels } from './constants/SourceEnumMappingToLabels';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 
 interface Props {
   sourceEnum?: SourceEnum;

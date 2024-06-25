@@ -15,14 +15,14 @@ export const DefaultResult = ({ fileState, onRemove, onClick, disabled }: Props)
   }
 
   return (
-    <div className="rounded-xl border border-solid border-neutral-300 p-2 bg-white cursor-default">
+    <div className="cursor-default rounded-xl border border-solid border-neutral-300 bg-white p-2">
       <div className="flex gap-3">
-        <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-neutral-200">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-neutral-200">
           <FileTextOutlined className="text-lg text-neutral-700" />
         </div>
         <div className="flex-auto basis-full items-center">
           <div
-            className="text-left mb-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium text-neutral-700 cursor-pointer hover:text-brand-base transition-all"
+            className="hover:text-brand-base mb-1 cursor-pointer truncate text-left text-sm font-medium text-neutral-700 transition-all"
             onClick={onClick}
           >
             {fileState.file.name}
@@ -36,10 +36,10 @@ export const DefaultResult = ({ fileState, onRemove, onClick, disabled }: Props)
           )}
         </div>
         {!disabled && (
-          <div className="flex flex-shrink-0 flex-grow justify-end">
+          <div className="flex shrink-0 grow justify-end">
             <div className="flex h-6 w-6 items-center justify-center rounded-full bg-neutral-200">
               <CloseOutlined
-                className="cursor-pointer text-sm text-neutral-700 transition-all hover:text-primary-base"
+                className="hover:text-primary-base cursor-pointer text-sm text-neutral-700 transition-all"
                 onClick={onRemove}
               />
             </div>

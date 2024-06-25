@@ -1,14 +1,12 @@
-import {
-  CheckCircleOutlined,
-  ClusterOutlined,
-  ExperimentOutlined,
-  FileDoneOutlined,
-  HomeOutlined,
-  QuestionCircleOutlined,
-  ScheduleOutlined,
-} from '@ant-design/icons';
-import { MenuProps } from 'antd';
+import { CheckCircleOutlined, ClusterOutlined, ExperimentOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
+import {
+  AntRawMenuProps,
+  IconCalendarEditLinear,
+  IconHeartEditLinear,
+  IconHomeLinear,
+  IconReceiptLinear,
+} from 'reactjs';
 import { useNavigate } from '~/overrides/@remix';
 import { ActionType, ResourceType } from '~/packages/common/SelectVariants/Permission/Permission';
 import { getDefaultListingAppointmentsUrl } from '~/routes/Appointment/constants/getDefaultFilterUrl';
@@ -19,10 +17,10 @@ export const useGetNavData = () => {
   const { t } = useTranslation(['dashboard_layout']);
   const navigate = useNavigate();
 
-  const items: MenuProps['items'] = [
+  const items: AntRawMenuProps['items'] = [
     {
       key: '/dashboard',
-      icon: <HomeOutlined />,
+      icon: <IconHomeLinear className="!text-lg" />,
       label: t('dashboard_layout:menu.home'),
       onClick: () => navigate('/dashboard'),
     },
@@ -61,7 +59,7 @@ export const useGetNavData = () => {
     },
     {
       key: '/appointment',
-      icon: <ScheduleOutlined />,
+      icon: <IconCalendarEditLinear className="!text-lg" />,
       label: t('dashboard_layout:menu.appointment'),
       onClick: () => navigate(getDefaultListingAppointmentsUrl()),
       className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.APPOINTMENT }) ? '' : '!hidden',
@@ -74,7 +72,7 @@ export const useGetNavData = () => {
     },
     {
       key: '/consultation',
-      icon: <QuestionCircleOutlined />,
+      icon: <IconHeartEditLinear className="!text-lg" />,
       label: t('dashboard_layout:menu.consultation'),
       className:
         isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.CONSULTATION }) ||
@@ -132,7 +130,7 @@ export const useGetNavData = () => {
     },
     {
       key: '/contract_signing',
-      icon: <FileDoneOutlined />,
+      icon: <IconReceiptLinear className="!text-lg" />,
       label: t('dashboard_layout:menu.contract_signing'),
       // FIXME: Permission
       children: [

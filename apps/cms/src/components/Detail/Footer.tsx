@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import { isEmpty } from 'ramda';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '../AntCustom';
-import { TableActions, TableActionsProps } from '../TableActions/TableActions';
+import { Button } from 'reactjs';
+import { TableActions, TableActionsProps } from 'reactjs';
 
 interface Props {
   onDelete?: () => void;
@@ -38,7 +38,7 @@ export const Footer = ({
       return null;
     }
     return (
-      <Button danger disabled={isLoading} onClick={onDelete}>
+      <Button color="error" ghost disabled={isLoading} onClick={onDelete}>
         {cancelText_}
       </Button>
     );
@@ -48,7 +48,7 @@ export const Footer = ({
       return null;
     }
     return (
-      <Button type="primary" loading={isLoading} disabled={isLoading} onClick={onEdit}>
+      <Button color="primary" loading={isLoading} disabled={isLoading} onClick={onEdit}>
         {okText_}
       </Button>
     );

@@ -1,7 +1,7 @@
 import { HomeOutlined } from '@ant-design/icons';
-import { Button, Result, notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button, Result, notification } from 'reactjs';
 import {
   ActionResponse as ActionDeleteContractResponse,
   action as actionDeleteContract,
@@ -92,7 +92,7 @@ export const Page = () => {
         status="404"
         title={t('contract:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/contract')}>
+          <Button icon={<HomeOutlined />} color="primary" onClick={() => navigate('/contract')}>
             {t('contract:back_to_list')}
           </Button>
         }
@@ -102,14 +102,14 @@ export const Page = () => {
 
   return (
     <>
-      <div className="flex flex-col h-full">
+      <div className="flex h-full flex-col">
         <Header
           title={t('contract:contract_with_name', {
             name: loaderData.info?.contract.studentName,
           })}
           onBack={() => navigate('/contract')}
         />
-        <div className="flex-1 mb-4">
+        <div className="mb-4 flex-1">
           <Detail contract={loaderData.info?.contract} />
         </div>
         <Footer

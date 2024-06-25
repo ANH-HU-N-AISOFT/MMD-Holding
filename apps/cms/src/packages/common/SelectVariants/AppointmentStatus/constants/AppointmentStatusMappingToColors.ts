@@ -1,4 +1,4 @@
-import { TagProps } from 'antd';
+import { TagProps } from 'reactjs';
 import { AppointmentStatus } from './AppointmentStatus';
 
 export const AppointmentStatusMappingToColors: Record<AppointmentStatus, TagProps['color']> = {

@@ -1,7 +1,7 @@
-import { Input } from 'antd';
 import dayjs from 'dayjs';
 import { forwardRef, useImperativeHandle, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { InputPassword } from 'reactjs';
 import { importStudents } from '../../services/importStudents';
 import { ResponseSuccess, validateImportStudents } from '../../services/validateImportStudents';
 import { ModalPreview } from '~/components/Listing/ModalImport/ModalPreview';
@@ -177,7 +177,7 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
             width: 160,
             title: t('student:password'),
             render: (_, record) => (
-              <Input.Password className="!px-0" readOnly value={record.password} variant="borderless" />
+              <InputPassword className="!px-0" readOnly value={record.password} variant="borderless" />
             ),
           },
         ]}

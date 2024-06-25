@@ -1,12 +1,9 @@
-import { Empty } from 'antd';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Empty } from 'reactjs';
+import { SelectMultipleDecoupling, SelectMultipleDecouplingProps } from 'reactjs';
 import { PromotionStatus } from './PromotionStatus/constants/PromotionStatus';
 import { PromotionType } from './PromotionType/constants/PromotionType';
-import {
-  SelectMultipleDecoupling,
-  SelectMultipleDecouplingProps,
-} from '~/components/SelectDecoupling/SelectMultipleDecoupling';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { Promotion } from '~/packages/specific/Promotion/models/Promotion';
 import { getPromotions } from '~/packages/specific/Promotion/services/getPromotions';

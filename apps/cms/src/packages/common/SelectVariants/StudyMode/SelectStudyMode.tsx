@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectSingleProps } from 'reactjs';
 import { StudyMode } from './constants/StudyMode';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 import { getStudyModeMappingToLabels } from '~/packages/common/SelectVariants/StudyMode/constants/StudyModeMappingToLabels';
 
 interface Props {

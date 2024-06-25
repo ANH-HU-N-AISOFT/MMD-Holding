@@ -1,13 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Tabs } from 'antd';
 import classNames from 'classnames';
 import { sum, values } from 'ramda';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Tabs } from 'reactjs';
 import { Field, useDeepCompareEffect, useMobile } from 'reactjs';
+import { SelectSingle } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
-import { SelectSingle } from '~/components/AntCustom/Select';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
@@ -115,7 +115,7 @@ export const FormSearchNFilter = ({
               />
             </Field> */}
               {/* <Field label={t('appointment:appointment_date')}>
-              <DatePicker
+              <SingleDayPicker
                 className="w-full"
                 placeholder={t('appointment:appointment_date')}
                 value={date ? dayjs(date) : undefined}
@@ -157,13 +157,13 @@ export const FormSearchNFilter = ({
         <Tabs
           size="small"
           tabBarGutter={16}
-          activeKey={status}
+          tabActive={status}
           onChange={value => {
             setValue('status', value as FormFilterValues['status']);
             handleSubmit();
           }}
           className="Appointment__type flex-1"
-          items={[
+          tabs={[
             {
               key: 'all',
               label: (
@@ -272,7 +272,7 @@ export const FormSearchNFilter = ({
                 />
               </Field> */}
               {/* <Field label={t('appointment:appointment_date')}>
-                <DatePicker
+                <SingleDayPicker
                   className="w-full"
                   placeholder={t('appointment:appointment_date')}
                   value={date ? dayjs(date) : undefined}

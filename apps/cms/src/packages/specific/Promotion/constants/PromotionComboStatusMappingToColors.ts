@@ -1,4 +1,4 @@
-import { TagProps } from 'antd';
+import { TagProps } from 'reactjs';
 import { PromotionStatus } from '~/packages/common/SelectVariants/PromotionStatus/constants/PromotionStatus';
 
 export const PromotionStatusMappingToColors: Record<PromotionStatus, TagProps['color']> = {

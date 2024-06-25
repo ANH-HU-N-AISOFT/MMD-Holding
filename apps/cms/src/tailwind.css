@@ -7,10 +7,10 @@ body {
   font-family: "Inter", sans-serif;
 }
 
-.AntTab__tablist--hidden .ant-tabs-nav {
+.AntTab__tablist--hidden .yy-tabs-nav {
   @apply hidden;
 }
-.ant-tag {
+.yy-tag {
   @apply !m-0;
 }
 

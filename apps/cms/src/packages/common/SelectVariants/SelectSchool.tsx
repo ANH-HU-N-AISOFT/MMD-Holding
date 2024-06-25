@@ -1,7 +1,7 @@
-import { Empty } from 'antd';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Option, SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
+import { Empty } from 'reactjs';
+import { SelectOption, SelectSingle, SelectSingleProps } from 'reactjs';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { School } from '~/packages/specific/Location/models/Location';
 import { getSchools } from '~/packages/specific/Location/services/getSchools';
@@ -18,7 +18,7 @@ interface Props {
 export const SelectSchool = ({ school, disabled, allowClear = true, cityCode, onChange, placeholder }: Props) => {
   const { t } = useTranslation(['location']);
   const [isFetching, setIsFetching] = useState(false);
-  const [options, setOptions] = useState<Option[]>([]);
+  const [options, setOptions] = useState<SelectOption<School['id']>[]>([]);
   const [searchValue, setSearchValue] = useState('');
 
   const needWarning = useMemo(() => !cityCode, [cityCode]);
@@ -64,7 +64,6 @@ export const SelectSchool = ({ school, disabled, allowClear = true, cityCode, on
       placeholder={placeholder ?? t('location:school')}
       className="w-full"
       loading={isFetching}
-      showSearch
       searchValue={searchValue}
       options={options}
       onSearch={value => setSearchValue(value)}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Option, SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
+import { SelectOption, SelectSingle, SelectSingleProps } from 'reactjs';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { City } from '~/packages/specific/Location/models/Location';
 import { getCities } from '~/packages/specific/Location/services/getCities';
@@ -16,7 +16,7 @@ interface Props {
 export const SelectCity = ({ city, disabled, allowClear = true, onChange, fieldKey = 'id' }: Props) => {
   const { t } = useTranslation(['location']);
   const [isFetching, setIsFetching] = useState(false);
-  const [options, setOptions] = useState<Option[]>([]);
+  const [options, setOptions] = useState<SelectOption<City['id']>[]>([]);
   const [searchValue, setSearchValue] = useState('');
 
   const handleFetchOption = async () => {
@@ -54,7 +54,6 @@ export const SelectCity = ({ city, disabled, allowClear = true, onChange, fieldK
       placeholder={t('location:city')}
       className="w-full"
       loading={isFetching}
-      showSearch
       searchValue={searchValue}
       options={options}
       onSearch={value => setSearchValue(value)}

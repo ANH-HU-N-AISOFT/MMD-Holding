@@ -1,6 +1,6 @@
-import { Tabs } from 'antd';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Tabs } from 'reactjs';
 import { Department } from '../../models/Department';
 import { FormMutation, FormValues } from '../FormMutation/FormMutation';
 
@@ -22,8 +22,8 @@ export const Edit = ({ department, ...formProps }: Props) => {
     <div>
       <Tabs
         onChange={setTabActive}
-        activeKey={tabActive}
-        items={[
+        tabActive={tabActive}
+        tabs={[
           {
             key: 'general_information',
             label: t('department:general_information'),

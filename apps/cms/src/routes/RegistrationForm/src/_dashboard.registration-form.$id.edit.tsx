@@ -1,8 +1,8 @@
 import { HomeOutlined } from '@ant-design/icons';
-import { Button, Result, notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button, Result, notification } from 'reactjs';
 import { isCanEditRegistrationForm } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
@@ -116,7 +116,7 @@ export const Page = () => {
         status="404"
         title={t('registration_form:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/registration-form')}>
+          <Button icon={<HomeOutlined />} color="primary" onClick={() => navigate('/registration-form')}>
             {t('registration_form:back_to_list')}
           </Button>
         }
@@ -125,14 +125,14 @@ export const Page = () => {
   }
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex h-full flex-col">
       <Header
         title={t('registration_form:registration_form_with_name', {
           name: loaderData.info?.registrationForm.studentName,
         })}
         onBack={() => navigate('/registration-form')}
       />
-      <div className="flex-1 mb-4">
+      <div className="mb-4 flex-1">
         <Edit isSubmiting={isSubmiting} uid={FormUpdate} registrationForm={loaderData.info?.registrationForm} />
       </div>
       <Footer

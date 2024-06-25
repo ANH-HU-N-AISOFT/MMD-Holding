@@ -1,6 +1,6 @@
-import { notification } from 'antd';
 import { isEmpty } from 'ramda';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { notification } from 'reactjs';
 import { AnyRecord } from 'typescript-utilities';
 import { UrlSearchParamsUtils } from 'utilities';
 import { SimpleListingLoaderResponse } from '../types/SimpleListingLoaderResponse';

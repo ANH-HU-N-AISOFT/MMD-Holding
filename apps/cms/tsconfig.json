@@ -15,9 +15,6 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"],
-      "@remix-app-generators": [
-        "../../libs/@remix-app-generators/src/index.ts"
-      ],
       "assets": ["../../libs/assets/src/index.ts"],
       "reactjs": ["../../libs/reactjs/src/index.ts"],
       "remixjs/client": ["../../libs/remixjs/src/client.ts"],

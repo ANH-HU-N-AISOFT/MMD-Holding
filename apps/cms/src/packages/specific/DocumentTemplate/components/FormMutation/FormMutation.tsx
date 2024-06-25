@@ -1,7 +1,7 @@
-import { Input, notification } from 'antd';
 import { TFunction } from 'i18next';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Input, Textarea, notification } from 'reactjs';
 import { useDeepCompareEffect } from 'reactjs';
 import { v4 } from 'uuid';
 import { TypeOf } from 'zod';
@@ -115,7 +115,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
         }}
       >
         <BoxFields>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+          <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2">
             <Field withRequiredMark label={t('document_template:document_template_type')} error={errors.type?.message}>
               <SelectDocumentTemplateType
                 disabled={disabledField}
@@ -133,8 +133,8 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                 disabled={disabledField}
                 placeholder={t('document_template:name')}
                 value={formValues.name}
-                onChange={event => {
-                  setValue('name', event.target.value);
+                onChange={value => {
+                  setValue('name', value);
                   if (errors.name) {
                     trigger('name');
                   }
@@ -195,15 +195,15 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </div>
             <div className="md:col-span-2">
               <Field label={t('document_template:description')} error={errors.description?.message}>
-                <Input.TextArea
+                <Textarea
                   rows={6}
                   showCount
                   maxLength={256}
                   disabled={disabledField}
                   placeholder={t('document_template:description')}
                   value={formValues.description ?? ''}
-                  onChange={event => {
-                    setValue('description', event.target.value);
+                  onChange={value => {
+                    setValue('description', value);
                     if (errors.description) {
                       trigger('description');
                     }

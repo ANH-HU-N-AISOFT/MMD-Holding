@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectSingleProps } from 'reactjs';
 import { TrialRequestStatus } from './constants/TrialRequestStatus';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 import { getTrialRequestStatusMappingToLabels } from '~/packages/common/SelectVariants/TrialRequestStatus/constants/TrialRequestStatusMappingToLabels';
 
 interface Props {

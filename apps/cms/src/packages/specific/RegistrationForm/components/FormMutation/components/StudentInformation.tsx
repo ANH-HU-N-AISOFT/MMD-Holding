@@ -1,16 +1,16 @@
-import { Input, Radio } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
+import { Input, Radio } from 'reactjs';
 import { Field } from 'reactjs';
+import { SingleDayPicker } from 'reactjs';
+import { disableDaysFuture } from 'reactjs';
 import { FormValues } from '../FormMutation';
-import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
 import { SelectCity } from '~/packages/common/SelectVariants/SelectCity';
 import { SelectDistrict } from '~/packages/common/SelectVariants/SelectDistrict';
 import { SelectStudent } from '~/packages/common/SelectVariants/SelectStudent';
-import { disableFuture } from '~/utils/functions/disableDatePicker';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
 interface Props {
@@ -100,8 +100,8 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
           disabled={disabledField}
           placeholder={t('registration_form:student_email')}
           value={formValues.studentEmail}
-          onChange={event => {
-            setValue('studentEmail', event.target.value);
+          onChange={value => {
+            setValue('studentEmail', value);
             if (errors.studentEmail) {
               trigger('studentEmail');
             }
@@ -109,9 +109,9 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
         />
       </Field>
       <Field label={t('registration_form:date_of_birth')} error={errors.studentDateOfBirth?.message}>
-        <DatePicker
+        <SingleDayPicker
           disabled={disabledField}
-          disabledDate={isEdit ? undefined : disableFuture}
+          disabledDate={isEdit ? undefined : disableDaysFuture}
           className="!w-full"
           placeholder={t('registration_form:date_of_birth')}
           value={formValues.studentDateOfBirth ? dayjs(formValues.studentDateOfBirth) : undefined}
@@ -145,8 +145,8 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
             disabled={disabledField}
             placeholder={t('registration_form:current_address')}
             value={formValues.studentCurrentAddress ?? undefined}
-            onChange={event => {
-              setValue('studentCurrentAddress', event.target.value);
+            onChange={value => {
+              setValue('studentCurrentAddress', value);
               if (errors.studentCurrentAddress) {
                 trigger('studentCurrentAddress');
               }
@@ -190,8 +190,8 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
           addonBefore={<div>+84</div>}
           placeholder={t('registration_form:parent_phone')}
           value={formValues.studentParentPhone ?? undefined}
-          onChange={event => {
-            const value = takeOnlyNumber(event);
+          onChange={value_ => {
+            const value = value_ ? takeOnlyNumber(value_) : undefined;
             setValue('studentParentPhone', value);
             if (errors.studentParentPhone) {
               trigger('studentParentPhone');
@@ -200,19 +200,20 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
         />
       </Field>
       <Field label={t('registration_form:notify_result_to_parent')} error={errors.notifyResultToParent?.message}>
-        <Radio.Group
+        <Radio<boolean>
+          items={[
+            { value: false, label: t('registration_form:disable_notify') },
+            { value: true, label: t('registration_form:enable_notify') },
+          ]}
           disabled={disabledField}
-          onChange={event => {
-            setValue('notifyResultToParent', event.target.value);
+          onChange={value => {
+            setValue('notifyResultToParent', value);
             if (errors.notifyResultToParent) {
               trigger('notifyResultToParent');
             }
           }}
-          value={formValues.notifyResultToParent}
-        >
-          <Radio value={false}>{t('registration_form:disable_notify')}</Radio>
-          <Radio value={true}>{t('registration_form:enable_notify')}</Radio>
-        </Radio.Group>
+          value={formValues.notifyResultToParent ?? false}
+        />
       </Field>
     </>
   );

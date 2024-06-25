@@ -31,7 +31,7 @@ export const Detail = ({ course }: Props) => {
       </div>
       <BoxFields
         title={
-          <div className="flex items-center gap-4 justify-between flex-wrap">
+          <div className="flex flex-wrap items-center justify-between gap-4">
             <div>{t('course:course_roadmaps')}</div>
             <div className="basis-[300px]">
               <FormSearchNFilter

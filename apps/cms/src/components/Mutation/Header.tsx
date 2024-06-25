@@ -8,7 +8,7 @@ interface Props {
 
 export const Header = ({ title, onBack }: Props) => {
   return (
-    <div className="flex items-center gap-3 text-xl font-bold mb-4">
+    <div className="mb-4 flex items-center gap-3 text-xl font-bold">
       <ArrowLeftOutlined className="cursor-pointer" onClick={onBack} />
       {title}
     </div>

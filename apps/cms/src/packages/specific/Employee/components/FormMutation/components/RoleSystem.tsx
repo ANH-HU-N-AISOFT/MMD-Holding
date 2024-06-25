@@ -1,5 +1,5 @@
-import { Input, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { Input, InputPassword, Typography } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
 import { Employee } from '../../../models/Employee';
 import { FormValues } from '../FormMutation';
@@ -42,7 +42,7 @@ export const RoleSystem = ({
   const password = watch('roleSystem.password');
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
       <Field
         withRequiredMark
         label={t('employee:department')}
@@ -83,7 +83,10 @@ export const RoleSystem = ({
           ignoreRoles={[Role.Student]}
           roles={roles?.filter((role): role is Exclude<Role, Role.SuperAdmin> => !!role)}
           onChange={value => {
-            setValue('roleSystem.roles', value);
+            setValue(
+              'roleSystem.roles',
+              value?.filter((role): role is Exclude<Role, Role.SuperAdmin> => role !== Role.Admin),
+            );
             if (errors.roleSystem?.roles) {
               trigger('roleSystem.roles');
             }
@@ -94,8 +97,8 @@ export const RoleSystem = ({
       <Field withRequiredMark label={t('employee:username')} error={errors.roleSystem?.username?.message}>
         <Input
           value={username}
-          onChange={event => {
-            setValue('roleSystem.username', event.target.value);
+          onChange={value => {
+            setValue('roleSystem.username', value);
             if (errors.roleSystem?.username) {
               trigger('roleSystem.username');
             }
@@ -131,10 +134,10 @@ export const RoleSystem = ({
           }
           error={errors.roleSystem?.password?.message}
         >
-          <Input.Password
+          <InputPassword
             value={password ?? undefined}
-            onChange={event => {
-              setValue('roleSystem.password', event.target.value);
+            onChange={value => {
+              setValue('roleSystem.password', value);
               if (errors.roleSystem?.password) {
                 trigger('roleSystem.password');
               }

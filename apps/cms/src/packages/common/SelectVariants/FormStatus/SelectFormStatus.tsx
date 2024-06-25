@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectSingleProps } from 'reactjs';
 import { FormStatus } from './constants/FormStatus';
 import { getFormStatusMappingToLabels } from './constants/FormStatusMappingToLabels';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 
 interface Props {
   formStatus?: FormStatus;

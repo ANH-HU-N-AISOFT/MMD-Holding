@@ -1,14 +1,13 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Tag, Typography } from 'antd';
-import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
+import { Button, Dropdown, DropdownMenuItem, Tag, Typography } from 'reactjs';
+import { TableActions } from 'reactjs';
 import { TrialRequestStatusMappingToColors } from '../../constants/TrialRequestStatusMappingToColors';
 import { TrialRequest } from '../../models/TrialRequest';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
-import { TableActions } from '~/components/TableActions/TableActions';
 import { TooltipDetailInformation } from '~/components/TooltipDetailInformation/TooltipDetailInformation';
 import { getDemoTypeMappingToLabels } from '~/packages/common/SelectVariants/DemoType/constants/DemoTypeMappingToLabels';
 import { getStudyModeMappingToLabels } from '~/packages/common/SelectVariants/StudyMode/constants/StudyModeMappingToLabels';
@@ -125,8 +124,8 @@ export const Table = ({
       render: (_, record) => {
         return (
           <Typography.Link onClick={() => onView?.(record)}>
-            <Typography.Paragraph className="text-[inherit] !mb-1">{record.student?.fullName}</Typography.Paragraph>
-            <Typography.Paragraph className="text-[inherit] !mb-0">{record.student?.phoneNumber}</Typography.Paragraph>
+            <Typography.Paragraph className="!mb-1 text-[inherit]">{record.student?.fullName}</Typography.Paragraph>
+            <Typography.Paragraph className="!mb-0 text-[inherit]">{record.student?.phoneNumber}</Typography.Paragraph>
           </Typography.Link>
         );
       },
@@ -142,22 +141,20 @@ export const Table = ({
             </Tag>
             {editable && (
               <Dropdown
-                menu={{
-                  items: Object.values(TrialRequestStatus).reduce<ItemType[]>((result, item) => {
-                    if (item === record.status) {
-                      return result;
-                    }
-                    return result.concat({
-                      key: item,
-                      onClick: () => onUpdateStatus?.({ record: record, status: item }),
-                      label: (
-                        <Tag color={TrialRequestStatusMappingToColors[item]}>
-                          {TrialRequestStatusMappingToLabels[item]}
-                        </Tag>
-                      ),
-                    });
-                  }, []),
-                }}
+                items={Object.values(TrialRequestStatus).reduce<DropdownMenuItem[]>((result, item) => {
+                  if (item === record.status) {
+                    return result;
+                  }
+                  return result.concat({
+                    key: item,
+                    onClick: () => onUpdateStatus?.({ record: record, status: item }),
+                    label: (
+                      <Tag color={TrialRequestStatusMappingToColors[item]}>
+                        {TrialRequestStatusMappingToLabels[item]}
+                      </Tag>
+                    ),
+                  });
+                }, [])}
               >
                 <EditOutlined className="text-status-blue cursor-pointer" />
               </Dropdown>
@@ -315,7 +312,7 @@ export const Table = ({
         }}
       />
       <SickyAction isVisible={!!selectedRows.length}>
-        <div className="min-w-[400px] flex items-center justify-between">
+        <div className="flex min-w-[400px] items-center justify-between">
           <Highlighter
             textToHighlight={t('trial_request:total_records_selected', {
               total: selectedRows.length,
@@ -323,7 +320,7 @@ export const Table = ({
             searchWords={[selectedRows.length.toString()]}
             highlightClassName="bg-transparent font-semibold"
           />
-          <Button danger onClick={() => onDeleteMany?.(selectedRows)}>
+          <Button color="error" ghost onClick={() => onDeleteMany?.(selectedRows)}>
             {t('trial_request:delete')}
           </Button>
         </div>

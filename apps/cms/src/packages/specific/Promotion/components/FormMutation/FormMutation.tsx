@@ -1,11 +1,12 @@
-import { Input, InputNumber, Radio } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { Input, InputNumber, Radio, Textarea } from 'reactjs';
 import { useDeepCompareEffect } from 'reactjs';
+import { RangeDayPicker } from 'reactjs';
+import { disableDaysPast } from 'reactjs';
 import { TypeOf } from 'zod';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
-import { DateRangePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
 import { Form } from '~/overrides/@remix';
@@ -17,7 +18,6 @@ import { SelectPromotionType } from '~/packages/common/SelectVariants/PromotionT
 import { SelectDepartments } from '~/packages/common/SelectVariants/SelectDepartments';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 import { currencyParser } from '~/utils/functions/currency/currencyParser';
-import { disablePast } from '~/utils/functions/disableDatePicker';
 
 export interface FormValues extends TypeOf<ReturnType<typeof getFormMutationSchema>> {}
 
@@ -103,12 +103,12 @@ export const FormMutation = ({
         }}
       >
         <BoxFields>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+          <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2">
             <Field withRequiredMark label={t('promotion:name')} error={errors.name?.message}>
               <Input
                 value={name}
-                onChange={event => {
-                  setValue('name', event.target.value);
+                onChange={value => {
+                  setValue('name', value);
                   if (errors.name) {
                     trigger('name');
                   }
@@ -120,8 +120,8 @@ export const FormMutation = ({
             <Field withRequiredMark label={t('promotion:code')} error={errors.code?.message}>
               <Input
                 value={code}
-                onChange={event => {
-                  setValue('code', event.target.value);
+                onChange={value => {
+                  setValue('code', value);
                   if (errors.code) {
                     trigger('code');
                   }
@@ -149,8 +149,8 @@ export const FormMutation = ({
               label={t('promotion:date_available')}
               error={errors.startDate?.message ?? errors.endDate?.message}
             >
-              <DateRangePicker
-                disabledDate={isEdit ? undefined : disablePast}
+              <RangeDayPicker
+                disabledDate={isEdit ? undefined : disableDaysPast}
                 className="w-full"
                 allowClear
                 value={startDate && endDate ? ([dayjs(startDate), dayjs(endDate)] as [Dayjs, Dayjs]) : undefined}
@@ -191,15 +191,15 @@ export const FormMutation = ({
                   className="w-full"
                   placeholder={t('promotion:promotion2')}
                   value={promotionByGift}
-                  onChange={event => {
-                    setValue('promotionByGift', event.target.value);
+                  onChange={value => {
+                    setValue('promotionByGift', value);
                     if (errors.promotionByGift) {
                       trigger('promotionByGift');
                     }
                   }}
                 />
               ) : (
-                <InputNumber<number>
+                <InputNumber
                   controls={false}
                   min={0}
                   max={type === PromotionType.PercentageDiscount ? 100 : undefined}
@@ -230,20 +230,21 @@ export const FormMutation = ({
               )}
             </Field>
             <Field label={t('promotion:apply_to')} error={errors.scope?.message}>
-              <Radio.Group
+              <Radio
+                items={[
+                  { value: PromotionScope.All, label: t('promotion:all_system') },
+                  { value: PromotionScope.Special, label: t('promotion:some_department') },
+                ]}
                 disabled={disabledField}
-                onChange={event => {
-                  setValue('scope', event.target.value);
+                onChange={value => {
+                  setValue('scope', value);
                   setValue('departments', []);
                   if (errors.scope) {
                     trigger('scope');
                   }
                 }}
                 value={scope}
-              >
-                <Radio value={PromotionScope.All}>{t('promotion:all_system')}</Radio>
-                <Radio value={PromotionScope.Special}>{t('promotion:some_department')}</Radio>
-              </Radio.Group>
+              />
             </Field>
             <Field label={t('promotion:department')} error={errors.departments?.message}>
               <SelectDepartments
@@ -262,13 +263,13 @@ export const FormMutation = ({
             </Field>
             <div className="md:col-span-2">
               <Field label={t('promotion:note')} error={errors.note?.message}>
-                <Input.TextArea
+                <Textarea
                   rows={6}
                   showCount
                   maxLength={256}
                   value={note ?? undefined}
-                  onChange={event => {
-                    setValue('note', event.target.value);
+                  onChange={value => {
+                    setValue('note', value);
                     if (errors.note) {
                       trigger('note');
                     }

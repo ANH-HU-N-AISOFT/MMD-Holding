@@ -1,12 +1,12 @@
-import { Input } from 'antd';
 import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { Input } from 'reactjs';
 import { useDeepCompareEffect } from 'reactjs';
+import { SingleDayPicker } from 'reactjs';
 import { TypeOf } from 'zod';
 import { Department } from '../../models/Department';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
-import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
 import { Form } from '~/overrides/@remix';
@@ -107,12 +107,12 @@ export const FormMutation = ({
         }}
       >
         <BoxFields>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+          <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2">
             <Field withRequiredMark label={t('department:name')} error={errors.name?.message}>
               <Input
                 value={name}
-                onChange={event => {
-                  setValue('name', event.target.value);
+                onChange={value => {
+                  setValue('name', value);
                   if (errors.name) {
                     trigger('name');
                   }
@@ -124,8 +124,8 @@ export const FormMutation = ({
             <Field withRequiredMark label={t('department:code')} error={errors.code?.message}>
               <Input
                 value={code}
-                onChange={event => {
-                  setValue('code', event.target.value);
+                onChange={value => {
+                  setValue('code', value);
                   if (errors.code) {
                     trigger('code');
                   }
@@ -168,8 +168,8 @@ export const FormMutation = ({
             <Field label={t('department:address')} error={errors.address?.message}>
               <Input
                 value={address ?? undefined}
-                onChange={event => {
-                  setValue('address', event.target.value);
+                onChange={value => {
+                  setValue('address', value);
                   if (errors.address) {
                     trigger('address');
                   }
@@ -194,8 +194,8 @@ export const FormMutation = ({
             <Field label={t('department:phone')} error={errors.phone?.message}>
               <Input
                 value={phone ?? undefined}
-                onChange={event => {
-                  setValue('phone', takeOnlyNumber(event));
+                onChange={value => {
+                  setValue('phone', value ? takeOnlyNumber(value) : undefined);
                   if (errors.phone) {
                     trigger('phone');
                   }
@@ -208,8 +208,8 @@ export const FormMutation = ({
             <Field label={t('department:email')} error={errors.email?.message}>
               <Input
                 value={email ?? undefined}
-                onChange={event => {
-                  setValue('email', event.target.value);
+                onChange={value => {
+                  setValue('email', value);
                   if (errors.email) {
                     trigger('email');
                   }
@@ -231,7 +231,7 @@ export const FormMutation = ({
               />
             </Field>
             <Field label={t('department:foundation_date')} error={errors.foundationDate?.message}>
-              <DatePicker
+              <SingleDayPicker
                 format="DD/MM/YYYY"
                 value={foundationDate ? dayjs(foundationDate) : undefined}
                 onChange={value => {

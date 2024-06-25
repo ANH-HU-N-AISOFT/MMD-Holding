@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { notification } from 'reactjs';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { ActionFunctionArgs, json, redirect, useActionData, useNavigation } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
@@ -68,10 +68,10 @@ export const Page = () => {
 
   return (
     <div>
-      <div className="text-center mb-6">
+      <div className="mb-6 text-center">
         <img alt="Logo" className="inline-block" src="assets/images/logo.png" />
       </div>
-      <div className="max-w-[500px] mx-auto">
+      <div className="mx-auto max-w-[500px]">
         <FormLogin isSubmitting={isLoggingIn} />
       </div>
     </div>

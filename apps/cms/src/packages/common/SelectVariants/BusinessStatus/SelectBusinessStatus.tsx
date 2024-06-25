@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectSingleProps } from 'reactjs';
 import { BusinessStatusEnum } from './constants/BusinessStatusEnum';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 import { getBusinessStatusMappingToLabels } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusMappingToLabels';
 
 interface Props {

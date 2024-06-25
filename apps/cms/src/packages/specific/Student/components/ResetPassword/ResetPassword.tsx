@@ -1,6 +1,5 @@
-import { Input } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useDeepCompareEffect } from 'reactjs';
+import { InputPassword, useDeepCompareEffect } from 'reactjs';
 import { TypeOf } from 'zod';
 import { getFormResetPasswordResolver, getFormResetPasswordSchema } from './zodResolver';
 import { Field } from '~/components/Field/Field';
@@ -63,25 +62,25 @@ export const ResetPassword = ({ isSubmiting, uid, defaultValues, disabled, field
   return (
     <Form id={uid} onSubmit={handleSubmit}>
       <Field withRequiredMark label={t('employee:new_password')} error={errors.newPassword?.message}>
-        <Input.Password
+        <InputPassword
           disabled={disabledField}
           value={newPassword}
           placeholder={t('employee:new_password')}
-          onChange={event => {
-            setValue('newPassword', event.target.value);
-            // if (errors.newPassword) {
-            trigger('newPassword');
-            // }
+          onChange={value => {
+            setValue('newPassword', value);
+            if (errors.newPassword) {
+              trigger('newPassword');
+            }
           }}
         />
       </Field>
       <Field withRequiredMark label={t('employee:confirm_password')} error={errors.confirmPassword?.message}>
-        <Input.Password
+        <InputPassword
           disabled={disabledField}
           value={confirmPassword ?? undefined}
           placeholder={t('employee:confirm_password')}
-          onChange={event => {
-            setValue('confirmPassword', event.target.value);
+          onChange={value => {
+            setValue('confirmPassword', value);
             if (errors.confirmPassword) {
               trigger('confirmPassword');
             }

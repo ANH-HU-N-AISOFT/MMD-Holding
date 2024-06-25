@@ -1,8 +1,8 @@
 import { HomeOutlined } from '@ant-design/icons';
-import { Button, Result, notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button, Result, notification } from 'reactjs';
 import {
   ActionResponse as ActionResetPasswordResponse,
   action as actionResetPassword,
@@ -189,7 +189,7 @@ export const Page = () => {
         status="404"
         title={t('employee:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/employee')}>
+          <Button icon={<HomeOutlined />} color="primary" onClick={() => navigate('/employee')}>
             {t('employee:back_to_list')}
           </Button>
         }
@@ -199,7 +199,7 @@ export const Page = () => {
 
   return (
     <>
-      <div className="flex flex-col h-full">
+      <div className="flex h-full flex-col">
         <Header
           title={t('employee_with_name_n_code', {
             name: loaderData.info?.employee.fullName,
@@ -207,7 +207,7 @@ export const Page = () => {
           })}
           onBack={() => navigate('/employee')}
         />
-        <div className="flex-1 mb-4">
+        <div className="mb-4 flex-1">
           <Edit
             onResetPassword={() => setIsOpenModalResetPassword(loaderData.info?.employee ?? false)}
             isSubmiting={isSubmiting}

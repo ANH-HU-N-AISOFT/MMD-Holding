@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectSingleProps } from 'reactjs';
 import { IeltsTestEnum } from './constants/IeltsTestEnum';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 import { getIeltsTestEnumMappingToLabels } from '~/packages/common/SelectVariants/IeltsTestEnum/constants/IeltsTestEnumMappingToLabels';
 
 interface Props {

@@ -1,14 +1,14 @@
-import { Input } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
+import { Input } from 'reactjs';
 import { Field } from 'reactjs';
+import { SingleDayPicker } from 'reactjs';
+import { disableDaysFuture } from 'reactjs';
 import { FormValues } from '../FormMutation';
-import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
 import { SelectStudent } from '~/packages/common/SelectVariants/SelectStudent';
-import { disableFuture } from '~/utils/functions/disableDatePicker';
 
 interface Props {
   form: ReturnType<typeof useRemixForm<Partial<FormValues>>>;
@@ -88,9 +88,9 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
         />
       </Field>
       <Field withRequiredMark label={t('contract:student_date_of_birth')} error={errors.studentDateOfBirth?.message}>
-        <DatePicker
+        <SingleDayPicker
           disabled={disabledField}
-          disabledDate={isEdit ? undefined : disableFuture}
+          disabledDate={isEdit ? undefined : disableDaysFuture}
           className="!w-full"
           placeholder={t('contract:student_date_of_birth')}
           value={formValues.studentDateOfBirth ? dayjs(formValues.studentDateOfBirth) : undefined}
@@ -117,8 +117,8 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
             disabled={disabledField}
             placeholder={t('contract:student_citizen_id_card')}
             value={formValues.studentCitizenIdCard ?? undefined}
-            onChange={event => {
-              setValue('studentCitizenIdCard', event.target.value);
+            onChange={value => {
+              setValue('studentCitizenIdCard', value);
               if (errors.studentCitizenIdCard) {
                 trigger('studentCitizenIdCard');
               }
@@ -127,10 +127,10 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
         </Field>
       </div>
       <Field label={t('contract:citizen_id_card_created_at')} error={errors.studentCitizenIdCardCreatedAt?.message}>
-        <DatePicker
+        <SingleDayPicker
           className="!w-full"
           disabled={disabledField}
-          disabledDate={isEdit ? undefined : disableFuture}
+          disabledDate={isEdit ? undefined : disableDaysFuture}
           placeholder={t('contract:citizen_id_card_created_at')}
           value={formValues.studentCitizenIdCardCreatedAt ? dayjs(formValues.studentCitizenIdCardCreatedAt) : undefined}
           onChange={value => {
@@ -149,8 +149,8 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
           disabled={disabledField}
           placeholder={t('contract:citizen_id_card_created_where')}
           value={formValues.studentCitizenIdCardCreatedWhere ?? undefined}
-          onChange={event => {
-            setValue('studentCitizenIdCardCreatedWhere', event.target.value);
+          onChange={value => {
+            setValue('studentCitizenIdCardCreatedWhere', value);
             if (errors.studentCitizenIdCardCreatedWhere) {
               trigger('studentCitizenIdCardCreatedWhere');
             }
@@ -167,8 +167,8 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
             disabled={disabledField}
             placeholder={t('contract:student_current_address')}
             value={formValues.studentCurrentAddress ?? undefined}
-            onChange={event => {
-              setValue('studentCurrentAddress', event.target.value);
+            onChange={value => {
+              setValue('studentCurrentAddress', value);
               if (errors.studentCurrentAddress) {
                 trigger('studentCurrentAddress');
               }

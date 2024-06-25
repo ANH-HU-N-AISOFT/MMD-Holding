@@ -7,18 +7,18 @@ type _Recurse<T> = T extends { __rec: never }
       : T;
 
 /**
- * Hack lỗi "Type instantiation is excessively deep or possibly infinite."
+ * Cheat for error "Type instantiation is excessively deep or possibly infinite."
  * @example ```typescript
   type _Split<S extends string, D extends string, A extends any[] = []> = S extends `${infer T}${D}${infer U}`
   ? { __rec: _Split<U, D, Push<A, T>> }
   : A;
   type Split<S extends string, D extends string> = Recurse<_Split<S, D>>;
-  type Case1 = Split<"1 string rất dài", ' '> ==> OK không lỗi
+  type Case1 = Split<"very long string ...", ' '> ==> OK
 
   type Split<S extends string, D extends string, A extends any[] = []> = S extends `${infer T}${D}${infer U}`
     ? { __rec: Split<U, D, Push<A, T>> }
     : A;
-  type Case2 = Split<"1 string rất dài", ' '> ==> Lỗi "Type instantiation is excessively deep or possibly infinite."
+  type Case2 = Split<"very long string ...", ' '> ==> Error "Type instantiation is excessively deep or possibly infinite."
   ```
  */
 export type Recurse<T> = T extends { __rec: unknown } ? Recurse<_Recurse<T>> : T;

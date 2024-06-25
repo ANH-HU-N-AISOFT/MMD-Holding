@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectSingleProps } from 'reactjs';
 import { DocumentTemplateStatus } from './constants/DocumentTemplateStatus';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 import { getDocumentTemplateStatusMappingToLabels } from '~/packages/common/SelectVariants/DocumentTemplateStatus/constants/DocumentTemplateStatusMappingToLabels';
 
 interface Props {

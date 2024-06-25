@@ -1,7 +1,7 @@
-import { notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { notification } from 'reactjs';
 import { isCanCreateDepartment } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
@@ -84,9 +84,9 @@ export const Page = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actionData]);
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex h-full flex-col">
       <Header title={t('department:add_department')} onBack={() => navigate('/department')} />
-      <div className="flex-1 mb-4">
+      <div className="mb-4 flex-1">
         <FormMutation isSubmiting={isSubmiting} uid={FormCreateUid} department={undefined} />
       </div>
       <Footer

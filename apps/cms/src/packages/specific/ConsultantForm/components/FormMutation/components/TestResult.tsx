@@ -1,9 +1,9 @@
 import { DeleteOutlined, InboxOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Image, notification } from 'antd';
 import classNames from 'classnames';
 import { range } from 'ramda';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { AntRawImage, notification } from 'reactjs';
 import { uploadImage } from '../../../services/uploadImage';
 import { FormValues } from '../FormMutation';
 import { UploadMultiple } from '~/components/AntCustom/Upload';
@@ -92,12 +92,12 @@ export const TestResult = ({ disabledField, form }: Props) => {
         <p className="ant-upload-hint">Hỗ trợ tải lên hình ảnh và có thể tải lên nhiều tệp cùng lúc.</p>
       </UploadMultiple>
       <div className="flex flex-wrap gap-2">
-        <Image.PreviewGroup>
+        <AntRawImage.PreviewGroup>
           {examResults?.map(item => {
             return (
               <div
                 key={item}
-                className="relative border border-solid border-neutral-200 rounded-xl grid grid-cols-1 overflow-hidden bg-neutral-50 gap-1"
+                className="relative grid grid-cols-1 gap-1 overflow-hidden rounded-xl border border-solid border-neutral-200 bg-neutral-50"
               >
                 <div className={classNames('text-right mt-2 mr-2', disabledField ? 'hidden' : 'block')}>
                   <DeleteOutlined
@@ -107,23 +107,23 @@ export const TestResult = ({ disabledField, form }: Props) => {
                         examResults.filter(stateItem => stateItem !== item),
                       )
                     }
-                    className="text-sm text-status-red right-2 top-2 cursor-pointer"
+                    className="text-status-red right-2 top-2 cursor-pointer text-sm"
                   />
                 </div>
-                <Image
+                <AntRawImage
                   style={{ borderTop: '1px solid' }}
-                  className="flex-grow-0 flex-shrink-0 !w-40 !h-40 object-contain !border-t-neutral-200 bg-black/5"
+                  className="!h-40 !w-40 shrink-0 grow-0 !border-t-neutral-200 bg-black/5 object-contain"
                   src={item}
                 />
               </div>
             );
           })}
-        </Image.PreviewGroup>
+        </AntRawImage.PreviewGroup>
         {range(0, quantityItemLoading).map(item => {
           return (
             <div
               key={item}
-              className="flex-grow-0 flex-shrink-0 w-40 h-full rounded-lg flex items-center justify-center bg-black/20"
+              className="flex h-full w-40 shrink-0 grow-0 items-center justify-center rounded-lg bg-black/20"
             >
               <LoadingOutlined className="text-4xl" />
             </div>

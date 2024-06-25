@@ -1,7 +1,7 @@
-import { Typography } from 'antd';
 import classNames from 'classnames';
 import { ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Typography } from 'reactjs';
 
 interface Props {
   LessState: ReactNode;

@@ -1,7 +1,7 @@
-.FilterDrawer__container .ant-drawer-header {
+.FilterDrawer__container .yy-drawer-header {
   @apply !px-4;
 }
 
-.FilterDrawer__container .ant-drawer-header-title .ant-drawer-close {
+.FilterDrawer__container .yy-drawer-header-title .yy-drawer-close {
   @apply order-2 !mr-0;
 }

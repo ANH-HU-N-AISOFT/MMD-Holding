@@ -1,7 +1,7 @@
 import { HomeOutlined, LogoutOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button } from 'reactjs';
 import { useFetcher, useNavigate } from '~/overrides/@remix';
 
 export const Page: FC = () => {
@@ -11,17 +11,18 @@ export const Page: FC = () => {
 
   return (
     <div className="bg-gray-100 px-2 text-center">
-      <div className="h-[100dvh] flex flex-col justify-center items-center">
-        <h1 className="text-8xl font-extrabold text-status-red">403</h1>
+      <div className="flex h-[100dvh] flex-col items-center justify-center">
+        <h1 className="text-status-red text-8xl font-extrabold">403</h1>
         <p className="text-4xl font-medium text-gray-800">{t('page403:title')}</p>
-        <p className="text-xl text-gray-800 my-4">{t('page403:description')}</p>
+        <p className="my-4 text-xl text-gray-800">{t('page403:description')}</p>
         <div className="grid grid-cols-2 gap-2">
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/')}>
+          <Button icon={<HomeOutlined />} color="primary" onClick={() => navigate('/')}>
             {t('page403:back_to_home')}
           </Button>
           <Button
             icon={<LogoutOutlined />}
-            danger
+            color="error"
+            ghost
             onClick={() => {
               fetcher.submit({}, { method: 'POST', action: '/logout' });
             }}

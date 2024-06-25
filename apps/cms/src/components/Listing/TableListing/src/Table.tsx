@@ -1,7 +1,6 @@
 import { Empty, Table, TableProps } from 'antd';
 import { ColumnGroupType, ColumnType } from 'antd/es/table';
 import classNames from 'classnames';
-import { sum } from 'ramda';
 import { ReactNode, useMemo } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +15,7 @@ type AntColumnType<RecordType extends Record<string, any>> =
     })
   | ColumnType<RecordType>;
 export type ListingColumnType<RecordType extends Record<string, any>> = Omit<AntColumnType<RecordType>, 'width'> & {
-  width: number;
+  width: number | 'auto';
 };
 
 export interface TableListingProps<RecordType extends AnyRecord>
@@ -60,6 +59,7 @@ export const TableListing = <RecordType extends AnyRecord>({
   return (
     <Table
       {...props}
+      tableLayout="auto"
       locale={{ emptyText: () => <Empty description={t('components:Listing.Table.empty')} /> }}
       columns={columns_}
       className={classNames(
@@ -67,7 +67,18 @@ export const TableListing = <RecordType extends AnyRecord>({
         paginationMode === 'sticky' ? 'TableListing--paginationSticky flex-1' : 'TableListing--paginationNone',
         props.className,
       )}
-      scroll={scroll ? scroll : { x: sum(columns_.map(item => item.width)) }}
+      scroll={
+        scroll
+          ? scroll
+          : {
+              x: columns_.reduce<number>((result, item) => {
+                if (typeof item.width === 'number') {
+                  return result + item.width;
+                }
+                return result;
+              }, 0),
+            }
+      }
       bordered={bordered}
       pagination={
         nonePagination

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Option, SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
+import { SelectOption, SelectSingle, SelectSingleProps } from 'reactjs';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { Country } from '~/packages/specific/Location/models/Location';
 import { getCountries } from '~/packages/specific/Location/services/getCountries';
@@ -16,7 +16,7 @@ export const VIETNAM_VALUE = 'Việt Nam';
 export const SelectRegion = ({ region, disabled, allowClear = true, onChange }: Props) => {
   const { t } = useTranslation(['location']);
   const [isFetching, setIsFetching] = useState(false);
-  const [options, setOptions] = useState<Option[]>([]);
+  const [options, setOptions] = useState<SelectOption<Country['id']>[]>([]);
   const [searchValue, setSearchValue] = useState('');
 
   const handleFetchOption = async () => {
@@ -53,7 +53,6 @@ export const SelectRegion = ({ region, disabled, allowClear = true, onChange }: 
       placeholder={t('location:region')}
       className="w-full"
       loading={isFetching}
-      showSearch
       searchValue={searchValue}
       options={options}
       onSearch={value => setSearchValue(value)}

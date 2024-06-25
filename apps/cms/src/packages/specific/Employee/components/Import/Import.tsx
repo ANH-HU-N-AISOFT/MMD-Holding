@@ -1,7 +1,7 @@
-import { Input, Tag } from 'antd';
 import dayjs from 'dayjs';
 import { forwardRef, useImperativeHandle, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { InputPassword, Tag } from 'reactjs';
 import { EmployeeStatusMappingToColors } from '../../constants/EmployeeStatusMappingToColors';
 import { importEmployees } from '../../services/importEmployees';
 import { ResponseSuccess, validateImportEmployees } from '../../services/validateImportEmployees';
@@ -262,7 +262,7 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
             width: 160,
             title: t('employee:password'),
             render: (_, record) => (
-              <Input.Password className="!px-0" readOnly value={record.password} variant="borderless" />
+              <InputPassword className="!px-0" readOnly value={record.password} variant="borderless" />
             ),
           },
         ]}

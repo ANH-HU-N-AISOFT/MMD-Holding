@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectSingleProps } from 'reactjs';
 import { EmploymentContractType } from './constants/EmploymentContractType';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 import { getEmploymentContractTypeMappingToLabels } from '~/packages/common/SelectVariants/EmploymentContractType/constants/EmploymentContractTypeMappingToLabels';
 
 interface Props {

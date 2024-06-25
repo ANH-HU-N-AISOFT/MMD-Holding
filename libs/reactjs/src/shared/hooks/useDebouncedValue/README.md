@@ -6,7 +6,7 @@
 
 - **timeoutMs**: The number of milliseconds to delay the debounced value. If not specified, a default of 500ms is used.
 
-# Examples
+# Usage
 
 ```jsx
 import React, { useState } from "react";
@@ -14,17 +14,17 @@ import { useDebouncedValue } from "path-to-useDebouncedValue-hook";
 
 export default function SearchInput() {
   const [inputValue, setInputValue] = useState("");
-  const debouncedValue = useDebouncedValue(inputValue, { timeoutMs: 300 });
+  const { value } = useDebouncedValue(inputValue, { timeoutMs: 300 });
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
-  // Use `debouncedValue` for searching or filtering logic that you want to debounce
+  // Use `value` for searching or filtering logic that you want to debounce
   useEffect(() => {
-    // Trigger search or filter operation with `debouncedValue`
-    console.log(debouncedValue);
-  }, [debouncedValue]);
+    // Trigger search or filter operation with `value`
+    console.log(value);
+  }, [value]);
 
   return <input type="text" value={inputValue} onChange={handleInputChange} placeholder="Type to search..." />;
 }

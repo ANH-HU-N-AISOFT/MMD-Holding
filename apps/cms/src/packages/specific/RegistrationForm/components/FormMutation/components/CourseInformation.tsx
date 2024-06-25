@@ -1,10 +1,10 @@
-import { Divider, InputNumber } from 'antd';
 import { sum } from 'ramda';
 import { useTranslation } from 'react-i18next';
+import { Divider, InputNumber } from 'reactjs';
 import { Field } from 'reactjs';
+import { SelectSingle } from 'reactjs';
 import { calculateSalePrice } from '../../../utils/calculateSalePrice';
 import { FormValues } from '../FormMutation';
-import { SelectSingle } from '~/components/AntCustom/Select';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectPaymentMethod } from '~/packages/common/SelectVariants/PaymentMethod/SelectPaymentMethod';
 import { SelectCourseRoadmaps } from '~/packages/common/SelectVariants/SelectCourseRoadmaps';
@@ -30,7 +30,9 @@ export const CourseInformation = ({ form, disabledField }: Props) => {
   return (
     <>
       <div className="md:col-span-2">
-        <Divider orientation="center">{t('registration_form:course_information')}</Divider>
+        <Divider orientation="center">
+          <div className="text-base font-semibold">{t('registration_form:course_information')}</div>
+        </Divider>
       </div>
       <Field withRequiredMark label={t('registration_form:course')} error={errors.courses?.message}>
         <SelectCourseRoadmaps
@@ -79,7 +81,7 @@ export const CourseInformation = ({ form, disabledField }: Props) => {
         label={t('registration_form:fee_origin_with_measure')}
         error={errors.originPrice?.message}
       >
-        <InputNumber<number>
+        <InputNumber
           min={0}
           className="w-full"
           disabled={disabledField}
@@ -112,10 +114,9 @@ export const CourseInformation = ({ form, disabledField }: Props) => {
         label={t('registration_form:promotion')}
         error={errors.promotion?.message}
       >
-        <InputNumber<number>
+        <InputNumber
           min={0}
           max={formValues.promotionType === 'percentage' ? 100 : undefined}
-          id="promotion"
           className="w-full"
           disabled={disabledField}
           placeholder={t('registration_form:promotion')}
@@ -168,7 +169,7 @@ export const CourseInformation = ({ form, disabledField }: Props) => {
         label={t('registration_form:fee_after_apply_promotion_with_measure')}
         error={errors.salePrice?.message}
       >
-        <InputNumber<number>
+        <InputNumber
           min={0}
           className="w-full"
           disabled

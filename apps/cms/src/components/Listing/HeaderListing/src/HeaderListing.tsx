@@ -1,6 +1,6 @@
 import { PlusOutlined, ImportOutlined, ExportOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
 import { FC, ReactNode } from 'react';
+import { Button } from 'reactjs';
 
 export interface HeaderListingProps {
   title: ReactNode;
@@ -30,7 +30,7 @@ export const HeaderListing: FC<HeaderListingProps> = ({
   isExporting,
 }) => {
   return (
-    <div className="flex flex-wrap justify-between items-center mb-4 gap-1">
+    <div className="mb-4 flex flex-wrap items-center justify-between gap-1">
       <div className="text-2xl font-semibold">{title}</div>
       <div className="flex items-center gap-2">
         {exportable && (
@@ -44,7 +44,7 @@ export const HeaderListing: FC<HeaderListingProps> = ({
           </Button>
         )}
         {creatable && (
-          <Button onClick={onCreate} icon={<PlusOutlined />} type="primary">
+          <Button onClick={onCreate} icon={<PlusOutlined />} color="primary">
             {createBtn}
           </Button>
         )}

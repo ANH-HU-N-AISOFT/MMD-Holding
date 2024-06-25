@@ -1,5 +1,5 @@
 // auth.server.ts
-import { notification } from 'antd';
+import { notification } from 'reactjs';
 import { localStorage } from 'utilities';
 import { array, object, string, enum as enum_ } from 'zod';
 import { ActionType, ResourceType } from '../SelectVariants/Permission/Permission';

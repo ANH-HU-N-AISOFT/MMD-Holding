@@ -1,10 +1,7 @@
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { SelectSingleDecoupling, SelectSingleDecouplingProps } from 'reactjs';
 import { CourseStatus } from './CourseStatus/constants/CourseStatus';
-import {
-  SelectSingleDecoupling,
-  SelectSingleDecouplingProps,
-} from '~/components/SelectDecoupling/SelectSingleDecoupling';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { CourseCombo } from '~/packages/specific/CourseCombo/models/CourseCombo';
 import { getCourseCombos } from '~/packages/specific/CourseCombo/services/getCourseCombos';

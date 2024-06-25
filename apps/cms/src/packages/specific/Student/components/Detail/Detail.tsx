@@ -1,6 +1,6 @@
-import { Tabs } from 'antd';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Tabs } from 'reactjs';
 import { Student } from '../../models/Student';
 import { FormMutation, TabKey as FormMutationTabKey } from '../FormMutation/FormMutation';
 import { AppointmentsOfStudent } from './components/AppointmentsOfStudent';
@@ -21,8 +21,8 @@ export const Detail = ({ student }: Props) => {
     <div>
       <Tabs
         onChange={value => setTabActive(value as TabKey)}
-        activeKey={tabActive}
-        items={[
+        tabActive={tabActive}
+        tabs={[
           {
             key: 'personalInformation',
             label: t('student:personal_information'),

@@ -1,7 +1,7 @@
 import { HomeOutlined } from '@ant-design/icons';
-import { Button, Result, notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button, Result, notification } from 'reactjs';
 import {
   ActionResponse as ActionDeleteDepartmentResponse,
   action as actionDeleteDepartment,
@@ -95,7 +95,7 @@ export const Page = () => {
         status="404"
         title={t('department:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/department')}>
+          <Button icon={<HomeOutlined />} color="primary" onClick={() => navigate('/department')}>
             {t('department:back_to_list')}
           </Button>
         }
@@ -105,12 +105,12 @@ export const Page = () => {
 
   return (
     <>
-      <div className="flex flex-col h-full">
+      <div className="flex h-full flex-col">
         <Header
           title={t('department_with_name', { name: loaderData.info?.department.name })}
           onBack={() => navigate('/department')}
         />
-        <div className="flex-1 mb-4">
+        <div className="mb-4 flex-1">
           <Detail department={loaderData.info?.department} />
         </div>
         <Footer

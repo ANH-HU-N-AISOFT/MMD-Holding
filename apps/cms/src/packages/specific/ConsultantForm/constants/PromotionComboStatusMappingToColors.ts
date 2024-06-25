@@ -1,4 +1,4 @@
-import { TagProps } from 'antd';
+import { TagProps } from 'reactjs';
 import { FormStatus } from '~/packages/common/SelectVariants/FormStatus/constants/FormStatus';
 
 export const FormStatusMappingToColors: Record<FormStatus, TagProps['color']> = {

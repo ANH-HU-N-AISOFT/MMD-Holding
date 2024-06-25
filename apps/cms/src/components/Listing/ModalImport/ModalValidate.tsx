@@ -1,9 +1,9 @@
 import { FileExcelOutlined } from '@ant-design/icons';
-import { Button, ModalProps, Typography, Upload, notification } from 'antd';
 import { RcFile } from 'antd/es/upload';
 import Dragger from 'antd/es/upload/Dragger';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button, ModalProps, Typography, AntRawUpload, notification } from 'reactjs';
 import { ValidateServiceResponse } from './types/ValidateServiceResponse';
 import { Modal } from '~/components/AntCustom/Modal';
 
@@ -30,13 +30,13 @@ export const ModalValidate = <T extends ValidateServiceResponse>({
   const renderDragger = () => {
     if (fileState) {
       return (
-        <div className="border border-solid border-neutral-300 h-[68px] rounded-lg flex overflow-hidden">
-          <div className="w-[68px] flex-shrink-0 bg-neutral-100 flex items-center justify-center">
+        <div className="flex h-[68px] overflow-hidden rounded-lg border border-solid border-neutral-300">
+          <div className="flex w-[68px] shrink-0 items-center justify-center bg-neutral-100">
             <FileExcelOutlined className="text-base" />
           </div>
           <div className="flex flex-auto items-center justify-between gap-2 px-4">
-            <div className="font-semibold text-sm">{fileState.name}</div>
-            <Upload
+            <div className="text-sm font-semibold">{fileState.name}</div>
+            <AntRawUpload
               beforeUpload={() => {
                 return false;
               }}
@@ -48,7 +48,7 @@ export const ModalValidate = <T extends ValidateServiceResponse>({
               accept=".xls, .xlsx"
             >
               <Button>{t('components:ModalValidate.replace_file')}</Button>
-            </Upload>
+            </AntRawUpload>
           </div>
         </div>
       );
@@ -63,10 +63,12 @@ export const ModalValidate = <T extends ValidateServiceResponse>({
           setFileState(file ?? null);
         }}
         showUploadList={false}
-        accept=".xls, .xlsx"
+        accept=".csv, .xls, .xlsx"
         className="block h-[120px]"
       >
-        <Button>{t('components:ModalValidate.add_file')}</Button>
+        <div className="flex items-center justify-center">
+          <Button>{t('components:ModalValidate.add_file')}</Button>
+        </div>
       </Dragger>
     );
   };
@@ -104,7 +106,7 @@ export const ModalValidate = <T extends ValidateServiceResponse>({
       title={t('components:ModalValidate.title', { type: importType.toLowerCase() })}
       okText={t('components:ModalValidate.upload_and_preview')}
       footer={(_, { OkBtn, CancelBtn }) => (
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <Typography.Link href={downSampleUrl} download target="_blank" className="!underline">
             {t('components:ModalValidate.download_sample')}
           </Typography.Link>

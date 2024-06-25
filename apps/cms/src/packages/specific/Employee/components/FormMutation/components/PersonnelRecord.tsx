@@ -1,10 +1,10 @@
-import { Input } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
+import { Input } from 'reactjs';
+import { SingleDayPicker, disableDaysBeforeCheckpoint } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
 import { Employee } from '../../../models/Employee';
 import { FormValues } from '../FormMutation';
-import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectEmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/SelectEmployeeStatus';
@@ -13,7 +13,6 @@ import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constant
 import { SelectJobTitles } from '~/packages/common/SelectVariants/JobTitle/SelectJobTitles';
 import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
 import { SelectEmployee } from '~/packages/common/SelectVariants/SelectEmployee';
-import { disableBeforeCheckpoint } from '~/utils/functions/disableDatePicker';
 
 interface Props {
   form: ReturnType<typeof useRemixForm<DeepPartial<FormValues>>>;
@@ -40,12 +39,12 @@ export const PersonnelRecord = ({ form, disabledField, employee }: Props) => {
   const contractEndEffectDate = watch('personnelRecord.contractEndEffectDate');
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
       <Field label={t('employee:code')} error={errors.personnelRecord?.code?.message}>
         <Input
           value={code ?? undefined}
-          onChange={event => {
-            setValue('personnelRecord.code', event.target.value);
+          onChange={value => {
+            setValue('personnelRecord.code', value);
             if (errors.personnelRecord?.code) {
               trigger('personnelRecord.code');
             }
@@ -140,7 +139,7 @@ export const PersonnelRecord = ({ form, disabledField, employee }: Props) => {
         label={t('employee:contract_start_effect_date')}
         error={errors.personnelRecord?.contractStartEffectDate?.message}
       >
-        <DatePicker
+        <SingleDayPicker
           format="DD/MM/YYYY"
           value={contractStartEffectDate ? dayjs(contractStartEffectDate) : undefined}
           onChange={value => {
@@ -159,8 +158,8 @@ export const PersonnelRecord = ({ form, disabledField, employee }: Props) => {
         label={t('employee:contract_end_effect_date')}
         error={errors.personnelRecord?.contractEndEffectDate?.message}
       >
-        <DatePicker
-          disabledDate={disableBeforeCheckpoint(dayjs(contractStartEffectDate))}
+        <SingleDayPicker
+          disabledDate={disableDaysBeforeCheckpoint(dayjs(contractStartEffectDate))}
           format="DD/MM/YYYY"
           value={contractEndEffectDate ? dayjs(contractEndEffectDate) : undefined}
           onChange={value => {

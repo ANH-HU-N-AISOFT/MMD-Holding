@@ -1,9 +1,9 @@
 import { FilterOutlined } from '@ant-design/icons';
-import { Drawer } from 'antd';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '../../AntCustom/Button';
+import { Drawer } from 'reactjs';
+import { Button } from 'reactjs';
 import type { ReactNode } from 'react';
 import './styles.css';
 
@@ -35,7 +35,6 @@ export const FilterDrawer = ({ containerClassName, children, count, formId, onAp
     <>
       <Button
         className={containerClassName}
-        size="large"
         onClick={() => setIsOpen(true)}
         disabled={isLoading}
         icon={<FilterOutlined />}
@@ -52,11 +51,11 @@ export const FilterDrawer = ({ containerClassName, children, count, formId, onAp
       <Drawer
         className="FilterDrawer__container"
         footer={
-          <div className="flex gap-2 items-center justify-end">
-            <Button disabled={isLoading} onClick={handleReset} danger htmlType="reset" form={formId}>
+          <div className="flex items-center justify-end gap-2">
+            <Button disabled={isLoading} onClick={handleReset} color="error" ghost htmlType="reset" form={formId}>
               {t('components:FilterDrawer.reset')}
             </Button>
-            <Button loading={isLoading} onClick={handleApply} type="primary" htmlType="submit" form={formId}>
+            <Button loading={isLoading} onClick={handleApply} color="primary" htmlType="submit" form={formId}>
               {t('components:FilterDrawer.apply')}
             </Button>
           </div>

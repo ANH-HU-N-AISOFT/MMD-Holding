@@ -1,3 +1,4 @@
+export * from './dayjs';
 export * from './delay';
 export * from './fetchApi';
 export * from './formDataUtils';

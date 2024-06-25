@@ -1,9 +1,6 @@
 import { prop, uniqBy } from 'ramda';
 import { useTranslation } from 'react-i18next';
-import {
-  SelectMultipleDecoupling,
-  SelectMultipleDecouplingProps,
-} from '~/components/SelectDecoupling/SelectMultipleDecoupling';
+import { SelectMultipleDecoupling, SelectMultipleDecouplingProps } from 'reactjs';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';

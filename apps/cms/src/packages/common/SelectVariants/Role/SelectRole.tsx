@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectSingleProps } from 'reactjs';
 import { Role } from './constants/Role';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 import { getRoleMappingToLabels } from '~/packages/common/SelectVariants/Role/constants/RoleMappingToLabels';
 
 interface Props {
-  role?: Exclude<Role, Role.SuperAdmin>;
-  onChange?: SelectSingleProps<Exclude<Role, Role.SuperAdmin>>['onChange'];
+  role?: Role;
+  onChange?: SelectSingleProps<Role>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
 }

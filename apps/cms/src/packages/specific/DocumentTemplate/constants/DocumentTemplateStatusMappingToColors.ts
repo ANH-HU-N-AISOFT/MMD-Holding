@@ -1,4 +1,4 @@
-import { TagProps } from 'antd';
+import { TagProps } from 'reactjs';
 import { DocumentTemplateStatus } from '~/packages/common/SelectVariants/DocumentTemplateStatus/constants/DocumentTemplateStatus';
 
 export const DocumentTemplateStatusMappingToColors: Record<DocumentTemplateStatus, TagProps['color']> = {

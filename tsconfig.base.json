@@ -24,7 +24,6 @@
     "strict": true,
     "target": "ESNext",
     "paths": {
-      "@remix-app-generators": ["libs/@remix-app-generators/src/index.ts"],
       "reactjs": ["libs/reactjs/src/index.ts"],
       "remixjs/client": ["libs/remixjs/src/client.ts"],
       "remixjs/server": ["libs/remixjs/src/server.ts"],

@@ -1,7 +1,7 @@
 import { HomeOutlined } from '@ant-design/icons';
-import { Button, Result, notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button, Result, notification } from 'reactjs';
 import {
   ActionResponse as ActionDeleteEmployeeResponse,
   action as actionDeleteEmployee,
@@ -92,7 +92,7 @@ export const Page = () => {
         status="404"
         title={t('employee:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/employee')}>
+          <Button icon={<HomeOutlined />} color="primary" onClick={() => navigate('/employee')}>
             {t('employee:back_to_list')}
           </Button>
         }
@@ -102,7 +102,7 @@ export const Page = () => {
 
   return (
     <>
-      <div className="flex flex-col h-full">
+      <div className="flex h-full flex-col">
         <Header
           title={t('employee:employee_with_name_n_code', {
             name: loaderData.info?.employee.fullName,
@@ -110,7 +110,7 @@ export const Page = () => {
           })}
           onBack={() => navigate('/employee')}
         />
-        <div className="flex-1 mb-4">
+        <div className="mb-4 flex-1">
           <Detail employee={loaderData.info?.employee} />
         </div>
         <Footer

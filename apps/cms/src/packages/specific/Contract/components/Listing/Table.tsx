@@ -6,15 +6,15 @@ import {
   EyeOutlined,
   SyncOutlined,
 } from '@ant-design/icons';
-import { Button, Tag, Typography } from 'antd';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
+import { Button, Tag, Typography } from 'reactjs';
+import { TableActions } from 'reactjs';
 import { Contract } from '../../models/Contract';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
-import { TableActions } from '~/components/TableActions/TableActions';
 
 export interface Props
   extends Pick<
@@ -110,8 +110,8 @@ export const Table = ({
       render: (_, record) => {
         return (
           <div>
-            <Typography.Paragraph className="text-[inherit] !mb-1">{record.studentName}</Typography.Paragraph>
-            <Typography.Paragraph className="text-[inherit] !mb-0">{record.studentPhone}</Typography.Paragraph>
+            <Typography.Paragraph className="!mb-1 text-[inherit]">{record.studentName}</Typography.Paragraph>
+            <Typography.Paragraph className="!mb-0 text-[inherit]">{record.studentPhone}</Typography.Paragraph>
           </div>
         );
       },
@@ -122,8 +122,8 @@ export const Table = ({
       render: (_, record) => {
         return (
           <div>
-            <Typography.Paragraph className="text-[inherit] !mb-1">{record.parentName}</Typography.Paragraph>
-            <Typography.Paragraph className="text-[inherit] !mb-0">{record.parentPhone}</Typography.Paragraph>
+            <Typography.Paragraph className="!mb-1 text-[inherit]">{record.parentName}</Typography.Paragraph>
+            <Typography.Paragraph className="!mb-0 text-[inherit]">{record.parentPhone}</Typography.Paragraph>
           </div>
         );
       },
@@ -234,7 +234,7 @@ export const Table = ({
         }}
       />
       <SickyAction isVisible={!!selectedRows.length}>
-        <div className="min-w-[400px] flex items-center justify-between">
+        <div className="flex min-w-[400px] items-center justify-between">
           <Highlighter
             textToHighlight={t('contract:total_records_selected', {
               total: selectedRows.length,
@@ -242,7 +242,7 @@ export const Table = ({
             searchWords={[selectedRows.length.toString()]}
             highlightClassName="bg-transparent font-semibold"
           />
-          <Button danger onClick={() => onDeleteMany?.(selectedRows)}>
+          <Button color="error" ghost onClick={() => onDeleteMany?.(selectedRows)}>
             {t('contract:delete')}
           </Button>
         </div>

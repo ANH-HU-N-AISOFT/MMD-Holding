@@ -7,15 +7,15 @@ import {
   QuestionCircleOutlined,
   ScheduleOutlined,
 } from '@ant-design/icons';
-import { Button, Typography } from 'antd';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
+import { Button, Typography } from 'reactjs';
+import { TableActions } from 'reactjs';
 import { Student } from '../../models/Student';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
-import { TableActions } from '~/components/TableActions/TableActions';
 
 export interface Props
   extends Pick<
@@ -263,13 +263,13 @@ export const Table = ({
         }}
       />
       <SickyAction isVisible={!!selectedRows.length}>
-        <div className="min-w-[400px] flex items-center justify-between">
+        <div className="flex min-w-[400px] items-center justify-between">
           <Highlighter
             textToHighlight={t('student:total_records_selected', { total: selectedRows.length })}
             searchWords={[selectedRows.length.toString()]}
             highlightClassName="bg-transparent font-semibold"
           />
-          <Button danger onClick={() => onDeleteMany?.(selectedRows)}>
+          <Button color="error" ghost onClick={() => onDeleteMany?.(selectedRows)}>
             {t('student:delete')}
           </Button>
         </div>

@@ -1,7 +1,7 @@
 import { ExperimentOutlined, HomeOutlined, QuestionCircleOutlined, ScheduleOutlined } from '@ant-design/icons';
-import { Button, Result, notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button, Result, notification } from 'reactjs';
 import {
   ActionResponse as ActionDeleteStudentResponse,
   action as actionDeleteStudent,
@@ -98,7 +98,7 @@ export const Page = () => {
         status="404"
         title={t('student:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/student')}>
+          <Button icon={<HomeOutlined />} color="primary" onClick={() => navigate('/student')}>
             {t('student:back_to_list')}
           </Button>
         }
@@ -107,7 +107,7 @@ export const Page = () => {
   }
   return (
     <>
-      <div className="flex flex-col h-full">
+      <div className="flex h-full flex-col">
         <Header
           title={t('student:student_with_name_n_code', {
             name: loaderData.info?.student.fullName,
@@ -115,7 +115,7 @@ export const Page = () => {
           })}
           onBack={() => navigate('/student')}
         />
-        <div className="flex-1 mb-4">
+        <div className="mb-4 flex-1">
           <Detail student={loaderData.info?.student} />
         </div>
         <Footer

@@ -1,7 +1,7 @@
 import { HomeOutlined } from '@ant-design/icons';
-import { Button, Result, notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button, Result, notification } from 'reactjs';
 import { getDefaultListingTrialRequestsUrl } from '../constants/getDefaultFilterUrl';
 import {
   ActionResponse as ActionDeleteTrialResponse,
@@ -93,7 +93,7 @@ export const Page = () => {
         status="404"
         title={t('trial_request:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate(getDefaultListingTrialRequestsUrl())}>
+          <Button icon={<HomeOutlined />} color="primary" onClick={() => navigate(getDefaultListingTrialRequestsUrl())}>
             {t('trial_request:back_to_list')}
           </Button>
         }
@@ -103,14 +103,14 @@ export const Page = () => {
 
   return (
     <>
-      <div className="flex flex-col h-full">
+      <div className="flex h-full flex-col">
         <Header
           title={t('trial_request:trial_with_student_name', {
             name: loaderData.info?.trialRequest.student?.fullName,
           })}
           onBack={() => navigate(getDefaultListingTrialRequestsUrl())}
         />
-        <div className="flex-1 mb-4">
+        <div className="mb-4 flex-1">
           <Detail trialRequest={loaderData.info?.trialRequest} />
         </div>
         <Footer

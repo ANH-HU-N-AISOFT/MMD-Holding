@@ -2,9 +2,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { Field, useDeepCompareEffect } from 'reactjs';
+import { RangeDayPicker } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
-import { DateRangePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
@@ -92,7 +92,7 @@ export const FormSearchNFilter = ({
                 />
               </Field>
               <Field label={t('promotion:date_available')}>
-                <DateRangePicker
+                <RangeDayPicker
                   className="w-full"
                   presets={[
                     { label: t('promotion:current_month'), value: [dayjs().startOf('month'), dayjs().endOf('month')] },

@@ -1,13 +1,13 @@
-import { Checkbox, Divider, Input, InputNumber, Skeleton, Spin } from 'antd';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { Checkbox, Divider, Input, InputNumber, Skeleton, Spin, Textarea } from 'reactjs';
 import { Field } from 'reactjs';
+import { SelectSingle } from 'reactjs';
 import { ConsultantForm } from '../../../models/ConsultantForm';
 import { calculateGiftPrice } from '../../../utils/calculateGiftPrice';
 import { calculateSalePrice } from '../../../utils/calculateSalePrice';
 import { CourseRoadmapOrCombo } from '../constants';
 import { FormValues } from '../FormMutation';
-import { SelectSingle } from '~/components/AntCustom/Select';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectFormStatus } from '~/packages/common/SelectVariants/FormStatus/SelectFormStatus';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
@@ -63,7 +63,7 @@ export const Consultant = ({ disabledField, form, consultantForm }: Props) => {
 
   const { t } = useTranslation(['consultant_form']);
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
       <Field withRequiredMark label={t('consultant_form:student_name')} error={errors.studentId?.message}>
         <SelectStudent
           disabled={disabledField}
@@ -152,7 +152,9 @@ export const Consultant = ({ disabledField, form, consultantForm }: Props) => {
         />
       </Field>
       <div className="md:col-span-2">
-        <Divider>{t('consultant_form:detail')}</Divider>
+        <Divider>
+          <div className="text-base font-semibold">{t('consultant_form:detail')}</div>
+        </Divider>
       </div>
       <Field label={t('consultant_form:type')}>
         <SelectSingle<CourseRoadmapOrCombo>
@@ -272,7 +274,7 @@ export const Consultant = ({ disabledField, form, consultantForm }: Props) => {
         />
       </Field>
       <Field label={t('consultant_form:fee_origin_with_measure')}>
-        <InputNumber<number>
+        <InputNumber
           min={0}
           className="w-full"
           disabled
@@ -318,7 +320,7 @@ export const Consultant = ({ disabledField, form, consultantForm }: Props) => {
         />
       </Field>
       <Field label={t('consultant_form:fee_after_apply_promotion_with_measure')}>
-        <InputNumber<number>
+        <InputNumber
           min={0}
           className="w-full"
           disabled
@@ -353,8 +355,7 @@ export const Consultant = ({ disabledField, form, consultantForm }: Props) => {
                 return (
                   <Checkbox
                     disabled={disabledField}
-                    onChange={event => {
-                      const checked = event.target.checked;
+                    onChange={checked => {
                       if (checked) {
                         setValue('gifts', gifts.concat(item.id));
                       } else {
@@ -376,19 +377,21 @@ export const Consultant = ({ disabledField, form, consultantForm }: Props) => {
         </Field>
       </div>
       <div className="md:col-span-2">
-        <Divider>{t('consultant_form:extra_information')}</Divider>
+        <Divider>
+          <div className="text-base font-semibold">{t('consultant_form:extra_information')}</div>
+        </Divider>
       </div>
       <div className="md:col-span-2">
         <Field label={t('consultant_form:note')} error={errors.note?.message}>
-          <Input.TextArea
+          <Textarea
             rows={6}
             showCount
             maxLength={256}
             disabled={disabledField}
             placeholder={t('consultant_form:note')}
             value={note ?? undefined}
-            onChange={event => {
-              setValue('note', event.target.value);
+            onChange={value => {
+              setValue('note', value);
               if (errors.note) {
                 trigger('note');
               }

@@ -1,7 +1,7 @@
-import { Empty } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Option, SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
+import { Empty } from 'reactjs';
+import { SelectOption, SelectSingle, SelectSingleProps } from 'reactjs';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { TestShift } from '~/packages/specific/Appointment/models/TestShift';
 import { getTestShifts } from '~/packages/specific/Appointment/services/getTestShifts';
@@ -27,7 +27,7 @@ export const SelectTestShift = ({
 }: Props) => {
   const { t } = useTranslation(['appointment']);
   const [isFetching, setIsFetching] = useState(false);
-  const [options, setOptions] = useState<Option[]>([]);
+  const [options, setOptions] = useState<SelectOption<TestShift['id']>[]>([]);
   const [searchValue, setSearchValue] = useState('');
 
   const needWarning = useMemo(() => !appointmentDate || !testOrganizationId, [appointmentDate, testOrganizationId]);
@@ -44,7 +44,7 @@ export const SelectTestShift = ({
         setOptions(
           response.map(item => ({
             label: (
-              <div className="flex items-center gap-2 justify-between">
+              <div className="flex items-center justify-between gap-2">
                 <div>{item.name}</div>
                 <div className={disabled ? 'hidden' : 'block'}>
                   {t('appointment:total_available')}: {item.maxCapacity - item.totalAppointments}
@@ -94,7 +94,6 @@ export const SelectTestShift = ({
       placeholder={placeholder ?? t('appointment:test_shift')}
       className="w-full"
       loading={isFetching}
-      showSearch
       searchValue={searchValue}
       options={options}
       onSearch={value => setSearchValue(value)}

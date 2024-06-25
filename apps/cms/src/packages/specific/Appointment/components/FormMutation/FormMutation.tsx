@@ -1,14 +1,15 @@
-import { Divider, Input, Radio } from 'antd';
 import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
 import { uniq } from 'ramda';
 import { useTranslation } from 'react-i18next';
-import { Field, useDeepCompareEffect } from 'reactjs';
+import { Divider, Input, Radio, Textarea } from 'reactjs';
+import { Field, SingleTimePicker, useDeepCompareEffect } from 'reactjs';
+import { SingleDayPicker } from 'reactjs';
+import { disableDaysPast } from 'reactjs';
+import { SelectMultiple } from 'reactjs';
 import { TypeOf } from 'zod';
 import { Appointment } from '../../models/Appointment';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
-import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
-import { SelectMultiple } from '~/components/AntCustom/Select';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
@@ -24,7 +25,6 @@ import { SelectStudent } from '~/packages/common/SelectVariants/SelectStudent';
 import { SelectTestShift } from '~/packages/common/SelectVariants/SelectTestShift';
 import { SelectSourceEnum } from '~/packages/common/SelectVariants/SourceEnum/SelectSourceEnum';
 import { TestType } from '~/packages/common/SelectVariants/TestType/constants/TestType';
-import { disablePast } from '~/utils/functions/disableDatePicker';
 
 export interface FormValues extends TypeOf<ReturnType<typeof getFormMutationSchema>> {}
 
@@ -131,7 +131,7 @@ export const FormMutation = ({
         }}
       >
         <BoxFields>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+          <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2">
             <Field withRequiredMark label={t('appointment:student')} error={errors.studentId?.message}>
               <SelectStudent
                 disabled={disabledField || isEdit}
@@ -190,16 +190,20 @@ export const FormMutation = ({
               />
             </Field>
             <div className="md:col-span-2">
-              <Divider orientation="center">{t('appointment:appointment')}</Divider>
+              <Divider orientation="center">
+                <div className="text-base font-semibold">{t('appointment:appointment')}</div>
+              </Divider>
             </div>
             <Field label={t('appointment:status')} error={errors.appointmentStatus?.message}>
               <SelectAppointmentStatus
                 allowClear={false}
                 appointmentStatus={appointmentStatus}
                 onChange={value => {
-                  setValue('appointmentStatus', value);
-                  if (errors.appointmentStatus) {
-                    trigger('appointmentStatus');
+                  if (value !== 'all') {
+                    setValue('appointmentStatus', value);
+                    if (errors.appointmentStatus) {
+                      trigger('appointmentStatus');
+                    }
                   }
                 }}
                 disabled={disabledField}
@@ -253,8 +257,8 @@ export const FormMutation = ({
                   disabled={disabledField}
                   placeholder={t('appointment:extra_demand')}
                   value={extraDemand ?? undefined}
-                  onChange={event => {
-                    setValue('extraDemand', event.target.value);
+                  onChange={value => {
+                    setValue('extraDemand', value);
                     if (errors.extraDemand) {
                       trigger('extraDemand');
                     }
@@ -263,23 +267,24 @@ export const FormMutation = ({
               </Field>
             )}
             <Field label={t('appointment:test_type')} error={errors.testType?.message}>
-              <Radio.Group
+              <Radio
+                items={[
+                  { value: TestType.OFFLINE, label: t('appointment:offline') },
+                  { value: TestType.ONLINE, label: t('appointment:online') },
+                ]}
                 disabled={disabledField}
-                onChange={event => {
-                  setValue('testType', event.target.value);
+                onChange={value => {
+                  setValue('testType', value);
                   if (errors.testType) {
                     trigger('testType');
                   }
                 }}
                 value={testType}
-              >
-                <Radio value={TestType.OFFLINE}>{t('appointment:offline')}</Radio>
-                <Radio value={TestType.ONLINE}>{t('appointment:online')}</Radio>
-              </Radio.Group>
+              />
             </Field>
             <Field withRequiredMark label={t('appointment:appointment_date')} error={errors.appointmentDate?.message}>
-              <DatePicker
-                disabledDate={isEdit ? undefined : disablePast}
+              <SingleDayPicker
+                disabledDate={isEdit ? undefined : disableDaysPast}
                 disabled={disabledField}
                 placeholder={t('appointment:appointment_date')}
                 className="w-full"
@@ -294,10 +299,8 @@ export const FormMutation = ({
               />
             </Field>
             <Field withRequiredMark label={t('appointment:appointment_time')} error={errors.appointmentTime?.message}>
-              <DatePicker
-                picker="time"
+              <SingleTimePicker
                 format="HH:mm"
-                disabledDate={isEdit ? undefined : disablePast}
                 disabled={disabledField}
                 placeholder={t('appointment:appointment_time')}
                 className="w-full"
@@ -339,7 +342,9 @@ export const FormMutation = ({
               />
             </Field>
             <div className="md:col-span-2">
-              <Divider orientation="center">{t('appointment:supporter')}</Divider>
+              <Divider orientation="center">
+                <div className="text-base font-semibold">{t('appointment:supporter')}</div>
+              </Divider>
             </div>
             <Field withRequiredMark label={t('appointment:consultant')} error={errors.consultant?.message}>
               <SelectEmployee
@@ -392,17 +397,19 @@ export const FormMutation = ({
               />
             </Field>
             <div className="md:col-span-2">
-              <Divider orientation="center">{t('appointment:extra_information')}</Divider>
+              <Divider orientation="center">
+                <div className="text-base font-semibold">{t('appointment:extra_information')}</div>
+              </Divider>
             </div>
             <div className="md:col-span-2">
               <Field label={t('appointment:note')} error={errors.note?.message}>
-                <Input.TextArea
+                <Textarea
                   rows={6}
                   showCount
                   maxLength={256}
                   value={note ?? undefined}
-                  onChange={event => {
-                    setValue('note', event.target.value);
+                  onChange={value => {
+                    setValue('note', value);
                     if (errors.note) {
                       trigger('note');
                     }

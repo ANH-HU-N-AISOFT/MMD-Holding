@@ -1,0 +1,7 @@
+.Dropdown__divider {
+  margin: 0;
+}
+
+.Dropdown__footer {
+  padding: var(--yy-padding-xxs);
+}

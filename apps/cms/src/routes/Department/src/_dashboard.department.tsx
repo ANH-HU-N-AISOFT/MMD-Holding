@@ -1,8 +1,8 @@
 import { ClusterOutlined, TableOutlined } from '@ant-design/icons';
-import { Select, Typography, notification } from 'antd';
 import i18next from 'i18next';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, Typography, notification } from 'reactjs';
 import { updateURLSearchParamsOfBrowserWithoutNavigation } from 'utilities';
 import {
   ActionResponse as ActionDeleteDepartmentResponse,
@@ -212,7 +212,7 @@ export const Page = () => {
 
   return (
     <>
-      <div className="flex flex-col h-full">
+      <div className="flex h-full flex-col">
         <Header
           creatable={isCanShow(isCanCreateDepartment)}
           importable={isCanShow(isCanImportDepartment)}
@@ -222,7 +222,7 @@ export const Page = () => {
           onCreate={() => navigate('/department/create')}
           onImport={() => importActions.current?.open?.()}
         />
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2 mb-1">
+        <div className="mb-1 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
           <div className="order-2 sm:order-1 sm:basis-[480px]">
             <FormSearchNFilter
               searchValue={paramsInUrl.search?.toString()}
@@ -235,15 +235,16 @@ export const Page = () => {
               onSearch={value => handleRequest({ page: 1, search: value })}
             />
           </div>
-          <div className="order-1 sm:order-2 flex-1 sm:flex-none">
-            <Select
+          <div className="order-1 flex-1 sm:order-2 sm:flex-none">
+            <SelectSingle
+              showSearch={false}
               className="w-full"
               onChange={value => handleRequest({ layout: value })}
               value={paramsInUrl.layout ?? 'table'}
-              size="large"
               options={[
                 {
                   value: 'table',
+                  rawData: undefined,
                   label: (
                     <div className="flex items-center justify-center gap-2">
                       <TableOutlined />
@@ -255,6 +256,7 @@ export const Page = () => {
                 },
                 {
                   value: 'tree',
+                  rawData: undefined,
                   label: (
                     <div className="flex items-center justify-center gap-2">
                       <ClusterOutlined />

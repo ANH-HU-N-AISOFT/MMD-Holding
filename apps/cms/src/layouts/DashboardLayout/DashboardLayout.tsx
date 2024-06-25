@@ -1,7 +1,7 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { Button, Layout, Menu } from 'antd';
 import classNames from 'classnames';
 import { Suspense, useEffect, useMemo, useState } from 'react';
+import { Button, AntRawLayout, AntRawMenu } from 'reactjs';
 import { useMobile } from 'reactjs';
 import { Logo } from './components/Logo';
 import { Notification } from './components/Notification';
@@ -11,7 +11,7 @@ import { getTabActiveWithLocation } from './utils/getTabActiveWithLocation';
 import { Link, Outlet, useLocation } from '~/overrides/@remix';
 import './styles.css';
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content, Sider } = AntRawLayout;
 
 export const DashboardLayout = () => {
   const menuItems = useGetNavData();
@@ -47,21 +47,21 @@ export const DashboardLayout = () => {
   }, [isMobile]);
 
   return (
-    <Layout>
+    <AntRawLayout>
       <Sider
         width={240}
         trigger={null}
         collapsible
         collapsed={collapsed}
-        className="!h-[100dvh] !sticky left-0 top-0 Sidebar__container py-4 border border-solid border-l-transparent border-t-transparent border-b-transparent border-r-neutral-200 !pb-0"
+        className="Sidebar__container !sticky left-0 top-0 !h-[100dvh] border border-solid border-y-transparent border-l-transparent border-r-neutral-200 py-4 !pb-0"
         theme="light"
       >
-        <div className="px-2 mb-4 text-center">
+        <div className="mb-4 px-2 text-center">
           <Link to="/dashboard">
             <Logo collapsed={collapsed} />
           </Link>
         </div>
-        <Menu
+        <AntRawMenu
           inlineIndent={23}
           selectedKeys={[getTabActiveWithLocation(location)]}
           theme="light"
@@ -70,9 +70,9 @@ export const DashboardLayout = () => {
           defaultOpenKeys={defaultOpenKeys}
         />
       </Sider>
-      <Layout className="!min-h-[100dvh]">
-        <Header className="!bg-white !pl-2 !pr-6 sticky top-0 left-0 z-10">
-          <div className="w-full h-full flex items-center justify-between">
+      <AntRawLayout className="!min-h-[100dvh]">
+        <Header className="sticky left-0 top-0 z-10 !bg-white !pl-2 !pr-6">
+          <div className="flex h-full w-full items-center justify-between">
             <Button
               type="text"
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -85,12 +85,12 @@ export const DashboardLayout = () => {
             </div>
           </div>
         </Header>
-        <Content className="p-4 md:p-8 !pb-0">
+        <Content className="!bg-[rgba(249, 230, 233, 0.8)] p-4 !pb-0 md:p-8">
           <Suspense fallback={null}>
             <Outlet />
           </Suspense>
         </Content>
-      </Layout>
-    </Layout>
+      </AntRawLayout>
+    </AntRawLayout>
   );
 };

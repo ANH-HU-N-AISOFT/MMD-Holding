@@ -1,10 +1,11 @@
-import { Divider, Input, Radio } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
+import { Divider, Input, Radio } from 'reactjs';
+import { SingleDayPicker } from 'reactjs';
+import { disableDaysFuture } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
 import { Student } from '../../../models/Student';
 import { FormValues } from '../FormMutation';
-import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
@@ -14,7 +15,6 @@ import { SelectDistrict } from '~/packages/common/SelectVariants/SelectDistrict'
 import { SelectSaleEmployees } from '~/packages/common/SelectVariants/SelectSaleEmployees';
 import { SelectSchool } from '~/packages/common/SelectVariants/SelectSchool';
 import { SelectSourceEnum } from '~/packages/common/SelectVariants/SourceEnum/SelectSourceEnum';
-import { disableFuture } from '~/utils/functions/disableDatePicker';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
 interface Props {
@@ -52,12 +52,12 @@ export const PersonalInformation = ({ form, disabledField, isEdit, student }: Pr
   const cityCode = watch('temporaryOptional.cityCode');
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
       <Field withRequiredMark label={t('student:fullName')} error={errors.personalInformation?.fullName?.message}>
         <Input
           value={fullName}
-          onChange={event => {
-            setValue('personalInformation.fullName', event.target.value);
+          onChange={value => {
+            setValue('personalInformation.fullName', value);
             if (errors.personalInformation?.fullName) {
               trigger('personalInformation.fullName');
             }
@@ -69,8 +69,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit, student }: Pr
       <Field withRequiredMark label={t('student:phone')} error={errors.personalInformation?.phone?.message}>
         <Input
           value={phone}
-          onChange={event => {
-            const value = takeOnlyNumber(event);
+          onChange={value_ => {
+            const value = value_ ? takeOnlyNumber(value_) : undefined;
             setValue('personalInformation.phone', value);
             if (errors.personalInformation?.phone) {
               trigger('personalInformation.phone');
@@ -87,8 +87,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit, student }: Pr
       <Field label={t('student:email')} error={errors.personalInformation?.email?.message}>
         <Input
           value={email ?? undefined}
-          onChange={event => {
-            setValue('personalInformation.email', event.target.value);
+          onChange={value => {
+            setValue('personalInformation.email', value);
             if (errors.personalInformation?.email) {
               trigger('personalInformation.email');
             }
@@ -100,8 +100,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit, student }: Pr
       <Field label={t('student:current_address')} error={errors.personalInformation?.currentAddress?.message}>
         <Input
           value={currentAddress ?? undefined}
-          onChange={event => {
-            setValue('personalInformation.currentAddress', event.target.value);
+          onChange={value => {
+            setValue('personalInformation.currentAddress', value);
             if (errors.personalInformation?.currentAddress) {
               trigger('personalInformation.currentAddress');
             }
@@ -139,8 +139,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit, student }: Pr
         />
       </Field>
       <Field label={t('student:date_of_birth')} error={errors.personalInformation?.dateOfBirth?.message}>
-        <DatePicker
-          disabledDate={isEdit ? undefined : disableFuture}
+        <SingleDayPicker
+          disabledDate={isEdit ? undefined : disableDaysFuture}
           format="DD/MM/YYYY"
           value={dateOfBirth ? dayjs(dateOfBirth) : undefined}
           onChange={value => {
@@ -180,14 +180,16 @@ export const PersonalInformation = ({ form, disabledField, isEdit, student }: Pr
         />
       </Field>
       <div className="md:col-span-2">
-        <Divider orientation="center">{t('student:parent')}</Divider>
+        <Divider orientation="center">
+          <div className="text-base font-semibold">{t('student:parent')}</div>
+        </Divider>
       </div>
       <Field label={t('student:parent_phone')} error={errors.personalInformation?.parentPhone?.message}>
         <Input
           value={parentPhone ?? undefined}
           addonBefore={<div>+84</div>}
-          onChange={event => {
-            const value = takeOnlyNumber(event);
+          onChange={value_ => {
+            const value = value_ ? takeOnlyNumber(value_) : undefined;
             setValue('personalInformation.parentPhone', value);
             if (errors.personalInformation?.parentPhone) {
               trigger('personalInformation.parentPhone');
@@ -201,22 +203,25 @@ export const PersonalInformation = ({ form, disabledField, isEdit, student }: Pr
         label={t('student:notify_result_to_parent')}
         error={errors.personalInformation?.notifyResultToParent?.message}
       >
-        <Radio.Group
+        <Radio<boolean>
+          items={[
+            { value: false, label: t('student:disable_notify') },
+            { value: true, label: t('student:enable_notify') },
+          ]}
           disabled={disabledField}
-          onChange={event => {
-            setValue('personalInformation.notifyResultToParent', event.target.value);
+          onChange={value => {
+            setValue('personalInformation.notifyResultToParent', value);
             if (errors.personalInformation?.notifyResultToParent) {
               trigger('personalInformation.notifyResultToParent');
             }
           }}
-          value={notifyResultToParent}
-        >
-          <Radio value={false}>{t('student:disable_notify')}</Radio>
-          <Radio value={true}>{t('student:enable_notify')}</Radio>
-        </Radio.Group>
+          value={notifyResultToParent ?? undefined}
+        />
       </Field>
       <div className="md:col-span-2">
-        <Divider orientation="center">{t('student:branch')}</Divider>
+        <Divider orientation="center">
+          <div className="text-base font-semibold">{t('student:branch')}</div>
+        </Divider>
       </div>
       <Field label={t('student:source')} error={errors.personalInformation?.source?.message}>
         <SelectSourceEnum

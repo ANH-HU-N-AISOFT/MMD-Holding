@@ -1,7 +1,7 @@
-import { Empty } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Option, SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
+import { Empty } from 'reactjs';
+import { SelectOption, SelectSingle, SelectSingleProps } from 'reactjs';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { District } from '~/packages/specific/Location/models/Location';
 import { getDistricts } from '~/packages/specific/Location/services/getDistricts';
@@ -17,7 +17,7 @@ interface Props {
 export const SelectDistrict = ({ district, disabled, allowClear = true, cityCode, onChange }: Props) => {
   const { t } = useTranslation(['location']);
   const [isFetching, setIsFetching] = useState(false);
-  const [options, setOptions] = useState<Option[]>([]);
+  const [options, setOptions] = useState<SelectOption<District['id']>[]>([]);
   const [searchValue, setSearchValue] = useState('');
 
   const needWarning = useMemo(() => !cityCode, [cityCode]);
@@ -63,7 +63,6 @@ export const SelectDistrict = ({ district, disabled, allowClear = true, cityCode
       placeholder={t('location:district')}
       className="w-full"
       loading={isFetching}
-      showSearch
       searchValue={searchValue}
       options={options}
       onSearch={value => setSearchValue(value)}

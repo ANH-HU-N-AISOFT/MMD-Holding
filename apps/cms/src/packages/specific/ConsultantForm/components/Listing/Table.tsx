@@ -1,14 +1,14 @@
 import { DeleteOutlined, EditOutlined, ExperimentOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button, Tag, Typography } from 'antd';
 import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
+import { Button, Tag, Typography } from 'reactjs';
+import { TableActions } from 'reactjs';
 import { FormStatusMappingToColors } from '../../constants/PromotionComboStatusMappingToColors';
 import { ConsultantForm } from '../../models/ConsultantForm';
 import { Collapsed } from '~/components/Collapsed/Collapsed';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
-import { TableActions } from '~/components/TableActions/TableActions';
 import { getFormStatusMappingToLabels } from '~/packages/common/SelectVariants/FormStatus/constants/FormStatusMappingToLabels';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 export interface Props
@@ -109,8 +109,8 @@ export const Table = ({
       render: (_, record) => {
         return (
           <Typography.Link onClick={() => onView?.(record)}>
-            <Typography.Paragraph className="text-[inherit] !mb-1">{record.student?.fullName}</Typography.Paragraph>
-            <Typography.Paragraph className="text-[inherit] !mb-0">{record.student?.phoneNumber}</Typography.Paragraph>
+            <Typography.Paragraph className="!mb-1 text-[inherit]">{record.student?.fullName}</Typography.Paragraph>
+            <Typography.Paragraph className="!mb-0 text-[inherit]">{record.student?.phoneNumber}</Typography.Paragraph>
           </Typography.Link>
         );
       },
@@ -256,7 +256,7 @@ export const Table = ({
         onChange={onChange}
       />
       <SickyAction isVisible={!!selectedRows.length}>
-        <div className="min-w-[400px] flex items-center justify-between">
+        <div className="flex min-w-[400px] items-center justify-between">
           <Highlighter
             textToHighlight={t('consultant_form:total_records_selected', {
               total: selectedRows.length,
@@ -264,7 +264,7 @@ export const Table = ({
             searchWords={[selectedRows.length.toString()]}
             highlightClassName="bg-transparent font-semibold"
           />
-          <Button danger onClick={() => onDeleteMany?.(selectedRows)}>
+          <Button color="error" ghost onClick={() => onDeleteMany?.(selectedRows)}>
             {t('consultant_form:delete')}
           </Button>
         </div>

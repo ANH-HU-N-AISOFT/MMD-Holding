@@ -1,9 +1,8 @@
 import { SearchOutlined } from '@ant-design/icons';
-import { Input } from 'antd';
 import classNames from 'classnames';
-import { ChangeEvent, ReactNode } from 'react';
+import { ReactNode } from 'react';
+import { Input } from 'reactjs';
 import { FilterDrawer } from '../../../FilterDrawer';
-import { debounce } from '~/utils/functions/debounce';
 
 export interface SearchNFilterProps {
   search: {
@@ -38,14 +37,11 @@ export const SearchNFilter = ({
     <div className={classNames('flex gap-2', containerClassName)}>
       <Input
         allowClear
-        defaultValue={searchValue}
+        value={searchValue}
         className={classNames('md:max-w-[350px] flex-1', inputClassName)}
         placeholder={placeholder}
-        size="large"
         suffix={<SearchOutlined />}
-        onChange={debounce((event: ChangeEvent<HTMLInputElement>) => {
-          onSearch?.(event.target.value);
-        })}
+        onDebounceChange={value => onSearch?.(value ?? '')}
       />
       <FilterDrawer
         containerClassName={classNames('flex-shrink-0 flex-grow-0 basis-[48px]', hideFilter ? '!hidden' : '')}

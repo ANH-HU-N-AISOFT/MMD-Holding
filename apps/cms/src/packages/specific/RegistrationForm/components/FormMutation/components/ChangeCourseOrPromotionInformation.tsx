@@ -1,9 +1,9 @@
-import { Divider, Input, InputNumber } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
+import { Divider, Input, InputNumber } from 'reactjs';
 import { Field } from 'reactjs';
+import { SingleDayPicker } from 'reactjs';
 import { FormValues } from '../FormMutation';
-import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 import { currencyParser } from '~/utils/functions/currency/currencyParser';
@@ -27,7 +27,9 @@ export const ChangeCourseOrPromotionInformation = ({ form, disabledField }: Prop
   return (
     <>
       <div className="md:col-span-2">
-        <Divider orientation="center">{t('registration_form:change_course_or_promotion')}</Divider>
+        <Divider orientation="center">
+          <div className="text-base font-semibold">{t('registration_form:change_course_or_promotion')}</div>
+        </Divider>
       </div>
 
       <div className="md:col-span-2">
@@ -36,13 +38,13 @@ export const ChangeCourseOrPromotionInformation = ({ form, disabledField }: Prop
           labelWrapperClassName="!font-bold"
           fieldWrapperClassName="px-2"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             <div className="md:col-span-2">
               <Field
                 label={t('registration_form:date_registration_change')}
                 error={errors.registrationDateOfProgramChange?.message}
               >
-                <DatePicker
+                <SingleDayPicker
                   className="!w-full"
                   disabled={disabledField}
                   placeholder={t('registration_form:date_registration_change')}
@@ -62,13 +64,12 @@ export const ChangeCourseOrPromotionInformation = ({ form, disabledField }: Prop
             </div>
             <Field label={t('registration_form:new_promotion')} error={errors.newDiscountOfProgramChange?.message}>
               <Input
-                showCount
                 maxLength={100}
                 placeholder={t('registration_form:new_promotion')}
                 disabled={disabledField}
                 value={formValues.newDiscountOfProgramChange ?? undefined}
-                onChange={event => {
-                  setValue('newDiscountOfProgramChange', event.target.value);
+                onChange={value => {
+                  setValue('newDiscountOfProgramChange', value);
                   if (errors.newDiscountOfProgramChange) {
                     trigger('newDiscountOfProgramChange');
                   }
@@ -76,7 +77,7 @@ export const ChangeCourseOrPromotionInformation = ({ form, disabledField }: Prop
               />
             </Field>
             <Field label={t('registration_form:new_fee_with_measure')}>
-              <InputNumber<number>
+              <InputNumber
                 min={0}
                 className="w-full"
                 disabled={disabledField}
@@ -104,13 +105,13 @@ export const ChangeCourseOrPromotionInformation = ({ form, disabledField }: Prop
           labelWrapperClassName="!font-bold"
           fieldWrapperClassName="px-2"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             <div className="md:col-span-2">
               <Field
                 label={t('registration_form:date_registration_change')}
                 error={errors.registrationDateOfCourseChange?.message}
               >
-                <DatePicker
+                <SingleDayPicker
                   className="!w-full"
                   disabled={disabledField}
                   placeholder={t('registration_form:date_registration_change')}
@@ -130,13 +131,12 @@ export const ChangeCourseOrPromotionInformation = ({ form, disabledField }: Prop
             </div>
             <Field label={t('registration_form:new_course')} error={errors.newDiscountOfCourseChange?.message}>
               <Input
-                showCount
                 maxLength={100}
                 placeholder={t('registration_form:new_course')}
                 disabled={disabledField}
                 value={formValues.newDiscountOfCourseChange ?? undefined}
-                onChange={event => {
-                  setValue('newDiscountOfCourseChange', event.target.value);
+                onChange={value => {
+                  setValue('newDiscountOfCourseChange', value);
                   if (errors.newDiscountOfCourseChange) {
                     trigger('newDiscountOfCourseChange');
                   }
@@ -144,7 +144,7 @@ export const ChangeCourseOrPromotionInformation = ({ form, disabledField }: Prop
               />
             </Field>
             <Field label={t('registration_form:new_fee_with_measure')}>
-              <InputNumber<number>
+              <InputNumber
                 min={0}
                 className="w-full"
                 disabled={disabledField}
@@ -172,13 +172,13 @@ export const ChangeCourseOrPromotionInformation = ({ form, disabledField }: Prop
           labelWrapperClassName="!font-bold"
           fieldWrapperClassName="px-2"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             <div className="md:col-span-2">
               <Field
                 label={t('registration_form:additional_course_registration_date')}
                 error={errors.registrationDateOfAdditionalCourseRegistration1?.message}
               >
-                <DatePicker
+                <SingleDayPicker
                   className="!w-full"
                   disabled={disabledField}
                   placeholder={t('registration_form:additional_course_registration_date')}
@@ -201,13 +201,12 @@ export const ChangeCourseOrPromotionInformation = ({ form, disabledField }: Prop
               error={errors.additionalCourseOfAdditionalCourseRegistration1?.message}
             >
               <Input
-                showCount
                 maxLength={100}
                 placeholder={t('registration_form:additional_course_registration_name')}
                 disabled={disabledField}
                 value={formValues.additionalCourseOfAdditionalCourseRegistration1 ?? undefined}
-                onChange={event => {
-                  setValue('additionalCourseOfAdditionalCourseRegistration1', event.target.value);
+                onChange={value => {
+                  setValue('additionalCourseOfAdditionalCourseRegistration1', value);
                   if (errors.additionalCourseOfAdditionalCourseRegistration1) {
                     trigger('additionalCourseOfAdditionalCourseRegistration1');
                   }
@@ -215,7 +214,7 @@ export const ChangeCourseOrPromotionInformation = ({ form, disabledField }: Prop
               />
             </Field>
             <Field label={t('registration_form:additional_course_registration_fee')}>
-              <InputNumber<number>
+              <InputNumber
                 min={0}
                 className="w-full"
                 disabled={disabledField}
@@ -243,13 +242,13 @@ export const ChangeCourseOrPromotionInformation = ({ form, disabledField }: Prop
           labelWrapperClassName="!font-bold"
           fieldWrapperClassName="px-2"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             <div className="md:col-span-2">
               <Field
                 label={t('registration_form:additional_course_registration_date')}
                 error={errors.registrationDateOfAdditionalCourseRegistration2?.message}
               >
-                <DatePicker
+                <SingleDayPicker
                   className="!w-full"
                   disabled={disabledField}
                   placeholder={t('registration_form:additional_course_registration_date')}
@@ -272,13 +271,12 @@ export const ChangeCourseOrPromotionInformation = ({ form, disabledField }: Prop
               error={errors.additionalCourseOfAdditionalCourseRegistration2?.message}
             >
               <Input
-                showCount
                 maxLength={100}
                 placeholder={t('registration_form:additional_course_registration_name')}
                 disabled={disabledField}
                 value={formValues.additionalCourseOfAdditionalCourseRegistration2 ?? undefined}
-                onChange={event => {
-                  setValue('additionalCourseOfAdditionalCourseRegistration2', event.target.value);
+                onChange={value => {
+                  setValue('additionalCourseOfAdditionalCourseRegistration2', value);
                   if (errors.additionalCourseOfAdditionalCourseRegistration2) {
                     trigger('additionalCourseOfAdditionalCourseRegistration2');
                   }
@@ -286,7 +284,7 @@ export const ChangeCourseOrPromotionInformation = ({ form, disabledField }: Prop
               />
             </Field>
             <Field label={t('registration_form:additional_course_registration_fee')}>
-              <InputNumber<number>
+              <InputNumber
                 min={0}
                 className="w-full"
                 disabled={disabledField}

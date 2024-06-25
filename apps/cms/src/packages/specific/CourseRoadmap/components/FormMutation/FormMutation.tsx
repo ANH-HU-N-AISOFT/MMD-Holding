@@ -1,6 +1,6 @@
-import { Input, InputNumber } from 'antd';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { Input, InputNumber, Textarea } from 'reactjs';
 import { useDeepCompareEffect } from 'reactjs';
 import { TypeOf } from 'zod';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
@@ -85,12 +85,12 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
         }}
       >
         <BoxFields>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+          <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2">
             <Field withRequiredMark label={t('course_roadmap:name')} error={errors.name?.message}>
               <Input
                 value={name}
-                onChange={event => {
-                  setValue('name', event.target.value);
+                onChange={value => {
+                  setValue('name', value);
                   if (errors.name) {
                     trigger('name');
                   }
@@ -102,8 +102,8 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             <Field withRequiredMark label={t('course_roadmap:code')} error={errors.code?.message}>
               <Input
                 value={code}
-                onChange={event => {
-                  setValue('code', event.target.value);
+                onChange={value => {
+                  setValue('code', value);
                   if (errors.code) {
                     trigger('code');
                   }
@@ -197,13 +197,13 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </Field>
             <div className="md:col-span-2">
               <Field label={t('course_roadmap:description')} error={errors.description?.message}>
-                <Input.TextArea
+                <Textarea
                   rows={6}
                   showCount
                   maxLength={256}
                   value={description ?? undefined}
-                  onChange={event => {
-                    setValue('description', event.target.value);
+                  onChange={value => {
+                    setValue('description', value);
                     if (errors.description) {
                       trigger('description');
                     }

@@ -1,7 +1,7 @@
-import { Tag } from 'antd';
 import dayjs from 'dayjs';
 import { forwardRef, useImperativeHandle, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Tag } from 'reactjs';
 import { BusinessStatusMappingToColors } from '../../constants/BusinessStatusMappingToColors';
 import { importDepartments } from '../../services/importDepartments';
 import { ResponseSuccess, validateImportDepartments } from '../../services/validateImportDepartments';

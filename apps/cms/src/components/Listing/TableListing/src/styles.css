@@ -1,39 +1,39 @@
 /* Table */
-.TableListing__container.ant-table-wrapper .ant-spin-nested-loading {
+.TableListing__container.yy-table-wrapper .yy-spin-nested-loading {
   @apply h-full;
 }
 
-.TableListing__container.ant-table-wrapper .ant-spin-container {
+.TableListing__container.yy-table-wrapper .yy-spin-container {
   @apply h-full flex flex-col;
 }
 
-.TableListing__container.ant-table-wrapper .ant-table-container {
+.TableListing__container.yy-table-wrapper .yy-table-container {
   @apply bg-white;
 }
 
-.TableListing__container.ant-table-wrapper .ant-table-pagination {
+.TableListing__container.yy-table-wrapper .yy-table-pagination {
   @apply bg-white !m-0 !py-3 !px-2 border border-solid border-t-transparent border-[#f0f0f0] rounded-bl-lg rounded-br-lg;
 }
 
 /* Phụ thuộc vào padding layout */
-.TableListing--paginationSticky.ant-table-wrapper .ant-table-pagination {
+.TableListing--paginationSticky.yy-table-wrapper .yy-table-pagination {
   @apply sticky bottom-0 z-10  !-ml-4 !-mr-4 md:!-ml-8 md:!-mr-8 text-center md:text-left flex items-center justify-center md:justify-between border border-solid border-transparent border-t-neutral-300 !p-2 md:!px-6 md:!py-4 !mt-0 !mb-0 bg-white;
 }
-.TableListing--paginationSticky.ant-table-wrapper .ant-table {
+.TableListing--paginationSticky.yy-table-wrapper .yy-table {
   @apply flex-1 bg-transparent mb-4;
 }
-.TableListing--paginationSticky.ant-table-wrapper
-  .ant-table-pagination
-  .ant-pagination-total-text {
+.TableListing--paginationSticky.yy-table-wrapper
+  .yy-table-pagination
+  .yy-pagination-total-text {
   @apply basis-full  md:!flex-1 !m-0 md:!me-2;
 }
 
-.TableListing__container:not(.TableListing--paginationSticky).ant-table-wrapper
-  .ant-table-pagination {
+.TableListing__container:not(.TableListing--paginationSticky).yy-table-wrapper
+  .yy-table-pagination {
   @apply justify-center sm:justify-end;
 }
-.TableListing__container:not(.TableListing--paginationSticky).ant-table-wrapper
-  .ant-table-pagination
-  .ant-pagination-total-text {
+.TableListing__container:not(.TableListing--paginationSticky).yy-table-wrapper
+  .yy-table-pagination
+  .yy-pagination-total-text {
   @apply basis-full text-center sm:text-left sm:flex-1 m-0 md:me-2;
 }

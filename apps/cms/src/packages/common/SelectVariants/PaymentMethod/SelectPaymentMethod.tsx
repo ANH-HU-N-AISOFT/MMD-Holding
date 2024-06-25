@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectSingleProps } from 'reactjs';
 import { PaymentMethod } from './constants/PaymentMethod';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 import { getPaymentMethodMappingToLabels } from '~/packages/common/SelectVariants/PaymentMethod/constants/PaymentMethodMappingToLabels';
 
 interface Props {

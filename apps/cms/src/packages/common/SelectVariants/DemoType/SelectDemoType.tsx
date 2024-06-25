@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectSingleProps } from 'reactjs';
 import { DemoType } from './constants/DemoType';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 import { getDemoTypeMappingToLabels } from '~/packages/common/SelectVariants/DemoType/constants/DemoTypeMappingToLabels';
 
 interface Props {

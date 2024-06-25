@@ -1,11 +1,12 @@
 import { CaretRightOutlined, DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button, Tag, Typography } from 'antd';
 import { ExpandableConfig } from 'antd/es/table/interface';
 import classNames from 'classnames';
 import { isEmpty, nth } from 'ramda';
 import { useEffect, useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
+import { Button, Tag, Typography } from 'reactjs';
+import { TableActions } from 'reactjs';
 import { getBusinessStatusMappingToLabels } from '../../../../common/SelectVariants/BusinessStatus/constants/BusinessStatusMappingToLabels';
 import { BusinessStatusMappingToColors } from '../../constants/BusinessStatusMappingToColors';
 import { Department } from '../../models/Department';
@@ -15,7 +16,6 @@ import { TreeNodeData, leavesToTreeDataNode } from './utils/leavesToTreeDataNode
 import { shakeUnmatchedBranches } from './utils/shakeUnmatchedBranches';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
-import { TableActions } from '~/components/TableActions/TableActions';
 
 export interface Props extends Pick<TableListingProps<Department>, 'dataSource' | 'loading'> {
   editable?: boolean;
@@ -56,7 +56,7 @@ export const TableForTreeLayout = ({
         const isExpanding = rowsExpanding.includes(record.generalInformation.id);
         const hasChild = !isEmpty(record.children);
         return (
-          <div className="flex items-center gap-2 first_column">
+          <div className="first_column flex items-center gap-2">
             <CaretRightOutlined
               className={classNames(
                 'text-base cursor-pointer transition-all will-change-transform',
@@ -196,13 +196,13 @@ export const TableForTreeLayout = ({
         totalRecords={1000}
       />
       <SickyAction isVisible={!!selectedRows.length}>
-        <div className="min-w-[400px] flex items-center justify-between">
+        <div className="flex min-w-[400px] items-center justify-between">
           <Highlighter
             textToHighlight={t('department:total_records_selected', { total: selectedRows.length })}
             searchWords={[selectedRows.length.toString()]}
             highlightClassName="bg-transparent font-semibold"
           />
-          <Button danger onClick={() => onDeleteMany?.(selectedRows)}>
+          <Button color="error" ghost onClick={() => onDeleteMany?.(selectedRows)}>
             {t('department:delete')}
           </Button>
         </div>

@@ -1,12 +1,9 @@
-import { Empty } from 'antd';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Empty } from 'reactjs';
+import { SelectSingleDecoupling, SelectSingleDecouplingProps } from 'reactjs';
 import { EmployeeStatus } from './EmployeeStatus/constants/EmployeeStatus';
 import { Role } from './Role/constants/Role';
-import {
-  SelectSingleDecoupling,
-  SelectSingleDecouplingProps,
-} from '~/components/SelectDecoupling/SelectSingleDecoupling';
 import { TooltipDetailInformation } from '~/components/TooltipDetailInformation/TooltipDetailInformation';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { Employee } from '~/packages/specific/Employee/models/Employee';

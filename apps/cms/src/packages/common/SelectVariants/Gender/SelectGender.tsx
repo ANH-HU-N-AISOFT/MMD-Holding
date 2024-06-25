@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectSingleProps } from 'reactjs';
 import { GenderEnum } from './constants/GenderEnum';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 
 interface Props {
   gender?: GenderEnum;

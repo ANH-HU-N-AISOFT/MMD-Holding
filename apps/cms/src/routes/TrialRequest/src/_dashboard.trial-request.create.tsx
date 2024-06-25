@@ -1,7 +1,7 @@
-import { notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { notification } from 'reactjs';
 import { getDefaultListingTrialRequestsUrl } from '../constants/getDefaultFilterUrl';
 import { isCanCreateTrialRequest } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
@@ -122,9 +122,9 @@ export const Page = () => {
 
   const session = getSession();
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex h-full flex-col">
       <Header title={t('trial_request:add_trial')} onBack={() => navigate(getDefaultListingTrialRequestsUrl())} />
-      <div className="flex-1 mb-4">
+      <div className="mb-4 flex-1">
         <FormMutation
           trialRequest={undefined}
           isSubmiting={isSubmiting}

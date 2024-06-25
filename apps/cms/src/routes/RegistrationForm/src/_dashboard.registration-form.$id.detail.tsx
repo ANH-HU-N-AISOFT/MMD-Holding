@@ -1,7 +1,7 @@
 import { HomeOutlined } from '@ant-design/icons';
-import { Button, Result, notification } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button, Result, notification } from 'reactjs';
 import {
   ActionResponse as ActionDeleteRegistrationFormResponse,
   action as actionDeleteRegistrationForm,
@@ -95,7 +95,7 @@ export const Page = () => {
         status="404"
         title={t('registration_form:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/registration-form')}>
+          <Button icon={<HomeOutlined />} color="primary" onClick={() => navigate('/registration-form')}>
             {t('registration_form:back_to_list')}
           </Button>
         }
@@ -105,14 +105,14 @@ export const Page = () => {
 
   return (
     <>
-      <div className="flex flex-col h-full">
+      <div className="flex h-full flex-col">
         <Header
           title={t('registration_form:registration_form_with_name', {
             name: loaderData.info?.registrationForm.studentName,
           })}
           onBack={() => navigate('/registration-form')}
         />
-        <div className="flex-1 mb-4">
+        <div className="mb-4 flex-1">
           <Detail registrationForm={loaderData.info?.registrationForm} />
         </div>
         <Footer

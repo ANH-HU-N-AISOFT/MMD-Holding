@@ -1,14 +1,14 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button, Tag, Typography } from 'antd';
 import dayjs from 'dayjs';
 import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
+import { Button, Tag, Typography } from 'reactjs';
+import { TableActions } from 'reactjs';
 import { PromotionStatusMappingToColors } from '../../constants/PromotionComboStatusMappingToColors';
 import { Promotion } from '../../models/Promotion';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
-import { TableActions } from '~/components/TableActions/TableActions';
 import { getPromotionStatusMappingToLabels } from '~/packages/common/SelectVariants/PromotionStatus/constants/PromotionStatusMappingToLabels';
 import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
 import { getPromotionTypeMappingToLabels } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionTypeMappingToLabels';
@@ -212,7 +212,7 @@ export const Table = ({
         }}
       />
       <SickyAction isVisible={!!selectedRows.length}>
-        <div className="min-w-[400px] flex items-center justify-between">
+        <div className="flex min-w-[400px] items-center justify-between">
           <Highlighter
             textToHighlight={t('promotion:total_records_selected', {
               total: selectedRows.length,
@@ -220,7 +220,7 @@ export const Table = ({
             searchWords={[selectedRows.length.toString()]}
             highlightClassName="bg-transparent font-semibold"
           />
-          <Button danger onClick={() => onDeleteMany?.(selectedRows)}>
+          <Button color="error" ghost onClick={() => onDeleteMany?.(selectedRows)}>
             {t('promotion:delete')}
           </Button>
         </div>

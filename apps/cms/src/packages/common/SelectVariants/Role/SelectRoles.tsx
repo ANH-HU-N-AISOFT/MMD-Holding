@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectMultiple, SelectMultipleProps } from 'reactjs';
 import { Role } from './constants/Role';
-import { SelectMultiple, SelectMultipleProps } from '~/components/AntCustom/Select';
 import { getRoleMappingToLabels } from '~/packages/common/SelectVariants/Role/constants/RoleMappingToLabels';
 
 interface Props {
-  roles?: Exclude<Role, Role.SuperAdmin>[];
-  onChange?: SelectMultipleProps<Exclude<Role, Role.SuperAdmin>[]>['onChange'];
+  roles?: Role[];
+  onChange?: SelectMultipleProps<Role[]>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
   ignoreRoles?: Role[];

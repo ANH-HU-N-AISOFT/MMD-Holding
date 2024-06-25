@@ -1,14 +1,14 @@
-import { Divider, Input } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
+import { Divider, Input, Textarea } from 'reactjs';
+import { SingleDayPicker } from 'reactjs';
+import { disableDaysFuture } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
 import { FormValues } from '../FormMutation';
-import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
 import { SelectRegion } from '~/packages/common/SelectVariants/SelectRegion';
-import { disableFuture } from '~/utils/functions/disableDatePicker';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
 interface Props {
@@ -43,12 +43,12 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
   const notes = watch('personalInformation.notes');
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
       <Field withRequiredMark label={t('employee:full_name')} error={errors.personalInformation?.fullName?.message}>
         <Input
           value={fullName}
-          onChange={event => {
-            setValue('personalInformation.fullName', event.target.value);
+          onChange={value => {
+            setValue('personalInformation.fullName', value);
             if (errors.personalInformation?.fullName) {
               trigger('personalInformation.fullName');
             }
@@ -60,8 +60,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
       <Field withRequiredMark label={t('employee:phone')} error={errors.personalInformation?.phone?.message}>
         <Input
           value={phone}
-          onChange={event => {
-            const value = takeOnlyNumber(event);
+          onChange={value_ => {
+            const value = value_ ? takeOnlyNumber(value_) : undefined;
             setValue('personalInformation.phone', value);
             if (errors.personalInformation?.phone) {
               trigger('personalInformation.phone');
@@ -80,8 +80,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
         label={t('employee:date_of_birth')}
         error={errors.personalInformation?.dateOfBirth?.message}
       >
-        <DatePicker
-          disabledDate={isEdit ? undefined : disableFuture}
+        <SingleDayPicker
+          disabledDate={isEdit ? undefined : disableDaysFuture}
           format="DD/MM/YYYY"
           value={dateOfBirth ? dayjs(dateOfBirth) : undefined}
           onChange={value => {
@@ -110,8 +110,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
       <Field withRequiredMark label={t('employee:work_email')} error={errors.personalInformation?.workEmail?.message}>
         <Input
           value={workEmail}
-          onChange={event => {
-            setValue('personalInformation.workEmail', event.target.value);
+          onChange={value => {
+            setValue('personalInformation.workEmail', value);
             if (errors.personalInformation?.workEmail) {
               trigger('personalInformation.workEmail');
             }
@@ -127,8 +127,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
       >
         <Input
           value={personalEmail}
-          onChange={event => {
-            setValue('personalInformation.personalEmail', event.target.value);
+          onChange={value => {
+            setValue('personalInformation.personalEmail', value);
             if (errors.personalInformation?.personalEmail) {
               trigger('personalInformation.personalEmail');
             }
@@ -141,8 +141,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
         <Field label={t('employee:current_address')} error={errors.personalInformation?.currentAddress?.message}>
           <Input
             value={currentAddress ?? undefined}
-            onChange={event => {
-              setValue('personalInformation.currentAddress', event.target.value);
+            onChange={value => {
+              setValue('personalInformation.currentAddress', value);
               if (errors.personalInformation?.currentAddress) {
                 trigger('personalInformation.currentAddress');
               }
@@ -156,8 +156,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
         <Field label={t('employee:residence_address')} error={errors.personalInformation?.residenceAddress?.message}>
           <Input
             value={residenceAddress ?? undefined}
-            onChange={event => {
-              setValue('personalInformation.residenceAddress', event.target.value);
+            onChange={value => {
+              setValue('personalInformation.residenceAddress', value);
               if (errors.personalInformation?.residenceAddress) {
                 trigger('personalInformation.residenceAddress');
               }
@@ -182,8 +182,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
       <Field label={t('employee:citizen_id_card')} error={errors.personalInformation?.citizenIdCard?.message}>
         <Input
           value={citizenIdCard ?? undefined}
-          onChange={event => {
-            setValue('personalInformation.citizenIdCard', event.target.value);
+          onChange={value => {
+            setValue('personalInformation.citizenIdCard', value);
             if (errors.personalInformation?.citizenIdCard) {
               trigger('personalInformation.citizenIdCard');
             }
@@ -193,7 +193,9 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
         />
       </Field>
       <div className="md:col-span-2">
-        <Divider orientation="center">{t('employee:emergency_contact')}</Divider>
+        <Divider orientation="center">
+          <div className="text-base font-semibold">{t('employee:emergency_contact')}</div>
+        </Divider>
       </div>
       <Field
         withRequiredMark
@@ -202,8 +204,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
       >
         <Input
           value={emergencyContactName}
-          onChange={event => {
-            setValue('personalInformation.emergencyContactName', event.target.value);
+          onChange={value => {
+            setValue('personalInformation.emergencyContactName', value);
             if (errors.personalInformation?.emergencyContactName) {
               trigger('personalInformation.emergencyContactName');
             }
@@ -219,8 +221,9 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
       >
         <Input
           value={emergencyContactPhone}
-          onChange={event => {
-            setValue('personalInformation.emergencyContactPhone', takeOnlyNumber(event));
+          onChange={value_ => {
+            const value = value_ ? takeOnlyNumber(value_) : value_;
+            setValue('personalInformation.emergencyContactPhone', value);
             if (errors.personalInformation?.emergencyContactPhone) {
               trigger('personalInformation.emergencyContactPhone');
             }
@@ -236,8 +239,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
       >
         <Input
           value={emergencyContactRelationship ?? undefined}
-          onChange={event => {
-            setValue('personalInformation.emergencyContactRelationship', event.target.value);
+          onChange={value => {
+            setValue('personalInformation.emergencyContactRelationship', value);
             if (errors.personalInformation?.emergencyContactRelationship) {
               trigger('personalInformation.emergencyContactRelationship');
             }
@@ -247,17 +250,19 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
         />
       </Field>
       <div className="md:col-span-2">
-        <Divider orientation="center">{t('employee:additional_information')}</Divider>
+        <Divider orientation="center">
+          <div className="text-base font-semibold">{t('employee:additional_information')}</div>
+        </Divider>
       </div>
       <div className="md:col-span-2">
         <Field label={t('employee:note')} error={errors.personalInformation?.notes?.message}>
-          <Input.TextArea
+          <Textarea
             rows={6}
             showCount
             maxLength={256}
             value={notes ?? undefined}
-            onChange={event => {
-              setValue('personalInformation.notes', event.target.value);
+            onChange={value => {
+              setValue('personalInformation.notes', value);
               if (errors.personalInformation?.notes) {
                 trigger('personalInformation.notes');
               }

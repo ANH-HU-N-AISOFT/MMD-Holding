@@ -1,7 +1,7 @@
-import { notification } from 'antd';
 import i18next from 'i18next';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { notification } from 'reactjs';
 import { updateURLSearchParamsOfBrowserWithoutNavigation } from 'utilities';
 import {
   ActionResponse as ActionDeleteAppointmentResponse,
@@ -193,7 +193,7 @@ export const Page = () => {
 
   return (
     <>
-      <div className="flex flex-col h-full">
+      <div className="flex h-full flex-col">
         <Header
           creatable={isCanShow(isCanCreateAppointment)}
           importable={isCanShow(isCanImportAppointment)}

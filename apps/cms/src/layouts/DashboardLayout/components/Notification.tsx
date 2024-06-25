@@ -1,15 +1,13 @@
 import { BellOutlined } from '@ant-design/icons';
-import { Badge, Button, Divider, Dropdown, Typography, theme } from 'antd';
 import { CSSProperties, cloneElement } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Badge, Button, Divider, Dropdown, Typography, useThemeProviderToken } from 'reactjs';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
-
-const { useToken } = theme;
 
 export const Notification = () => {
   const { t } = useTranslation(['dashboard_layout']);
   const session = getSession();
-  const { token } = useToken();
+  const { token } = useThemeProviderToken();
 
   const contentStyle: CSSProperties = {
     backgroundColor: token.colorBgElevated,
@@ -42,50 +40,44 @@ export const Notification = () => {
           </div>
         </div>
       )}
-      menu={{
-        items: [
-          {
-            key: '1',
-            className: '!py-3',
-            label: (
-              <div className="grid grid-cols-1">
-                <Typography.Text className="font-medium">Nguyễn Minh Anh đã chấm dứt hợp đồng</Typography.Text>
-                <Typography.Text className="text-xs">4 ngày trước</Typography.Text>
-              </div>
-            ),
-          },
-          {
-            key: '2',
-            className: '!py-3',
-            label: (
-              <div className="grid grid-cols-1">
-                <Typography.Text className="font-medium">Nguyễn Minh Anh đã chấm dứt hợp đồng</Typography.Text>
-                <Typography.Text className="text-xs">4 ngày trước</Typography.Text>
-              </div>
-            ),
-          },
-          {
-            key: '3',
-            className: '!py-3',
-            label: (
-              <div className="grid grid-cols-1">
-                <Typography.Text className="font-medium">Nguyễn Minh Anh đã chấm dứt hợp đồng</Typography.Text>
-                <Typography.Text className="text-xs">4 ngày trước</Typography.Text>
-              </div>
-            ),
-          },
-          {
-            key: '4',
-            className: '!py-3',
-            label: (
-              <div className="grid grid-cols-1">
-                <Typography.Text className="font-medium">Nguyễn Minh Anh đã chấm dứt hợp đồng</Typography.Text>
-                <Typography.Text className="text-xs">4 ngày trước</Typography.Text>
-              </div>
-            ),
-          },
-        ],
-      }}
+      items={[
+        {
+          key: '1',
+          label: (
+            <div className="grid grid-cols-1 py-3">
+              <Typography.Text className="font-medium">Nguyễn Minh Anh đã chấm dứt hợp đồng</Typography.Text>
+              <Typography.Text className="text-xs">4 ngày trước</Typography.Text>
+            </div>
+          ),
+        },
+        {
+          key: '2',
+          label: (
+            <div className="grid grid-cols-1 py-3">
+              <Typography.Text className="font-medium">Nguyễn Minh Anh đã chấm dứt hợp đồng</Typography.Text>
+              <Typography.Text className="text-xs">4 ngày trước</Typography.Text>
+            </div>
+          ),
+        },
+        {
+          key: '3',
+          label: (
+            <div className="grid grid-cols-1 py-3">
+              <Typography.Text className="font-medium">Nguyễn Minh Anh đã chấm dứt hợp đồng</Typography.Text>
+              <Typography.Text className="text-xs">4 ngày trước</Typography.Text>
+            </div>
+          ),
+        },
+        {
+          key: '4',
+          label: (
+            <div className="grid grid-cols-1 py-3">
+              <Typography.Text className="font-medium">Nguyễn Minh Anh đã chấm dứt hợp đồng</Typography.Text>
+              <Typography.Text className="text-xs">4 ngày trước</Typography.Text>
+            </div>
+          ),
+        },
+      ]}
     >
       <Badge count={5} className="cursor-pointer">
         <BellOutlined className="text-xl" />

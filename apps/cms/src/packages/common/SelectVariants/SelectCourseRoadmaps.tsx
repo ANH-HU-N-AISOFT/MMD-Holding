@@ -1,9 +1,6 @@
 import { useTranslation } from 'react-i18next';
+import { SelectMultipleDecoupling, SelectMultipleDecouplingProps } from 'reactjs';
 import { CourseStatus } from './CourseStatus/constants/CourseStatus';
-import {
-  SelectMultipleDecoupling,
-  SelectMultipleDecouplingProps,
-} from '~/components/SelectDecoupling/SelectMultipleDecoupling';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { CourseRoadmap } from '~/packages/specific/CourseRoadmap/models/CourseRoadmap';
 import { getCourseRoadmaps } from '~/packages/specific/CourseRoadmap/services/getCourseRoadmaps';

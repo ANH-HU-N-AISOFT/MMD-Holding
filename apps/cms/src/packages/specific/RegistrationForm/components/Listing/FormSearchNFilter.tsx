@@ -2,10 +2,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { Field, useDeepCompareEffect } from 'reactjs';
+import { SingleDayPicker } from 'reactjs';
+import { SelectSingle } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
-import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
-import { SelectSingle } from '~/components/AntCustom/Select';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
@@ -86,7 +86,7 @@ export const FormSearchNFilter = ({
                 <SelectSingle options={[]} placeholder={t('registration_form:organization')} />
               </Field>
               <Field label={t('registration_form:created_at')}>
-                <DatePicker
+                <SingleDayPicker
                   className="!w-full"
                   placeholder={t('registration_form:created_at')}
                   value={formValues.createdAt ? dayjs(formValues.createdAt) : undefined}

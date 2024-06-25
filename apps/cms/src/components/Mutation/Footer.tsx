@@ -1,7 +1,7 @@
-import { Popconfirm } from 'antd';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { Button, ButtonProps } from '../AntCustom';
+import { Popconfirm } from 'reactjs';
+import { Button, ButtonProps } from 'reactjs';
 import type { ReactNode } from 'react';
 
 interface Props {
@@ -55,7 +55,7 @@ export const Footer = ({
   const BaseOkButton = (
     <Button
       {...okProps}
-      type={okProps?.type ?? 'primary'}
+      color={okProps?.color ?? 'primary'}
       loading={isLoading}
       disabled={isLoading}
       className={okProps?.className}
@@ -80,7 +80,7 @@ export const Footer = ({
           onConfirm={onOk}
           okText={t('components:FormMutation.ok')}
           cancelText={t('components:FormMutation.cancel')}
-          title={t('components:FormMutation.confirm_description')}
+          content={t('components:FormMutation.confirm_description')}
         >
           {Ok(BaseOkButton)}
         </Popconfirm>

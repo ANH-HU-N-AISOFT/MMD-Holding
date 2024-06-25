@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectSingleProps } from 'reactjs';
 import { JobTitleEnum } from './constants/JobTitleEnum';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 import { getJobTitleMappingToLabels } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleMappingToLabels';
 
 interface Props {

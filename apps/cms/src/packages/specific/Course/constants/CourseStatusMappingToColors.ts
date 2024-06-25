@@ -1,4 +1,4 @@
-import { TagProps } from 'antd';
+import { TagProps } from 'reactjs';
 import { CourseStatus } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatus';
 
 export const CourseStatusMappingToColors: Record<CourseStatus, TagProps['color']> = {

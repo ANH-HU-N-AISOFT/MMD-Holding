@@ -1,13 +1,10 @@
-import { Empty } from 'antd';
 import { isEmpty } from 'ramda';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Empty } from 'reactjs';
+import { SelectMultipleDecoupling, SelectMultipleDecouplingProps } from 'reactjs';
 import { EmployeeStatus } from './EmployeeStatus/constants/EmployeeStatus';
 import { Role } from './Role/constants/Role';
-import {
-  SelectMultipleDecoupling,
-  SelectMultipleDecouplingProps,
-} from '~/components/SelectDecoupling/SelectMultipleDecoupling';
 import { TooltipDetailInformation } from '~/components/TooltipDetailInformation/TooltipDetailInformation';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { Employee } from '~/packages/specific/Employee/models/Employee';

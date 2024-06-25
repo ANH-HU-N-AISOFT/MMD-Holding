@@ -1,8 +1,8 @@
 import { HomeOutlined } from '@ant-design/icons';
-import { Button, Result, notification } from 'antd';
 import i18next, { TFunction } from 'i18next';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button, Result, notification } from 'reactjs';
 import { isCanEditDocumentTemplate } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
@@ -123,7 +123,7 @@ export const Page = () => {
         status="404"
         title={t('document_template:not_found')}
         extra={
-          <Button icon={<HomeOutlined />} type="primary" onClick={() => navigate('/document-template')}>
+          <Button icon={<HomeOutlined />} color="primary" onClick={() => navigate('/document-template')}>
             {t('document_template:back_to_list')}
           </Button>
         }
@@ -131,12 +131,12 @@ export const Page = () => {
     );
   }
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex h-full flex-col">
       <Header
         title={t('document_template:document_template_with_name', { name: loaderData.info?.documentTemplate.name })}
         onBack={() => navigate('/document-template')}
       />
-      <div className="flex-1 mb-4">
+      <div className="mb-4 flex-1">
         <Edit isSubmiting={isSubmiting} uid={FormUpdate} documentTemplate={loaderData.info.documentTemplate} />
       </div>
       <Footer

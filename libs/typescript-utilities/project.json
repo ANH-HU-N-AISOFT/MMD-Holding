@@ -3,7 +3,6 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/typescript-utilities/src",
   "projectType": "library",
-  "tags": [],
   "targets": {
     "lint": {
       "executor": "@nx/linter:eslint",
@@ -20,5 +19,6 @@
         "commands": ["tsc -p tsconfig.json --noEmit"]
       }
     }
-  }
+  },
+  "tags": []
 }

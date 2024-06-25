@@ -1,6 +1,6 @@
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Tooltip } from 'antd';
 import { ReactNode } from 'react';
+import { Tooltip } from 'reactjs';
 
 interface Props {
   title: ReactNode;
@@ -15,7 +15,7 @@ export const TooltipDetailInformation = ({ extra, title, withQuestionMark = true
         {title}
         <Tooltip
           overlayClassName="!max-w-[initial]"
-          title={
+          content={
             <div>
               {extra.map((item, index) => {
                 return (
@@ -35,7 +35,7 @@ export const TooltipDetailInformation = ({ extra, title, withQuestionMark = true
   return (
     <Tooltip
       overlayClassName="!max-w-[initial]"
-      title={
+      content={
         <div>
           {extra.map((item, index) => {
             return (

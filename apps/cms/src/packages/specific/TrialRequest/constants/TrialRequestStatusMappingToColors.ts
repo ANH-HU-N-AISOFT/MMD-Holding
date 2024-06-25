@@ -1,4 +1,4 @@
-import { TagProps } from 'antd';
+import { TagProps } from 'reactjs';
 import { TrialRequestStatus } from '~/packages/common/SelectVariants/TrialRequestStatus/constants/TrialRequestStatus';
 
 export const TrialRequestStatusMappingToColors: Record<TrialRequestStatus, TagProps['color']> = {

@@ -1,7 +1,7 @@
-import { Input, InputNumber } from 'antd';
 import { TFunction } from 'i18next';
 import { sum } from 'ramda';
 import { useTranslation } from 'react-i18next';
+import { Input, InputNumber, Textarea } from 'reactjs';
 import { useDeepCompareEffect } from 'reactjs';
 import { TypeOf } from 'zod';
 import { getDisplaySessionDuration } from '../../utils/getDisplaySessionDuration';
@@ -86,13 +86,13 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
         }}
       >
         <BoxFields>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+          <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2">
             <div className="md:col-span-2">
               <Field withRequiredMark label={t('course_combo:name')} error={errors.name?.message}>
                 <Input
                   value={name}
-                  onChange={event => {
-                    setValue('name', event.target.value);
+                  onChange={value => {
+                    setValue('name', value);
                     if (errors.name) {
                       trigger('name');
                     }
@@ -144,7 +144,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                 className="w-full"
                 disabled
                 placeholder={t('course_combo:number_session_with_measure')}
-                value={totalNumberSessions}
+                value={totalNumberSessions ?? undefined}
                 onChange={value => {
                   setValue('totalNumberSessions', value ?? undefined);
                   if (errors.totalNumberSessions) {
@@ -162,8 +162,8 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                 disabled
                 placeholder={t('course_combo:session_duration_with_measure')}
                 value={displayTotalSessionDuration ?? undefined}
-                onChange={event => {
-                  setValue('displayTotalSessionDuration', event.target.value);
+                onChange={value => {
+                  setValue('displayTotalSessionDuration', value);
                   if (errors.displayTotalSessionDuration) {
                     trigger('displayTotalSessionDuration');
                   }
@@ -176,7 +176,7 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                 className="w-full"
                 disabled
                 placeholder={t('course_combo:fee_with_measure')}
-                value={totalPrice}
+                value={totalPrice ?? undefined}
                 formatter={value => {
                   return currencyFormatter(value) ?? '';
                 }}
@@ -205,13 +205,13 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             </Field>
             <div className="md:col-span-2">
               <Field label={t('course_combo:description')} error={errors.description?.message}>
-                <Input.TextArea
+                <Textarea
                   rows={6}
                   showCount
                   maxLength={256}
                   value={description ?? undefined}
-                  onChange={event => {
-                    setValue('description', event.target.value);
+                  onChange={value => {
+                    setValue('description', value);
                     if (errors.description) {
                       trigger('description');
                     }

@@ -40,7 +40,7 @@ export const Field = forwardRef<HTMLElement, Props>((props, ref): ReactNode => {
 
   const renderRequiredMark = (): ReactNode => {
     if (withRequiredMark) {
-      return <span className="ml-1 text-sm text-status-red">*</span>;
+      return <span className="text-status-red ml-1 text-sm">*</span>;
     }
     return null;
   };

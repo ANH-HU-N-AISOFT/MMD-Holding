@@ -1,4 +1,4 @@
-import { TagProps } from 'antd';
+import { TagProps } from 'reactjs';
 import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
 
 export const BusinessStatusMappingToColors: Record<BusinessStatusEnum, TagProps['color']> = {

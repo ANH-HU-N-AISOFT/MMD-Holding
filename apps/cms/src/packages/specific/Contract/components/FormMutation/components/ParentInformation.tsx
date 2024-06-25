@@ -1,13 +1,13 @@
-import { Divider, Input } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
+import { Divider, Input } from 'reactjs';
 import { Field } from 'reactjs';
+import { SingleDayPicker } from 'reactjs';
+import { disableDaysFuture } from 'reactjs';
 import { FormValues } from '../FormMutation';
-import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
 import { calculateAge } from '~/utils/functions/calculateAge';
-import { disableFuture } from '~/utils/functions/disableDatePicker';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
 interface Props {
@@ -33,7 +33,9 @@ export const ParentInformation = ({ form, disabledField, isEdit }: Props) => {
   return (
     <>
       <div className="md:col-span-2">
-        <Divider>{t('contract:parent_information')}</Divider>
+        <Divider>
+          <div className="text-base font-semibold">{t('contract:parent_information')}</div>
+        </Divider>
       </div>
       <Field
         withRequiredMark={!isNotRequireParentInformation}
@@ -44,8 +46,8 @@ export const ParentInformation = ({ form, disabledField, isEdit }: Props) => {
           placeholder={t('contract:parent')}
           disabled={disabledField}
           value={formValues.parentName ?? undefined}
-          onChange={event => {
-            setValue('parentName', event.target.value);
+          onChange={value => {
+            setValue('parentName', value);
             if (errors.parentName) {
               trigger('parentName');
             }
@@ -61,8 +63,8 @@ export const ParentInformation = ({ form, disabledField, isEdit }: Props) => {
           placeholder={t('contract:parent_phone')}
           disabled={disabledField}
           value={formValues.parentPhone ?? undefined}
-          onChange={event => {
-            const value = takeOnlyNumber(event);
+          onChange={value_ => {
+            const value = value_ ? takeOnlyNumber(value_) : undefined;
             setValue('parentPhone', value);
             if (errors.parentPhone) {
               trigger('parentPhone');
@@ -83,9 +85,9 @@ export const ParentInformation = ({ form, disabledField, isEdit }: Props) => {
         />
       </Field>
       <Field label={t('contract:parent_date_of_birth')} error={errors.parentDateOfBirth?.message}>
-        <DatePicker
+        <SingleDayPicker
           disabled={disabledField}
-          disabledDate={isEdit ? undefined : disableFuture}
+          disabledDate={isEdit ? undefined : disableDaysFuture}
           className="!w-full"
           placeholder={t('contract:parent_date_of_birth')}
           value={formValues.parentDateOfBirth ? dayjs(formValues.parentDateOfBirth) : undefined}
@@ -103,8 +105,8 @@ export const ParentInformation = ({ form, disabledField, isEdit }: Props) => {
             disabled={disabledField}
             placeholder={t('contract:parent_citizen_id_card')}
             value={formValues.parentCitizenIdCard ?? undefined}
-            onChange={event => {
-              setValue('parentCitizenIdCard', event.target.value);
+            onChange={value => {
+              setValue('parentCitizenIdCard', value);
               if (errors.parentCitizenIdCard) {
                 trigger('parentCitizenIdCard');
               }
@@ -113,10 +115,10 @@ export const ParentInformation = ({ form, disabledField, isEdit }: Props) => {
         </Field>
       </div>
       <Field label={t('contract:citizen_id_card_created_at')} error={errors.parentCitizenIdCardCreatedAt?.message}>
-        <DatePicker
+        <SingleDayPicker
           className="!w-full"
           disabled={disabledField}
-          disabledDate={isEdit ? undefined : disableFuture}
+          disabledDate={isEdit ? undefined : disableDaysFuture}
           placeholder={t('contract:citizen_id_card_created_at')}
           value={formValues.parentCitizenIdCardCreatedAt ? dayjs(formValues.parentCitizenIdCardCreatedAt) : undefined}
           onChange={value => {
@@ -135,8 +137,8 @@ export const ParentInformation = ({ form, disabledField, isEdit }: Props) => {
           disabled={disabledField}
           placeholder={t('contract:citizen_id_card_created_where')}
           value={formValues.parentCitizenIdCardCreatedWhere ?? undefined}
-          onChange={event => {
-            setValue('parentCitizenIdCardCreatedWhere', event.target.value);
+          onChange={value => {
+            setValue('parentCitizenIdCardCreatedWhere', value);
             if (errors.parentCitizenIdCardCreatedWhere) {
               trigger('parentCitizenIdCardCreatedWhere');
             }
@@ -153,8 +155,8 @@ export const ParentInformation = ({ form, disabledField, isEdit }: Props) => {
             disabled={disabledField}
             placeholder={t('contract:parent_current_address')}
             value={formValues.parentCurrentAddress ?? undefined}
-            onChange={event => {
-              setValue('parentCurrentAddress', event.target.value);
+            onChange={value => {
+              setValue('parentCurrentAddress', value);
               if (errors.parentCurrentAddress) {
                 trigger('parentCurrentAddress');
               }

@@ -1,7 +1,7 @@
-import { Tabs } from 'antd';
 import { TFunction } from 'i18next';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Tabs } from 'reactjs';
 import { useDeepCompareEffect } from 'reactjs';
 import { TypeOf } from 'zod';
 import { ConsultantForm } from '../../models/ConsultantForm';
@@ -85,9 +85,9 @@ export const FormMutation = ({
         }}
       >
         <Tabs
-          activeKey={tabActive}
+          tabActive={tabActive}
           onChange={setTabActive}
-          items={[
+          tabs={[
             {
               key: 'consultant',
               label: t('consultant_form:consultant'),

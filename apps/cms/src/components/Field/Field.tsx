@@ -50,7 +50,7 @@ export const Field = ({
 }: PropsWithChildren<Props>) => {
   const renderRequiredMark = () => {
     if (withRequiredMark) {
-      return <span className="ml-1 text-sm font-medium text-status-red">*</span>;
+      return <span className="text-status-red ml-1 text-sm font-medium">*</span>;
     }
     return null;
   };

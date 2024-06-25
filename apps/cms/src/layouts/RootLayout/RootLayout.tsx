@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { FixedProgressLoader, usePrevious } from 'reactjs';
+import { FixedProgressLoader, Notification, usePrevious } from 'reactjs';
 import { Outlet, ScrollRestoration, useNavigation } from '~/overrides/@remix';
 
 export const RootLayout = () => {
@@ -8,12 +8,13 @@ export const RootLayout = () => {
 
   return (
     <Suspense fallback={null}>
-      <Outlet />
-      <ScrollRestoration />
+      <Notification />
       <FixedProgressLoader
         hidden={!!prevFormAction?.formAction || !!navigation.formAction}
         done={navigation.state === 'idle'}
       />
+      <Outlet />
+      <ScrollRestoration />
     </Suspense>
   );
 };

@@ -1,15 +1,15 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined, LockOutlined } from '@ant-design/icons';
-import { Button, Tag, Typography } from 'antd';
 import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
+import { Button, Tag, Typography } from 'reactjs';
+import { TableActions } from 'reactjs';
 import { getEmployeeStatusMappingToLabels } from '../../../../common/SelectVariants/EmployeeStatus/constants/EmployeeStatusMappingToLabels';
 import { getRoleMappingToLabels } from '../../../../common/SelectVariants/Role/constants/RoleMappingToLabels';
 import { EmployeeStatusMappingToColors } from '../../constants/EmployeeStatusMappingToColors';
 import { Employee } from '../../models/Employee';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
-import { TableActions } from '~/components/TableActions/TableActions';
 
 export interface Props
   extends Pick<
@@ -230,13 +230,13 @@ export const Table = ({
         }}
       />
       <SickyAction isVisible={!!selectedRows.length}>
-        <div className="min-w-[400px] flex items-center justify-between">
+        <div className="flex min-w-[400px] items-center justify-between">
           <Highlighter
             textToHighlight={t('employee:total_records_selected', { total: selectedRows.length })}
             searchWords={[selectedRows.length.toString()]}
             highlightClassName="bg-transparent font-semibold"
           />
-          <Button danger onClick={() => onDeleteMany?.(selectedRows)}>
+          <Button color="error" ghost onClick={() => onDeleteMany?.(selectedRows)}>
             {t('employee:delete')}
           </Button>
         </div>

@@ -1,12 +1,13 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectOption, SelectSingleProps } from 'reactjs';
 import { AppointmentStatus } from './constants/AppointmentStatus';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 import { getAppointmentStatusMappingToLabels } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatusMappingToLabels';
 
+type ValueType = AppointmentStatus | 'all';
 interface Props {
-  appointmentStatus?: AppointmentStatus | 'all';
-  onChange?: SelectSingleProps<AppointmentStatus>['onChange'];
+  appointmentStatus?: ValueType;
+  onChange?: SelectSingleProps<ValueType>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
@@ -27,7 +28,7 @@ export const SelectAppointmentStatus = ({
     return getAppointmentStatusMappingToLabels(t);
   }, [t]);
 
-  const options_ = useMemo(() => {
+  const options_: SelectOption<ValueType, AppointmentStatus | undefined>[] = useMemo(() => {
     const baseOptions = Object.values(AppointmentStatus).map(item => {
       return {
         label: appointmentStatusMappingToLabels[item],
@@ -37,21 +38,22 @@ export const SelectAppointmentStatus = ({
       };
     });
     if (withAllOption) {
-      return [{ value: 'all', label: t('enum:appointmentStatus.options.all'), rawData: undefined }].concat(
-        ...(baseOptions as any[]),
-      );
+      return [
+        { value: 'all', label: t('enum:appointmentStatus.options.all'), rawData: undefined } as const,
+        ...baseOptions,
+      ];
     }
     return baseOptions;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t, withAllOption]);
 
   return (
-    <SelectSingle
+    <SelectSingle<ValueType>
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
       placeholder={placeholder ?? t('enum:appointmentStatus.label')}
-      value={appointmentStatus as any}
+      value={appointmentStatus}
       onChange={onChange}
       options={options_}
     />

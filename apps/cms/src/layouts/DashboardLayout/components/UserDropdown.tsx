@@ -1,5 +1,5 @@
 import { UserOutlined } from '@ant-design/icons';
-import { Avatar, Dropdown, Typography } from 'antd';
+import { Avatar, Dropdown, Typography } from 'reactjs';
 import { useGetAvatarDropdown } from '../hooks/useGetAvatarDropdown';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 
@@ -11,11 +11,11 @@ export const UserDropdown = () => {
     return null;
   }
   return (
-    <Dropdown menu={{ items: avatarDropdownItems }}>
-      <div className="flex items-center gap-2 cursor-pointer">
+    <Dropdown items={avatarDropdownItems}>
+      <div className="flex cursor-pointer items-center gap-2">
         <Avatar src={session?.profile?.avatar || '/assets/images/avatar.png'} size="large" icon={<UserOutlined />} />
         <div className="flex flex-col">
-          <Typography.Text className="font-semibold text-sm">{session?.profile?.fullName}</Typography.Text>
+          <Typography.Text className="text-sm font-semibold">{session?.profile?.fullName}</Typography.Text>
           <Typography.Text className="text-sm">{session?.profile?.organizationName}</Typography.Text>
         </div>
       </div>

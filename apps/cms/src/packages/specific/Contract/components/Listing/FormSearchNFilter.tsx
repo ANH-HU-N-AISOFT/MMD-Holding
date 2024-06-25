@@ -2,10 +2,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { Field, useDeepCompareEffect } from 'reactjs';
+import { RangeDayPicker } from 'reactjs';
+import { SelectSingle } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
-import { DateRangePicker } from '~/components/AntCustom/DatePicker/DatePicker';
-import { SelectSingle } from '~/components/AntCustom/Select';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
@@ -75,7 +75,7 @@ export const FormSearchNFilter = ({
                 <SelectSingle placeholder={t('contract:organization')} options={[]} />
               </Field>
               <Field label={t('contract:created_at')}>
-                <DateRangePicker
+                <RangeDayPicker
                   className="w-full"
                   presets={[
                     { label: t('contract:current_month'), value: [dayjs().startOf('month'), dayjs().endOf('month')] },

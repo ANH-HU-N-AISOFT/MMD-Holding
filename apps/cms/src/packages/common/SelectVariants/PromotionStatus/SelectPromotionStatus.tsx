@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectSingleProps } from 'reactjs';
 import { PromotionStatus } from './constants/PromotionStatus';
 import { getPromotionStatusMappingToLabels } from './constants/PromotionStatusMappingToLabels';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 
 interface Props {
   promotionStatus?: PromotionStatus;

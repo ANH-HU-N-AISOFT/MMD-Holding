@@ -1,6 +1,6 @@
-import { notification } from 'antd';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { notification } from 'reactjs';
 import { updateTrialRequestStatus } from '../services/updateTrialRequestStatus';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';

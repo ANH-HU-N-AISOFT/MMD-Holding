@@ -1,6 +1,7 @@
-import { Button, ModalProps, Tabs, Tag, notification } from 'antd';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button, ModalProps, Tabs, Tag } from 'reactjs';
+import { notification } from 'reactjs';
 import { ListingColumnType, TableListing } from '../TableListing';
 import { ValidateServiceResponse } from './types/ValidateServiceResponse';
 import { Modal } from '~/components/AntCustom/Modal';
@@ -117,12 +118,12 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
       width={1600}
       footer={() => {
         return (
-          <div className="flex items-center gap-2 justify-end">
+          <div className="flex items-center justify-end gap-2">
             <Button onClick={onCancel}>{t('components:Modal.cancel')}</Button>
             <Button className={!invalidRecords.length ? 'hidden' : ''} onClick={onUploadNew}>
               {t('components:ModalPreview.upload_new')}
             </Button>
-            <Button loading={isImporting} type="primary" onClick={handleImport}>
+            <Button loading={isImporting} color="primary" onClick={handleImport}>
               {invalidRecords.length
                 ? t('components:ModalPreview.import_and_skip_error_records')
                 : t('components:ModalPreview.import_records')}
@@ -134,8 +135,8 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
       <Tabs
         className={validateResponse?.hasError ? '' : 'hidden'}
         onChange={value => setTabActive(value as typeof tabActive)}
-        activeKey={tabActive}
-        items={[
+        tabActive={tabActive}
+        tabs={[
           {
             key: 'all',
             label: (
@@ -174,7 +175,7 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
             title: '#',
             render: (_, __, index) => pageSize * (currentPage - 1) + index + 1,
           },
-          ...columns,
+          ...(columns as any),
           {
             width: 140,
             fixed: 'right',

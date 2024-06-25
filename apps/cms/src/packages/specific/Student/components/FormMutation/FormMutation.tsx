@@ -1,7 +1,7 @@
-import { Tabs } from 'antd';
 import { TFunction } from 'i18next';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Tabs } from 'reactjs';
 import { useDeepCompareEffect } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
 import { TypeOf } from 'zod';
@@ -115,9 +115,9 @@ export const FormMutation = ({
       >
         <Tabs
           className={hideTabs ? 'AntTab__tablist--hidden' : ''}
-          activeKey={tabActive_}
+          tabActive={tabActive_}
           onChange={value => setTabActive_(value as TabKey)}
-          items={[
+          tabs={[
             {
               key: 'personalInformation',
               label: t('student:personal_information'),

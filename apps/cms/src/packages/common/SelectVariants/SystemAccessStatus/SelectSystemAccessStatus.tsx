@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SelectSingle, SelectSingleProps } from 'reactjs';
 import { SystemAccessStatus } from './constants/SystemAccessStatus';
-import { SelectSingle, SelectSingleProps } from '~/components/AntCustom/Select';
 import { getSystemAccessStatusMappingToLabels } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatusMappingToLabels';
 
 interface Props {

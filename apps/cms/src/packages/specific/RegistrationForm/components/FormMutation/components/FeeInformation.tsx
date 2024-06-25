@@ -1,13 +1,13 @@
-import { Divider, Input, InputNumber } from 'antd';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
+import { Divider, Input, InputNumber, Textarea } from 'reactjs';
 import { Field } from 'reactjs';
+import { SingleDayPicker } from 'reactjs';
+import { disableDaysPast } from 'reactjs';
 import { FormValues } from '../FormMutation';
-import { DatePicker } from '~/components/AntCustom/DatePicker/DatePicker';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 import { currencyParser } from '~/utils/functions/currency/currencyParser';
-import { disablePast } from '~/utils/functions/disableDatePicker';
 
 interface Props {
   form: ReturnType<typeof useRemixForm<Partial<FormValues>>>;
@@ -29,10 +29,12 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
   return (
     <>
       <div className="md:col-span-2">
-        <Divider orientation="center">{t('registration_form:fee_information_paid_at_department')}</Divider>
+        <Divider orientation="center">
+          <div className="text-base font-semibold">{t('registration_form:fee_information_paid_at_department')}</div>
+        </Divider>
       </div>
       <div className="md:col-span-2">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
           <Field label={t('registration_form:benefit_deposit_with_measure')} error={errors.benefitDeposit?.message}>
             <InputNumber
               min={0}
@@ -43,7 +45,7 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
               }}
               parser={value => currencyParser(value) ?? 0}
               placeholder={t('registration_form:benefit_deposit_with_measure')}
-              value={formValues.benefitDeposit}
+              value={formValues.benefitDeposit ?? undefined}
               onChange={value => {
                 setValue('benefitDeposit', value ?? undefined);
                 if (errors.benefitDeposit) {
@@ -58,8 +60,8 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
               className="!w-full"
               placeholder={t('registration_form:receipt_number')}
               value={formValues.receiptNumber ?? undefined}
-              onChange={event => {
-                setValue('receiptNumber', event.target.value);
+              onChange={value => {
+                setValue('receiptNumber', value);
                 if (errors.receiptNumber) {
                   trigger('receiptNumber');
                 }
@@ -72,8 +74,8 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
               className="!w-full"
               placeholder={t('registration_form:volume_number')}
               value={formValues.volumeNumber ?? undefined}
-              onChange={event => {
-                setValue('volumeNumber', event.target.value);
+              onChange={value => {
+                setValue('volumeNumber', value);
                 if (errors.volumeNumber) {
                   trigger('volumeNumber');
                 }
@@ -83,7 +85,7 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
         </div>
       </div>
       <div className="md:col-span-2">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
           <Field
             withRequiredMark
             label={t('registration_form:first_tuition_fee_with_measure')}
@@ -117,8 +119,8 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
               className="!w-full"
               placeholder={t('registration_form:receipt_number')}
               value={formValues.firstReceiptNumber ?? undefined}
-              onChange={event => {
-                setValue('firstReceiptNumber', event.target.value);
+              onChange={value => {
+                setValue('firstReceiptNumber', value);
                 if (errors.firstReceiptNumber) {
                   trigger('firstReceiptNumber');
                 }
@@ -135,8 +137,8 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
               className="!w-full"
               placeholder={t('registration_form:volume_number')}
               value={formValues.firstVolumeNumber ?? undefined}
-              onChange={event => {
-                setValue('firstVolumeNumber', event.target.value);
+              onChange={value => {
+                setValue('firstVolumeNumber', value);
                 if (errors.firstVolumeNumber) {
                   trigger('firstVolumeNumber');
                 }
@@ -146,7 +148,7 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
         </div>
       </div>
       <div className="md:col-span-2">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
           <Field
             label={t('registration_form:second_tuition_fee_with_measure')}
             error={errors.secondTuitionFee?.message}
@@ -160,7 +162,7 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
               }}
               parser={value => currencyParser(value) ?? 0}
               placeholder={t('registration_form:second_tuition_fee_with_measure')}
-              value={formValues.secondTuitionFee}
+              value={formValues.secondTuitionFee ?? undefined}
               onChange={value => {
                 setValue('secondTuitionFee', value ?? undefined);
                 if (errors.secondTuitionFee) {
@@ -175,8 +177,8 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
               className="!w-full"
               placeholder={t('registration_form:receipt_number')}
               value={formValues.secondReceiptNumber ?? undefined}
-              onChange={event => {
-                setValue('secondReceiptNumber', event.target.value);
+              onChange={value => {
+                setValue('secondReceiptNumber', value);
                 if (errors.secondReceiptNumber) {
                   trigger('secondReceiptNumber');
                 }
@@ -189,8 +191,8 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
               className="!w-full"
               placeholder={t('registration_form:volume_number')}
               value={formValues.secondVolumeNumber ?? undefined}
-              onChange={event => {
-                setValue('secondVolumeNumber', event.target.value);
+              onChange={value => {
+                setValue('secondVolumeNumber', value);
                 if (errors.secondVolumeNumber) {
                   trigger('secondVolumeNumber');
                 }
@@ -200,7 +202,7 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
         </div>
       </div>
       <div className="md:col-span-2">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
           <Field label={t('registration_form:third_tuition_fee_with_measure')} error={errors.thirdTuitionFee?.message}>
             <InputNumber
               min={0}
@@ -211,7 +213,7 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
                 return currencyFormatter(value) ?? '';
               }}
               parser={value => currencyParser(value) ?? 0}
-              value={formValues.thirdTuitionFee}
+              value={formValues.thirdTuitionFee ?? undefined}
               onChange={value => {
                 setValue('thirdTuitionFee', value ?? undefined);
                 if (errors.thirdTuitionFee) {
@@ -226,8 +228,8 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
               className="!w-full"
               placeholder={t('registration_form:receipt_number')}
               value={formValues.thirdReceiptNumber ?? undefined}
-              onChange={event => {
-                setValue('thirdReceiptNumber', event.target.value);
+              onChange={value => {
+                setValue('thirdReceiptNumber', value);
                 if (errors.thirdReceiptNumber) {
                   trigger('thirdReceiptNumber');
                 }
@@ -240,8 +242,8 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
               className="!w-full"
               placeholder={t('registration_form:volume_number')}
               value={formValues.thirdVolumeNumber ?? undefined}
-              onChange={event => {
-                setValue('thirdVolumeNumber', event.target.value);
+              onChange={value => {
+                setValue('thirdVolumeNumber', value);
                 if (errors.thirdVolumeNumber) {
                   trigger('thirdVolumeNumber');
                 }
@@ -256,8 +258,8 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
           label={t('registration_form:commitment_completion_date')}
           error={errors.commitmentCompletionDate?.message}
         >
-          <DatePicker
-            disabledDate={isEdit ? undefined : disablePast}
+          <SingleDayPicker
+            disabledDate={isEdit ? undefined : disableDaysPast}
             className="!w-full"
             placeholder={t('registration_form:commitment_completion_date')}
             disabled={disabledField}
@@ -270,13 +272,13 @@ export const FeeInformation = ({ form, disabledField, isEdit }: Props) => {
       </div>
       <div className="md:col-span-2">
         <Field label={t('registration_form:notes')} error={errors.notes?.message}>
-          <Input.TextArea
+          <Textarea
             rows={6}
             showCount
             maxLength={256}
             value={formValues.notes ?? undefined}
-            onChange={event => {
-              setValue('notes', event.target.value);
+            onChange={value => {
+              setValue('notes', value);
               if (errors.notes) {
                 trigger('notes');
               }
