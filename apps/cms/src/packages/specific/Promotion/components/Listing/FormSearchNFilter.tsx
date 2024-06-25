@@ -5,12 +5,12 @@ import { Field, useDeepCompareEffect } from 'reactjs';
 import { RangeDayPicker } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
+import { SelectPromotionStatus } from '../SelectVariants/SelectPromotionStatus';
+import { SelectPromotionType } from '../SelectVariants/SelectPromotionType';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
-import { SelectPromotionStatus } from '~/packages/common/SelectVariants/PromotionStatus/SelectPromotionStatus';
-import { SelectPromotionType } from '~/packages/common/SelectVariants/PromotionType/SelectPromotionType';
 
 export type FormFilterValues = Pick<ListingSearchParams, 'status' | 'promotionType' | 'endDate' | 'startDate'>;
 

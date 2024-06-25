@@ -1,21 +1,23 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { TFunction } from 'i18next';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Input, InputNumber, Radio, Textarea } from 'reactjs';
 import { useDeepCompareEffect } from 'reactjs';
 import { RangeDayPicker } from 'reactjs';
 import { disableDaysPast } from 'reactjs';
 import { TypeOf } from 'zod';
+import { getPromotionScopeMappingToLabels } from '../../constants/PromotionScopeMappingToLabels';
+import { PromotionType } from '../../constants/PromotionType';
+import { PromotionScope } from '../../models/PromotionScope';
+import { SelectPromotionStatus } from '../SelectVariants/SelectPromotionStatus';
+import { SelectPromotionType } from '../SelectVariants/SelectPromotionType';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { PromotionScope } from '~/packages/common/SelectVariants/PromotionScope/constants/PromotionScope';
-import { SelectPromotionStatus } from '~/packages/common/SelectVariants/PromotionStatus/SelectPromotionStatus';
-import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
-import { SelectPromotionType } from '~/packages/common/SelectVariants/PromotionType/SelectPromotionType';
-import { SelectDepartments } from '~/packages/common/SelectVariants/SelectDepartments';
+import { SelectDepartments } from '~/packages/specific/Department/components/SelectVariants/SelectDepartments';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 import { currencyParser } from '~/utils/functions/currency/currencyParser';
 
@@ -41,6 +43,9 @@ export const FormMutation = ({
   isEdit = false,
 }: Props) => {
   const { t } = useTranslation(['common', 'promotion']);
+  const PromotionScopeMappingToLabels = useMemo(() => {
+    return getPromotionScopeMappingToLabels(t);
+  }, [t]);
 
   const disabledField = disabled || isSubmiting;
 
@@ -232,8 +237,8 @@ export const FormMutation = ({
             <Field label={t('promotion:apply_to')} error={errors.scope?.message}>
               <Radio
                 items={[
-                  { value: PromotionScope.All, label: t('promotion:all_system') },
-                  { value: PromotionScope.Special, label: t('promotion:some_department') },
+                  { value: PromotionScope.All, label: PromotionScopeMappingToLabels[PromotionScope.All] },
+                  { value: PromotionScope.Special, label: PromotionScopeMappingToLabels[PromotionScope.Special] },
                 ]}
                 disabled={disabledField}
                 onChange={value => {

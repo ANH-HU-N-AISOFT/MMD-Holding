@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { SourceEnum } from '../models/SourceEnum';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {
@@ -11,7 +12,7 @@ export interface ResponseSuccess {
     gender?: string;
     phoneNumberOfParent?: string;
     notifyResultsToParent?: boolean;
-    source?: string;
+    source?: SourceEnum;
     organizationCodes?: string[];
     supporterCodes?: string[];
     username?: string;

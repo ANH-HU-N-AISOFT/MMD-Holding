@@ -10,7 +10,7 @@ import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
 import { SelectCity } from '~/packages/common/SelectVariants/SelectCity';
 import { SelectDistrict } from '~/packages/common/SelectVariants/SelectDistrict';
-import { SelectStudent } from '~/packages/common/SelectVariants/SelectStudent';
+import { SelectStudent } from '~/packages/specific/Student/components/SelectVariants/SelectStudent';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
 interface Props {
@@ -36,7 +36,6 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
       </Field>
       <Field withRequiredMark label={t('registration_form:student')} error={errors.studentId?.message}>
         <SelectStudent
-          label={student => [student.fullName, student.code].join(' - ')}
           disabled={disabledField || isEdit}
           placeholder={t('registration_form:student')}
           student={formValues.studentId}
@@ -202,6 +201,7 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
       <Field label={t('registration_form:notify_result_to_parent')} error={errors.notifyResultToParent?.message}>
         <Radio<boolean>
           items={[
+            // FIXME: I18n
             { value: false, label: t('registration_form:disable_notify') },
             { value: true, label: t('registration_form:enable_notify') },
           ]}

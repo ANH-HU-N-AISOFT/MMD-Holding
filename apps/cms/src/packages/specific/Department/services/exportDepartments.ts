@@ -1,4 +1,4 @@
-import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
+import { BusinessStatusEnum } from '../models/BusinessStatusEnum';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 interface ExportDepartments {

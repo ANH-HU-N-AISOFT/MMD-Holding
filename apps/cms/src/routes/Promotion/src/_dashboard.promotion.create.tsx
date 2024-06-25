@@ -9,11 +9,11 @@ import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBound
 import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { PromotionScope } from '~/packages/common/SelectVariants/PromotionScope/constants/PromotionScope';
-import { PromotionStatus } from '~/packages/common/SelectVariants/PromotionStatus/constants/PromotionStatus';
-import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
 import { FormMutation, FormValues } from '~/packages/specific/Promotion/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Promotion/components/FormMutation/zodResolver';
+import { PromotionType } from '~/packages/specific/Promotion/constants/PromotionType';
+import { PromotionScope } from '~/packages/specific/Promotion/models/PromotionScope';
+import { PromotionStatus } from '~/packages/specific/Promotion/models/PromotionStatus';
 import { createPromotion } from '~/packages/specific/Promotion/services/createPromotion';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';

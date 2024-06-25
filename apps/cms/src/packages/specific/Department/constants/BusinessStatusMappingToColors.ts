@@ -1,5 +1,5 @@
 import { TagProps } from 'reactjs';
-import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
+import { BusinessStatusEnum } from '../models/BusinessStatusEnum';
 
 export const BusinessStatusMappingToColors: Record<BusinessStatusEnum, TagProps['color']> = {
   [BusinessStatusEnum.ACTIVE]: 'success',

@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { Employee } from '../models/Employee';
+import { EmployeeStatus } from '../models/EmployeeStatus';
 import { ServiceHeaderResponse } from '~/@types/ServiceHeaderResponse';
-import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {

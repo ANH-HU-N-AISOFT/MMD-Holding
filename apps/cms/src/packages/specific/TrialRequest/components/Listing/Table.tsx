@@ -4,15 +4,15 @@ import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
 import { Button, Dropdown, DropdownMenuItem, Tag, Typography } from 'reactjs';
 import { TableActions } from 'reactjs';
+import { getDemoTypeMappingToLabels } from '../../constants/DemoTypeMappingToLabels';
+import { getStudyModeMappingToLabels } from '../../constants/StudyModeMappingToLabels';
 import { TrialRequestStatusMappingToColors } from '../../constants/TrialRequestStatusMappingToColors';
+import { getTrialRequestStatusMappingToLabels } from '../../constants/TrialRequestStatusMappingToLabels';
 import { TrialRequest } from '../../models/TrialRequest';
+import { TrialRequestStatus } from '../../models/TrialRequestStatus';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
 import { TooltipDetailInformation } from '~/components/TooltipDetailInformation/TooltipDetailInformation';
-import { getDemoTypeMappingToLabels } from '~/packages/common/SelectVariants/DemoType/constants/DemoTypeMappingToLabels';
-import { getStudyModeMappingToLabels } from '~/packages/common/SelectVariants/StudyMode/constants/StudyModeMappingToLabels';
-import { TrialRequestStatus } from '~/packages/common/SelectVariants/TrialRequestStatus/constants/TrialRequestStatus';
-import { getTrialRequestStatusMappingToLabels } from '~/packages/common/SelectVariants/TrialRequestStatus/constants/TrialRequestStatusMappingToLabels';
 
 export interface Props
   extends Pick<

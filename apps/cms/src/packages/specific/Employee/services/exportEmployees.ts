@@ -1,4 +1,4 @@
-import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
+import { EmployeeStatus } from '../models/EmployeeStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 interface ExportEmployees {

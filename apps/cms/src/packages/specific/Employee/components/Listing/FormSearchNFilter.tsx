@@ -3,16 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { useDeepCompareEffect } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
+import { SelectEmployeeStatus } from '../SelectVariants/SelectEmployeeStatus';
 import { Field } from '~/components/Field/Field';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
-import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
-import { SelectEmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/SelectEmployeeStatus';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectRoles } from '~/packages/common/SelectVariants/Role/SelectRoles';
-import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
+import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
 
 export interface FormFilterValues extends Pick<ListingSearchParams, 'status' | 'department' | 'roles'> {}
 
@@ -81,7 +80,7 @@ export const FormSearchNFilter = ({
             <Field label={t('employee:status')}>
               <SelectEmployeeStatus
                 placeholder={t('employee:status')}
-                employeeStatus={status as EmployeeStatus | undefined}
+                employeeStatus={status}
                 onChange={value => {
                   setValue('status', value);
                 }}

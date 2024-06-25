@@ -1,7 +1,7 @@
+import { PromotionType } from '../constants/PromotionType';
 import { Promotion } from '../models/Promotion';
-import { PromotionScope } from '~/packages/common/SelectVariants/PromotionScope/constants/PromotionScope';
-import { PromotionStatus } from '~/packages/common/SelectVariants/PromotionStatus/constants/PromotionStatus';
-import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
+import { PromotionScope } from '../models/PromotionScope';
+import { PromotionStatus } from '../models/PromotionStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface UpdatePromotion {

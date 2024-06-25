@@ -1,5 +1,5 @@
 import { TagProps } from 'reactjs';
-import { TrialRequestStatus } from '~/packages/common/SelectVariants/TrialRequestStatus/constants/TrialRequestStatus';
+import { TrialRequestStatus } from '../models/TrialRequestStatus';
 
 export const TrialRequestStatusMappingToColors: Record<TrialRequestStatus, TagProps['color']> = {
   [TrialRequestStatus.Canceled]: 'error',

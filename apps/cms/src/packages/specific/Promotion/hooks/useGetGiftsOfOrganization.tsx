@@ -1,8 +1,8 @@
 import { useRequest } from 'ahooks';
 import { useEffect, useState } from 'react';
+import { PromotionType } from '../constants/PromotionType';
+import { PromotionStatus } from '../models/PromotionStatus';
 import { getPromotions } from '../services/getPromotions';
-import { PromotionStatus } from '~/packages/common/SelectVariants/PromotionStatus/constants/PromotionStatus';
-import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
 
 interface Props {
   pageSize?: number;

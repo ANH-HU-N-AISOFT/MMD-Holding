@@ -20,10 +20,10 @@ import {
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
-import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
-import { TestType } from '~/packages/common/SelectVariants/TestType/constants/TestType';
 import { FormMutation, FormValues } from '~/packages/specific/Appointment/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Appointment/components/FormMutation/zodResolver';
+import { AppointmentStatus } from '~/packages/specific/Appointment/models/AppointmentStatus';
+import { TestType } from '~/packages/specific/Appointment/models/TestType';
 import { createAppointment } from '~/packages/specific/Appointment/services/createAppointment';
 import { createUrlSearchParamsUtils } from '~/packages/specific/Appointment/utils/createUrlSearchParamsUtils';
 import { Student } from '~/packages/specific/Student/models/Student';

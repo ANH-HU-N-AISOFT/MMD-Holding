@@ -1,7 +1,7 @@
-import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
-import { EmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/constants/EmploymentContractType';
+import { EmployeeContractType } from './EmployeeContractType';
+import { EmployeeStatus } from './EmployeeStatus';
+import { JobTitleEnum } from './JobTitleEnum';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
-import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 
@@ -47,7 +47,7 @@ export interface Employee {
     organizationId: string;
     jobTitles: JobTitleEnum[];
     workStatus: EmployeeStatus;
-    contractType: EmploymentContractType;
+    contractType: EmployeeContractType;
     contractStartDate: string;
     contractEndDate: string;
   };

@@ -6,15 +6,15 @@ import { useTranslation } from 'react-i18next';
 import { Tabs } from 'reactjs';
 import { Field, useDeepCompareEffect, useMobile } from 'reactjs';
 import { SelectSingle } from 'reactjs';
+import { AppointmentStatus } from '../../models/AppointmentStatus';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
-import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
-import { getAppointmentStatusMappingToLabels } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatusMappingToLabels';
-import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
+import { getAppointmentStatusMappingToLabels } from '~/packages/specific/Appointment/constants/AppointmentStatusMappingToLabels';
+import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
 import './styles.css';
 
 export interface FormFilterValues

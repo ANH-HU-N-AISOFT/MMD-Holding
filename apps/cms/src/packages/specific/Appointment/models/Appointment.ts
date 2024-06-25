@@ -1,7 +1,7 @@
-import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
-import { IeltsTestEnum } from '~/packages/common/SelectVariants/IeltsTestEnum/constants/IeltsTestEnum';
-import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
-import { TestType } from '~/packages/common/SelectVariants/TestType/constants/TestType';
+import { SourceEnum } from '../../Student/models/SourceEnum';
+import { AppointmentStatus } from './AppointmentStatus';
+import { IeltsTestEnum } from './IeltsTestEnum';
+import { TestType } from './TestType';
 
 export interface Appointment {
   id: string;

@@ -7,7 +7,7 @@ import { calculateSalePrice } from '../../../utils/calculateSalePrice';
 import { FormValues } from '../FormMutation';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectPaymentMethod } from '~/packages/common/SelectVariants/PaymentMethod/SelectPaymentMethod';
-import { SelectCourseRoadmaps } from '~/packages/common/SelectVariants/SelectCourseRoadmaps';
+import { SelectCourseRoadmaps } from '~/packages/specific/CourseRoadmap/components/SelectVariants/SelectCourseRoadmaps';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 import { currencyParser } from '~/utils/functions/currency/currencyParser';
 

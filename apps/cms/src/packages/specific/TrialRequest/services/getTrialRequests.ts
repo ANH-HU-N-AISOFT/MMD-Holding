@@ -1,9 +1,9 @@
 import { AxiosResponse } from 'axios';
+import { DemoType } from '../models/DemoType';
+import { StudyMode } from '../models/StudyMode';
 import { TrialRequest } from '../models/TrialRequest';
+import { TrialRequestStatus } from '../models/TrialRequestStatus';
 import { ServiceHeaderResponse } from '~/@types/ServiceHeaderResponse';
-import { DemoType } from '~/packages/common/SelectVariants/DemoType/constants/DemoType';
-import { StudyMode } from '~/packages/common/SelectVariants/StudyMode/constants/StudyMode';
-import { TrialRequestStatus } from '~/packages/common/SelectVariants/TrialRequestStatus/constants/TrialRequestStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {

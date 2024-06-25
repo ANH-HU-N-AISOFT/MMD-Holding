@@ -1,6 +1,6 @@
+import { PromotionType } from '../../constants/PromotionType';
 import { Promotion } from '../../models/Promotion';
 import { FormMutation } from '../FormMutation/FormMutation';
-import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
 
 interface Props {
   promotion: Promotion;

@@ -1,9 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { array, boolean, enum as enum_, literal, object, string } from 'zod';
 
+import { SourceEnum } from '../../models/SourceEnum';
 import type { TFunction } from 'i18next';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
-import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { getInvalidMessage } from '~/utils/functions/getInvalidMessage';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';

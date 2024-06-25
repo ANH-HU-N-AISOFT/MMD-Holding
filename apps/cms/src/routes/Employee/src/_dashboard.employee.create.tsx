@@ -9,11 +9,11 @@ import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBound
 import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
 import { VIETNAM_VALUE } from '~/packages/common/SelectVariants/SelectRegion';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { FormMutation, FormValues } from '~/packages/specific/Employee/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Employee/components/FormMutation/zodResolver';
+import { EmployeeStatus } from '~/packages/specific/Employee/models/EmployeeStatus';
 import { createEmployee } from '~/packages/specific/Employee/services/createEmployee';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';

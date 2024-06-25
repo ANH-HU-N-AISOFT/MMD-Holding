@@ -1,7 +1,7 @@
+import { DemoType } from '../models/DemoType';
+import { StudyMode } from '../models/StudyMode';
 import { TrialRequest } from '../models/TrialRequest';
-import { DemoType } from '~/packages/common/SelectVariants/DemoType/constants/DemoType';
-import { StudyMode } from '~/packages/common/SelectVariants/StudyMode/constants/StudyMode';
-import { TrialRequestStatus } from '~/packages/common/SelectVariants/TrialRequestStatus/constants/TrialRequestStatus';
+import { TrialRequestStatus } from '../models/TrialRequestStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface CreateTrialRequest {

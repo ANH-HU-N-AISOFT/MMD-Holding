@@ -1,5 +1,5 @@
 import { TagProps } from 'reactjs';
-import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
+import { EmployeeStatus } from '../models/EmployeeStatus';
 
 export const EmployeeStatusMappingToColors: Record<EmployeeStatus, TagProps['color']> = {
   [EmployeeStatus.WORKING]: 'success',

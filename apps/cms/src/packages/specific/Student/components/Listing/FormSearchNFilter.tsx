@@ -8,7 +8,7 @@ import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
-import { SelectDepartments } from '~/packages/common/SelectVariants/SelectDepartments';
+import { SelectDepartments } from '~/packages/specific/Department/components/SelectVariants/SelectDepartments';
 
 export interface FormFilterValues extends Pick<ListingSearchParams, 'department'> {}
 

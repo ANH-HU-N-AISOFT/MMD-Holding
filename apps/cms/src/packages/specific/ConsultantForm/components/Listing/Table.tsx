@@ -4,12 +4,12 @@ import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
 import { Button, Tag, Typography } from 'reactjs';
 import { TableActions } from 'reactjs';
-import { FormStatusMappingToColors } from '../../constants/PromotionComboStatusMappingToColors';
+import { FormStatusMappingToColors } from '../../constants/FormStatusMappingToColors';
+import { getFormStatusMappingToLabels } from '../../constants/FormStatusMappingToLabels';
 import { ConsultantForm } from '../../models/ConsultantForm';
 import { Collapsed } from '~/components/Collapsed/Collapsed';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
-import { getFormStatusMappingToLabels } from '~/packages/common/SelectVariants/FormStatus/constants/FormStatusMappingToLabels';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 export interface Props
   extends Pick<

@@ -1,9 +1,9 @@
+import { PromotionType } from '../../Promotion/constants/PromotionType';
+import { PromotionScope } from '../../Promotion/models/PromotionScope';
+import { PromotionStatus } from '../../Promotion/models/PromotionStatus';
+import { SourceEnum } from '../../Student/models/SourceEnum';
+import { FormStatus } from './FormStatus';
 import { CourseStatus } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatus';
-import { FormStatus } from '~/packages/common/SelectVariants/FormStatus/constants/FormStatus';
-import { PromotionScope } from '~/packages/common/SelectVariants/PromotionScope/constants/PromotionScope';
-import { PromotionStatus } from '~/packages/common/SelectVariants/PromotionStatus/constants/PromotionStatus';
-import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
-import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
 
 export interface ConsultantForm {
   student?: {

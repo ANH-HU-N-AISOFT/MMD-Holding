@@ -25,7 +25,6 @@ import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBound
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
-import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
 import { Import, ImportActions } from '~/packages/specific/Employee/components/Import/Import';
 import { FormSearchNFilter } from '~/packages/specific/Employee/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Employee/components/Listing/Header';
@@ -54,7 +53,7 @@ export const loader = async ({
       query: search,
       organizationId: department,
       roles,
-      workStatus: status as EmployeeStatus | undefined,
+      workStatus: status,
     });
 
     return json({

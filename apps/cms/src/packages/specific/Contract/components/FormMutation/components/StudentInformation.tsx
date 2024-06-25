@@ -8,7 +8,7 @@ import { FormValues } from '../FormMutation';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
-import { SelectStudent } from '~/packages/common/SelectVariants/SelectStudent';
+import { SelectStudent } from '~/packages/specific/Student/components/SelectVariants/SelectStudent';
 
 interface Props {
   form: ReturnType<typeof useRemixForm<Partial<FormValues>>>;
@@ -37,7 +37,6 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
       <Field withRequiredMark label={t('contract:student')} error={errors.studentId?.message}>
         <SelectStudent
           disabled={disabledField || isEdit}
-          label={student => [student.fullName, student.code].join(' - ')}
           placeholder={t('contract:student')}
           student={formValues.studentId}
           onChange={(value, option) => {

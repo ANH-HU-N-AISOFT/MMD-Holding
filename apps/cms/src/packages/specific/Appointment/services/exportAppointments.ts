@@ -1,4 +1,4 @@
-import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
+import { AppointmentStatus } from '../models/AppointmentStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 interface ExportAppointments {

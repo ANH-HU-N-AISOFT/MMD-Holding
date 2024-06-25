@@ -1,26 +1,28 @@
 import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Divider, Input, Radio, Textarea } from 'reactjs';
 import { SingleDayPicker, SingleTimePicker, disableDaysPast, useDeepCompareEffect } from 'reactjs';
 import { TypeOf } from 'zod';
+import { getStudyModeMappingToLabels } from '../../constants/StudyModeMappingToLabels';
+import { StudyMode } from '../../models/StudyMode';
 import { TrialRequest } from '../../models/TrialRequest';
+import { SelectDemoType } from '../SelectVariants/SelectDemoType';
+import { SelectTrialRequestStatus } from '../SelectVariants/SelectTrialRequestStatus';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { SelectDemoType } from '~/packages/common/SelectVariants/DemoType/SelectDemoType';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
-import { SelectCourseRoadmap } from '~/packages/common/SelectVariants/SelectCourseRoadmap';
-import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
-import { SelectEmployee } from '~/packages/common/SelectVariants/SelectEmployee';
-import { SelectSaleEmployees } from '~/packages/common/SelectVariants/SelectSaleEmployees';
 import { SelectSchool } from '~/packages/common/SelectVariants/SelectSchool';
-import { SelectStudent } from '~/packages/common/SelectVariants/SelectStudent';
-import { SelectSourceEnum } from '~/packages/common/SelectVariants/SourceEnum/SelectSourceEnum';
-import { StudyMode } from '~/packages/common/SelectVariants/StudyMode/constants/StudyMode';
-import { SelectTrialRequestStatus } from '~/packages/common/SelectVariants/TrialRequestStatus/SelectTrialRequestStatus';
+import { SelectCourseRoadmap } from '~/packages/specific/CourseRoadmap/components/SelectVariants/SelectCourseRoadmap';
+import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
+import { SelectEmployee } from '~/packages/specific/Employee/components/SelectVariants/SelectEmployee';
+import { SelectSaleEmployees } from '~/packages/specific/Employee/components/SelectVariants/SelectSaleEmployees';
+import { SelectSourceEnum } from '~/packages/specific/Student/components/SelectVariants/SelectSourceEnum';
+import { SelectStudent } from '~/packages/specific/Student/components/SelectVariants/SelectStudent';
 
 export interface FormValues extends TypeOf<ReturnType<typeof getFormMutationSchema>> {}
 
@@ -46,6 +48,9 @@ export const FormMutation = ({
   trialRequest,
 }: Props) => {
   const { t } = useTranslation(['common', 'trial_request']);
+  const StudyModeMappingToLabels = useMemo(() => {
+    return getStudyModeMappingToLabels(t);
+  }, [t]);
 
   const disabledField = disabled || isSubmiting;
 
@@ -275,8 +280,8 @@ export const FormMutation = ({
               <Field label={t('trial_request:learning_type')} error={errors.learningType?.message}>
                 <Radio
                   items={[
-                    { value: StudyMode.Offline, label: t('trial_request:offline') },
-                    { value: StudyMode.Online, label: t('trial_request:online') },
+                    { value: StudyMode.Offline, label: StudyModeMappingToLabels[StudyMode.Offline] },
+                    { value: StudyMode.Online, label: StudyModeMappingToLabels[StudyMode.Online] },
                   ]}
                   disabled={disabledField}
                   value={learningType}

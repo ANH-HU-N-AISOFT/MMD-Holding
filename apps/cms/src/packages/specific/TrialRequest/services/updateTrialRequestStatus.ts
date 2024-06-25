@@ -1,5 +1,5 @@
 import { TrialRequest } from '../models/TrialRequest';
-import { TrialRequestStatus } from '~/packages/common/SelectVariants/TrialRequestStatus/constants/TrialRequestStatus';
+import { TrialRequestStatus } from '../models/TrialRequestStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 interface UpdateTrialRequestStatus {

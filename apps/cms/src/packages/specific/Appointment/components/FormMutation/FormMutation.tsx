@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
 import { uniq } from 'ramda';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Divider, Input, Radio, Textarea } from 'reactjs';
 import { Field, SingleTimePicker, useDeepCompareEffect } from 'reactjs';
@@ -8,23 +9,27 @@ import { SingleDayPicker } from 'reactjs';
 import { disableDaysPast } from 'reactjs';
 import { SelectMultiple } from 'reactjs';
 import { TypeOf } from 'zod';
+import { getTestTypeMappingToLabels } from '../../constants/TestTypeMappingToLabels';
 import { Appointment } from '../../models/Appointment';
+import { TestType } from '../../models/TestType';
+import { SelectAppointmentStatus } from '../SelectVariants/SelectAppointmentStatus';
+import { SelectIeltsTestEnum } from '../SelectVariants/SelectIeltsTestEnum';
+import { SelectTestShift } from '../SelectVariants/SelectTestShift';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { SelectAppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/SelectAppointmentStatus';
-import { SelectIeltsTestEnum } from '~/packages/common/SelectVariants/IeltsTestEnum/SelectIeltsTestEnum';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
-import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
-import { DepartmentFields, SelectDepartments } from '~/packages/common/SelectVariants/SelectDepartments';
-import { SelectEmployee } from '~/packages/common/SelectVariants/SelectEmployee';
-import { SelectSaleEmployees } from '~/packages/common/SelectVariants/SelectSaleEmployees';
 import { SelectSchool } from '~/packages/common/SelectVariants/SelectSchool';
-import { SelectStudent } from '~/packages/common/SelectVariants/SelectStudent';
-import { SelectTestShift } from '~/packages/common/SelectVariants/SelectTestShift';
-import { SelectSourceEnum } from '~/packages/common/SelectVariants/SourceEnum/SelectSourceEnum';
-import { TestType } from '~/packages/common/SelectVariants/TestType/constants/TestType';
+import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
+import {
+  DepartmentFields,
+  SelectDepartments,
+} from '~/packages/specific/Department/components/SelectVariants/SelectDepartments';
+import { SelectEmployee } from '~/packages/specific/Employee/components/SelectVariants/SelectEmployee';
+import { SelectSaleEmployees } from '~/packages/specific/Employee/components/SelectVariants/SelectSaleEmployees';
+import { SelectSourceEnum } from '~/packages/specific/Student/components/SelectVariants/SelectSourceEnum';
+import { SelectStudent } from '~/packages/specific/Student/components/SelectVariants/SelectStudent';
 
 export interface FormValues extends TypeOf<ReturnType<typeof getFormMutationSchema>> {}
 
@@ -50,6 +55,9 @@ export const FormMutation = ({
   appointment,
 }: Props) => {
   const { t } = useTranslation(['common', 'appointment']);
+  const TestTypeMappingToLabels = useMemo(() => {
+    return getTestTypeMappingToLabels(t);
+  }, [t]);
 
   const disabledField = disabled || isSubmiting;
 
@@ -269,8 +277,8 @@ export const FormMutation = ({
             <Field label={t('appointment:test_type')} error={errors.testType?.message}>
               <Radio
                 items={[
-                  { value: TestType.OFFLINE, label: t('appointment:offline') },
-                  { value: TestType.ONLINE, label: t('appointment:online') },
+                  { value: TestType.OFFLINE, label: TestTypeMappingToLabels[TestType.OFFLINE] },
+                  { value: TestType.ONLINE, label: TestTypeMappingToLabels[TestType.ONLINE] },
                 ]}
                 disabled={disabledField}
                 onChange={value => {

@@ -1,7 +1,7 @@
 import { UrlSearchParamsUtils } from 'utilities';
 import { any, number, object, enum as enum_, string } from 'zod';
-import { PromotionStatus } from '~/packages/common/SelectVariants/PromotionStatus/constants/PromotionStatus';
-import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
+import { PromotionType } from '../constants/PromotionType';
+import { PromotionStatus } from '../models/PromotionStatus';
 
 export const lisitngUrlSearchParamsSchema = object({
   page: number().optional(),

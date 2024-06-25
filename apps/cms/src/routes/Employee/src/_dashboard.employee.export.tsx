@@ -2,7 +2,6 @@ import i18next from 'i18next';
 import { isCanExportEmployee } from './utils/Is';
 import { ActionFunctionArgs, json } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
 import { exportEmployees } from '~/packages/specific/Employee/services/exportEmployees';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Employee/utils/lisitngUrlSearchParamsUtils';
 import { downloadAxiosResponseAsCSV } from '~/utils/functions/downloadAxiosResponseAsCSV';
@@ -20,7 +19,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       query: search,
       organizationId: department,
       roles,
-      workStatus: status as EmployeeStatus | undefined,
+      workStatus: status,
     });
 
     downloadAxiosResponseAsCSV({ response, fileName: t('employee:employees') });

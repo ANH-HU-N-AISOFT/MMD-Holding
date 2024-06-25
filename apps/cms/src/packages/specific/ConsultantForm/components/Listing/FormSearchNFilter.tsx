@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { Field, useDeepCompareEffect } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
+import { SelectFormStatus } from '../SelectVariants/SelectFormStatus';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
-import { SelectFormStatus } from '~/packages/common/SelectVariants/FormStatus/SelectFormStatus';
-import { SelectCourseRoadmap } from '~/packages/common/SelectVariants/SelectCourseRoadmap';
+import { SelectCourseRoadmap } from '~/packages/specific/CourseRoadmap/components/SelectVariants/SelectCourseRoadmap';
 
 export type FormFilterValues = Pick<ListingSearchParams, 'status' | 'courseRoadmapId'>;
 

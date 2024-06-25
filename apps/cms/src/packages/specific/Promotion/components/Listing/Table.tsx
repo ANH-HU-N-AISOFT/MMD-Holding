@@ -6,12 +6,12 @@ import { useTranslation } from 'react-i18next';
 import { Button, Tag, Typography } from 'reactjs';
 import { TableActions } from 'reactjs';
 import { PromotionStatusMappingToColors } from '../../constants/PromotionComboStatusMappingToColors';
+import { getPromotionStatusMappingToLabels } from '../../constants/PromotionStatusMappingToLabels';
+import { PromotionType } from '../../constants/PromotionType';
+import { getPromotionTypeMappingToLabels } from '../../constants/PromotionTypeMappingToLabels';
 import { Promotion } from '../../models/Promotion';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
-import { getPromotionStatusMappingToLabels } from '~/packages/common/SelectVariants/PromotionStatus/constants/PromotionStatusMappingToLabels';
-import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
-import { getPromotionTypeMappingToLabels } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionTypeMappingToLabels';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 export interface Props
   extends Pick<

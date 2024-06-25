@@ -1,8 +1,8 @@
 import { UrlSearchParamsUtils } from 'utilities';
 import { any, boolean, enum as enum_, number, object, string } from 'zod';
-import { DemoType } from '~/packages/common/SelectVariants/DemoType/constants/DemoType';
-import { StudyMode } from '~/packages/common/SelectVariants/StudyMode/constants/StudyMode';
-import { TrialRequestStatus } from '~/packages/common/SelectVariants/TrialRequestStatus/constants/TrialRequestStatus';
+import { DemoType } from '../models/DemoType';
+import { StudyMode } from '../models/StudyMode';
+import { TrialRequestStatus } from '../models/TrialRequestStatus';
 
 export const lisitngUrlSearchParamsSchema = object({
   page: number().optional(),

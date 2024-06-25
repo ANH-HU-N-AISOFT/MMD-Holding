@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { Appointment } from '../models/Appointment';
+import { AppointmentStatus } from '../models/AppointmentStatus';
 import { ServiceHeaderResponse } from '~/@types/ServiceHeaderResponse';
-import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {

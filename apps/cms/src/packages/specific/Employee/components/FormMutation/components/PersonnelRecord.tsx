@@ -4,15 +4,15 @@ import { Input } from 'reactjs';
 import { SingleDayPicker, disableDaysBeforeCheckpoint } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
 import { Employee } from '../../../models/Employee';
+import { JobTitleEnum } from '../../../models/JobTitleEnum';
+import { SelectEmployeeContractType } from '../../SelectVariants/SelectEmployeeContractType';
+import { SelectEmployeeStatus } from '../../SelectVariants/SelectEmployeeStatus';
+import { SelectJobTitles } from '../../SelectVariants/SelectJobTitles';
 import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { SelectEmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/SelectEmployeeStatus';
-import { SelectEmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/SelectEmploymentContractType';
-import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
-import { SelectJobTitles } from '~/packages/common/SelectVariants/JobTitle/SelectJobTitles';
-import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
-import { SelectEmployee } from '~/packages/common/SelectVariants/SelectEmployee';
+import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
+import { SelectEmployee } from '~/packages/specific/Employee/components/SelectVariants/SelectEmployee';
 
 interface Props {
   form: ReturnType<typeof useRemixForm<DeepPartial<FormValues>>>;
@@ -123,9 +123,9 @@ export const PersonnelRecord = ({ form, disabledField, employee }: Props) => {
           disabled={disabledField}
         />
       </Field>
-      <Field label={t('employee:employment_contract_type')} error={errors.personnelRecord?.contractType?.message}>
-        <SelectEmploymentContractType
-          employmentContractType={contractType ?? undefined}
+      <Field label={t('employee:employee_contract_type')} error={errors.personnelRecord?.contractType?.message}>
+        <SelectEmployeeContractType
+          employeeContractType={contractType ?? undefined}
           onChange={value => {
             setValue('personnelRecord.contractType', value);
             if (errors.personnelRecord?.contractType) {

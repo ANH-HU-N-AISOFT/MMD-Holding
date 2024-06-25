@@ -37,7 +37,7 @@
   "date_of_birth": "Ngày sinh",
   "gender": "Giới tính",
   "job_title": "Chức vụ",
-  "employment_contract_type": "Loại hợp đồng",
+  "employee_contract_type": "Loại hợp đồng",
   "current_address": "Địa chỉ hiện tại",
   "residence_address": "Địa chỉ thường trú",
   "region": "Quốc tịch",
@@ -78,5 +78,6 @@
   "employee": "Nhân viên",
   "must_select_department": "Vui lòng chọn đơn vị để tiếp tục",
   "department_code": "Mã đơn vị",
-  "direction_manager_code": "Mã nhân viên sales"
+  "direction_manager_code": "Mã nhân viên sales",
+  "present_department": "Đại diện đơn vị"
 }

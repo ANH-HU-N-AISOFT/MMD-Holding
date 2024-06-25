@@ -1,9 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { array, literal, number, object, string, enum as enum_ } from 'zod';
+import { PromotionType } from '../../constants/PromotionType';
+import { PromotionScope } from '../../models/PromotionScope';
+import { PromotionStatus } from '../../models/PromotionStatus';
 import type { TFunction } from 'i18next';
-import { PromotionScope } from '~/packages/common/SelectVariants/PromotionScope/constants/PromotionScope';
-import { PromotionStatus } from '~/packages/common/SelectVariants/PromotionStatus/constants/PromotionStatus';
-import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessage } from '~/utils/functions/getRequiredMessage';
 import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMessageSelectField';

@@ -5,17 +5,17 @@ import { Field, useDeepCompareEffect } from 'reactjs';
 import { SelectSingle } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
+import { SelectStudyMode } from '../SelectVariants/SelectStudyMode';
+import { SelectTrialRequestStatus } from '../SelectVariants/SelectTrialRequestStatus';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
-import { SelectDemoType } from '~/packages/common/SelectVariants/DemoType/SelectDemoType';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
-import { SelectCourseRoadmap } from '~/packages/common/SelectVariants/SelectCourseRoadmap';
-import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
-import { SelectStudyMode } from '~/packages/common/SelectVariants/StudyMode/SelectStudyMode';
-import { SelectTrialRequestStatus } from '~/packages/common/SelectVariants/TrialRequestStatus/SelectTrialRequestStatus';
+import { SelectCourseRoadmap } from '~/packages/specific/CourseRoadmap/components/SelectVariants/SelectCourseRoadmap';
+import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
+import { SelectDemoType } from '~/packages/specific/TrialRequest/components/SelectVariants/SelectDemoType';
 
 export interface FormFilterValues
   extends Pick<
@@ -125,7 +125,7 @@ export const FormSearchNFilter = ({
                   }}
                 />
               </Field>
-              <Field label={t('trial_request:course_roadmap')} error={errors.status?.message}>
+              <Field label={t('trial_request:course_roadmap')} error={errors.courseRoadmapId?.message}>
                 <SelectCourseRoadmap
                   placeholder={t('trial_request:course_roadmap')}
                   courseRoadmap={courseRoadmapId}

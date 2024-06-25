@@ -1,8 +1,8 @@
+import { SourceEnum } from '../../Student/models/SourceEnum';
+import { StudyMode } from '../models/StudyMode';
+import { DemoType } from './DemoType';
+import { TrialRequestStatus } from './TrialRequestStatus';
 import { CourseStatus } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatus';
-import { DemoType } from '~/packages/common/SelectVariants/DemoType/constants/DemoType';
-import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
-import { StudyMode } from '~/packages/common/SelectVariants/StudyMode/constants/StudyMode';
-import { TrialRequestStatus } from '~/packages/common/SelectVariants/TrialRequestStatus/constants/TrialRequestStatus';
 
 export interface TrialRequest {
   id: string;

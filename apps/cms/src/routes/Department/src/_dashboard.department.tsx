@@ -23,7 +23,6 @@ import { GetAllParams } from '~/constants/GetAllParams';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
-import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
 import { Import, ImportActions } from '~/packages/specific/Department/components/Import/Import';
 import { FormSearchNFilter } from '~/packages/specific/Department/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Department/components/Listing/Header';
@@ -48,7 +47,7 @@ export const loader = async ({
   const { page = 1, search, businessStatus, layout } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
     const response = await getDepartments({
-      businessStatus: layout === 'tree' ? undefined : (businessStatus as BusinessStatusEnum | undefined),
+      businessStatus: layout === 'tree' ? undefined : businessStatus,
       page: layout === 'tree' ? GetAllParams.page : page,
       query: layout === 'tree' ? undefined : search,
       perPage: layout === 'tree' ? GetAllParams.perPage : undefined,

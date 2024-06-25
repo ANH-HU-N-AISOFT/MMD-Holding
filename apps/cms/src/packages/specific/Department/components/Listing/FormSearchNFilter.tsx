@@ -3,12 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { Field, useDeepCompareEffect } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
+import { SelectBusinessStatus } from '../SelectVariants/SelectBusinessStatus';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
-import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
-import { SelectBusinessStatus } from '~/packages/common/SelectVariants/BusinessStatus/SelectBusinessStatus';
 
 export interface FormFilterValues extends Pick<ListingSearchParams, 'businessStatus'> {}
 
@@ -82,7 +81,7 @@ export const FormSearchNFilter = ({
             <Field label={t('department:status')} error={errors.businessStatus?.message}>
               <SelectBusinessStatus
                 placeholder={t('department:status')}
-                businessStatus={businessStatus as BusinessStatusEnum | undefined}
+                businessStatus={businessStatus}
                 onChange={value => {
                   setValue('businessStatus', value);
                   trigger('businessStatus');

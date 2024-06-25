@@ -1,4 +1,7 @@
 import { AxiosResponse } from 'axios';
+import { EmployeeContractType } from '../models/EmployeeContractType';
+import { EmployeeStatus } from '../models/EmployeeStatus';
+import { JobTitleEnum } from '../models/JobTitleEnum';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {
@@ -17,10 +20,10 @@ export interface ResponseSuccess {
     emergencyContactRelationship?: string;
     notes?: string;
     organizationCode?: string;
-    jobTitles?: string[];
+    jobTitles?: JobTitleEnum[];
     directManagerCode?: string;
-    workStatus?: string;
-    contractType?: string;
+    workStatus?: EmployeeStatus;
+    contractType?: EmployeeContractType;
     contractStartDate?: string;
     contractEndDate?: string;
     roles?: string[];

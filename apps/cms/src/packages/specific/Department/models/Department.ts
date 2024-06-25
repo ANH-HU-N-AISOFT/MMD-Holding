@@ -1,4 +1,4 @@
-import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
+import { BusinessStatusEnum } from './BusinessStatusEnum';
 
 export enum CapHanhChinh {
   CAP_1 = 1,

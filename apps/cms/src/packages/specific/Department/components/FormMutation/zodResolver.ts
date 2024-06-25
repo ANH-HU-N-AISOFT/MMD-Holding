@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { literal, object, string, enum as enum_ } from 'zod';
+import { BusinessStatusEnum } from '../../models/BusinessStatusEnum';
 import type { TFunction } from 'i18next';
-import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
 import { getInvalidMessage } from '~/utils/functions/getInvalidMessage';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessage } from '~/utils/functions/getRequiredMessage';

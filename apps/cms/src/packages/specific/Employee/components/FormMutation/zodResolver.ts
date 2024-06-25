@@ -1,11 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { array, enum as enum_, literal, object, string } from 'zod';
 
+import { EmployeeContractType } from '../../models/EmployeeContractType';
+import { EmployeeStatus } from '../../models/EmployeeStatus';
+import { JobTitleEnum } from '../../models/JobTitleEnum';
 import type { TFunction } from 'i18next';
-import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
-import { EmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/constants/EmploymentContractType';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
-import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { getInvalidMessage } from '~/utils/functions/getInvalidMessage';
@@ -183,7 +183,7 @@ export const getFormMutationSchema = ({
         ],
         { required_error: workStatus.required },
       ),
-      contractType: enum_([EmploymentContractType.FULL_TIME, EmploymentContractType.PART_TIME]).optional().nullable(),
+      contractType: enum_([EmployeeContractType.FULL_TIME, EmployeeContractType.PART_TIME]).optional().nullable(),
       contractStartEffectDate: string().optional().or(literal('')).nullable(),
       contractEndEffectDate: string().optional().or(literal('')).nullable(),
     }),

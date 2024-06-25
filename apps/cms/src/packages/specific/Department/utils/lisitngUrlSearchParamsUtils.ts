@@ -1,10 +1,16 @@
 import { UrlSearchParamsUtils } from 'utilities';
-import { any, number, object, string, enum as enum_ } from 'zod';
+import { any, enum as enum_, number, object } from 'zod';
+import { BusinessStatusEnum } from '../models/BusinessStatusEnum';
 
 export const lisitngUrlSearchParamsSchema = object({
   page: number().optional(),
   search: any().optional(),
-  businessStatus: string().optional(), // BusinessStatusEnum
+  businessStatus: enum_([
+    BusinessStatusEnum.ACTIVE,
+    BusinessStatusEnum.COMING_SOON,
+    BusinessStatusEnum.PERMANENTLY_CLOSED,
+    BusinessStatusEnum.TEMPORARILY_CLOSED,
+  ]).optional(),
   layout: enum_(['table', 'tree']).optional(),
 });
 

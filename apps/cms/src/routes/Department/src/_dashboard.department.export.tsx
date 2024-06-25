@@ -2,7 +2,6 @@ import i18next from 'i18next';
 import { isCanExportDepartment } from './utils/Is';
 import { ActionFunctionArgs, json } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
 import { exportDepartments } from '~/packages/specific/Department/services/exportDepartments';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Department/utils/lisitngUrlSearchParamsUtils';
 import { downloadAxiosResponseAsCSV } from '~/utils/functions/downloadAxiosResponseAsCSV';
@@ -17,7 +16,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   try {
     const response = await exportDepartments({
-      businessStatus: businessStatus as BusinessStatusEnum | undefined,
+      businessStatus: businessStatus,
       query: search,
     });
 

@@ -7,8 +7,8 @@ import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectRoles } from '~/packages/common/SelectVariants/Role/SelectRoles';
-import { SelectDepartment } from '~/packages/common/SelectVariants/SelectDepartment';
 import { SelectSystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/SelectSystemAccessStatus';
+import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
 
 interface Props {
   onResetPassword?: () => void;

@@ -1,4 +1,4 @@
-import { FormStatus } from '~/packages/common/SelectVariants/FormStatus/constants/FormStatus';
+import { FormStatus } from '../models/FormStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 interface ExportConsultantForms {

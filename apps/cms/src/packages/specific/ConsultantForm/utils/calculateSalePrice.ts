@@ -1,6 +1,6 @@
 import { sum } from 'ramda';
+import { PromotionType } from '../../Promotion/constants/PromotionType';
 import { FormValues } from '../components/FormMutation/FormMutation';
-import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
 
 export const calculateSalePrice = (data: Pick<FormValues, 'calculatePromotions' | 'calculateNDisplayOriginPrice'>) => {
   const promotions = data.calculatePromotions ?? [];

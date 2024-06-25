@@ -20,10 +20,10 @@ import {
 } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
-import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
 import { Edit } from '~/packages/specific/Promotion/components/Edit/Edit';
 import { FormValues } from '~/packages/specific/Promotion/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Promotion/components/FormMutation/zodResolver';
+import { PromotionType } from '~/packages/specific/Promotion/constants/PromotionType';
 import { Promotion } from '~/packages/specific/Promotion/models/Promotion';
 import { getPromotion } from '~/packages/specific/Promotion/services/getPromotion';
 import { updatePromotion } from '~/packages/specific/Promotion/services/updatePromotion';

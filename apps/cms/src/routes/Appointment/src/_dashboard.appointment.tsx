@@ -20,12 +20,12 @@ import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBound
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { useListingData } from '~/packages/@base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/@base/types/SimpleListingLoaderResponse';
-import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
 import { FormSearchNFilter } from '~/packages/specific/Appointment/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/Appointment/components/Listing/Header';
 import { Table } from '~/packages/specific/Appointment/components/Listing/Table';
 import { useUpdateAppointmentStatusOfRecord } from '~/packages/specific/Appointment/hooks/useUpdateAppointmentStatusOfRecord';
 import { Appointment } from '~/packages/specific/Appointment/models/Appointment';
+import { AppointmentStatus } from '~/packages/specific/Appointment/models/AppointmentStatus';
 import { getAppointments } from '~/packages/specific/Appointment/services/getAppointments';
 import { ListingSearchParams } from '~/packages/specific/Appointment/types/ListingSearchParams';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Appointment/utils/lisitngUrlSearchParamsUtils';

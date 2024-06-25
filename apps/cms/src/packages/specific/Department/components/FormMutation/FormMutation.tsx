@@ -5,17 +5,17 @@ import { Input } from 'reactjs';
 import { useDeepCompareEffect } from 'reactjs';
 import { SingleDayPicker } from 'reactjs';
 import { TypeOf } from 'zod';
+import { BusinessStatusEnum } from '../../models/BusinessStatusEnum';
 import { Department } from '../../models/Department';
+import { SelectBusinessStatus } from '../SelectVariants/SelectBusinessStatus';
+import { SelectManagementUnit } from '../SelectVariants/SelectManagementUnit';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
 import { Form } from '~/overrides/@remix';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
-import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
-import { SelectBusinessStatus } from '~/packages/common/SelectVariants/BusinessStatus/SelectBusinessStatus';
 import { SelectCity } from '~/packages/common/SelectVariants/SelectCity';
-import { SelectManagementUnit } from '~/packages/common/SelectVariants/SelectManagementUnit';
-import { SelectPresentDepartment } from '~/packages/common/SelectVariants/SelectPresentDepartment';
+import { SelectPresentDepartment } from '~/packages/specific/Employee/components/SelectVariants/SelectPresentDepartment';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
 export interface FormValues extends TypeOf<ReturnType<typeof getFormMutationSchema>> {}
@@ -220,6 +220,7 @@ export const FormMutation = ({
             </Field>
             <Field label={t('department:present_department')} error={errors.presentDepartmentId?.message}>
               <SelectPresentDepartment
+                placeholder={t('department:present_department')}
                 presentDepartment={presentDepartmentId ?? undefined}
                 onChange={value => {
                   setValue('presentDepartmentId', value);

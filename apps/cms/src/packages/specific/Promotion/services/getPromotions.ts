@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { Promotion } from '../models/Promotion';
+import { PromotionStatus } from '../models/PromotionStatus';
 import { ServiceHeaderResponse } from '~/@types/ServiceHeaderResponse';
-import { PromotionStatus } from '~/packages/common/SelectVariants/PromotionStatus/constants/PromotionStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {

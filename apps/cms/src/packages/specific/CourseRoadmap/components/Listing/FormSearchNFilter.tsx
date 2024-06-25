@@ -9,7 +9,7 @@ import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/@base/utils/getCountForFilterDrawer';
 import { CourseStatus } from '~/packages/common/SelectVariants/CourseStatus/constants/CourseStatus';
 import { SelectCourseStatus } from '~/packages/common/SelectVariants/CourseStatus/SelectCourseStatus';
-import { SelectCourse } from '~/packages/common/SelectVariants/SelectCourse';
+import { SelectCourse } from '~/packages/specific/Course/components/SelectVariants/SelectCourse';
 
 export interface FormFilterValues extends Pick<ListingSearchParams, 'status' | 'courseId'> {}
 

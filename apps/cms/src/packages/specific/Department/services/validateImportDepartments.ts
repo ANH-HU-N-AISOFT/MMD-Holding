@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { BusinessStatusEnum } from '../models/BusinessStatusEnum';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {
@@ -6,7 +7,7 @@ export interface ResponseSuccess {
     name?: string;
     code?: string;
     managementUnitCode?: string;
-    businessStatus?: string;
+    businessStatus?: BusinessStatusEnum;
     address?: string;
     phoneNumber?: string;
     email?: string;

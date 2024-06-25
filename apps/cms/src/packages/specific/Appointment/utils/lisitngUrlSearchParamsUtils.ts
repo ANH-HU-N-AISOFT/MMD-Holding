@@ -1,6 +1,6 @@
 import { UrlSearchParamsUtils } from 'utilities';
 import { any, number, object, string, enum as enum_, boolean } from 'zod';
-import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
+import { AppointmentStatus } from '../models/AppointmentStatus';
 
 export const lisitngUrlSearchParamsSchema = object({
   page: number().optional(),

@@ -1,6 +1,6 @@
+import { SourceEnum } from './SourceEnum';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
-import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 
 export interface Student {

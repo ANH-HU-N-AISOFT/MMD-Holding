@@ -2,19 +2,16 @@ import dayjs from 'dayjs';
 import { forwardRef, useImperativeHandle, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InputPassword, Tag } from 'reactjs';
+import { getEmployeeContractTypeMappingToLabels } from '../../constants/EmployeeContractTypeMappingToLabels';
 import { EmployeeStatusMappingToColors } from '../../constants/EmployeeStatusMappingToColors';
+import { getEmployeeStatusMappingToLabels } from '../../constants/EmployeeStatusMappingToLabels';
+import { getJobTitleMappingToLabels } from '../../constants/JobTitleMappingToLabels';
 import { importEmployees } from '../../services/importEmployees';
 import { ResponseSuccess, validateImportEmployees } from '../../services/validateImportEmployees';
 import { ModalPreview } from '~/components/Listing/ModalImport/ModalPreview';
 import { ModalValidate, ModalValidateProps } from '~/components/Listing/ModalImport/ModalValidate';
-import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
-import { getEmployeeStatusMappingToLabels } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatusMappingToLabels';
-import { EmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/constants/EmploymentContractType';
-import { getEmploymentContractTypeMappingToLabels } from '~/packages/common/SelectVariants/EmploymentContractType/constants/EmploymentContractTypeMappingToLabels';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
 import { getGenderEnumMappingToLabels } from '~/packages/common/SelectVariants/Gender/constants/GenderEnumMappingToLabels';
-import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
-import { getJobTitleMappingToLabels } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleMappingToLabels';
 import { getRoleMappingToLabels } from '~/packages/common/SelectVariants/Role/constants/RoleMappingToLabels';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { getSystemAccessStatusMappingToLabels } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatusMappingToLabels';
@@ -40,8 +37,8 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
   const EmployeeStatusMappingToLabels = useMemo(() => {
     return getEmployeeStatusMappingToLabels(t);
   }, [t]);
-  const EmploymentContractTypeMappingToLabels = useMemo(() => {
-    return getEmploymentContractTypeMappingToLabels(t);
+  const EmployeeContractTypeMappingToLabels = useMemo(() => {
+    return getEmployeeContractTypeMappingToLabels(t);
   }, [t]);
   const JobTitleMappingToLabels = useMemo(() => {
     return getJobTitleMappingToLabels(t);
@@ -195,7 +192,7 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
             width: 160,
             title: t('employee:job_title'),
             render: (_, record) => {
-              return record.jobTitles?.map(item => JobTitleMappingToLabels[item as JobTitleEnum]).join(', ');
+              return record.jobTitles?.map(item => JobTitleMappingToLabels[item]).join(', ');
             },
           },
           {
@@ -210,18 +207,24 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
             title: t('employee:work_status'),
             align: 'center',
             render: (_, record) => {
+              if (!record.workStatus) {
+                return;
+              }
               return (
-                <Tag color={EmployeeStatusMappingToColors[record.workStatus as EmployeeStatus]}>
-                  {EmployeeStatusMappingToLabels[record.workStatus as EmployeeStatus]}
+                <Tag color={EmployeeStatusMappingToColors[record.workStatus]}>
+                  {EmployeeStatusMappingToLabels[record.workStatus]}
                 </Tag>
               );
             },
           },
           {
             width: 180,
-            title: t('employee:employment_contract_type'),
+            title: t('employee:employee_contract_type'),
             render: (_, record) => {
-              return EmploymentContractTypeMappingToLabels[record.contractType as EmploymentContractType];
+              if (!record.contractType) {
+                return null;
+              }
+              return EmployeeContractTypeMappingToLabels[record.contractType];
             },
           },
           {

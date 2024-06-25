@@ -1,6 +1,6 @@
-import { PromotionScope } from '~/packages/common/SelectVariants/PromotionScope/constants/PromotionScope';
-import { PromotionStatus } from '~/packages/common/SelectVariants/PromotionStatus/constants/PromotionStatus';
-import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
+import { PromotionType } from '../constants/PromotionType';
+import { PromotionScope } from './PromotionScope';
+import { PromotionStatus } from './PromotionStatus';
 
 export interface Promotion {
   id: string;

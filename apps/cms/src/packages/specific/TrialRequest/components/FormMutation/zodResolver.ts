@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { array, enum as enum_, literal, object, string } from 'zod';
+import { DemoType } from '../../models/DemoType';
+import { StudyMode } from '../../models/StudyMode';
+import { TrialRequestStatus } from '../../models/TrialRequestStatus';
 import type { TFunction } from 'i18next';
-import { DemoType } from '~/packages/common/SelectVariants/DemoType/constants/DemoType';
-import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
-import { StudyMode } from '~/packages/common/SelectVariants/StudyMode/constants/StudyMode';
-import { TrialRequestStatus } from '~/packages/common/SelectVariants/TrialRequestStatus/constants/TrialRequestStatus';
+import { SourceEnum } from '~/packages/specific/Student/models/SourceEnum';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMessageSelectField';
 

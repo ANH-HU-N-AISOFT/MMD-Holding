@@ -2,14 +2,13 @@ import dayjs from 'dayjs';
 import { forwardRef, useImperativeHandle, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InputPassword } from 'reactjs';
+import { getSourceEnumMappingToLabels } from '../../constants/SourceEnumMappingToLabels';
 import { importStudents } from '../../services/importStudents';
 import { ResponseSuccess, validateImportStudents } from '../../services/validateImportStudents';
 import { ModalPreview } from '~/components/Listing/ModalImport/ModalPreview';
 import { ModalValidate, ModalValidateProps } from '~/components/Listing/ModalImport/ModalValidate';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
 import { getGenderEnumMappingToLabels } from '~/packages/common/SelectVariants/Gender/constants/GenderEnumMappingToLabels';
-import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
-import { getSourceEnumMappingToLabels } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnumMappingToLabels';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { getSystemAccessStatusMappingToLabels } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatusMappingToLabels';
 import { getPublicEnv } from '~/utils/enviroment/getPublicEnv';
@@ -133,7 +132,10 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
             align: 'center',
             title: t('student:source'),
             render: (_, record) => {
-              return SourceEnumMappingToLabels[record.source as SourceEnum];
+              if (!record.source) {
+                return null;
+              }
+              return SourceEnumMappingToLabels[record.source];
             },
           },
           {

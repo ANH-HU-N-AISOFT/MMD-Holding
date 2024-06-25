@@ -1,9 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { array, literal, object, string, enum as enum_ } from 'zod';
+import { AppointmentStatus } from '../../models/AppointmentStatus';
+import { IeltsTestEnum } from '../../models/IeltsTestEnum';
 import type { TFunction } from 'i18next';
-import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
-import { IeltsTestEnum } from '~/packages/common/SelectVariants/IeltsTestEnum/constants/IeltsTestEnum';
-import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
+import { SourceEnum } from '~/packages/specific/Student/models/SourceEnum';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMessageSelectField';
 

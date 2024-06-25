@@ -1,8 +1,8 @@
 import { Employee } from '../models/Employee';
-import { EmployeeStatus } from '~/packages/common/SelectVariants/EmployeeStatus/constants/EmployeeStatus';
-import { EmploymentContractType } from '~/packages/common/SelectVariants/EmploymentContractType/constants/EmploymentContractType';
+import { EmployeeContractType } from '../models/EmployeeContractType';
+import { EmployeeStatus } from '../models/EmployeeStatus';
+import { JobTitleEnum } from '../models/JobTitleEnum';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
-import { JobTitleEnum } from '~/packages/common/SelectVariants/JobTitle/constants/JobTitleEnum';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
@@ -26,7 +26,7 @@ export interface CreateEmployee {
   jobTitles: JobTitleEnum[];
   directManagerId?: string;
   workStatus: EmployeeStatus;
-  contractType?: EmploymentContractType;
+  contractType?: EmployeeContractType;
   contractStartDate?: string;
   contractEndDate?: string;
   roles: Role[];

@@ -3,12 +3,11 @@ import { forwardRef, useImperativeHandle, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Tag } from 'reactjs';
 import { BusinessStatusMappingToColors } from '../../constants/BusinessStatusMappingToColors';
+import { getBusinessStatusMappingToLabels } from '../../constants/BusinessStatusMappingToLabels';
 import { importDepartments } from '../../services/importDepartments';
 import { ResponseSuccess, validateImportDepartments } from '../../services/validateImportDepartments';
 import { ModalPreview } from '~/components/Listing/ModalImport/ModalPreview';
 import { ModalValidate, ModalValidateProps } from '~/components/Listing/ModalImport/ModalValidate';
-import { BusinessStatusEnum } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusEnum';
-import { getBusinessStatusMappingToLabels } from '~/packages/common/SelectVariants/BusinessStatus/constants/BusinessStatusMappingToLabels';
 import { getPublicEnv } from '~/utils/enviroment/getPublicEnv';
 
 interface Props {
@@ -92,9 +91,12 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
             align: 'center',
             title: t('department:business_status').toString(),
             render: (_, record) => {
+              if (!record.businessStatus) {
+                return null;
+              }
               return (
-                <Tag color={BusinessStatusMappingToColors[record.businessStatus as BusinessStatusEnum]}>
-                  {BusinessStatusMappingToLabels[record.businessStatus as BusinessStatusEnum]}
+                <Tag color={BusinessStatusMappingToColors[record.businessStatus]}>
+                  {BusinessStatusMappingToLabels[record.businessStatus]}
                 </Tag>
               );
             },

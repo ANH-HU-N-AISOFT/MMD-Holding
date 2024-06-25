@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { literal, object, string, enum as enum_, array, number } from 'zod';
+import { FormStatus } from '../../models/FormStatus';
 import { CourseRoadmapOrCombo } from './constants';
 import type { TFunction } from 'i18next';
-import { FormStatus } from '~/packages/common/SelectVariants/FormStatus/constants/FormStatus';
-import { PromotionType } from '~/packages/common/SelectVariants/PromotionType/constants/PromotionType';
-import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
+import { PromotionType } from '~/packages/specific/Promotion/constants/PromotionType';
+import { SourceEnum } from '~/packages/specific/Student/models/SourceEnum';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMessageSelectField';
 

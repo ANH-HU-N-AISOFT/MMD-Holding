@@ -5,14 +5,14 @@ import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
 import { Button, Dropdown, DropdownMenuItem, Tag, Typography } from 'reactjs';
 import { TableActions } from 'reactjs';
+import { AppointmentStatusMappingToColors } from '../../constants/AppointmentStatusMappingToColors';
+import { getAppointmentStatusMappingToLabels } from '../../constants/AppointmentStatusMappingToLabels';
+import { getIeltsTestEnumMappingToLabels } from '../../constants/IeltsTestEnumMappingToLabels';
 import { Appointment } from '../../models/Appointment';
+import { AppointmentStatus } from '../../models/AppointmentStatus';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
 import { TooltipDetailInformation } from '~/components/TooltipDetailInformation/TooltipDetailInformation';
-import { AppointmentStatus } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatus';
-import { AppointmentStatusMappingToColors } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatusMappingToColors';
-import { getAppointmentStatusMappingToLabels } from '~/packages/common/SelectVariants/AppointmentStatus/constants/AppointmentStatusMappingToLabels';
-import { getIeltsTestEnumMappingToLabels } from '~/packages/common/SelectVariants/IeltsTestEnum/constants/IeltsTestEnumMappingToLabels';
 
 export interface Props
   extends Pick<

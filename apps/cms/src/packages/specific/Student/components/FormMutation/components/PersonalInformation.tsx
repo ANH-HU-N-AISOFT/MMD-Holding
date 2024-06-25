@@ -5,16 +5,16 @@ import { SingleDayPicker } from 'reactjs';
 import { disableDaysFuture } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
 import { Student } from '../../../models/Student';
+import { SelectSourceEnum } from '../../SelectVariants/SelectSourceEnum';
 import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/@remix-hook-form';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
 import { SelectCity } from '~/packages/common/SelectVariants/SelectCity';
-import { SelectDepartments } from '~/packages/common/SelectVariants/SelectDepartments';
 import { SelectDistrict } from '~/packages/common/SelectVariants/SelectDistrict';
-import { SelectSaleEmployees } from '~/packages/common/SelectVariants/SelectSaleEmployees';
 import { SelectSchool } from '~/packages/common/SelectVariants/SelectSchool';
-import { SelectSourceEnum } from '~/packages/common/SelectVariants/SourceEnum/SelectSourceEnum';
+import { SelectDepartments } from '~/packages/specific/Department/components/SelectVariants/SelectDepartments';
+import { SelectSaleEmployees } from '~/packages/specific/Employee/components/SelectVariants/SelectSaleEmployees';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
 interface Props {
@@ -205,6 +205,7 @@ export const PersonalInformation = ({ form, disabledField, isEdit, student }: Pr
       >
         <Radio<boolean>
           items={[
+            // FIXME: I18n
             { value: false, label: t('student:disable_notify') },
             { value: true, label: t('student:enable_notify') },
           ]}

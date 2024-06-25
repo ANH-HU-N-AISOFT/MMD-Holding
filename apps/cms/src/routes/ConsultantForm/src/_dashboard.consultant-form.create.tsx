@@ -19,10 +19,10 @@ import {
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/@base/types/SimpleResponse';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
-import { FormStatus } from '~/packages/common/SelectVariants/FormStatus/constants/FormStatus';
 import { CourseRoadmapOrCombo } from '~/packages/specific/ConsultantForm/components/FormMutation/constants';
 import { FormMutation, FormValues } from '~/packages/specific/ConsultantForm/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/ConsultantForm/components/FormMutation/zodResolver';
+import { FormStatus } from '~/packages/specific/ConsultantForm/models/FormStatus';
 import { createConsultantForm } from '~/packages/specific/ConsultantForm/services/createConsultantForm';
 import { createUrlSearchParamsUtils } from '~/packages/specific/ConsultantForm/utils/createUrlSearchParamsUtils';
 import { Student } from '~/packages/specific/Student/models/Student';

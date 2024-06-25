@@ -1,6 +1,6 @@
+import { SourceEnum } from '../models/SourceEnum';
 import { Student } from '../models/Student';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
-import { SourceEnum } from '~/packages/common/SelectVariants/SourceEnum/constants/SourceEnum';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 

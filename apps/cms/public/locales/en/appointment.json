@@ -47,8 +47,6 @@
   "extra_information": "Thông tin bổ sung",
   "note": "Ghi chú",
   "test_type": "Hình thức kiểm tra",
-  "offline": "Offline",
-  "online": "Online",
   "appointment_with_student_name": "Lịch hẹn - {{ name }}",
   "must_select_appointment_date": "Vui lòng chọn thời gian hẹn để tiếp tục",
   "must_select_expect_inspection_department": "Vui lòng chọn đơn vị kiểm tra đầu vào dự kiến để tiếp tục",
