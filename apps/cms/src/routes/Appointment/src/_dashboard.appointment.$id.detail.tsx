@@ -20,7 +20,7 @@ import {
   useFetcher,
   useLoaderData,
   useNavigate,
-} from '~/overrides/@remix';
+} from '~/overrides/remix';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { Detail } from '~/packages/specific/Appointment/components/Detail/Detail';
 import { Appointment } from '~/packages/specific/Appointment/models/Appointment';

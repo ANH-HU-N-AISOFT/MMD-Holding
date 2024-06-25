@@ -9,8 +9,8 @@ import { Consultant } from './components/Consultant';
 import { TestResult } from './components/TestResult';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
-import { Form } from '~/overrides/@remix';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { Form } from '~/overrides/remix';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 
 export interface FormValues extends TypeOf<ReturnType<typeof getFormMutationSchema>> {}
 

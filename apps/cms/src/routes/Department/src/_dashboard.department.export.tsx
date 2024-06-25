@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import { isCanExportDepartment } from './utils/Is';
-import { ActionFunctionArgs, json } from '~/overrides/@remix';
+import { ActionFunctionArgs, json } from '~/overrides/remix';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { exportDepartments } from '~/packages/specific/Department/services/exportDepartments';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Department/utils/lisitngUrlSearchParamsUtils';

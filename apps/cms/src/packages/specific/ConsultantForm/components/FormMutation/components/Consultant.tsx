@@ -9,7 +9,7 @@ import { calculateSalePrice } from '../../../utils/calculateSalePrice';
 import { SelectFormStatus } from '../../SelectVariants/SelectFormStatus';
 import { CourseRoadmapOrCombo } from '../constants';
 import { FormValues } from '../FormMutation';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectSchool } from '~/packages/extends/Location/components/SelectVariants/SelectSchool';
 import { SelectCourseCombo } from '~/packages/specific/CourseCombo/SelectVariants/SelectCourseCombo';

@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { handleAxiosError } from './handleAxiosError';
 import { handleNativeError } from './handleNativeError';
 import { handleUnknownError } from './handleUnknownError';
-import { json } from '~/overrides/@remix';
+import { json } from '~/overrides/remix';
 
 export const handleCatchClauseSimple = async <Model = any, FieldsError = any>(error: unknown) => {
   if (error instanceof AxiosError) {

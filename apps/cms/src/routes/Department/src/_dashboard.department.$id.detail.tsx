@@ -19,7 +19,7 @@ import {
   useFetcher,
   useLoaderData,
   useNavigate,
-} from '~/overrides/@remix';
+} from '~/overrides/remix';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { Detail } from '~/packages/specific/Department/components/Detail/Detail';
 import { Department } from '~/packages/specific/Department/models/Department';

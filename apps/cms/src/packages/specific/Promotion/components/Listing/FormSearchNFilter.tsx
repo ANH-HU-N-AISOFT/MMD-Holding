@@ -8,8 +8,8 @@ import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParams
 import { SelectPromotionStatus } from '../SelectVariants/SelectPromotionStatus';
 import { SelectPromotionType } from '../SelectVariants/SelectPromotionType';
 import { SearchNFilter } from '~/components/Listing';
-import { Form } from '~/overrides/@remix';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { Form } from '~/overrides/remix';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/base/utils/getCountForFilterDrawer';
 
 export type FormFilterValues = Pick<ListingSearchParams, 'status' | 'promotionType' | 'endDate' | 'startDate'>;

@@ -5,7 +5,7 @@ import { Field } from 'reactjs';
 import { SingleDayPicker } from 'reactjs';
 import { disableDaysFuture } from 'reactjs';
 import { FormValues } from '../FormMutation';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
 import { calculateAge } from '~/utils/functions/calculateAge';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';

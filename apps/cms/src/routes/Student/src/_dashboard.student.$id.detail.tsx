@@ -19,7 +19,7 @@ import {
   useFetcher,
   useLoaderData,
   useNavigate,
-} from '~/overrides/@remix';
+} from '~/overrides/remix';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { createUrlSearchParamsUtils as createAppointmentUrlSearchParamsUtils } from '~/packages/specific/Appointment/utils/createUrlSearchParamsUtils';
 import { createUrlSearchParamsUtils as createConsultantFormUrlSearchParamsUtils } from '~/packages/specific/ConsultantForm/utils/createUrlSearchParamsUtils';

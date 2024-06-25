@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import { isCanEditEmployee } from './utils/Is';
-import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/@remix';
-import { validateFormData } from '~/overrides/@remix-hook-form';
+import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/remix';
+import { validateFormData } from '~/overrides/remix-hook-form';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { FormValues } from '~/packages/specific/Employee/components/ResetPassword/ResetPassword';
 import { getFormResetPasswordResolver } from '~/packages/specific/Employee/components/ResetPassword/zodResolver';

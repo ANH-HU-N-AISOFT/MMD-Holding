@@ -3,8 +3,8 @@ import { InputPassword, useDeepCompareEffect } from 'reactjs';
 import { TypeOf } from 'zod';
 import { getFormResetPasswordResolver, getFormResetPasswordSchema } from './zodResolver';
 import { Field } from '~/components/Field/Field';
-import { Form } from '~/overrides/@remix';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { Form } from '~/overrides/remix';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 
 export interface FormValues extends TypeOf<ReturnType<typeof getFormResetPasswordSchema>> {}
 

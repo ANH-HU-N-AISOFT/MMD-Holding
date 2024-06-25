@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Navigate, useRouteError } from '~/overrides/@remix';
+import { Navigate, useRouteError } from '~/overrides/remix';
 import { InteralError } from '~/packages/common/InteralError/components/Notification';
 
 export const PageErrorBoundary = () => {

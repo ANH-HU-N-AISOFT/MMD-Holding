@@ -10,7 +10,7 @@ import { SelectEmployeeStatus } from '../../SelectVariants/SelectEmployeeStatus'
 import { SelectJobTitles } from '../../SelectVariants/SelectJobTitles';
 import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
 import { SelectEmployee } from '~/packages/specific/Employee/components/SelectVariants/SelectEmployee';
 

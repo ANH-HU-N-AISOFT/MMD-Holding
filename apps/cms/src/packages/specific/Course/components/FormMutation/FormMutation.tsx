@@ -7,8 +7,8 @@ import { SelectCourseStatus } from '../SelectVariants/SelectCourseStatus';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
-import { Form } from '~/overrides/@remix';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { Form } from '~/overrides/remix';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 
 export interface FormValues extends TypeOf<ReturnType<typeof getFormMutationSchema>> {}
 

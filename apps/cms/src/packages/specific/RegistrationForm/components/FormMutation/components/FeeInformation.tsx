@@ -5,7 +5,7 @@ import { Field } from 'reactjs';
 import { SingleDayPicker } from 'reactjs';
 import { disableDaysPast } from 'reactjs';
 import { FormValues } from '../FormMutation';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 import { currencyFormatter } from '~/utils/functions/currency/currencyFormatter';
 import { currencyParser } from '~/utils/functions/currency/currencyParser';
 

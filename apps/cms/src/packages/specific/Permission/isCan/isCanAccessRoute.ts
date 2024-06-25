@@ -1,4 +1,4 @@
-import { redirect } from '~/overrides/@remix';
+import { redirect } from '~/overrides/remix';
 import { Session } from '~/packages/common/Auth/models/Session';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { ActionType, ResourceType } from '~/packages/specific/Permission/Permission';

@@ -1,5 +1,5 @@
 import { isCanDeleteEmployee } from './utils/Is';
-import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/@remix';
+import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/remix';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { deleteEmployee } from '~/packages/specific/Employee/services/deleteEmployee';
 import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';

@@ -1,5 +1,5 @@
 import { isCanDeletePromotion } from './utils/Is';
-import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/@remix';
+import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/remix';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { deletePromotion } from '~/packages/specific/Promotion/services/deletePromotion';

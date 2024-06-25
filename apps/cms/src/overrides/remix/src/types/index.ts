@@ -23,9 +23,10 @@ export declare class DeferredData {
   get pendingKeys(): string[];
 }
 
-export interface TypedResponse<T> {
+export type TypedResponse<T = unknown> = Omit<Response, 'json'> & {
   json(): Promise<T>;
-}
+};
+
 export type TypedDeferredData<Data extends Record<string, unknown>> = Pick<DeferredData, 'init'> & {
   data: Data;
 };

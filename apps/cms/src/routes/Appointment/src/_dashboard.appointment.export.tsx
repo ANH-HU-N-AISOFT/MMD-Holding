@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import { isCanExportAppointment } from './utils/Is';
-import { ActionFunctionArgs, json } from '~/overrides/@remix';
+import { ActionFunctionArgs, json } from '~/overrides/remix';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { exportAppointments } from '~/packages/specific/Appointment/services/exportAppointments';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Appointment/utils/lisitngUrlSearchParamsUtils';

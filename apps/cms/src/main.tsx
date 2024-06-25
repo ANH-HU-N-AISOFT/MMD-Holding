@@ -6,7 +6,7 @@ import { ThemeProvider } from 'reactjs';
 import '~/I18n/i18n';
 import { App } from './App';
 import './styles/reset.css';
-import './tailwind.css';
+import './styles/tailwind.css';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {

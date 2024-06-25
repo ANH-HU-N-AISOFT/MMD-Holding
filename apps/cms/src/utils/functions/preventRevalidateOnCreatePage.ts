@@ -1,4 +1,4 @@
-import { ShouldRevalidateFunction } from '~/overrides/@remix';
+import { ShouldRevalidateFunction } from '~/overrides/remix';
 
 const paths: string[] = [];
 

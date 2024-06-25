@@ -10,8 +10,8 @@ import { PersonalInformation } from './components/PersonalInformation';
 import { RoleSystem } from './components/RoleSystem';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
-import { Form } from '~/overrides/@remix';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { Form } from '~/overrides/remix';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 
 export interface FormValues extends TypeOf<ReturnType<typeof getFormMutationSchema>> {
   // Những field lưu lại giá trị của Select, Input, ... tạm để truyền vào 1 field khác để filter, search, ...

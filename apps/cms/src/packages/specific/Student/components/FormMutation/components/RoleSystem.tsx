@@ -4,7 +4,7 @@ import { DeepPartial } from 'typescript-utilities';
 import { Student } from '../../../models/Student';
 import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectRoles } from '~/packages/common/SelectVariants/Role/SelectRoles';
 import { SelectSystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/SelectSystemAccessStatus';

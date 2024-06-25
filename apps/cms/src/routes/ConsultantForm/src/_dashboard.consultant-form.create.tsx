@@ -15,8 +15,8 @@ import {
   useLoaderData,
   useNavigate,
   useNavigation,
-} from '~/overrides/@remix';
-import { getValidatedFormData } from '~/overrides/@remix-hook-form';
+} from '~/overrides/remix';
+import { getValidatedFormData } from '~/overrides/remix-hook-form';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { CourseRoadmapOrCombo } from '~/packages/specific/ConsultantForm/components/FormMutation/constants';

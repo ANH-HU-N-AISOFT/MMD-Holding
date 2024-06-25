@@ -8,7 +8,7 @@ import { uploadImage } from '../../../services/uploadImage';
 import { FormValues } from '../FormMutation';
 import { UploadMultiple } from '~/components/AntCustom/Upload';
 import { FileState } from '~/components/AntCustom/Upload/src/types/FileState';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 

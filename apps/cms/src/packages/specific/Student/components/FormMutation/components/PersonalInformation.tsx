@@ -8,7 +8,7 @@ import { Student } from '../../../models/Student';
 import { SelectSourceEnum } from '../../SelectVariants/SelectSourceEnum';
 import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
 import { SelectCity } from '~/packages/extends/Location/components/SelectVariants/SelectCity';
 import { SelectDistrict } from '~/packages/extends/Location/components/SelectVariants/SelectDistrict';

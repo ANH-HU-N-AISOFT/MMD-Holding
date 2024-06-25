@@ -6,8 +6,8 @@ import { Field } from 'reactjs';
 import { getFormLoginZodSchema } from './constants/zod';
 import { FormLoginProps } from './types/Props';
 import { FormLoginValues } from './types/Values';
-import { Form } from '~/overrides/@remix';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { Form } from '~/overrides/remix';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 
 export const FormLogin = ({ isSubmitting }: FormLoginProps) => {
   const { t } = useTranslation(['common', 'auth']);

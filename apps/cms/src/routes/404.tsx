@@ -2,7 +2,7 @@ import { HomeOutlined } from '@ant-design/icons';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'reactjs';
-import { useNavigate } from '~/overrides/@remix';
+import { useNavigate } from '~/overrides/remix';
 
 export const Page: FC = () => {
   const { t } = useTranslation(['page404']);

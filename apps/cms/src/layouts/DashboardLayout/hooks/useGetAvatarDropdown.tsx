@@ -1,6 +1,6 @@
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { useFetcher } from '~/overrides/@remix';
+import { useFetcher } from '~/overrides/remix';
 
 export const useGetAvatarDropdown = () => {
   const { t } = useTranslation(['dashboard_layout']);

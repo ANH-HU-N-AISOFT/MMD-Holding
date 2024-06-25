@@ -20,7 +20,7 @@ import {
   useFetcher,
   useLoaderData,
   useNavigate,
-} from '~/overrides/@remix';
+} from '~/overrides/remix';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { isCanShow } from '~/packages/specific/Permission/isCan/isCanShow';

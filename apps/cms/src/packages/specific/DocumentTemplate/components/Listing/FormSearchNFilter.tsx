@@ -7,8 +7,8 @@ import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
 import { SelectDocumentTemplateType } from '../SelectVariants/SelectDocumentTemplateType';
 import { SearchNFilter } from '~/components/Listing';
-import { Form } from '~/overrides/@remix';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { Form } from '~/overrides/remix';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/base/utils/getCountForFilterDrawer';
 import { SelectDocumentTemplateStatus } from '~/packages/specific/DocumentTemplate/components/SelectVariants/SelectDocumentTemplateStatus';
 

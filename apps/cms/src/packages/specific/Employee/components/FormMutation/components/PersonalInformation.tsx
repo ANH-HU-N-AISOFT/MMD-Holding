@@ -6,7 +6,7 @@ import { disableDaysFuture } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
 import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
 import { SelectCountry } from '~/packages/extends/Location/components/SelectVariants/SelectCountry';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';

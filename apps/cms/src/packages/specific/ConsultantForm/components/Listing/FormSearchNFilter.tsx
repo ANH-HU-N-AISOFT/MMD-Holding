@@ -5,8 +5,8 @@ import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
 import { SelectFormStatus } from '../SelectVariants/SelectFormStatus';
 import { SearchNFilter } from '~/components/Listing';
-import { Form } from '~/overrides/@remix';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { Form } from '~/overrides/remix';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/base/utils/getCountForFilterDrawer';
 import { SelectCourseRoadmap } from '~/packages/specific/CourseRoadmap/components/SelectVariants/SelectCourseRoadmap';
 

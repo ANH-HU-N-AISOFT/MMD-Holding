@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Outlet } from '~/overrides/@remix';
+import { Outlet } from '~/overrides/remix';
 
 export const AuthLayout = () => {
   return (

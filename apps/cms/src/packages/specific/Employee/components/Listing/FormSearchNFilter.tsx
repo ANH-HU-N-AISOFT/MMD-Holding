@@ -6,8 +6,8 @@ import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParams
 import { SelectEmployeeStatus } from '../SelectVariants/SelectEmployeeStatus';
 import { Field } from '~/components/Field/Field';
 import { SearchNFilter } from '~/components/Listing';
-import { Form } from '~/overrides/@remix';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { Form } from '~/overrides/remix';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/base/utils/getCountForFilterDrawer';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectRoles } from '~/packages/common/SelectVariants/Role/SelectRoles';

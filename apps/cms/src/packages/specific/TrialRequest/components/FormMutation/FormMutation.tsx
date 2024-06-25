@@ -13,8 +13,8 @@ import { SelectTrialRequestStatus } from '../SelectVariants/SelectTrialRequestSt
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
-import { Form } from '~/overrides/@remix';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { Form } from '~/overrides/remix';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectSchool } from '~/packages/extends/Location/components/SelectVariants/SelectSchool';
 import { SelectCourseRoadmap } from '~/packages/specific/CourseRoadmap/components/SelectVariants/SelectCourseRoadmap';

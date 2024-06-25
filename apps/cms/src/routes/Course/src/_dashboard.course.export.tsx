@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import { isCanExportCourse } from './utils/Is';
-import { ActionFunctionArgs, json } from '~/overrides/@remix';
+import { ActionFunctionArgs, json } from '~/overrides/remix';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { exportCourses } from '~/packages/specific/Course/services/exportCourses';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Course/utils/lisitngUrlSearchParamsUtils';

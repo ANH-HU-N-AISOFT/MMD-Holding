@@ -8,8 +8,8 @@ import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParams
 import { SelectStudyMode } from '../SelectVariants/SelectStudyMode';
 import { SelectTrialRequestStatus } from '../SelectVariants/SelectTrialRequestStatus';
 import { SearchNFilter } from '~/components/Listing';
-import { Form } from '~/overrides/@remix';
-import { useRemixForm } from '~/overrides/@remix-hook-form';
+import { Form } from '~/overrides/remix';
+import { useRemixForm } from '~/overrides/remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/base/utils/getCountForFilterDrawer';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';

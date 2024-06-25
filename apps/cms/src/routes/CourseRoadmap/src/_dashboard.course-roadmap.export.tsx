@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import { isCanExportCourseRoadmap } from './utils/Is';
-import { ActionFunctionArgs, json } from '~/overrides/@remix';
+import { ActionFunctionArgs, json } from '~/overrides/remix';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { exportCourseRoadmaps } from '~/packages/specific/CourseRoadmap/services/exportCourseRoadmaps';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/CourseRoadmap/utils/lisitngUrlSearchParamsUtils';

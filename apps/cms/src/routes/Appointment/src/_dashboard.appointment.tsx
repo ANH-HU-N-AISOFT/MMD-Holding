@@ -17,7 +17,7 @@ import {
 } from './utils/Is';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
-import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
+import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/remix';
 import { useListingData } from '~/packages/base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/base/types/SimpleListingLoaderResponse';
 import { FormSearchNFilter } from '~/packages/specific/Appointment/components/Listing/FormSearchNFilter';

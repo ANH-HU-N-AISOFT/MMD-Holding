@@ -1,6 +1,6 @@
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { DashboardLayout } from '~/layouts/DashboardLayout/DashboardLayout';
-import { json, redirect } from '~/overrides/@remix';
+import { json, redirect } from '~/overrides/remix';
 import { GetPermissionsResponseSuccess, getPermissionsEndpoint } from '~/packages/common/Auth/services/getPermissions';
 import { GetProfileResponseSuccess, getProfileEndpoint } from '~/packages/common/Auth/services/getProfile';
 import { destroySession, getSession, setSession } from '~/packages/common/Auth/sessionStorage';

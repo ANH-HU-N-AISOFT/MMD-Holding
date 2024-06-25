@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import { isCanEditStudent } from './utils/Is';
-import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/@remix';
-import { validateFormData } from '~/overrides/@remix-hook-form';
+import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/remix';
+import { validateFormData } from '~/overrides/remix-hook-form';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { FormValues } from '~/packages/specific/Student/components/ResetPassword/ResetPassword';

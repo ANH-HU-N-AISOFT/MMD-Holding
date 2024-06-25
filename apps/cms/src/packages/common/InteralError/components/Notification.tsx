@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from 'reactjs';
 import { localStorage } from 'utilities';
 import { KeyOfErrorCodeInCookie } from '../constants/KeyOfErrorCodeInCookie';
-import { useNavigate } from '~/overrides/@remix';
+import { useNavigate } from '~/overrides/remix';
 
 // TODO: Hiển thị reason
 export const Notification = () => {

@@ -4,7 +4,7 @@ import { notification } from 'reactjs';
 import { AnyRecord } from 'typescript-utilities';
 import { UrlSearchParamsUtils } from 'utilities';
 import { SimpleListingLoaderResponse } from '../types/SimpleListingLoaderResponse';
-import { FetcherWithComponents, SerializeObject, UndefinedToOptional } from '~/overrides/@remix';
+import { FetcherWithComponents, SerializeObject, UndefinedToOptional } from '~/overrides/remix';
 
 interface UseListingData<T extends AnyRecord, SearchParams extends AnyRecord & { page?: number }> {
   loaderData: SerializeObject<UndefinedToOptional<SimpleListingLoaderResponse<T>>>;

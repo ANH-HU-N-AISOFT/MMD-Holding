@@ -7,7 +7,7 @@ import {
   IconHomeLinear,
   IconReceiptLinear,
 } from 'reactjs';
-import { useNavigate } from '~/overrides/@remix';
+import { useNavigate } from '~/overrides/remix';
 import { isCanShow } from '~/packages/specific/Permission/isCan/isCanShow';
 import { ActionType, ResourceType } from '~/packages/specific/Permission/Permission';
 import { getDefaultListingAppointmentsUrl } from '~/routes/Appointment/constants/getDefaultFilterUrl';

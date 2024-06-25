@@ -8,7 +8,7 @@ import { Notification } from './components/Notification';
 import { UserDropdown } from './components/UserDropdown';
 import { useGetNavData } from './hooks/useGetNavData';
 import { getTabActiveWithLocation } from './utils/getTabActiveWithLocation';
-import { Link, Outlet, useLocation } from '~/overrides/@remix';
+import { Link, Outlet, useLocation } from '~/overrides/remix';
 import './styles.css';
 
 const { Header, Content, Sider } = AntRawLayout;

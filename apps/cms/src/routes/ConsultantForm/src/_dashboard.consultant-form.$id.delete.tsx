@@ -1,5 +1,5 @@
 import { isCanDeleteConsultantForm } from './utils/Is';
-import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/@remix';
+import { ActionFunctionArgs, TypedResponse, json, redirect } from '~/overrides/remix';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { deleteConsultantForm } from '~/packages/specific/ConsultantForm/services/deleteConsultantForm';
 import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';

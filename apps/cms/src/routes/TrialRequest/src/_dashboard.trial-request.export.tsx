@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import { isCanExportTrialRequest } from './utils/Is';
-import { ActionFunctionArgs, json } from '~/overrides/@remix';
+import { ActionFunctionArgs, json } from '~/overrides/remix';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { exportTrialRequests } from '~/packages/specific/TrialRequest/services/exportTrialRequests';

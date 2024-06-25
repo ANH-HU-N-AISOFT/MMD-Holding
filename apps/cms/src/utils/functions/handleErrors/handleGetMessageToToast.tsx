@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { SEPARATOR } from './handleAxiosError';
 import type { TFunction } from 'i18next';
 import type { SimpleResponse } from '~/packages/base/types/SimpleResponse';
-import { SerializeFrom } from '~/overrides/@remix';
+import { SerializeFrom } from '~/overrides/remix';
 
 const StringMappingToStatusCode = {
   // 30/04 => Department
