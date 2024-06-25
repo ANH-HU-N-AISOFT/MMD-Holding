@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const SelectDemoType = ({ demoType, disabled, allowClear = true, placeholder, onChange }: Props) => {
-  const { t } = useTranslation(['common', 'enum']);
+  const { t } = useTranslation(['trial_request']);
 
   const demoTypeMappingToLabels = useMemo(() => {
     return getDemoTypeMappingToLabels(t);
@@ -24,7 +24,7 @@ export const SelectDemoType = ({ demoType, disabled, allowClear = true, placehol
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={placeholder ?? t('enum:demoType.label')}
+      placeholder={placeholder ?? t('trial_request:demo_type')}
       value={demoType}
       onChange={onChange}
       options={Object.values(DemoType).map(item => {

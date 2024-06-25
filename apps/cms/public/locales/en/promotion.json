@@ -35,5 +35,17 @@
   "date_available": "Thời hạn",
   "all": "Tất cả",
   "current_month": "Tháng này",
-  "next_month": "Tháng sau"
+  "next_month": "Tháng sau",
+
+
+  "Active": "Mở",
+  "InActive": "Đóng",
+
+  "promotion_type": "Loại khuyến mãi",
+  "FeeDiscount": "Giảm theo học phí",
+  "Gift": "Quà tặng",
+  "PercentageDiscount": "Giảm theo tỉ lệ",
+
+  "All": "Toàn bộ hệ thống",
+  "Special": "Cơ sở chọn lọc"
 }

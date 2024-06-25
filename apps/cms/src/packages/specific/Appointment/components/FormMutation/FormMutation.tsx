@@ -56,7 +56,7 @@ export const FormMutation = ({
 }: Props) => {
   const { t } = useTranslation(['common', 'appointment']);
   const TestTypeMappingToLabels = useMemo(() => {
-    return getTestTypeMappingToLabels(t);
+    return getTestTypeMappingToLabels(t as unknown as TFunction<['appointment']>);
   }, [t]);
 
   const disabledField = disabled || isSubmiting;
@@ -78,7 +78,7 @@ export const FormMutation = ({
     defaultValues: {
       ...defaultValues,
     },
-    resolver: getFormMutationResolver(t as TFunction<['common', 'appointment']>),
+    resolver: getFormMutationResolver(t),
   });
   // Student
   const studentId = watch('studentId');

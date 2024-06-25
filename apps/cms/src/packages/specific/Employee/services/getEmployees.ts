@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { Employee } from '../models/Employee';
-import { EmployeeStatus } from '../models/EmployeeStatus';
+import { WorkStatus } from '../models/WorkStatus';
 import { ServiceHeaderResponse } from '~/@types/ServiceHeaderResponse';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
@@ -15,7 +15,7 @@ interface GetEmployees {
   perPage?: number;
   organizationId?: string;
   roles?: string;
-  workStatus?: EmployeeStatus;
+  workStatus?: WorkStatus;
   sortByName?: 1 | -1;
 }
 export const getEmployees = async ({

@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const SelectBusinessStatus = ({ businessStatus, disabled, allowClear = true, placeholder, onChange }: Props) => {
-  const { t } = useTranslation(['enum']);
+  const { t } = useTranslation(['department']);
 
   const businessStatusMappingToLabels = useMemo(() => {
     return getBusinessStatusMappingToLabels(t);
@@ -24,7 +24,7 @@ export const SelectBusinessStatus = ({ businessStatus, disabled, allowClear = tr
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={placeholder ?? t('enum:businessStatus.label')}
+      placeholder={placeholder ?? t('department:business_status')}
       value={businessStatus}
       onChange={onChange}
       options={Object.values(BusinessStatusEnum).map(item => {

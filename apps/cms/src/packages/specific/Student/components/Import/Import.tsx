@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { TFunction } from 'i18next';
 import { forwardRef, useImperativeHandle, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InputPassword } from 'reactjs';
@@ -28,7 +29,7 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
     return getGenderEnumMappingToLabels(t);
   }, [t]);
   const SourceEnumMappingToLabels = useMemo(() => {
-    return getSourceEnumMappingToLabels(t);
+    return getSourceEnumMappingToLabels(t as unknown as TFunction<['student']>);
   }, [t]);
   const SystemAccessStatusMappingToLabels = useMemo(() => {
     return getSystemAccessStatusMappingToLabels(t);

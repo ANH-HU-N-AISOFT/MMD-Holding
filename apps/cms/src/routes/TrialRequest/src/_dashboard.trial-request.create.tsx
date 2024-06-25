@@ -51,7 +51,7 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
         studyDate: data.learningDate,
         learningOrganizationId: data.learningOrganizationId,
         studyTime: data.learningTime,
-        studyMode: data.learningType,
+        studyMode: data.studyMode,
         notes: data.notes,
         status: data.status,
         studentId: data.studentId,
@@ -137,7 +137,7 @@ export const Page = () => {
             displaySaleEmployees: loaderData.student?.supporterIds,
             consultantId: session?.profile?.roles.includes(Role.Lecturer) ? session.profile.id : undefined,
             learningOrganizationId: session?.profile?.organizationId,
-            learningType: StudyMode.Offline,
+            studyMode: StudyMode.Offline,
           }}
         />
       </div>

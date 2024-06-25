@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const SelectJobTitle = ({ jobTitle, disabled, allowClear = true, onChange }: Props) => {
-  const { t } = useTranslation(['enum']);
+  const { t } = useTranslation(['employee']);
 
   const jobTitleMappingToLabels = useMemo(() => {
     return getJobTitleMappingToLabels(t);
@@ -23,7 +23,7 @@ export const SelectJobTitle = ({ jobTitle, disabled, allowClear = true, onChange
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={t('enum:jobTitle.label')}
+      placeholder={t('employee:job_title')}
       value={jobTitle}
       onChange={onChange}
       options={Object.values(JobTitleEnum).map(item => {

@@ -56,7 +56,7 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
           studyDate: data.learningDate,
           learningOrganizationId: data.learningOrganizationId,
           studyTime: data.learningTime,
-          studyMode: data.learningType,
+          studyMode: data.studyMode,
           notes: data.notes,
           status: data.status,
           studentId: data.studentId,

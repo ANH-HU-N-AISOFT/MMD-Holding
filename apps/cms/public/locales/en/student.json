@@ -70,5 +70,13 @@
   "consultant_form": "Phiếu tư vấn",
   "trial_request": "Yêu cầu học thử",
   "sale_employees_code": "Mã nhân viên sales",
-  "department_code": "Mã đơn vị"
+  "department_code": "Mã đơn vị",
+
+
+  "HotWarm": "Ấm - Nóng",
+  "Cold": "Lạnh",
+  "Communication": "Truyền thông",
+  "HumanResources": "Nhân",
+  "DataMarketing": "Data Marketing",
+  "Repeat": "Tái"
 }

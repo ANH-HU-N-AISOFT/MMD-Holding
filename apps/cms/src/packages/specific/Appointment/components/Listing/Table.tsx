@@ -53,7 +53,7 @@ export const Table = ({
   hideColumnStudentName,
   ...props
 }: Props) => {
-  const { t } = useTranslation(['common', 'appointment', 'employee']);
+  const { t } = useTranslation(['appointment', 'common', 'employee']);
 
   const AppointmentStatusMappingToLabels = useMemo(() => {
     return getAppointmentStatusMappingToLabels(t);

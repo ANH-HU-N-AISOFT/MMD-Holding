@@ -40,7 +40,7 @@ export const Table = ({
   editable,
   ...props
 }: Props) => {
-  const { t } = useTranslation(['common', 'promotion']);
+  const { t } = useTranslation(['promotion', 'common']);
 
   const PromotionStatusMappingToLabels = useMemo(() => {
     return getPromotionStatusMappingToLabels(t);

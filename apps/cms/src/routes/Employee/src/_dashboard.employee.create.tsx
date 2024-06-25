@@ -13,7 +13,7 @@ import { VIETNAM_VALUE } from '~/packages/common/SelectVariants/SelectRegion';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { FormMutation, FormValues } from '~/packages/specific/Employee/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Employee/components/FormMutation/zodResolver';
-import { EmployeeStatus } from '~/packages/specific/Employee/models/EmployeeStatus';
+import { WorkStatus } from '~/packages/specific/Employee/models/WorkStatus';
 import { createEmployee } from '~/packages/specific/Employee/services/createEmployee';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
@@ -114,7 +114,7 @@ export const Page = () => {
               region: VIETNAM_VALUE,
             },
             personnelRecord: {
-              workStatus: EmployeeStatus.WORKING,
+              workStatus: WorkStatus.WORKING,
             },
             roleSystem: {
               accessStatus: SystemAccessStatus.GRANTED,

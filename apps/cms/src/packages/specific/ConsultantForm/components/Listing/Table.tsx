@@ -44,7 +44,7 @@ export const Table = ({
   hideColumnStudentName,
   ...props
 }: Props) => {
-  const { t } = useTranslation(['common', 'consultant_form']);
+  const { t } = useTranslation(['consultant_form', 'common']);
 
   const FormStatusMappingToLabels = useMemo(() => {
     return getFormStatusMappingToLabels(t);

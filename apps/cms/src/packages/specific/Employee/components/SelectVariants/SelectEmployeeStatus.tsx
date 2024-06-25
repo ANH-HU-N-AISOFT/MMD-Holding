@@ -1,22 +1,22 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SelectSingle, SelectSingleProps } from 'reactjs';
-import { getEmployeeStatusMappingToLabels } from '../../constants/EmployeeStatusMappingToLabels';
-import { EmployeeStatus } from '../../models/EmployeeStatus';
+import { getWorkStatusMappingToLabels } from '../../constants/WorkStatusMappingToLabels';
+import { WorkStatus } from '../../models/WorkStatus';
 
 interface Props {
-  employeeStatus?: EmployeeStatus;
-  onChange?: SelectSingleProps<EmployeeStatus>['onChange'];
+  employeeStatus?: WorkStatus;
+  onChange?: SelectSingleProps<WorkStatus>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
 }
 
 export const SelectEmployeeStatus = ({ employeeStatus, disabled, allowClear = true, placeholder, onChange }: Props) => {
-  const { t } = useTranslation(['enum']);
+  const { t } = useTranslation(['employee']);
 
   const employeeStatusMappingToLabels = useMemo(() => {
-    return getEmployeeStatusMappingToLabels(t);
+    return getWorkStatusMappingToLabels(t);
   }, [t]);
 
   return (
@@ -24,10 +24,10 @@ export const SelectEmployeeStatus = ({ employeeStatus, disabled, allowClear = tr
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={placeholder ?? t('enum:workStatus.label')}
+      placeholder={placeholder ?? t('employee:work_status')}
       value={employeeStatus}
       onChange={onChange}
-      options={Object.values(EmployeeStatus).map(item => {
+      options={Object.values(WorkStatus).map(item => {
         return {
           label: employeeStatusMappingToLabels[item],
           searchValue: employeeStatusMappingToLabels[item],

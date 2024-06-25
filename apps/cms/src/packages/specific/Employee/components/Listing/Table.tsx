@@ -1,12 +1,13 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined, LockOutlined } from '@ant-design/icons';
+import { TFunction } from 'i18next';
 import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
 import { Button, Tag, Typography } from 'reactjs';
 import { TableActions } from 'reactjs';
 import { getRoleMappingToLabels } from '../../../../common/SelectVariants/Role/constants/RoleMappingToLabels';
-import { EmployeeStatusMappingToColors } from '../../constants/EmployeeStatusMappingToColors';
-import { getEmployeeStatusMappingToLabels } from '../../constants/EmployeeStatusMappingToLabels';
+import { WorkStatusMappingToColors } from '../../constants/WorkStatusMappingToColors';
+import { getWorkStatusMappingToLabels } from '../../constants/WorkStatusMappingToLabels';
 import { Employee } from '../../models/Employee';
 import { ListingColumnType, TableListing, TableListingProps } from '~/components/Listing';
 import { SickyAction } from '~/components/StickyAction';
@@ -52,7 +53,7 @@ export const Table = ({
     return getRoleMappingToLabels(t);
   }, [t]);
   const EmployeeStatusMappingToLabels = useMemo(() => {
-    return getEmployeeStatusMappingToLabels(t);
+    return getWorkStatusMappingToLabels(t as unknown as TFunction<['employee']>);
   }, [t]);
 
   const [selectedRows, _setSelectedRows] = useState<string[]>([]);
@@ -128,7 +129,7 @@ export const Table = ({
       render: (_, record) => {
         if (record.employee) {
           return (
-            <Tag color={EmployeeStatusMappingToColors[record.employee.workStatus]}>
+            <Tag color={WorkStatusMappingToColors[record.employee.workStatus]}>
               {EmployeeStatusMappingToLabels[record.employee.workStatus]}
             </Tag>
           );

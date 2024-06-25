@@ -43,7 +43,7 @@ export const Table = ({
   hideColumnManageDepartment,
   ...props
 }: Props) => {
-  const { t } = useTranslation(['enum', 'department', 'common']);
+  const { t } = useTranslation(['department', 'common']);
   const businessStatusMappingToLabels = useMemo(() => {
     return getBusinessStatusMappingToLabels(t);
   }, [t]);

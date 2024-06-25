@@ -14,13 +14,13 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const t = i18next.t;
   const {
     search,
-    classType,
+    demoType,
     courseRoadmapId,
     departmentId,
     isAdminOwner,
     isConsultantOwner,
     isLecturerOwner,
-    learningType,
+    studyMode,
     status,
   } = lisitngUrlSearchParamsUtils.decrypt(request);
 
@@ -28,13 +28,13 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     const response = await exportTrialRequests({
       query: search,
       courseRoadmapId,
-      demoType: classType,
+      demoType,
       isAdminOwner,
       isConsultantOwner,
       isLecturerOwner,
       learningOrganizationId: departmentId,
       status,
-      studyMode: learningType,
+      studyMode,
     });
 
     downloadAxiosResponseAsCSV({ response, fileName: t('trial_request:trials') });

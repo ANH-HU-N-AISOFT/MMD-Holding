@@ -1,9 +1,9 @@
 import { TFunction } from 'i18next';
 import { PromotionScope } from '../models/PromotionScope';
 
-export const getPromotionScopeMappingToLabels = (t: TFunction<['common', 'enum']>): Record<PromotionScope, string> => {
+export const getPromotionScopeMappingToLabels = (t: TFunction<['promotion']>): Record<PromotionScope, string> => {
   return {
-    [PromotionScope.All]: t('enum:promotionScope.options.All'),
-    [PromotionScope.Special]: t('enum:promotionScope.options.Special'),
+    [PromotionScope.All]: t('promotion:All'),
+    [PromotionScope.Special]: t('promotion:Special'),
   };
 };

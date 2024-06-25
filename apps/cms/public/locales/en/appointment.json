@@ -53,5 +53,22 @@
   "total_available": "Còn trống",
   "owner": "Lọc nhân viên",
   "all": "Tất cả",
-  "me": "Của tôi"
+  "me": "Của tôi",
+
+
+  "appointment_status": "Trạng thái lịch hẹn",
+  "all_status": "Tất cả",
+  "scheduled": "Đã hẹn",
+  "confirmed": "Đã xác nhận",
+  "arrived_at_center": "Đã đến trung tâm",
+  "level_tested": "Đã test trình độ",
+  "cancelled": "Đã huỷ",
+
+
+  "foundation_test": "Test nền tảng",
+  "full_ielts_test": "Test Full IELTS",
+  "mini_ielts_test": "Test Mini IELTS",
+
+  "online": "Online",
+  "offline": "Offline"
 }

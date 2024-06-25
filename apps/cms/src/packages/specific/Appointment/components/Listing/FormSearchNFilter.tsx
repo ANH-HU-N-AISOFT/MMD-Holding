@@ -44,7 +44,7 @@ export const FormSearchNFilter = ({
   counts,
   hideFilter,
 }: FormFilterProps) => {
-  const { t } = useTranslation(['common', 'appointment', 'enum']);
+  const { t } = useTranslation(['appointment', 'common']);
   const { isMobile } = useMobile();
 
   const AppointmentStatusMappingToLabel = useMemo(() => {
@@ -168,7 +168,7 @@ export const FormSearchNFilter = ({
               key: 'all',
               label: (
                 <div>
-                  {t('enum:appointmentStatus.options.all')} {counts ? `(${sum(values(counts))})` : null}
+                  {t('appointment:all_status')} {counts ? `(${sum(values(counts))})` : null}
                 </div>
               ),
             },

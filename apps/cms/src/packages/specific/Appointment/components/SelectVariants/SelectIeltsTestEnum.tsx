@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const SelectIeltsTestEnum = ({ ieltsTest, disabled, allowClear = true, placeholder, onChange }: Props) => {
-  const { t } = useTranslation(['common', 'enum']);
+  const { t } = useTranslation(['appointment']);
 
   const ieltsTestMappingToLabels = useMemo(() => {
     return getIeltsTestEnumMappingToLabels(t);
@@ -24,7 +24,7 @@ export const SelectIeltsTestEnum = ({ ieltsTest, disabled, allowClear = true, pl
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={placeholder ?? t('enum:ieltsTest.label')}
+      placeholder={placeholder ?? t('appointment:test')}
       value={ieltsTest}
       onChange={onChange}
       options={Object.values(IeltsTestEnum).map(item => {

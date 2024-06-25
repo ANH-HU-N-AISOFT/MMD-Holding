@@ -52,5 +52,11 @@
   "course_roadmap_or_combo": "Combo, Lộ trình học",
   "gift2": "Hiện vật",
   "create_trial": "Yêu cầu học thử",
-  "must_select_expect_department": "Vui lòng chọn đơn vị học dự kiến để tiếp tục"
+  "must_select_expect_department": "Vui lòng chọn đơn vị học dự kiến để tiếp tục",
+
+  "Consulted": "Đã tư vấn",
+  "UnderCare": "Đang chăm sóc",
+  "SalesClosed": "Đã chốt sales",
+  "Failed": "Thất bại",
+  "Trial": "Đang học thử"
 }

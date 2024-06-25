@@ -1,7 +1,7 @@
+import { ContractType } from '../models/ContractType';
 import { Employee } from '../models/Employee';
-import { EmployeeContractType } from '../models/EmployeeContractType';
-import { EmployeeStatus } from '../models/EmployeeStatus';
 import { JobTitleEnum } from '../models/JobTitleEnum';
+import { WorkStatus } from '../models/WorkStatus';
 import { GenderEnum } from '~/packages/common/SelectVariants/Gender/constants/GenderEnum';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
@@ -27,8 +27,8 @@ export interface UpdateEmployee {
     organizationId: string;
     jobTitles: JobTitleEnum[];
     directManagerId?: string;
-    workStatus: EmployeeStatus;
-    contractType?: EmployeeContractType;
+    workStatus: WorkStatus;
+    contractType?: ContractType;
     contractStartDate?: string;
     contractEndDate?: string;
     roles: Role[];

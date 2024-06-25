@@ -19,7 +19,7 @@ export const SelectPromotionStatus = ({
   placeholder,
   onChange,
 }: Props) => {
-  const { t } = useTranslation(['common', 'enum']);
+  const { t } = useTranslation(['promotion']);
 
   const PromotionStatusMappingToLabels = useMemo(() => {
     return getPromotionStatusMappingToLabels(t);
@@ -30,7 +30,7 @@ export const SelectPromotionStatus = ({
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={placeholder ?? t('enum:promotionStatus.label')}
+      placeholder={placeholder ?? t('promotion:promotion')}
       value={promotionStatus}
       onChange={onChange}
       options={Object.values(PromotionStatus).map(item => {

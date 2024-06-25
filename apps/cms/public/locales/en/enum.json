@@ -1,33 +1,9 @@
 {
-  "workStatus": {
-    "label": "Trạng thái làm việc",
-    "options": {
-      "WORKING": "Đang làm việc",
-      "MATERNITY_LEAVE": "Đang nghỉ thai sản",
-      "UNPAID_LEAVE": "Đang nghỉ không lương",
-      "TERMINATED": "Đã nghỉ việc"
-    }
-  },
   "gender": {
     "label": "Giới tính",
     "options": {
       "male": "Nam",
       "female": "Nữ"
-    }
-  },
-  "jobTitle": {
-    "label": "Chức vụ",
-    "options": {
-      "CONSULTANT": "Tư vấn viên",
-      "SALES_PERSONNEL": "Nhân viên Sales",
-      "LECTURER": "Giảng viên"
-    }
-  },
-  "contractType": {
-    "label": "Loại hợp đồng",
-    "options": {
-      "FULL_TIME": "Toàn thời gian",
-      "PART_TIME": "Bán thời gian"
     }
   },
   "role": {
@@ -48,113 +24,11 @@
       "BLOCKED": "Khóa truy cập"
     }
   },
-  "businessStatus": {
-    "label": "Trạng thái kinh doanh",
-    "options": {
-      "ACTIVE": "Đang hoạt động",
-      "COMING_SOON": "Sắp khai trương",
-      "PERMANENTLY_CLOSED": "Đóng cửa vĩnh viễn",
-      "TEMPORARILY_CLOSED": "Tạm ngừng hoạt động"
-    }
-  },
-  "source": {
-    "label": "Nguồn",
-    "options": {
-      "HotWarm": "Ấm - Nóng",
-      "Cold": "Lạnh",
-      "Communication": "Truyền thông",
-      "HumanResources": "Nhân",
-      "DataMarketing": "Data Marketing",
-      "Repeat": "Tái"
-    }
-  },
-  "appointmentStatus": {
-    "label": "Trạng thái lịch hẹn",
-    "options": {
-      "all": "Tất cả",
-      "scheduled": "Đã hẹn",
-      "confirmed": "Đã xác nhận",
-      "arrived_at_center": "Đã đến trung tâm",
-      "level_tested": "Đã test trình độ",
-      "cancelled": "Đã huỷ"
-    }
-  },
-  "testType": {
-    "label": "Hình thức kiểm tra",
-    "options": {
-      "online": "Online",
-      "offline": "Offline"
-    }
-  },
-  "ieltsTest": {
-    "label": "Bài test",
-    "options": {
-      "foundation_test": "Test nền tảng",
-      "full_ielts_test": "Test Full IELTS",
-      "mini_ielts_test": "Test Mini IELTS"
-    }
-  },
   "courseStatus": {
     "label": "Trạng thái",
     "options": {
       "ACTIVE": "Mở",
       "IN_ACTIVE": "Đóng"
-    }
-  },
-  "promotionStatus": {
-    "label": "Khuyến mãi",
-    "options": {
-      "Active": "Mở",
-      "InActive": "Đóng"
-    }
-  },
-  "promotionType": {
-    "label": "Loại khuyến mãi",
-    "options": {
-      "FeeDiscount": "Giảm theo học phí",
-      "Gift": "Quà tặng",
-      "PercentageDiscount": "Giảm theo tỉ lệ"
-    }
-  },
-  "promotionScope": {
-    "label": "Cơ sở áp dụng",
-    "options": {
-      "All": "Toàn bộ hệ thống",
-      "Special": "Cơ sở chọn lọc"
-    }
-  },
-  "formStatus": {
-    "label": "Trạng thái",
-    "options": {
-      "Consulted": "Đã tư vấn",
-      "UnderCare": "Đang chăm sóc",
-      "SalesClosed": "Đã chốt sales",
-      "Failed": "Thất bại",
-      "Trial": "Đang học thử"
-    }
-  },
-  "trialRequestStatus": {
-    "label": "Trạng thái",
-    "options": {
-      "Awaiting": "Chờ xếp lớp",
-      "Assigned": "Đã xếp lớp",
-      "InProgress": "Đang học thử",
-      "Completed": "Kết thúc",
-      "Cancelled": "Hủy"
-    }
-  },
-  "demoType": {
-    "label": "Loại lớp học thử",
-    "options": {
-      "AvailableClass": "Lớp có sẵn",
-      "PrivateClass": "Lớp riêng"
-    }
-  },
-  "studyMode": {
-    "label": "Hình thức học",
-    "options": {
-      "online": "Online",
-      "offline": "Offline"
     }
   },
   "documentTemplateStatus": {

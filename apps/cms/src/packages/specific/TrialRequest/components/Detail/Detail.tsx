@@ -24,7 +24,7 @@ export const Detail = ({ trialRequest }: Props) => {
         learningDate: trialRequest.studyDate,
         learningOrganizationId: trialRequest.learningOrganization?.id,
         learningTime: trialRequest.studyTime,
-        learningType: trialRequest.studyMode,
+        studyMode: trialRequest.studyMode,
         lectureId: trialRequest.lecturer?.id,
         notes: trialRequest.notes,
         status: trialRequest.status,

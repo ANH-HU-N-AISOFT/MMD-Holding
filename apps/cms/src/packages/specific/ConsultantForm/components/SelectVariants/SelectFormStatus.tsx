@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const SelectFormStatus = ({ formStatus, disabled, allowClear = true, placeholder, onChange }: Props) => {
-  const { t } = useTranslation(['common', 'enum']);
+  const { t } = useTranslation(['consultant_form']);
 
   const FormStatusMappingToLabels = useMemo(() => {
     return getFormStatusMappingToLabels(t);
@@ -24,7 +24,7 @@ export const SelectFormStatus = ({ formStatus, disabled, allowClear = true, plac
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={placeholder ?? t('enum:formStatus.label')}
+      placeholder={placeholder ?? t('consultant_form:status')}
       value={formStatus}
       onChange={onChange}
       options={Object.values(FormStatus).map(item => {

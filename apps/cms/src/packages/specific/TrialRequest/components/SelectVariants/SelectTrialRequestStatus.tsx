@@ -19,7 +19,7 @@ export const SelectTrialRequestStatus = ({
   placeholder,
   onChange,
 }: Props) => {
-  const { t } = useTranslation(['common', 'enum']);
+  const { t } = useTranslation(['trial_request']);
 
   const trialRequestStatusMappingToLabels = useMemo(() => {
     return getTrialRequestStatusMappingToLabels(t);
@@ -30,7 +30,7 @@ export const SelectTrialRequestStatus = ({
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={placeholder ?? t('enum:trialRequestStatus.label')}
+      placeholder={placeholder ?? t('trial_request:status')}
       value={trialRequestStatus}
       onChange={onChange}
       options={Object.values(TrialRequestStatus).map(item => {

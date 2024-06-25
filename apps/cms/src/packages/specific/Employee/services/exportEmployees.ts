@@ -1,11 +1,11 @@
-import { EmployeeStatus } from '../models/EmployeeStatus';
+import { WorkStatus } from '../models/WorkStatus';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 interface ExportEmployees {
   query?: string;
   organizationId?: string;
   roles?: string;
-  workStatus?: EmployeeStatus;
+  workStatus?: WorkStatus;
 }
 
 export const exportEmployees = async ({ query, organizationId, roles, workStatus }: ExportEmployees) => {

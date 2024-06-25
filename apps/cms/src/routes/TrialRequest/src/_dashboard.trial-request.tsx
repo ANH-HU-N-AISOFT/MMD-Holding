@@ -43,10 +43,10 @@ export const loader = async ({
     search,
     page = 1,
     status,
-    classType,
+    demoType,
     courseRoadmapId,
     departmentId,
-    learningType,
+    studyMode,
     isAdminOwner,
     isConsultantOwner,
     isLecturerOwner,
@@ -58,8 +58,8 @@ export const loader = async ({
       status,
       sortByName: search ? 1 : undefined,
       courseRoadmapId: courseRoadmapId,
-      demoType: classType,
-      studyMode: learningType,
+      demoType,
+      studyMode,
       learningOrganizationId: departmentId,
       isAdminOwner,
       isConsultantOwner,
@@ -197,13 +197,13 @@ export const Page = () => {
           containerClassName="justify-end mb-1"
           searchValue={paramsInUrl.search?.toString()}
           formFilterValues={{
-            classType: paramsInUrl.classType,
+            demoType: paramsInUrl.demoType,
             courseRoadmapId: paramsInUrl.courseRoadmapId,
             departmentId: paramsInUrl.departmentId,
             isAdminOwner: paramsInUrl.isAdminOwner,
             isConsultantOwner: paramsInUrl.isConsultantOwner,
             isLecturerOwner: paramsInUrl.isLecturerOwner,
-            learningType: paramsInUrl.learningType,
+            studyMode: paramsInUrl.studyMode,
             status: paramsInUrl.status,
           }}
           isSubmiting={isFetchingList}
@@ -211,13 +211,13 @@ export const Page = () => {
           onResetFilter={() => {
             handleRequest({
               page: 1,
-              classType: undefined,
+              demoType: undefined,
               courseRoadmapId: undefined,
               departmentId: undefined,
               isAdminOwner: undefined,
               isConsultantOwner: undefined,
               isLecturerOwner: undefined,
-              learningType: undefined,
+              studyMode: undefined,
               status: undefined,
             });
           }}

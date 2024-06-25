@@ -49,7 +49,7 @@ export const FormMutation = ({
 }: Props) => {
   const { t } = useTranslation(['common', 'trial_request']);
   const StudyModeMappingToLabels = useMemo(() => {
-    return getStudyModeMappingToLabels(t);
+    return getStudyModeMappingToLabels(t as unknown as TFunction<['trial_request']>);
   }, [t]);
 
   const disabledField = disabled || isSubmiting;
@@ -69,7 +69,7 @@ export const FormMutation = ({
       onInvalid: console.log,
     },
     defaultValues,
-    resolver: getFormMutationResolver(t as TFunction<['common', 'trial_request']>),
+    resolver: getFormMutationResolver(t),
   });
 
   const studentId = watch('studentId');
@@ -85,7 +85,7 @@ export const FormMutation = ({
   const learningOrganizationId = watch('learningOrganizationId');
   const learningDate = watch('learningDate');
   const learningTime = watch('learningTime');
-  const learningType = watch('learningType');
+  const studyMode = watch('studyMode');
   const lectureId = watch('lectureId');
   const adminId = watch('adminId');
   const notes = watch('notes');
@@ -199,7 +199,7 @@ export const FormMutation = ({
                 placeholder={t('trial_request:status')}
               />
             </Field>
-            <Field withRequiredMark label={t('trial_request:class_type')} error={errors.classType?.message}>
+            <Field withRequiredMark label={t('trial_request:demo_type')} error={errors.classType?.message}>
               <SelectDemoType
                 allowClear={false}
                 demoType={classType ?? undefined}
@@ -210,7 +210,7 @@ export const FormMutation = ({
                   }
                 }}
                 disabled={disabledField}
-                placeholder={t('trial_request:class_type')}
+                placeholder={t('trial_request:demo_type')}
               />
             </Field>
             <Field withRequiredMark label={t('trial_request:course_roadmap')} error={errors.courseRoadmapId?.message}>
@@ -277,18 +277,18 @@ export const FormMutation = ({
               />
             </Field>
             <div className="md:col-span-2">
-              <Field label={t('trial_request:learning_type')} error={errors.learningType?.message}>
+              <Field label={t('trial_request:study_mode')} error={errors.studyMode?.message}>
                 <Radio
                   items={[
                     { value: StudyMode.Offline, label: StudyModeMappingToLabels[StudyMode.Offline] },
                     { value: StudyMode.Online, label: StudyModeMappingToLabels[StudyMode.Online] },
                   ]}
                   disabled={disabledField}
-                  value={learningType}
+                  value={studyMode}
                   onChange={value => {
-                    setValue('learningType', value);
-                    if (errors.learningType) {
-                      trigger('learningType');
+                    setValue('studyMode', value);
+                    if (errors.studyMode) {
+                      trigger('studyMode');
                     }
                   }}
                 />

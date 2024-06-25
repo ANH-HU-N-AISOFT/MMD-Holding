@@ -44,5 +44,11 @@
   "tree_layout": "Xem dưới dạng cây",
   "manage_department_code": "Mã đơn vị quản lý",
   "present_department_code": "Mã đại diện đơn vị",
-  "department": "Đơn vị"
+  "department": "Đơn vị",
+
+
+  "ACTIVE": "Đang hoạt động",
+  "COMING_SOON": "Sắp khai trương",
+  "PERMANENTLY_CLOSED": "Đóng cửa vĩnh viễn",
+  "TEMPORARILY_CLOSED": "Tạm ngừng hoạt động"
 }

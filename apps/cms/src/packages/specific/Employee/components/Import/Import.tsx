@@ -1,11 +1,12 @@
 import dayjs from 'dayjs';
+import { TFunction } from 'i18next';
 import { forwardRef, useImperativeHandle, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InputPassword, Tag } from 'reactjs';
-import { getEmployeeContractTypeMappingToLabels } from '../../constants/EmployeeContractTypeMappingToLabels';
-import { EmployeeStatusMappingToColors } from '../../constants/EmployeeStatusMappingToColors';
-import { getEmployeeStatusMappingToLabels } from '../../constants/EmployeeStatusMappingToLabels';
+import { getContractTypeMappingToLabels } from '../../constants/ContractTypeMappingToLabels';
 import { getJobTitleMappingToLabels } from '../../constants/JobTitleMappingToLabels';
+import { WorkStatusMappingToColors } from '../../constants/WorkStatusMappingToColors';
+import { getWorkStatusMappingToLabels } from '../../constants/WorkStatusMappingToLabels';
 import { importEmployees } from '../../services/importEmployees';
 import { ResponseSuccess, validateImportEmployees } from '../../services/validateImportEmployees';
 import { ModalPreview } from '~/components/Listing/ModalImport/ModalPreview';
@@ -35,13 +36,13 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
     return getSystemAccessStatusMappingToLabels(t);
   }, [t]);
   const EmployeeStatusMappingToLabels = useMemo(() => {
-    return getEmployeeStatusMappingToLabels(t);
+    return getWorkStatusMappingToLabels(t as unknown as TFunction<['employee']>);
   }, [t]);
   const EmployeeContractTypeMappingToLabels = useMemo(() => {
-    return getEmployeeContractTypeMappingToLabels(t);
+    return getContractTypeMappingToLabels(t as unknown as TFunction<['employee']>);
   }, [t]);
   const JobTitleMappingToLabels = useMemo(() => {
-    return getJobTitleMappingToLabels(t);
+    return getJobTitleMappingToLabels(t as unknown as TFunction<['employee']>);
   }, [t]);
   const RoleMappingToLabels = useMemo(() => {
     return getRoleMappingToLabels(t);
@@ -211,7 +212,7 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
                 return;
               }
               return (
-                <Tag color={EmployeeStatusMappingToColors[record.workStatus]}>
+                <Tag color={WorkStatusMappingToColors[record.workStatus]}>
                   {EmployeeStatusMappingToLabels[record.workStatus]}
                 </Tag>
               );

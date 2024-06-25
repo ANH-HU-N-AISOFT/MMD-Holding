@@ -79,5 +79,17 @@
   "must_select_department": "Vui lòng chọn đơn vị để tiếp tục",
   "department_code": "Mã đơn vị",
   "direction_manager_code": "Mã nhân viên sales",
-  "present_department": "Đại diện đơn vị"
+  "present_department": "Đại diện đơn vị",
+
+  "CONSULTANT": "Tư vấn viên",
+  "SALES_PERSONNEL": "Nhân viên Sales",
+  "LECTURER": "Giảng viên",
+
+  "WORKING": "Đang làm việc",
+  "MATERNITY_LEAVE": "Đang nghỉ thai sản",
+  "UNPAID_LEAVE": "Đang nghỉ không lương",
+  "TERMINATED": "Đã nghỉ việc",
+
+  "FULL_TIME": "Toàn thời gian",
+  "PART_TIME": "Bán thời gian"
 }

@@ -2,13 +2,13 @@ import { TFunction } from 'i18next';
 import { TrialRequestStatus } from '../models/TrialRequestStatus';
 
 export const getTrialRequestStatusMappingToLabels = (
-  t: TFunction<['common', 'enum']>,
+  t: TFunction<['trial_request']>,
 ): Record<TrialRequestStatus, string> => {
   return {
-    [TrialRequestStatus.Assigned]: t('enum:trialRequestStatus.options.Assigned'),
-    [TrialRequestStatus.Awaiting]: t('enum:trialRequestStatus.options.Awaiting'),
-    [TrialRequestStatus.InProgress]: t('enum:trialRequestStatus.options.InProgress'),
-    [TrialRequestStatus.Completed]: t('enum:trialRequestStatus.options.Completed'),
-    [TrialRequestStatus.Canceled]: t('enum:trialRequestStatus.options.Cancelled'),
+    [TrialRequestStatus.Assigned]: t('trial_request:Assigned'),
+    [TrialRequestStatus.Awaiting]: t('trial_request:Awaiting'),
+    [TrialRequestStatus.InProgress]: t('trial_request:InProgress'),
+    [TrialRequestStatus.Completed]: t('trial_request:Completed'),
+    [TrialRequestStatus.Canceled]: t('trial_request:Cancelled'),
   };
 };

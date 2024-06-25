@@ -22,7 +22,7 @@ export const SelectAppointmentStatus = ({
   onChange,
   withAllOption = false,
 }: Props) => {
-  const { t } = useTranslation(['common', 'enum']);
+  const { t } = useTranslation(['appointment', 'common']);
 
   const appointmentStatusMappingToLabels = useMemo(() => {
     return getAppointmentStatusMappingToLabels(t);
@@ -38,10 +38,7 @@ export const SelectAppointmentStatus = ({
       };
     });
     if (withAllOption) {
-      return [
-        { value: 'all', label: t('enum:appointmentStatus.options.all'), rawData: undefined } as const,
-        ...baseOptions,
-      ];
+      return [{ value: 'all', label: t('appointment:all_status'), rawData: undefined } as const, ...baseOptions];
     }
     return baseOptions;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -52,7 +49,7 @@ export const SelectAppointmentStatus = ({
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={placeholder ?? t('enum:appointmentStatus.label')}
+      placeholder={placeholder ?? t('appointment:appointment_status')}
       value={appointmentStatus}
       onChange={onChange}
       options={options_}

@@ -19,7 +19,7 @@ export interface ImportActions {
 }
 
 export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => {
-  const { t } = useTranslation(['enum', 'department']);
+  const { t } = useTranslation(['department']);
 
   const BusinessStatusMappingToLabels = useMemo(() => {
     return getBusinessStatusMappingToLabels(t);

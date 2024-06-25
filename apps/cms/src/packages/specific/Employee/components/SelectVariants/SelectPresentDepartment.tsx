@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { SelectSingleDecoupling, SelectSingleDecouplingProps } from 'reactjs';
-import { EmployeeStatus } from '../../models/EmployeeStatus';
+import { WorkStatus } from '../../models/WorkStatus';
 import { TooltipDetailInformation } from '~/components/TooltipDetailInformation/TooltipDetailInformation';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
@@ -34,7 +34,7 @@ export const SelectPresentDepartment = ({
         const response = await getEmployees({
           ...GetAllParams,
           sortByName: 1,
-          workStatus: EmployeeStatus.WORKING,
+          workStatus: WorkStatus.WORKING,
         });
         return response.items;
       }}

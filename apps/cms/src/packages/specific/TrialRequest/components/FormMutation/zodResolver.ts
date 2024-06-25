@@ -25,7 +25,7 @@ export const getFormMutationSchema = (t: TFunction<['common', 'trial_request']>)
     required: getRequiredMessageSelectField(t, 'trial_request:status'),
   };
   const classType = {
-    required: getRequiredMessageSelectField(t, 'trial_request:class_type'),
+    required: getRequiredMessageSelectField(t, 'trial_request:demo_type'),
   };
   const notes = {
     length: getRangeLengthMessage(t, 'trial_request:notes', 0, 256),
@@ -62,7 +62,7 @@ export const getFormMutationSchema = (t: TFunction<['common', 'trial_request']>)
     learningOrganizationId: string({ required_error: learningOrganizationId.required }),
     learningDate: string().optional().nullable(),
     learningTime: string().optional().nullable(),
-    learningType: enum_([StudyMode.Offline, StudyMode.Online]),
+    studyMode: enum_([StudyMode.Offline, StudyMode.Online]),
     adminId: string().optional(),
     lectureId: string().optional(),
     notes: string().trim().min(0, notes.length).max(256, notes.length).trim().optional().or(literal('')).nullable(),

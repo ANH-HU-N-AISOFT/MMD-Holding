@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const SelectSourceEnum = ({ sourceEnum, disabled, allowClear = true, onChange, placeholder }: Props) => {
-  const { t } = useTranslation(['enum']);
+  const { t } = useTranslation(['student']);
 
   const sourceEnumMappingToLabels = useMemo(() => {
     return getSourceEnumMappingToLabels(t);
@@ -24,7 +24,7 @@ export const SelectSourceEnum = ({ sourceEnum, disabled, allowClear = true, onCh
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={placeholder ?? t('enum:source.label')}
+      placeholder={placeholder ?? t('student:source')}
       value={sourceEnum}
       onChange={onChange}
       options={Object.values(SourceEnum).map(item => {

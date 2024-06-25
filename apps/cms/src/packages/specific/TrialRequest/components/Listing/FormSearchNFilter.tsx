@@ -21,10 +21,10 @@ export interface FormFilterValues
   extends Pick<
     ListingSearchParams,
     | 'status'
-    | 'classType'
+    | 'demoType'
     | 'courseRoadmapId'
     | 'departmentId'
-    | 'learningType'
+    | 'studyMode'
     | 'isAdminOwner'
     | 'isConsultantOwner'
     | 'isLecturerOwner'
@@ -69,8 +69,8 @@ export const FormSearchNFilter = ({
   });
   const status = watch('status');
   const courseRoadmapId = watch('courseRoadmapId');
-  const classType = watch('classType');
-  const learningType = watch('learningType');
+  const demoType = watch('demoType');
+  const studyMode = watch('studyMode');
   const departmentId = watch('departmentId');
   const isAdminOwner = watch('isAdminOwner') ?? false;
   const isConsultantOwner = watch('isConsultantOwner') ?? false;
@@ -102,10 +102,10 @@ export const FormSearchNFilter = ({
         count: getCountForFilterDrawer({
           fieldKeys: [
             'status',
-            'classType',
+            'demoType',
             'courseRoadmapId',
             'departmentId',
-            'learningType',
+            'studyMode',
             'isAdminOwner',
             'isConsultantOwner',
             'isLecturerOwner',
@@ -135,23 +135,23 @@ export const FormSearchNFilter = ({
                   }}
                 />
               </Field>
-              <Field label={t('trial_request:class_type')} error={errors.classType?.message}>
+              <Field label={t('trial_request:demo_type')} error={errors.demoType?.message}>
                 <SelectDemoType
-                  placeholder={t('trial_request:class_type')}
-                  demoType={classType}
+                  placeholder={t('trial_request:demo_type')}
+                  demoType={demoType}
                   onChange={value => {
-                    setValue('classType', value);
-                    trigger('classType');
+                    setValue('demoType', value);
+                    trigger('demoType');
                   }}
                 />
               </Field>
-              <Field label={t('trial_request:learning_type')} error={errors.learningType?.message}>
+              <Field label={t('trial_request:study_mode')} error={errors.studyMode?.message}>
                 <SelectStudyMode
-                  placeholder={t('trial_request:learning_type')}
-                  studyMode={learningType}
+                  placeholder={t('trial_request:study_mode')}
+                  studyMode={studyMode}
                   onChange={value => {
-                    setValue('learningType', value);
-                    trigger('learningType');
+                    setValue('studyMode', value);
+                    trigger('studyMode');
                   }}
                 />
               </Field>

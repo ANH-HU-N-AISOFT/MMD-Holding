@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Empty } from 'reactjs';
 import { SelectMultipleDecoupling, SelectMultipleDecouplingProps } from 'reactjs';
 import { Role } from '../../../../common/SelectVariants/Role/constants/Role';
-import { EmployeeStatus } from '../../models/EmployeeStatus';
+import { WorkStatus } from '../../models/WorkStatus';
 import { TooltipDetailInformation } from '~/components/TooltipDetailInformation/TooltipDetailInformation';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
@@ -36,7 +36,7 @@ export const SelectSaleEmployees = ({ disabled, allowClear = true, saleEmployees
           const response = await getEmployees({
             ...GetAllParams,
             roles: Role.Sale,
-            workStatus: EmployeeStatus.WORKING,
+            workStatus: WorkStatus.WORKING,
             sortByName: 1,
           });
           return response.items;

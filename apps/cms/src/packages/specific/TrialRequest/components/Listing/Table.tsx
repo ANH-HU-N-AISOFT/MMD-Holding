@@ -53,7 +53,7 @@ export const Table = ({
   onViewLecture,
   ...props
 }: Props) => {
-  const { t } = useTranslation(['common', 'trial_request', 'employee']);
+  const { t } = useTranslation(['trial_request', 'common', 'employee']);
 
   const TrialRequestStatusMappingToLabels = useMemo(() => {
     return getTrialRequestStatusMappingToLabels(t);

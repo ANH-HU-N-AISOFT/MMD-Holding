@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const SelectPromotionType = ({ promotionType, disabled, allowClear = true, placeholder, onChange }: Props) => {
-  const { t } = useTranslation(['common', 'enum']);
+  const { t } = useTranslation(['promotion']);
 
   const PromotionTypeMappingToLabels = useMemo(() => {
     return getPromotionTypeMappingToLabels(t);
@@ -24,7 +24,7 @@ export const SelectPromotionType = ({ promotionType, disabled, allowClear = true
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={placeholder ?? t('enum:promotionType.label')}
+      placeholder={placeholder ?? t('promotion:promotion_type')}
       value={promotionType}
       onChange={onChange}
       options={Object.values(PromotionType).map(item => {

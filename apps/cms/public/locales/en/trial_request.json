@@ -33,13 +33,13 @@
   "student_source": "Nguồn",
   "sale_employee": "Nhân viên sale giới thiệu",
   "consultantor": "Tư vấn viên",
-  "class_type": "Loại lớp học thử",
+  "demo_type": "Loại lớp học thử",
   "course_roadmap": "Phân lớp",
   "expect_department": "Đơn vị học dự kiến",
   "must_select_expect_department": "Vui lòng chọn đơn vị học dự kiến để tiếp tục",
   "learning_date": "Ngày học",
   "learning_time": "Giờ học",
-  "learning_type": "Hình thức học",
+  "study_mode": "Hình thức học",
   "extra_information": "Thông tin bổ sung",
   "notes": "Ghi chú",
   "student": "Học viên",
@@ -52,5 +52,14 @@
   "me": "Của tôi",
   "owner_admin": "Lọc admin",
   "owner_lecture": "Lọc giảng viên",
-  "owner_consultantor": "Lọc tư vấn viên"
+  "owner_consultantor": "Lọc tư vấn viên",
+
+  "AvailableClass": "Lớp có sẵn",
+  "PrivateClass": "Lớp riêng",
+
+  "Awaiting": "Chờ xếp lớp",
+  "Assigned": "Đã xếp lớp",
+  "InProgress": "Đang học thử",
+  "Completed": "Kết thúc",
+  "Cancelled": "Hủy"
 }

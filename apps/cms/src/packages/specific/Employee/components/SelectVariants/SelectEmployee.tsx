@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Empty } from 'reactjs';
 import { SelectSingleDecoupling, SelectSingleDecouplingProps } from 'reactjs';
 import { Role } from '../../../../common/SelectVariants/Role/constants/Role';
-import { EmployeeStatus } from '../../models/EmployeeStatus';
+import { WorkStatus } from '../../models/WorkStatus';
 import { TooltipDetailInformation } from '~/components/TooltipDetailInformation/TooltipDetailInformation';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
@@ -46,7 +46,7 @@ export const SelectEmployee = ({
           ...GetAllParams,
           sortByName: 1,
           roles: roles?.join(','),
-          workStatus: EmployeeStatus.WORKING,
+          workStatus: WorkStatus.WORKING,
           organizationId: organizationId === 'GET_ALL' ? undefined : organizationId,
         });
         return response.items;

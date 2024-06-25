@@ -1,9 +1,9 @@
 import { TFunction } from 'i18next';
 import { DemoType } from '../models/DemoType';
 
-export const getDemoTypeMappingToLabels = (t: TFunction<['common', 'enum']>): Record<DemoType, string> => {
+export const getDemoTypeMappingToLabels = (t: TFunction<['trial_request']>): Record<DemoType, string> => {
   return {
-    [DemoType.AvailableClass]: t('enum:demoType.options.AvailableClass'),
-    [DemoType.PrivateClass]: t('enum:demoType.options.PrivateClass'),
+    [DemoType.AvailableClass]: t('trial_request:AvailableClass'),
+    [DemoType.PrivateClass]: t('trial_request:PrivateClass'),
   };
 };

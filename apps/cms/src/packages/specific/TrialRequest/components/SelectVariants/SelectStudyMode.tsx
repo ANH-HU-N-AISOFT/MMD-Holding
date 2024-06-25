@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const SelectStudyMode = ({ studyMode, disabled, allowClear = true, placeholder, onChange }: Props) => {
-  const { t } = useTranslation(['common', 'enum']);
+  const { t } = useTranslation(['trial_request']);
 
   const studyModeMappingToLabels = useMemo(() => {
     return getStudyModeMappingToLabels(t);
@@ -24,7 +24,7 @@ export const SelectStudyMode = ({ studyMode, disabled, allowClear = true, placeh
       allowClear={allowClear}
       disabled={disabled}
       className="w-full"
-      placeholder={placeholder ?? t('enum:studyMode.label')}
+      placeholder={placeholder ?? t('trial_request:study_mode')}
       value={studyMode}
       onChange={onChange}
       options={Object.values(StudyMode).map(item => {

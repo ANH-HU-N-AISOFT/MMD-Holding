@@ -44,7 +44,7 @@ export const FormMutation = ({
 }: Props) => {
   const { t } = useTranslation(['common', 'promotion']);
   const PromotionScopeMappingToLabels = useMemo(() => {
-    return getPromotionScopeMappingToLabels(t);
+    return getPromotionScopeMappingToLabels(t as unknown as TFunction<['promotion']>);
   }, [t]);
 
   const disabledField = disabled || isSubmiting;

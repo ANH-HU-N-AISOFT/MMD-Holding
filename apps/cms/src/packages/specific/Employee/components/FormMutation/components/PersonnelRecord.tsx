@@ -5,7 +5,7 @@ import { SingleDayPicker, disableDaysBeforeCheckpoint } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
 import { Employee } from '../../../models/Employee';
 import { JobTitleEnum } from '../../../models/JobTitleEnum';
-import { SelectEmployeeContractType } from '../../SelectVariants/SelectEmployeeContractType';
+import { SelectContractType } from '../../SelectVariants/SelectEmployeeContractType';
 import { SelectEmployeeStatus } from '../../SelectVariants/SelectEmployeeStatus';
 import { SelectJobTitles } from '../../SelectVariants/SelectJobTitles';
 import { FormValues } from '../FormMutation';
@@ -124,8 +124,8 @@ export const PersonnelRecord = ({ form, disabledField, employee }: Props) => {
         />
       </Field>
       <Field label={t('employee:employee_contract_type')} error={errors.personnelRecord?.contractType?.message}>
-        <SelectEmployeeContractType
-          employeeContractType={contractType ?? undefined}
+        <SelectContractType
+          contractType={contractType ?? undefined}
           onChange={value => {
             setValue('personnelRecord.contractType', value);
             if (errors.personnelRecord?.contractType) {

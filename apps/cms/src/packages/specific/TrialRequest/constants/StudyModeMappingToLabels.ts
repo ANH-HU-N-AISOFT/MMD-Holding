@@ -1,9 +1,9 @@
 import { TFunction } from 'i18next';
 import { StudyMode } from '../models/StudyMode';
 
-export const getStudyModeMappingToLabels = (t: TFunction<['common', 'enum']>): Record<StudyMode, string> => {
+export const getStudyModeMappingToLabels = (t: TFunction<['trial_request']>): Record<StudyMode, string> => {
   return {
-    [StudyMode.Offline]: t('enum:studyMode.options.offline'),
-    [StudyMode.Online]: t('enum:studyMode.options.online'),
+    [StudyMode.Offline]: t('trial_request:offline'),
+    [StudyMode.Online]: t('trial_request:online'),
   };
 };
