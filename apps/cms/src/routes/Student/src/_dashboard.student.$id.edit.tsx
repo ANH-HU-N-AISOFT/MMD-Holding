@@ -8,7 +8,7 @@ import {
   action as actionResetPassword,
 } from './_dashboard.student.$id.reset-password';
 import { isCanEditStudent } from './utils/Is';
-import { Modal } from '~/components/AntCustom/Modal';
+import { ModalWithI18n } from '~/components/AntCustom/ModalWithI18n';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
@@ -215,15 +215,14 @@ export const Page = () => {
         />
       </div>
 
-      <Modal
+      <ModalWithI18n
         title={t('student:reset_password')}
         open={!!isOpenModalResetPassword}
         onCancel={() => setIsOpenModalResetPassword(false)}
         okButtonProps={{ htmlType: 'submit', form: FormResetPassword }}
-        destroyOnClose
       >
         <ResetPassword isSubmiting={isReseting} uid={FormResetPassword} onSubmit={handleReset} defaultValues={{}} />
-      </Modal>
+      </ModalWithI18n>
     </>
   );
 };

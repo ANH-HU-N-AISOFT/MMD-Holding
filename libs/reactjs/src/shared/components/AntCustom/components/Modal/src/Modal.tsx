@@ -24,13 +24,13 @@ export interface Props
     | 'confirmLoading'
     | 'children'
     | 'title'
+    | 'footer'
+    | 'afterClose'
   > {
   /** Properties for the OK button. */
   okButtonProps?: Pick<ButtonProps, 'className' | 'color' | 'disabled' | 'htmlType' | 'form' | 'onClick'>;
   /** Properties for the cancel button. */
   cancelButtonProps?: Pick<ButtonProps, 'className' | 'color' | 'disabled' | 'htmlType' | 'form' | 'onClick'>;
-  /** Footer content of the modal dialog. Set to `null` to hide the default footer. */
-  footer?: ReactNode;
   /** Content to be displayed on the left side of the footer. */
   FooterLeft?: ReactNode;
   /** Mode of the footer, either 'sticky' or 'none'. */
@@ -82,6 +82,7 @@ export const Modal: FC<Props> = ({
   cancelButtonProps,
   okButtonProps,
   footerMode = 'sticky',
+  afterClose,
 }) => {
   useInitializeContext();
 
@@ -111,6 +112,7 @@ export const Modal: FC<Props> = ({
   return (
     <AntModal
       destroyOnClose
+      afterClose={afterClose}
       wrapClassName={classNames('Modal__container', footerMode === 'sticky' ? 'Modal--footerSticky' : '', className)}
       cancelText={cancelText}
       centered={centered}
@@ -125,7 +127,10 @@ export const Modal: FC<Props> = ({
       zIndex={zIndex}
       children={children}
       title={title}
-      footer={() => {
+      footer={(originNode, buttons) => {
+        if (typeof footer === 'function') {
+          return footer(originNode, buttons);
+        }
         if (typeof footer !== 'undefined') {
           return footer;
         }

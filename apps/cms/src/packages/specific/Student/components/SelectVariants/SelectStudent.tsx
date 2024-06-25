@@ -4,7 +4,6 @@ import {
   Button,
   Empty,
   IconAddLinear,
-  Modal,
   SelectSingleDecoupling,
   SelectSingleDecouplingProps,
   notification,
@@ -12,6 +11,7 @@ import {
 import { createStudent } from '../../services/createStudent';
 import { formMutationValuesToCreateStudentService } from '../../utils/formMutationValuesToCreateStudentService';
 import { FormMutation, FormValues } from '../FormMutation/FormMutation';
+import { ModalWithI18n } from '~/components/AntCustom/ModalWithI18n';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
@@ -43,6 +43,7 @@ export const SelectStudent = ({ disabled, student, allowClear = true, placeholde
     };
   };
 
+  const [sessionCreateStudents, setSessionCreateStudents] = useState<Student[]>([]);
   const [isOpenFormCreate, setIsOpenFormCreate] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
 
@@ -52,6 +53,8 @@ export const SelectStudent = ({ disabled, student, allowClear = true, placeholde
       notification.success({
         message: t('student:create_success'),
       });
+      setIsOpenFormCreate(false);
+      setSessionCreateStudents(state => state.concat(student));
       onChange?.(student.id, transformToOption(student));
     } catch (error) {
       const message = handleGetMessageToToast(t, await handleCatchClauseSimpleAtClient(error));
@@ -85,7 +88,9 @@ export const SelectStudent = ({ disabled, student, allowClear = true, placeholde
         disabled={disabled}
         value={student}
         onChange={onChange}
+        extraModels={sessionCreateStudents}
         service={async () => {
+          setSessionCreateStudents([]);
           const response = await getStudents({
             ...GetAllParams,
             sortByName: 1,
@@ -95,15 +100,15 @@ export const SelectStudent = ({ disabled, student, allowClear = true, placeholde
         transformToOption={transformToOption}
         className="w-full"
       />
-      <Modal
+      <ModalWithI18n
         centered
         title={t('student:add_student')}
-        zIndex={999999}
         width="100dvw"
         onCancel={() => setIsOpenFormCreate(false)}
         open={isOpenFormCreate}
         okButtonProps={{ form: FormCreateUid, htmlType: 'submit' }}
         onOk={() => undefined}
+        confirmLoading={isCreating}
       >
         <FormMutation
           onSubmit={handleCreateStudent}
@@ -121,7 +126,7 @@ export const SelectStudent = ({ disabled, student, allowClear = true, placeholde
           isSubmiting={isCreating}
           uid={FormCreateUid}
         />
-      </Modal>
+      </ModalWithI18n>
     </>
   );
 };

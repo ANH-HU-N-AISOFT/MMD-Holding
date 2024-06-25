@@ -26,6 +26,7 @@ export interface SelectMultipleDecouplingProps<Model extends AnyRecord, ModelId 
   depsFetch?: DependencyList;
   /** An array of dependencies to watch for transforming options. */
   depsTransformOption?: DependencyList;
+  extraModels?: Model[];
 }
 
 /**
@@ -55,6 +56,7 @@ export const SelectMultipleDecoupling = <Model extends AnyRecord, ModelId extend
   optionLabelProp,
   placeholder,
   value,
+  extraModels = [],
 }: SelectMultipleDecouplingProps<Model, ModelId>): ReactNode => {
   const [isFetching, setIsFetching] = useState(false);
   const [options, setOptions] = useState<OptionWithRawData<Model, ModelId[number]>[]>([]);
@@ -84,9 +86,10 @@ export const SelectMultipleDecoupling = <Model extends AnyRecord, ModelId extend
   }, [...depsFetch]);
 
   useDeepCompareEffect(() => {
-    const transformData = response?.map((item, index) => ({ ...transformToOption(item, index), rawData: item })) ?? [];
+    const transformData =
+      response.concat(extraModels)?.map((item, index) => ({ ...transformToOption(item, index), rawData: item })) ?? [];
     setOptions(transformData);
-  }, [response, ...depsTransformOption]);
+  }, [response, extraModels, ...depsTransformOption]);
 
   return (
     <SelectMultiple

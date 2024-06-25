@@ -16,7 +16,7 @@
   background-color: var(--yy-color-error) !important;
 }
 .Notification--bold.yy-notification-notice-success {
-  background-color: var(--yy-color-success) !important;
+  background-color: var(--yy-color-success-active) !important;
 }
 .Notification--bold.yy-notification-notice-warning {
   background-color: var(--yy-color-warning) !important;

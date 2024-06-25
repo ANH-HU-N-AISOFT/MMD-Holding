@@ -112,7 +112,10 @@ export const FormMutation = ({
       <Form
         method="POST"
         id={uid}
-        onSubmit={handleSubmit}
+        onSubmit={event => {
+          event.stopPropagation();
+          handleSubmit(event);
+        }}
         onKeyDown={event => {
           if (event.key === 'Enter') {
             event.preventDefault();

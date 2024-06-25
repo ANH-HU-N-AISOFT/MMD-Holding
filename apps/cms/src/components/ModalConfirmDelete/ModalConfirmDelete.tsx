@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Modal, ModalProps } from 'reactjs';
+import { ModalWithI18n, ModalWithI18nProps } from '../AntCustom/ModalWithI18n';
 
-export interface ModalConfirmDeleteProps extends Pick<ModalProps, 'open' | 'onCancel' | 'onOk'> {
+export interface ModalConfirmDeleteProps extends Pick<ModalWithI18nProps, 'open' | 'onCancel' | 'onOk'> {
   title: ReactNode;
   description?: ReactNode;
   loading?: boolean;
@@ -11,7 +11,7 @@ export interface ModalConfirmDeleteProps extends Pick<ModalProps, 'open' | 'onCa
 export const ModalConfirmDelete = ({ title, description, loading, ...props }: ModalConfirmDeleteProps) => {
   const { t } = useTranslation(['components']);
   return (
-    <Modal
+    <ModalWithI18n
       {...props}
       title=""
       okButtonProps={{ color: 'error' }}
@@ -32,6 +32,6 @@ export const ModalConfirmDelete = ({ title, description, loading, ...props }: Mo
           <p className="text-sm font-medium text-neutral-500">{description}</p>
         </div>
       </div>
-    </Modal>
+    </ModalWithI18n>
   );
 };

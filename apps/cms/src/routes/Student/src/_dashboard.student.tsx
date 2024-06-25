@@ -19,7 +19,7 @@ import {
   isCanImportStudent,
   isCanReadStudent,
 } from './utils/Is';
-import { Modal } from '~/components/AntCustom/Modal';
+import { ModalWithI18n } from '~/components/AntCustom/ModalWithI18n';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
@@ -283,15 +283,14 @@ export const Page = () => {
           });
         }}
       />
-      <Modal
+      <ModalWithI18n
         title={t('student:reset_password')}
         open={!!isOpenModalResetPassword}
         onCancel={() => setIsOpenModalResetPassword(false)}
         okButtonProps={{ htmlType: 'submit', form: FormResetPassword }}
-        destroyOnClose
       >
         <ResetPassword isSubmiting={isReseting} uid={FormResetPassword} onSubmit={handleReset} defaultValues={{}} />
-      </Modal>
+      </ModalWithI18n>
     </>
   );
 };

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, ModalProps, Typography, AntRawUpload, notification } from 'reactjs';
 import { ValidateServiceResponse } from './types/ValidateServiceResponse';
-import { Modal } from '~/components/AntCustom/Modal';
+import { ModalWithI18n } from '~/components/AntCustom/ModalWithI18n';
 
 export interface ModalValidateProps<T extends ValidateServiceResponse> extends Pick<ModalProps, 'open' | 'onCancel'> {
   importType: string;
@@ -96,7 +96,7 @@ export const ModalValidate = <T extends ValidateServiceResponse>({
   };
 
   return (
-    <Modal
+    <ModalWithI18n
       open={open}
       afterClose={() => setFileState(null)}
       onCancel={handleCancel}
@@ -118,6 +118,6 @@ export const ModalValidate = <T extends ValidateServiceResponse>({
       )}
     >
       {renderDragger()}
-    </Modal>
+    </ModalWithI18n>
   );
 };

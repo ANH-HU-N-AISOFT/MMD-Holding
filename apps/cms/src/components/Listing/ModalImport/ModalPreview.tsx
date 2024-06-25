@@ -4,7 +4,7 @@ import { Button, ModalProps, Tabs, Tag } from 'reactjs';
 import { notification } from 'reactjs';
 import { ListingColumnType, TableListing } from '../TableListing';
 import { ValidateServiceResponse } from './types/ValidateServiceResponse';
-import { Modal } from '~/components/AntCustom/Modal';
+import { ModalWithI18n } from '~/components/AntCustom/ModalWithI18n';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 
@@ -106,9 +106,9 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
   const totalRecords = data?.length ?? 0;
   const pageSize = 20;
   return (
-    <Modal
+    <ModalWithI18n
       open={open}
-      afterOpenChange={() => {
+      afterClose={() => {
         setCurrentPage(1);
         setTabActive('all');
       }}
@@ -248,6 +248,6 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
         totalRecords={totalRecords}
         paginationMode="none"
       />
-    </Modal>
+    </ModalWithI18n>
   );
 };

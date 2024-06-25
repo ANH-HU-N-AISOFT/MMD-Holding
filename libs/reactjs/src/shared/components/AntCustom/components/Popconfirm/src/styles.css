@@ -21,3 +21,8 @@
   justify-content: flex-end;
   padding: var(--yy-popover-inner-padding);
 }
+
+.Popup__cancel,
+.Popup__ok {
+  max-height: 32px;
+}

@@ -93,10 +93,19 @@ export const Popconfirm: FC<Props> = ({
         <div className="Popup__content">
           <div className="Popup__body">{content}</div>
           <div className="Popup__footer">
-            <Button {...cancelButtonProps} onClick={handleCancel}>
+            <Button
+              {...cancelButtonProps}
+              className={classNames('Popup__cancel', cancelButtonProps?.className)}
+              onClick={handleCancel}
+            >
               {cancelText}
             </Button>
-            <Button {...okButtonProps} color={okButtonProps?.color ?? 'primary'} onClick={handleOk}>
+            <Button
+              {...okButtonProps}
+              className={classNames('Popup__ok', cancelButtonProps?.className)}
+              color={okButtonProps?.color ?? 'primary'}
+              onClick={handleOk}
+            >
               {okText}
             </Button>
           </div>

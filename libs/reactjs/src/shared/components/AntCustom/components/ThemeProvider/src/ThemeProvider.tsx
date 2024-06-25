@@ -127,11 +127,29 @@ export const ThemeProvider: FC<Props> = ({ children, config = {}, locale = viVN 
           Menu: {
             itemHeight: config.controlHeight,
           },
+          Pagination: {
+            controlHeight: config.controlHeight ? (config.controlHeight * 5) / 6 : config.controlHeight,
+          },
           Table: {
             headerBg: '#F9FAFB',
           },
           Layout: {
             bodyBg: '#F4F5F6',
+          },
+          Select: {
+            zIndexPopup: 100,
+          },
+          DatePicker: {
+            zIndexPopup: 100,
+          },
+          Dropdown: {
+            zIndexPopup: 100,
+          },
+          Modal: {
+            zIndexPopupBase: 200,
+          },
+          Alert: {
+            zIndexBase: 300,
           },
         },
         token: {
