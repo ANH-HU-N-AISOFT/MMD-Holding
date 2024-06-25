@@ -39,6 +39,27 @@ export class AuthSessionStorage<Data extends Record<string, any>> {
   };
 
   /**
+   * Commits the session and returns the session as a cookie string.
+   * @param {Session<Data, Data>} session - The session object to be committed.
+   * @returns {Promise<string>} A promise that resolves to the session as a cookie string.
+   */
+  public commitSessionAsCookieValue = (session: Session<Data, Data>): Promise<string> => {
+    return this._storage.commitSession(session);
+  };
+
+  /**
+   * Commits the session and returns the session as HTTP headers.
+   * @param {Session<Data, Data>} session - The session object to be committed.
+   * @returns {Promise<Headers>} A promise that resolves to the session as HTTP headers.
+   */
+  public commitSessionAsHeaders = async (session: Session<Data, Data>): Promise<Headers> => {
+    const cookie = await this._storage.commitSession(session);
+    const headers = new Headers();
+    headers.append('Set-Cookie', cookie);
+    return headers;
+  };
+
+  /**
    * Creates a new session or updates an existing session.
    * @param request - The request object.
    * @param sessionData - The data to be stored in the session.
@@ -66,7 +87,9 @@ export class AuthSessionStorage<Data extends Record<string, any>> {
     return redirect(redirectTo, {
       headers: {
         'Set-Cookie': await this._storage.commitSession(session, {
-          maxAge: remember ? 60 * 60 * 24 * 7 : 60,
+          maxAge: remember
+            ? 60 * 60 * 24 * 7 // 7 days
+            : undefined,
         }),
       },
     });
@@ -74,12 +97,20 @@ export class AuthSessionStorage<Data extends Record<string, any>> {
 
   /**
    * Destroys the session and redirects to the login URL.
-   * @param request - The request object.
-   * @returns A Promise resolving to void.
+   * @param {Object} options - The options object.
+   * @param {Request} options.request - The request object.
+   * @param {function(string): string} [options.redirectUrl=(loginUrl) => loginUrl] - The function to generate the redirect URL. Defaults to the login URL.
+   * @returns {Promise<TypedResponse<never>>} Redirect to login url
    */
-  public destroySession = async (request: Request): Promise<TypedResponse> => {
+  public destroySession = async ({
+    redirectUrl = (loginUrl): string => loginUrl,
+    request,
+  }: {
+    request: Request;
+    redirectUrl?: (loginUrl: string) => string;
+  }): Promise<TypedResponse<never>> => {
     const session = await this.getSession(request);
-    return redirect(this._loginUrl, {
+    return redirect(redirectUrl(this._loginUrl), {
       headers: {
         'Set-Cookie': await this._storage.destroySession(session),
       },
@@ -87,38 +118,32 @@ export class AuthSessionStorage<Data extends Record<string, any>> {
   };
 
   /**
-   * Guards routes by checking session existence and returns session data.
-   * @param request - The request object.
-   * @param homeUrl - URL to redirect to if the user is already on the login page. Defaults to '/'.
-   * @returns A Promise resolving to the session data.
-   * @throws Throws a redirect to either homeUrl or the login URL with appropriate parameters.
+   * Guards routes by checking session existence and validity based on a condition, then returns session data.
+   *
+   * @param {Object} params - The parameters object.
+   * @param {Request} params.request - The request object.
+   * @param {(session: Session<Data, Data>) => boolean} [params.condition] - The condition function to validate the session. Defaults to a function that always returns true.
+   *
+   * @returns {Promise<Omit<Session<Data, Data>, 'data'> & { data: Required<Session<Data, Data>['data']> }>} A Promise resolving to the session data if the session exists and passes the condition.
+   *
+   * @throws {Redirect} Throws a redirect to either the login URL with appropriate parameters if the session does not exist or does not meet the condition.
    */
   public guard = async ({
     request,
     condition = (): boolean => true,
-    homeUrl = '/',
   }: {
     request: Request;
     condition?: (session: Session<Data, Data>) => boolean;
-    homeUrl?: string;
-  }): Promise<Session<Data, Data>> => {
+  }): Promise<Omit<Session<Data, Data>, 'data'> & { data: Required<Session<Data, Data>['data']> }> => {
     const session = await this.getSession(request);
 
-    const { pathname, searchParams } = new URL(request.url);
+    const { pathname } = new URL(request.url);
 
-    if (pathname === this._loginUrl) {
-      if (!isEmpty(session.data) && condition(session)) {
-        throw redirect(searchParams.get('redirectTo') ?? homeUrl);
-      } else {
-        return session;
-      }
+    if (isEmpty(session.data) || !condition(session)) {
+      const searchParams = new URLSearchParams([['redirectTo', pathname]]);
+      throw redirect(`${this._loginUrl}?${searchParams}`);
     } else {
-      if (isEmpty(session.data) || !condition(session)) {
-        const searchParams = new URLSearchParams([['redirectTo', pathname]]);
-        throw redirect(`${this._loginUrl}?${searchParams}`);
-      } else {
-        return session;
-      }
+      return session as Omit<Session<Data, Data>, 'data'> & { data: Required<Session<Data, Data>['data']> };
     }
   };
 }

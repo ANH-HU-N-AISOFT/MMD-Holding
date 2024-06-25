@@ -14,9 +14,11 @@
 ### Methods
 
 - `getSession(request: Request): Promise<Session<Data, Data>>`: Retrieves the session based on the provided request object.
-- `createSession({ request, sessionData, remember, redirectTo }): Promise<void>`: Creates or updates a session with provided data.
-- `destroySession(request: Request): Promise<void>`: Destroys the session and redirects to the login URL.
-- `guard({ request, homeUrl }): Promise<Data>`: Guards routes by checking session existence and returns session data. Throws a redirect if necessary.
+- `createSession({ request, sessionData, remember, redirectTo }): Promise<TypedResponse<never>>`: Creates or updates a session with provided data.
+- `destroySession({ request, redirectUrl }): Promise<TypedResponse<never>>`: Destroys the session and redirects to the login URL.
+- `guard({ request, condition, homeUrl }): Promise<Omit<Session<Data, Data>, 'data'> & { data: Required<Session<Data, Data>['data']> }>`: Guards routes by checking session existence and returns session data. Throws a redirect if necessary.
+- `commitSessionAsCookieValue(session: Session<Data, Data>): Promise<string>`: Commits the session and returns the session as a cookie string.
+- `commitSessionAsHeaders(session: Session<Data, Data>): Promise<Headers>`: Commits the session and returns the session as HTTP headers.
 
 # Usage
 
@@ -40,21 +42,21 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
     token: "...",
     role: "...",
   };
-  return sessionStorage.createSession({
+  return authSessionStorage.createSession({
     request,
-    redirectTo: query.get("redirectTo") ?? "/dashboard",
-    remember: data.remember,
+    redirectTo: new URL(request.url).searchParams.get("redirectTo") ?? "/dashboard",
+    remember: true, // or data.remember depending on your logic
     sessionData,
   });
 };
 
 // _auth.tsx
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  return sessionStorage.guard(request);
+  return authSessionStorage.guard({ request });
 };
 
 // _account.tsx
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  return sessionStorage.guard(request);
+  return authSessionStorage.guard({ request });
 };
 ```
