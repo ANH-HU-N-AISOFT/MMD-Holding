@@ -27,10 +27,10 @@ import { getFormMutationResolver } from '~/packages/specific/ConsultantForm/comp
 import { ConsultantForm } from '~/packages/specific/ConsultantForm/models/ConsultantForm';
 import { getConsultantForm } from '~/packages/specific/ConsultantForm/services/getConsultantForm';
 import { updateConsultantForm } from '~/packages/specific/ConsultantForm/services/updateConsultantForm';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidateOnEditPage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

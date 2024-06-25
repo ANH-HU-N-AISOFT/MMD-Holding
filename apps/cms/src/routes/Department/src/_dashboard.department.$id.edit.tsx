@@ -26,10 +26,10 @@ import { getFormMutationResolver } from '~/packages/specific/Department/componen
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartment } from '~/packages/specific/Department/services/getDepartment';
 import { updateDepartment } from '~/packages/specific/Department/services/updateDepartment';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidateOnEditPage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

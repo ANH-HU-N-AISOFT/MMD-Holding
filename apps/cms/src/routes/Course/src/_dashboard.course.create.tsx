@@ -13,10 +13,10 @@ import { FormMutation, FormValues } from '~/packages/specific/Course/components/
 import { getFormMutationResolver } from '~/packages/specific/Course/components/FormMutation/zodResolver';
 import { CourseStatus } from '~/packages/specific/Course/models/CourseStatus';
 import { createCourse } from '~/packages/specific/Course/services/createCourse';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnCreatePage } from '~/utils/functions/preventRevalidateOnCreatePage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

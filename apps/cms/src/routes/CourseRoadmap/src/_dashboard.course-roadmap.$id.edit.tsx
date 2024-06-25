@@ -26,10 +26,10 @@ import { getFormMutationResolver } from '~/packages/specific/CourseRoadmap/compo
 import { CourseRoadmap } from '~/packages/specific/CourseRoadmap/models/CourseRoadmap';
 import { getCourseRoadmap } from '~/packages/specific/CourseRoadmap/services/getCourseRoadmap';
 import { updateCourseRoadmap } from '~/packages/specific/CourseRoadmap/services/updateCourseRoadmap';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidateOnEditPage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

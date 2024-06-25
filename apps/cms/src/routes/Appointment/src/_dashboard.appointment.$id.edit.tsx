@@ -27,10 +27,10 @@ import { getFormMutationResolver } from '~/packages/specific/Appointment/compone
 import { Appointment } from '~/packages/specific/Appointment/models/Appointment';
 import { getAppointment } from '~/packages/specific/Appointment/services/getAppointment';
 import { updateAppointment } from '~/packages/specific/Appointment/services/updateAppointment';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidateOnEditPage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

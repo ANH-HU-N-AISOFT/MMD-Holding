@@ -25,12 +25,12 @@ import { getFormMutationResolver } from '~/packages/specific/ConsultantForm/comp
 import { FormStatus } from '~/packages/specific/ConsultantForm/models/FormStatus';
 import { createConsultantForm } from '~/packages/specific/ConsultantForm/services/createConsultantForm';
 import { createUrlSearchParamsUtils } from '~/packages/specific/ConsultantForm/utils/createUrlSearchParamsUtils';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { Student } from '~/packages/specific/Student/models/Student';
 import { getStudent } from '~/packages/specific/Student/services/getStudent';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnCreatePage } from '~/utils/functions/preventRevalidateOnCreatePage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

@@ -4,9 +4,9 @@ import { ActionFunctionArgs, json } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { exportCourseCombos } from '~/packages/specific/CourseCombo/services/exportCourseCombos';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/CourseCombo/utils/lisitngUrlSearchParamsUtils';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { downloadAxiosResponseAsCSV } from '~/utils/functions/downloadAxiosResponseAsCSV';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request }: ActionFunctionArgs) => {

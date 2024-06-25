@@ -8,10 +8,10 @@ import {
   IconReceiptLinear,
 } from 'reactjs';
 import { useNavigate } from '~/overrides/@remix';
-import { ActionType, ResourceType } from '~/packages/common/SelectVariants/Permission/Permission';
+import { isCanShow } from '~/packages/specific/Permission/isCan/isCanShow';
+import { ActionType, ResourceType } from '~/packages/specific/Permission/Permission';
 import { getDefaultListingAppointmentsUrl } from '~/routes/Appointment/constants/getDefaultFilterUrl';
 import { getDefaultListingTrialRequestsUrl } from '~/routes/TrialRequest/constants/getDefaultFilterUrl';
-import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 
 export const useGetNavData = () => {
   const { t } = useTranslation(['dashboard_layout']);

@@ -1,4 +1,4 @@
-import { ActionType, ResourceType } from '~/packages/common/SelectVariants/Permission/Permission';
+import { ActionType, ResourceType } from '~/packages/specific/Permission/Permission';
 
 export const isCanEditCourseCombo = {
   actionType: ActionType.UPDATE,

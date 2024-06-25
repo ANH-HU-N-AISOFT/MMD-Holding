@@ -13,10 +13,10 @@ import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { FormMutation, FormValues } from '~/packages/specific/Contract/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Contract/components/FormMutation/zodResolver';
 import { createContract } from '~/packages/specific/Contract/services/createContract';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnCreatePage } from '~/utils/functions/preventRevalidateOnCreatePage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

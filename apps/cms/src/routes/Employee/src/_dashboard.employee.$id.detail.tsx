@@ -24,10 +24,10 @@ import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { Detail } from '~/packages/specific/Employee/components/Detail/Detail';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployee } from '~/packages/specific/Employee/services/getEmployee';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
+import { isCanShow } from '~/packages/specific/Permission/isCan/isCanShow';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
-import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnDetailPage } from '~/utils/functions/preventRevalidateOnDetailPage';
 
 type LoaderResponse = SimpleResponse<{ employee: Employee }, undefined>;

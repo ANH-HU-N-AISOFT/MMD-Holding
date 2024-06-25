@@ -27,10 +27,10 @@ import { Contract } from '~/packages/specific/Contract/models/Contract';
 import { getContracts } from '~/packages/specific/Contract/services/getContracts';
 import { ListingSearchParams } from '~/packages/specific/Contract/types/ListingSearchParams';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Contract/utils/lisitngUrlSearchParamsUtils';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
+import { isCanShow } from '~/packages/specific/Permission/isCan/isCanShow';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
-import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalidateOnListingPage';
 
 export const loader = async ({

@@ -1,6 +1,6 @@
+import { ActionType, ResourceType } from '../Permission';
 import { Session } from '~/packages/common/Auth/models/Session';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
-import { ActionType, ResourceType } from '~/packages/common/SelectVariants/Permission/Permission';
 
 interface IsCanShow {
   actionType: ActionType;

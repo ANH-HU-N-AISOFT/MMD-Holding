@@ -25,10 +25,10 @@ import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { Detail } from '~/packages/specific/Appointment/components/Detail/Detail';
 import { Appointment } from '~/packages/specific/Appointment/models/Appointment';
 import { getAppointment } from '~/packages/specific/Appointment/services/getAppointment';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
+import { isCanShow } from '~/packages/specific/Permission/isCan/isCanShow';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
-import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnDetailPage } from '~/utils/functions/preventRevalidateOnDetailPage';
 
 type LoaderResponse = SimpleResponse<{ appointment: Appointment }, undefined>;

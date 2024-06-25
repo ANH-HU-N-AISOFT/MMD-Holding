@@ -20,6 +20,7 @@ import {
 } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { Edit } from '~/packages/specific/RegistrationForm/components/Edit/Edit';
 import { FormValues } from '~/packages/specific/RegistrationForm/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/RegistrationForm/components/FormMutation/zodResolver';
@@ -29,7 +30,6 @@ import { updateRegistrationForm } from '~/packages/specific/RegistrationForm/ser
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidateOnEditPage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

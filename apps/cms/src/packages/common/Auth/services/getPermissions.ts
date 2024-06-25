@@ -1,4 +1,4 @@
-import { ActionType, ResourceType } from '../../SelectVariants/Permission/Permission';
+import { ActionType, ResourceType } from '../../../specific/Permission/Permission';
 
 export interface GetPermissionsResponseSuccess {
   items?: Array<{

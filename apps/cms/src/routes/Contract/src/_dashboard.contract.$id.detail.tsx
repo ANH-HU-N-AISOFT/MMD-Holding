@@ -24,10 +24,10 @@ import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { Detail } from '~/packages/specific/Contract/components/Detail/Detail';
 import { Contract } from '~/packages/specific/Contract/models/Contract';
 import { getContract } from '~/packages/specific/Contract/services/getContract';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
+import { isCanShow } from '~/packages/specific/Permission/isCan/isCanShow';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
-import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnDetailPage } from '~/utils/functions/preventRevalidateOnDetailPage';
 
 type LoaderResponse = SimpleResponse<{ contract: Contract }, undefined>;

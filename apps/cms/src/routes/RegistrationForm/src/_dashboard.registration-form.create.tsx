@@ -9,6 +9,7 @@ import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBound
 import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { FormMutation, FormValues } from '~/packages/specific/RegistrationForm/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/RegistrationForm/components/FormMutation/zodResolver';
 import { PaymentMethod } from '~/packages/specific/RegistrationForm/models/PaymentMethod';
@@ -16,7 +17,6 @@ import { createRegistrationForm } from '~/packages/specific/RegistrationForm/ser
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnCreatePage } from '~/utils/functions/preventRevalidateOnCreatePage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

@@ -15,10 +15,10 @@ import { FormMutation, FormValues } from '~/packages/specific/Employee/component
 import { getFormMutationResolver } from '~/packages/specific/Employee/components/FormMutation/zodResolver';
 import { WorkStatus } from '~/packages/specific/Employee/models/WorkStatus';
 import { createEmployee } from '~/packages/specific/Employee/services/createEmployee';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnCreatePage } from '~/utils/functions/preventRevalidateOnCreatePage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

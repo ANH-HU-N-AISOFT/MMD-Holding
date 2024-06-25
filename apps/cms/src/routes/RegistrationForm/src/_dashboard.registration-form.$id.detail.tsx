@@ -21,13 +21,13 @@ import {
   useNavigate,
 } from '~/overrides/@remix';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
+import { isCanShow } from '~/packages/specific/Permission/isCan/isCanShow';
 import { Detail } from '~/packages/specific/RegistrationForm/components/Detail/Detail';
 import { RegistrationForm } from '~/packages/specific/RegistrationForm/models/RegistrationForm';
 import { getRegistrationForm } from '~/packages/specific/RegistrationForm/services/getRegistrationForm';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
-import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnDetailPage } from '~/utils/functions/preventRevalidateOnDetailPage';
 
 type LoaderResponse = SimpleResponse<{ registrationForm: RegistrationForm }, undefined>;

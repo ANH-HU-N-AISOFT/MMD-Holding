@@ -12,10 +12,10 @@ import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { FormMutation, FormValues } from '~/packages/specific/Department/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Department/components/FormMutation/zodResolver';
 import { createDepartment } from '~/packages/specific/Department/services/createDepartment';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnCreatePage } from '~/utils/functions/preventRevalidateOnCreatePage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

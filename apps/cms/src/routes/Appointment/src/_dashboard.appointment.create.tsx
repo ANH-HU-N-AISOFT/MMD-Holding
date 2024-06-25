@@ -26,12 +26,12 @@ import { AppointmentStatus } from '~/packages/specific/Appointment/models/Appoin
 import { TestType } from '~/packages/specific/Appointment/models/TestType';
 import { createAppointment } from '~/packages/specific/Appointment/services/createAppointment';
 import { createUrlSearchParamsUtils } from '~/packages/specific/Appointment/utils/createUrlSearchParamsUtils';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { Student } from '~/packages/specific/Student/models/Student';
 import { getStudent } from '~/packages/specific/Student/services/getStudent';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnCreatePage } from '~/utils/functions/preventRevalidateOnCreatePage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

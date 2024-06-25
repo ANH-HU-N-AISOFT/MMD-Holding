@@ -26,10 +26,10 @@ import { getFormMutationResolver } from '~/packages/specific/DocumentTemplate/co
 import { DocumentTemplate } from '~/packages/specific/DocumentTemplate/models/DocumentTemplate';
 import { getDocumentTemplate } from '~/packages/specific/DocumentTemplate/services/getDocumentTemplate';
 import { updateDocumentTemplate } from '~/packages/specific/DocumentTemplate/services/updateDocumentTemplate';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidateOnEditPage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

@@ -23,6 +23,8 @@ import {
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { createUrlSearchParamsUtils as createAppointmentUrlSearchParamsUtils } from '~/packages/specific/Appointment/utils/createUrlSearchParamsUtils';
 import { createUrlSearchParamsUtils as createConsultantFormUrlSearchParamsUtils } from '~/packages/specific/ConsultantForm/utils/createUrlSearchParamsUtils';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
+import { isCanShow } from '~/packages/specific/Permission/isCan/isCanShow';
 import { Detail } from '~/packages/specific/Student/components/Detail/Detail';
 import { Student } from '~/packages/specific/Student/models/Student';
 import { getStudent } from '~/packages/specific/Student/services/getStudent';
@@ -32,8 +34,6 @@ import { isCanCreateConsultantForm } from '~/routes/ConsultantForm/src/utils/Is'
 import { isCanCreateTrialRequest } from '~/routes/TrialRequest/src/utils/Is';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
-import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnDetailPage } from '~/utils/functions/preventRevalidateOnDetailPage';
 
 type LoaderResponse = SimpleResponse<{ student: Student }, undefined>;

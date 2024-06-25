@@ -20,6 +20,8 @@ import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBound
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/@remix';
 import { useListingData } from '~/packages/base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/base/types/SimpleListingLoaderResponse';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
+import { isCanShow } from '~/packages/specific/Permission/isCan/isCanShow';
 import { FormSearchNFilter } from '~/packages/specific/TrialRequest/components/Listing/FormSearchNFilter';
 import { Header } from '~/packages/specific/TrialRequest/components/Listing/Header';
 import { Table } from '~/packages/specific/TrialRequest/components/Listing/Table';
@@ -30,8 +32,6 @@ import { ListingSearchParams } from '~/packages/specific/TrialRequest/types/List
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/TrialRequest/utils/lisitngUrlSearchParamsUtils';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
-import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalidateOnListingPage';
 
 export const loader = async ({

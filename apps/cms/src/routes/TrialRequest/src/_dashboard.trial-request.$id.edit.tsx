@@ -21,6 +21,7 @@ import {
 } from '~/overrides/@remix';
 import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { Edit } from '~/packages/specific/TrialRequest/components/Edit/Edit';
 import { FormValues } from '~/packages/specific/TrialRequest/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/TrialRequest/components/FormMutation/zodResolver';
@@ -30,7 +31,6 @@ import { updateTrialRequest } from '~/packages/specific/TrialRequest/services/up
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidateOnEditPage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

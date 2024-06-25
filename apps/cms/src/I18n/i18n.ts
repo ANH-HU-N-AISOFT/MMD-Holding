@@ -35,6 +35,7 @@ const resources = {
     document_template: DocumentTemplateLocales.en,
     contract: ContractLocales.en,
 
+    // FIXME: Tách thành module Enum
     enum: {
       gender: {
         label: 'Giới tính',
@@ -62,6 +63,8 @@ const resources = {
         },
       },
     },
+
+    // FIXME: Dashboard sau sẽ phải tách thành module
     dashboard_layout: {
       menu: {
         home: 'Trang chủ',

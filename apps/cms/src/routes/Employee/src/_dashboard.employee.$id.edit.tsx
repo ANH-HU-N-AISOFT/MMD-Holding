@@ -36,11 +36,11 @@ import {
 import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployee } from '~/packages/specific/Employee/services/getEmployee';
 import { updateEmployee } from '~/packages/specific/Employee/services/updateEmployee';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { fetcherFormData } from '~/utils/functions/formData/fetcherFormData';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnEditPage } from '~/utils/functions/preventRevalidateOnEditPage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

@@ -21,6 +21,7 @@ import { getValidatedFormData } from '~/overrides/@remix-hook-form';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { Student } from '~/packages/specific/Student/models/Student';
 import { getStudent } from '~/packages/specific/Student/services/getStudent';
 import { FormMutation, FormValues } from '~/packages/specific/TrialRequest/components/FormMutation/FormMutation';
@@ -31,7 +32,6 @@ import { createUrlSearchParamsUtils } from '~/packages/specific/TrialRequest/uti
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnCreatePage } from '~/utils/functions/preventRevalidateOnCreatePage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;

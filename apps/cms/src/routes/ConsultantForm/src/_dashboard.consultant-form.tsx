@@ -27,12 +27,12 @@ import { ConsultantForm } from '~/packages/specific/ConsultantForm/models/Consul
 import { getConsultantForms } from '~/packages/specific/ConsultantForm/services/getConsultantForms';
 import { ListingSearchParams } from '~/packages/specific/ConsultantForm/types/ListingSearchParams';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/ConsultantForm/utils/lisitngUrlSearchParamsUtils';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
+import { isCanShow } from '~/packages/specific/Permission/isCan/isCanShow';
 import { createUrlSearchParamsUtils } from '~/packages/specific/TrialRequest/utils/createUrlSearchParamsUtils';
 import { isCanCreateTrialRequest } from '~/routes/TrialRequest/src/utils/Is';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
-import { isCanShow } from '~/utils/functions/isCan/isCanShow';
 import { preventRevalidateOnListingPage } from '~/utils/functions/preventRevalidateOnListingPage';
 
 export const loader = async ({

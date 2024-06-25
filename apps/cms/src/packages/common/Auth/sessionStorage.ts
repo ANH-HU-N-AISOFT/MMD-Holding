@@ -2,7 +2,7 @@
 import { notification } from 'reactjs';
 import { localStorage } from 'utilities';
 import { array, object, string, enum as enum_ } from 'zod';
-import { ActionType, ResourceType } from '../SelectVariants/Permission/Permission';
+import { ActionType, ResourceType } from '../../specific/Permission/Permission';
 import { Role } from '../SelectVariants/Role/constants/Role';
 import { KeyOfSessionInCookie } from './constants/KeyOfSessionInCookie';
 import { Session } from './models/Session';

@@ -14,10 +14,10 @@ import { getFormMutationResolver } from '~/packages/specific/DocumentTemplate/co
 import { DocumentTemplateStatus } from '~/packages/specific/DocumentTemplate/models/DocumentTemplateStatus';
 import { DocumentTemplateType } from '~/packages/specific/DocumentTemplate/models/DocumentTemplateType';
 import { createDocumentTemplate } from '~/packages/specific/DocumentTemplate/services/createDocumentTemplate';
+import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
-import { isCanAccessRoute } from '~/utils/functions/isCan/isCanAccessRoute';
 import { preventRevalidateOnCreatePage } from '~/utils/functions/preventRevalidateOnCreatePage';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
