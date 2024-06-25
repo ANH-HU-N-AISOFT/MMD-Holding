@@ -3,13 +3,12 @@ import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import * as Forbidden from './routes/403';
 import * as NotFound from './routes/404';
 import * as InternalError from './routes/500';
-import * as AuthLayout from './routes/_auth';
-import * as Login from './routes/_auth.login';
 import * as DashboardLayout from './routes/_dashboard';
 import * as Dashboard from './routes/_dashboard.dashboard';
 import * as InputCheck from './routes/_dashboard.input-check';
 import * as RootLayout from './routes/_index';
 import AppointmentRoutes from './routes/Appointment';
+import { AuthRoutes } from './routes/Auth';
 import ConsultantFormRoutes from './routes/ConsultantForm';
 import ContractRoutes from './routes/Contract';
 import CourseRoutes from './routes/Course';
@@ -31,23 +30,7 @@ const router = createBrowserRouter([
     loader: RootLayout.loader,
     errorElement: <Navigate to="/404" />,
     children: [
-      {
-        element: <AuthLayout.Page />,
-        loader: AuthLayout.loader,
-        errorElement: <AuthLayout.ErrorBoundary />,
-        children: [
-          {
-            path: '/login',
-            action: Login.action,
-            errorElement: <Login.ErrorBoundary />,
-            element: (
-              <Suspense fallback={null}>
-                <Login.Page />
-              </Suspense>
-            ),
-          },
-        ],
-      },
+      ...AuthRoutes,
       {
         element: <DashboardLayout.Page />,
         loader: DashboardLayout.loader,
