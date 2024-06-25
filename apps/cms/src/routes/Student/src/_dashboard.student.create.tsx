@@ -14,6 +14,7 @@ import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAcces
 import { FormMutation, FormValues } from '~/packages/specific/Student/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/Student/components/FormMutation/zodResolver';
 import { createStudent } from '~/packages/specific/Student/services/createStudent';
+import { formMutationValuesToCreateStudentService } from '~/packages/specific/Student/utils/formMutationValuesToCreateStudentService';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
@@ -30,25 +31,7 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
       getFormMutationResolver({ t: t as TFunction<any>, needPassword: true }),
     );
     if (data) {
-      await createStudent({
-        accessStatus: data.roleSystem.accessStatus,
-        address: data.personalInformation.currentAddress ?? undefined,
-        birthday: data.personalInformation.dateOfBirth ?? undefined,
-        districtId: data.personalInformation.district ?? undefined,
-        email: data.personalInformation.email ?? undefined,
-        fullName: data.personalInformation.fullName,
-        gender: data.personalInformation.gender ?? undefined,
-        notifyParentsOfResults: data.personalInformation.notifyResultToParent ?? undefined,
-        organizationIds: data.personalInformation.departments,
-        parentPhoneNumber: data.personalInformation.parentPhone ?? undefined,
-        password: data.roleSystem.password as string,
-        phoneNumber: data.personalInformation.phone,
-        schoolId: data.personalInformation.school ?? undefined,
-        source: data.personalInformation.source ?? undefined,
-        supporterIds: data.personalInformation.saleEmployees ?? undefined,
-        username: data.roleSystem.username,
-        provinceId: data.personalInformation.city ?? undefined,
-      });
+      await createStudent(formMutationValuesToCreateStudentService(data));
       return json({
         hasError: false,
         message: 'Created',

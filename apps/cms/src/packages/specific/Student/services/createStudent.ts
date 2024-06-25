@@ -27,7 +27,7 @@ export interface CreateStudent {
 export type ResponseSuccess = Student;
 
 export const createStudent = async (data: CreateStudent) => {
-  const response = await fetchApi.request({
+  const response = await fetchApi.request<ResponseSuccess>({
     method: 'POST',
     url: '/students',
     data: data,
