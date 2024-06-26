@@ -33,6 +33,7 @@ export const RegistrationFormLocales = {
     disable_notify: 'Không',
     code: 'Số phiếu đăng ký',
     current_address: 'Địa chỉ hiện tại',
+    current_address_invalid: 'Chỉ cho phép nhập ký tự, số, dấu cách và dấu /',
     parent_phone: 'Số điện thoại phụ huynh',
     course: 'Khoá học đăng ký',
     total_number_sessions: 'Tổng thời lượng học',

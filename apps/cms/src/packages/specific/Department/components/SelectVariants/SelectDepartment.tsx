@@ -5,16 +5,16 @@ import { GetAllParams } from '~/constants/GetAllParams';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 
-type DepartmentFields = Pick<Department, 'id' | 'code' | 'name'>;
+type ExpectModel = Pick<Department, 'id' | 'code' | 'name'>;
 interface Props {
-  department?: DepartmentFields['id'];
-  onChange?: SelectSingleDecouplingProps<DepartmentFields, DepartmentFields['id']>['onChange'];
+  department?: ExpectModel['id'];
+  onChange?: SelectSingleDecouplingProps<ExpectModel, ExpectModel['id']>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
-  fieldValue?: keyof Pick<DepartmentFields, 'id' | 'code'>;
-  fieldLabel?: Array<keyof Pick<DepartmentFields, 'name' | 'code'>>;
-  extraDepartments: DepartmentFields[];
+  fieldValue?: keyof Pick<ExpectModel, 'id' | 'code'>;
+  fieldLabel?: Array<keyof Pick<ExpectModel, 'name' | 'code'>>;
+  extraDepartments: ExpectModel[];
 }
 
 export const SelectDepartment = ({
@@ -30,7 +30,7 @@ export const SelectDepartment = ({
   const { t } = useTranslation(['department']);
 
   return (
-    <SelectSingleDecoupling<DepartmentFields, DepartmentFields['id']>
+    <SelectSingleDecoupling<ExpectModel, ExpectModel['id']>
       allowClear={allowClear}
       placeholder={placeholder ?? t('department:department')}
       disabled={disabled}

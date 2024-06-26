@@ -55,6 +55,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit, student }: Pr
     <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
       <Field withRequiredMark label={t('student:fullName')} error={errors.personalInformation?.fullName?.message}>
         <Input
+          showCount
+          maxLength={100}
           value={fullName}
           onChange={value => {
             setValue('personalInformation.fullName', value);
@@ -99,6 +101,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit, student }: Pr
       </Field>
       <Field label={t('student:current_address')} error={errors.personalInformation?.currentAddress?.message}>
         <Input
+          showCount
+          maxLength={64}
           value={currentAddress ?? undefined}
           onChange={value => {
             setValue('personalInformation.currentAddress', value);

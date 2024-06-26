@@ -20,6 +20,7 @@ export interface Props
     | 'prefix'
     | 'suffix'
     | 'readOnly'
+    | 'showCount'
   > {
   /** The value of the input. */
   value?: string;
@@ -66,6 +67,7 @@ export const Input: FC<Props> = ({
   suffix,
   value,
   readOnly,
+  showCount,
 }) => {
   useInitializeContext();
   const isMounted = useIsMounted();
@@ -103,6 +105,7 @@ export const Input: FC<Props> = ({
 
   return (
     <AntInput
+      showCount={showCount}
       readOnly={readOnly}
       addonAfter={addonAfter}
       addonBefore={addonBefore}

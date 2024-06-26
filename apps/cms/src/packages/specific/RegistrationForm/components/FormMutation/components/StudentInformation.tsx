@@ -141,6 +141,8 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
           error={errors.studentCurrentAddress?.message}
         >
           <Input
+            showCount
+            maxLength={64}
             disabled={disabledField}
             placeholder={t('registration_form:current_address')}
             value={formValues.studentCurrentAddress ?? undefined}

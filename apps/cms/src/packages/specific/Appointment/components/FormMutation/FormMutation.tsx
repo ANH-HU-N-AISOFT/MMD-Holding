@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
 import { uniq } from 'ramda';
-import { useMemo } from 'react';
+import { ComponentProps, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Divider, Input, Radio, Textarea } from 'reactjs';
 import { Field, SingleTimePicker, useDeepCompareEffect } from 'reactjs';
@@ -22,10 +22,7 @@ import { useRemixForm } from '~/overrides/remix-hook-form';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectSchool } from '~/packages/extends/Location/components/SelectVariants/SelectSchool';
 import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
-import {
-  DepartmentFields,
-  SelectDepartments,
-} from '~/packages/specific/Department/components/SelectVariants/SelectDepartments';
+import { SelectDepartments } from '~/packages/specific/Department/components/SelectVariants/SelectDepartments';
 import { SelectEmployee } from '~/packages/specific/Employee/components/SelectVariants/SelectEmployee';
 import { SelectSaleEmployees } from '~/packages/specific/Employee/components/SelectVariants/SelectSaleEmployees';
 import { SelectSourceEnum } from '~/packages/specific/Student/components/SelectVariants/SelectSourceEnum';
@@ -186,7 +183,9 @@ export const FormMutation = ({
             </Field>
             <Field label={t('appointment:department')} error={errors.departmentOfSaleEmployees?.message}>
               <SelectDepartments
-                extraDepartments={(appointment?.saleEmployees ?? [])?.reduce<DepartmentFields[]>((result, item) => {
+                extraDepartments={(appointment?.saleEmployees ?? [])?.reduce<
+                  ComponentProps<typeof SelectDepartments>['extraDepartments']
+                >((result, item) => {
                   if (item.organization) {
                     return result.concat({
                       id: item.organization.id,
@@ -265,6 +264,8 @@ export const FormMutation = ({
             {demand?.includes('Khác') && (
               <Field label={t('appointment:extra_demand')} error={errors.extraDemand?.message}>
                 <Input
+                  showCount
+                  maxLength={32}
                   disabled={disabledField}
                   placeholder={t('appointment:extra_demand')}
                   value={extraDemand ?? undefined}

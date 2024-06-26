@@ -1,12 +1,10 @@
 import { TFunction } from 'i18next';
 import { boolean, object, string } from 'zod';
-import { getInvalidMessage } from '~/utils/functions/getInvalidMessage';
 import { getRequiredMessage } from '~/utils/functions/getRequiredMessage';
 
 export const getFormLoginZodSchema = (t: TFunction<['common', 'auth']>) => {
   const username = {
     required: getRequiredMessage(t, 'auth:username'),
-    invalid: getInvalidMessage(t, 'auth:username'),
   };
   const password = {
     required: getRequiredMessage(t, 'auth:password'),

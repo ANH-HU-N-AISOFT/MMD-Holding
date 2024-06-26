@@ -8,6 +8,8 @@ import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessage } from '~/utils/functions/getRequiredMessage';
 import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMessageSelectField';
 import { isPhone } from '~/utils/regexes';
+import { isAddress } from '~/utils/regexes/src/isAddress';
+import { isCitizenIdCard } from '~/utils/regexes/src/isCitizenIdCard';
 
 export const getFormMutationSchema = (t: TFunction<['common', 'contract']>) => {
   const code = {
@@ -34,7 +36,7 @@ export const getFormMutationSchema = (t: TFunction<['common', 'contract']>) => {
   const studentCurrentAddress = {
     required: getRequiredMessage(t, 'contract:student_current_address'),
     length: getRangeLengthMessage(t, 'contract:student_current_address', 3, 64),
-    invalid: getInvalidMessage(t, 'contract:student_current_address'),
+    invalid: t('contract:student_current_address_invalid'),
   };
 
   const parentName = {
@@ -51,7 +53,7 @@ export const getFormMutationSchema = (t: TFunction<['common', 'contract']>) => {
   const parentCurrentAddress = {
     required: getRequiredMessage(t, 'contract:parent_current_address'),
     length: getRangeLengthMessage(t, 'contract:parent_current_address', 3, 64),
-    invalid: getInvalidMessage(t, 'contract:parent_current_address'),
+    invalid: t('contract:parent_current_address_invalid'),
   };
 
   return object({
@@ -69,7 +71,7 @@ export const getFormMutationSchema = (t: TFunction<['common', 'contract']>) => {
       .trim()
       .min(8, studentCitizenIdCard.length)
       .max(16, studentCitizenIdCard.length)
-      .regex(/^[\p{L}0-9\-\s]*$/u, studentCitizenIdCard.invalid)
+      .regex(isCitizenIdCard, studentCitizenIdCard.invalid)
       .optional()
       .or(literal(''))
       .nullable(),
@@ -79,7 +81,7 @@ export const getFormMutationSchema = (t: TFunction<['common', 'contract']>) => {
       .trim()
       .min(3, studentCurrentAddress.length)
       .max(64, studentCurrentAddress.length)
-      .regex(/^[\p{L}0-9\s/]*$/u, studentCurrentAddress.invalid),
+      .regex(isAddress, studentCurrentAddress.invalid),
 
     parentName: string({ required_error: parentName.required })
       .trim()
@@ -101,7 +103,7 @@ export const getFormMutationSchema = (t: TFunction<['common', 'contract']>) => {
       .trim()
       .min(8, parentCitizenIdCard.length)
       .max(16, parentCitizenIdCard.length)
-      .regex(/^[\p{L}0-9\-\s]*$/u, parentCitizenIdCard.invalid)
+      .regex(isCitizenIdCard, parentCitizenIdCard.invalid)
       .optional()
       .or(literal(''))
       .nullable(),
@@ -111,7 +113,7 @@ export const getFormMutationSchema = (t: TFunction<['common', 'contract']>) => {
       .trim()
       .min(3, parentCurrentAddress.length)
       .max(64, parentCurrentAddress.length)
-      .regex(/^[\p{L}0-9\s/]*$/u, parentCurrentAddress.invalid)
+      .regex(isAddress, parentCurrentAddress.invalid)
       .or(literal(''))
       .optional()
       .nullable(),
@@ -168,7 +170,7 @@ export const getFormMutationSchema = (t: TFunction<['common', 'contract']>) => {
     .refine(
       value => {
         if (value.studentDateOfBirth && calculateAge(value.studentDateOfBirth) <= 18) {
-          return !!value.parentCurrentAddress && /^[\p{L}0-9\s/]*$/u.test(value.parentCurrentAddress);
+          return !!value.parentCurrentAddress && isAddress.test(value.parentCurrentAddress);
         }
         return true;
       },

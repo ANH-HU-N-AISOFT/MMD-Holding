@@ -114,6 +114,8 @@ export const FormMutation = ({
           <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2">
             <Field withRequiredMark label={t('promotion:name')} error={errors.name?.message}>
               <Input
+                showCount
+                maxLength={64}
                 value={name}
                 onChange={value => {
                   setValue('name', value);
@@ -127,6 +129,8 @@ export const FormMutation = ({
             </Field>
             <Field withRequiredMark label={t('promotion:code')} error={errors.code?.message}>
               <Input
+                showCount
+                maxLength={8}
                 value={code}
                 onChange={value => {
                   setValue('code', value);

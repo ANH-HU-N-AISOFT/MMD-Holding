@@ -113,6 +113,8 @@ export const FormMutation = ({
           <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2">
             <Field withRequiredMark label={t('department:name')} error={errors.name?.message}>
               <Input
+                showCount
+                maxLength={32}
                 value={name}
                 onChange={value => {
                   setValue('name', value);
@@ -126,6 +128,8 @@ export const FormMutation = ({
             </Field>
             <Field withRequiredMark label={t('department:code')} error={errors.code?.message}>
               <Input
+                showCount
+                maxLength={12}
                 value={code}
                 onChange={value => {
                   setValue('code', value);
@@ -170,6 +174,8 @@ export const FormMutation = ({
             </Field>
             <Field label={t('department:address')} error={errors.address?.message}>
               <Input
+                showCount
+                maxLength={64}
                 value={address ?? undefined}
                 onChange={value => {
                   setValue('address', value);

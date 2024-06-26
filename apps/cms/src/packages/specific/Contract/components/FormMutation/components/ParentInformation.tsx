@@ -102,6 +102,8 @@ export const ParentInformation = ({ form, disabledField, isEdit }: Props) => {
       <div className="md:col-span-2">
         <Field label={t('contract:parent_citizen_id_card')} error={errors.parentCitizenIdCard?.message}>
           <Input
+            showCount
+            maxLength={16}
             disabled={disabledField}
             placeholder={t('contract:parent_citizen_id_card')}
             value={formValues.parentCitizenIdCard ?? undefined}
@@ -152,6 +154,8 @@ export const ParentInformation = ({ form, disabledField, isEdit }: Props) => {
           error={errors.parentCurrentAddress?.message}
         >
           <Input
+            showCount
+            maxLength={64}
             disabled={disabledField}
             placeholder={t('contract:parent_current_address')}
             value={formValues.parentCurrentAddress ?? undefined}

@@ -93,6 +93,8 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
             <div className="md:col-span-2">
               <Field withRequiredMark label={t('course_combo:name')} error={errors.name?.message}>
                 <Input
+                  showCount
+                  maxLength={32}
                   value={name}
                   onChange={value => {
                     setValue('name', value);

@@ -5,16 +5,16 @@ import { GetAllParams } from '~/constants/GetAllParams';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 
-export type DepartmentFields = Pick<Department, 'id' | 'code' | 'name'>;
+type ExpectModel = Pick<Department, 'id' | 'code' | 'name'>;
 interface Props {
-  departments?: Array<DepartmentFields['id']>;
-  onChange?: SelectMultipleDecouplingProps<DepartmentFields, Array<DepartmentFields['id']>>['onChange'];
+  departments?: Array<ExpectModel['id']>;
+  onChange?: SelectMultipleDecouplingProps<ExpectModel, Array<ExpectModel['id']>>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
-  fieldValue?: keyof Pick<DepartmentFields, 'id' | 'code'>;
-  fieldLabel?: Array<keyof Pick<DepartmentFields, 'name' | 'code'>>;
-  extraDepartments: DepartmentFields[];
+  fieldValue?: keyof Pick<ExpectModel, 'id' | 'code'>;
+  fieldLabel?: Array<keyof Pick<ExpectModel, 'name' | 'code'>>;
+  extraDepartments: ExpectModel[];
 }
 
 export const SelectDepartments = ({

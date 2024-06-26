@@ -46,6 +46,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
     <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
       <Field withRequiredMark label={t('employee:full_name')} error={errors.personalInformation?.fullName?.message}>
         <Input
+          showCount
+          maxLength={100}
           value={fullName}
           onChange={value => {
             setValue('personalInformation.fullName', value);
@@ -140,6 +142,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
       <div className="md:col-span-2">
         <Field label={t('employee:current_address')} error={errors.personalInformation?.currentAddress?.message}>
           <Input
+            showCount
+            maxLength={96}
             value={currentAddress ?? undefined}
             onChange={value => {
               setValue('personalInformation.currentAddress', value);
@@ -155,6 +159,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
       <div className="md:col-span-2">
         <Field label={t('employee:residence_address')} error={errors.personalInformation?.residenceAddress?.message}>
           <Input
+            showCount
+            maxLength={96}
             value={residenceAddress ?? undefined}
             onChange={value => {
               setValue('personalInformation.residenceAddress', value);
@@ -181,6 +187,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
       </Field>
       <Field label={t('employee:citizen_id_card')} error={errors.personalInformation?.citizenIdCard?.message}>
         <Input
+          showCount
+          maxLength={16}
           value={citizenIdCard ?? undefined}
           onChange={value => {
             setValue('personalInformation.citizenIdCard', value);
@@ -203,6 +211,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
         error={errors.personalInformation?.emergencyContactName?.message}
       >
         <Input
+          showCount
+          maxLength={100}
           value={emergencyContactName}
           onChange={value => {
             setValue('personalInformation.emergencyContactName', value);
@@ -238,6 +248,8 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
         error={errors.personalInformation?.emergencyContactRelationship?.message}
       >
         <Input
+          showCount
+          maxLength={16}
           value={emergencyContactRelationship ?? undefined}
           onChange={value => {
             setValue('personalInformation.emergencyContactRelationship', value);

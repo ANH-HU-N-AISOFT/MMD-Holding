@@ -9,6 +9,7 @@ import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessage } from '~/utils/functions/getRequiredMessage';
 import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMessageSelectField';
 import { isEmail, isPhone } from '~/utils/regexes';
+import { isAddress } from '~/utils/regexes/src/isAddress';
 
 export const getFormMutationSchema = (t: TFunction<['common', 'registration_form']>) => {
   const code = {
@@ -28,7 +29,7 @@ export const getFormMutationSchema = (t: TFunction<['common', 'registration_form
   const studentCurrentAddress = {
     required: getRequiredMessage(t, 'registration_form:current_address'),
     length: getRangeLengthMessage(t, 'registration_form:current_address', 3, 64),
-    invalid: getInvalidMessage(t, 'registration_form:current_address'),
+    invalid: t('registration_form:current_address_invalid'),
   };
   const studentParentPhone = {
     required: getRequiredMessage(t, 'registration_form:parent_phone'),
@@ -92,7 +93,7 @@ export const getFormMutationSchema = (t: TFunction<['common', 'registration_form
       .trim()
       .min(3, studentCurrentAddress.length)
       .max(64, studentCurrentAddress.length)
-      .regex(/^[\p{L}0-9\s/]*$/u, studentCurrentAddress.invalid),
+      .regex(isAddress, studentCurrentAddress.invalid),
     studentCityName: string().trim().optional().or(literal('')).nullable(),
     studentCityId: string().optional().nullable(),
     studentCityCode: string().optional().nullable(),

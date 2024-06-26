@@ -10,7 +10,10 @@ import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
 import { getRequiredMessage } from '~/utils/functions/getRequiredMessage';
 import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMessageSelectField';
 import { isEmail, isPhone } from '~/utils/regexes';
+import { isAddress } from '~/utils/regexes/src/isAddress';
+import { isNameOfPerson } from '~/utils/regexes/src/isNameOfPerson';
 import { isStrongPassword } from '~/utils/regexes/src/isStrongPassword';
+import { isUserName } from '~/utils/regexes/src/isUserName';
 
 export const getFormMutationSchema = ({
   needPassword,
@@ -62,7 +65,7 @@ export const getFormMutationSchema = ({
         .trim()
         .min(1, fullName.length)
         .max(100, fullName.length)
-        .regex(/^[\p{L}\-'\s]*$/u, fullName.invalid),
+        .regex(isNameOfPerson, fullName.invalid),
       phone: string({ required_error: phone.required }).trim().min(1, phone.required).regex(isPhone, phone.invalid),
       email: string()
         .trim()
@@ -82,7 +85,7 @@ export const getFormMutationSchema = ({
         .trim()
         .min(3, currentAddress.length)
         .max(64, currentAddress.length)
-        .regex(/^[\p{L}0-9\s/]*$/u, currentAddress.invalid)
+        .regex(isAddress, currentAddress.invalid)
         .optional()
         .or(literal(''))
         .nullable(),
@@ -126,7 +129,7 @@ export const getFormMutationSchema = ({
         .trim()
         .min(5, username.length)
         .max(12, username.length)
-        .regex(/^[\p{L}0-9]*$/u, username.invalid),
+        .regex(isUserName, username.invalid),
       accessStatus: enum_([SystemAccessStatus.BLOCKED, SystemAccessStatus.GRANTED], {
         required_error: accessStatus.required,
       }),

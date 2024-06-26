@@ -32,7 +32,7 @@ export const getFormMutationSchema = (t: TFunction<['common', 'promotion']>) => 
 
   return object({
     name: string({ required_error: name.required }).trim().min(3, name.length).max(64, name.length),
-    code: string({ required_error: code.required }).trim().min(1, code.length).max(64, code.length),
+    code: string({ required_error: code.required }).trim().min(1, code.length).max(8, code.length),
     status: enum_([PromotionStatus.Active, PromotionStatus.InActive]),
     startDate: string({ required_error: dateAvailable.required }),
     endDate: string({ required_error: dateAvailable.required }),

@@ -51,5 +51,7 @@ export const ContractLocales = {
     extend: 'Gia hạn hợp đồng',
     cancel: 'Huỷ hợp đồng',
     download: 'Tải xuống hợp đồng',
+    student_current_address_invalid: 'Chỉ cho phép nhập ký tự, số, dấu cách và dấu /',
+    parent_current_address_invalid: 'Chỉ cho phép nhập ký tự, số, dấu cách và dấu /',
   },
 };

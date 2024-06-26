@@ -113,6 +113,8 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
       <div className="md:col-span-2">
         <Field label={t('contract:student_citizen_id_card')} error={errors.studentCitizenIdCard?.message}>
           <Input
+            showCount
+            maxLength={16}
             disabled={disabledField}
             placeholder={t('contract:student_citizen_id_card')}
             value={formValues.studentCitizenIdCard ?? undefined}
@@ -163,6 +165,8 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
           error={errors.studentCurrentAddress?.message}
         >
           <Input
+            showCount
+            maxLength={64}
             disabled={disabledField}
             placeholder={t('contract:student_current_address')}
             value={formValues.studentCurrentAddress ?? undefined}

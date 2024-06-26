@@ -96,6 +96,8 @@ export const RoleSystem = ({
       </Field>
       <Field withRequiredMark label={t('employee:username')} error={errors.roleSystem?.username?.message}>
         <Input
+          showCount
+          maxLength={12}
           value={username}
           onChange={value => {
             setValue('roleSystem.username', value);
