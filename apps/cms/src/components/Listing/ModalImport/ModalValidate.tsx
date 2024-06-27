@@ -3,9 +3,13 @@ import { RcFile } from 'antd/es/upload';
 import Dragger from 'antd/es/upload/Dragger';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ModalProps, Typography, AntRawUpload, notification } from 'reactjs';
+import { AntRawUpload, Button, ModalProps, notification } from 'reactjs';
 import { ValidateServiceResponse } from './types/ValidateServiceResponse';
 import { ModalWithI18n } from '~/components/AntCustom/ModalWithI18n';
+import { downloadAxiosResponse } from '~/utils/functions/downloadAxiosResponse';
+import { fetchApi } from '~/utils/functions/fetchApi';
+import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
+import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 
 export interface ModalValidateProps<T extends ValidateServiceResponse> extends Pick<ModalProps, 'open' | 'onCancel'> {
   importType: string;
@@ -26,6 +30,7 @@ export const ModalValidate = <T extends ValidateServiceResponse>({
 
   const [fileState, setFileState] = useState<File | null>(null);
   const [isValidating, setIsValidating] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   const renderDragger = () => {
     if (fileState) {
@@ -95,6 +100,27 @@ export const ModalValidate = <T extends ValidateServiceResponse>({
     onCancel?.(event);
   };
 
+  const handleDownloadSample = async () => {
+    setIsDownloading(true);
+    try {
+      const response = await fetchApi.request({
+        url: downSampleUrl,
+        responseType: 'blob',
+      });
+      downloadAxiosResponse({
+        response: response.data,
+        fileName: `${importType}.csv`,
+      });
+    } catch (error) {
+      notification.error({
+        message: t('components:ModalValidate.download_sample_failure'),
+        description: handleGetMessageToToast(t, await handleCatchClauseSimpleAtClient(error)),
+      });
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
   return (
     <ModalWithI18n
       open={open}
@@ -107,9 +133,9 @@ export const ModalValidate = <T extends ValidateServiceResponse>({
       okText={t('components:ModalValidate.upload_and_preview')}
       footer={(_, { OkBtn, CancelBtn }) => (
         <div className="flex items-center justify-between">
-          <Typography.Link href={downSampleUrl} download target="_blank" className="!underline">
+          <Button type="link" loading={isDownloading} onClick={handleDownloadSample} className="!px-0 !underline">
             {t('components:ModalValidate.download_sample')}
-          </Typography.Link>
+          </Button>
           <div className="flex items-center gap-2">
             <CancelBtn />
             <OkBtn />

@@ -24,7 +24,11 @@ const StudentRoutes: RouteObject[] = [
     path: '/student/:id/detail',
     loader: StudentDetail.loader,
     shouldRevalidate: StudentDetail.shouldRevalidate,
-    element: <StudentDetail.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <StudentDetail.Page />
+      </Suspense>
+    ),
     errorElement: <StudentDetail.ErrorBoundary />,
   },
   {
@@ -32,7 +36,11 @@ const StudentRoutes: RouteObject[] = [
     loader: EditStudent.loader,
     action: EditStudent.action,
     shouldRevalidate: EditStudent.shouldRevalidate,
-    element: <EditStudent.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <EditStudent.Page />
+      </Suspense>
+    ),
     errorElement: <EditStudent.ErrorBoundary />,
   },
   {
@@ -40,7 +48,11 @@ const StudentRoutes: RouteObject[] = [
     loader: CreateStudent.loader,
     action: CreateStudent.action,
     shouldRevalidate: CreateStudent.shouldRevalidate,
-    element: <CreateStudent.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <CreateStudent.Page />
+      </Suspense>
+    ),
     errorElement: <CreateStudent.ErrorBoundary />,
   },
   {

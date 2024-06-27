@@ -71,7 +71,7 @@ export const DashboardLayout = () => {
         />
       </Sider>
       <AntRawLayout className="!min-h-[100dvh]">
-        <Header className="sticky left-0 top-0 z-10 !bg-white !pl-2 !pr-6">
+        <Header className="sticky left-0 top-0 z-10 border-solid border-transparent border-b-neutral-200 !bg-white !pl-2 !pr-6 shadow-sm">
           <div className="flex h-full w-full items-center justify-between">
             <Button
               type="text"
@@ -85,7 +85,7 @@ export const DashboardLayout = () => {
             </div>
           </div>
         </Header>
-        <Content className="!bg-[rgba(249, 230, 233, 0.8)] p-4 !pb-0 md:p-8">
+        <Content className="p-4 !pb-0 md:p-8">
           <Suspense fallback={null}>
             <Outlet />
           </Suspense>

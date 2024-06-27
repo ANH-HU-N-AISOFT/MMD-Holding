@@ -128,6 +128,7 @@ const resources = {
         replace_file: 'Chọn file khác',
         error_title: 'Import thất bại',
         error_description: 'Vui lòng giữ nguyên format như file biểu mẫu',
+        download_sample_failure: 'Tải biểu mẫu thất bại',
       },
       ModalPreview: {
         title: 'Import {{ type }} từ file xlsx',

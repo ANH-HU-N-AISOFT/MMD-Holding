@@ -32,7 +32,7 @@ export interface Props extends Pick<AntAlertProps, 'className'> {
  * @param {ReactNode} [props.icon] - Custom icon for the alert.
  * @returns {ReactNode} The rendered Alert component.
  */
-export const Alert: FC<Props> = ({ className, color = 'primary', variant = 'bold', message, description, icon }) => {
+export const Alert: FC<Props> = ({ className, color = 'primary', variant = 'outline', message, description, icon }) => {
   return (
     <AntAlert
       className={classNames('Alert__container', colors[color], variants[variant], className)}

@@ -23,7 +23,11 @@ const AppointmentRoutes: RouteObject[] = [
     path: '/appointment/:id/detail',
     loader: AppointmentDetail.loader,
     shouldRevalidate: AppointmentDetail.shouldRevalidate,
-    element: <AppointmentDetail.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <AppointmentDetail.Page />
+      </Suspense>
+    ),
     errorElement: <AppointmentDetail.ErrorBoundary />,
   },
   {
@@ -31,7 +35,11 @@ const AppointmentRoutes: RouteObject[] = [
     loader: EditAppointment.loader,
     action: EditAppointment.action,
     shouldRevalidate: EditAppointment.shouldRevalidate,
-    element: <EditAppointment.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <EditAppointment.Page />
+      </Suspense>
+    ),
     errorElement: <EditAppointment.ErrorBoundary />,
   },
   {
@@ -39,7 +47,11 @@ const AppointmentRoutes: RouteObject[] = [
     loader: CreateAppointment.loader,
     action: CreateAppointment.action,
     shouldRevalidate: CreateAppointment.shouldRevalidate,
-    element: <CreateAppointment.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <CreateAppointment.Page />
+      </Suspense>
+    ),
     errorElement: <CreateAppointment.ErrorBoundary />,
   },
   {

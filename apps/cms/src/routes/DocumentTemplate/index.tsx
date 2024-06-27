@@ -22,7 +22,11 @@ const DocumentTemplateRoutes: RouteObject[] = [
     path: '/document-template/:id/detail',
     loader: DocumentTemplateDetail.loader,
     shouldRevalidate: DocumentTemplateDetail.shouldRevalidate,
-    element: <DocumentTemplateDetail.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <DocumentTemplateDetail.Page />
+      </Suspense>
+    ),
     errorElement: <DocumentTemplateDetail.ErrorBoundary />,
   },
   {
@@ -30,14 +34,22 @@ const DocumentTemplateRoutes: RouteObject[] = [
     loader: EditDocumentTemplate.loader,
     action: EditDocumentTemplate.action,
     shouldRevalidate: EditDocumentTemplate.shouldRevalidate,
-    element: <EditDocumentTemplate.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <EditDocumentTemplate.Page />
+      </Suspense>
+    ),
     errorElement: <EditDocumentTemplate.ErrorBoundary />,
   },
   {
     path: '/document-template/create',
     action: CreateDocumentTemplate.action,
     shouldRevalidate: CreateDocumentTemplate.shouldRevalidate,
-    element: <CreateDocumentTemplate.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <CreateDocumentTemplate.Page />
+      </Suspense>
+    ),
     errorElement: <CreateDocumentTemplate.ErrorBoundary />,
   },
   // {

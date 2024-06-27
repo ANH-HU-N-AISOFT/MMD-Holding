@@ -22,7 +22,11 @@ const RegistrationFormRoutes: RouteObject[] = [
     path: '/registration-form/:id/detail',
     loader: RegistrationFormDetail.loader,
     shouldRevalidate: RegistrationFormDetail.shouldRevalidate,
-    element: <RegistrationFormDetail.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <RegistrationFormDetail.Page />
+      </Suspense>
+    ),
     errorElement: <RegistrationFormDetail.ErrorBoundary />,
   },
   {
@@ -30,14 +34,22 @@ const RegistrationFormRoutes: RouteObject[] = [
     loader: EditRegistrationForm.loader,
     action: EditRegistrationForm.action,
     shouldRevalidate: EditRegistrationForm.shouldRevalidate,
-    element: <EditRegistrationForm.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <EditRegistrationForm.Page />
+      </Suspense>
+    ),
     errorElement: <EditRegistrationForm.ErrorBoundary />,
   },
   {
     path: '/registration-form/create',
     action: CreateRegistrationForm.action,
     shouldRevalidate: CreateRegistrationForm.shouldRevalidate,
-    element: <CreateRegistrationForm.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <CreateRegistrationForm.Page />
+      </Suspense>
+    ),
     errorElement: <CreateRegistrationForm.ErrorBoundary />,
   },
   {

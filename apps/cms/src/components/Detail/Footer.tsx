@@ -61,7 +61,7 @@ export const Footer = ({
   return (
     <div
       className={classNames(
-        'border-t-solid sticky bottom-0 z-10 flex flex-col items-end justify-end gap-2 border-t border-t-neutral-300 bg-white py-4 px-4 md:px-8 sm:flex-row sm:items-center rounded-bl-[inherit] rounded-br-[inherit] -ml-4 -mr-4 md:-mr-8 md:-ml-8',
+        'border-t-solid sticky bottom-0 z-10 flex flex-col items-end justify-end gap-2 border-t border-t-neutral-200 bg-white py-4 px-4 md:px-8 sm:flex-row sm:items-center rounded-bl-[inherit] rounded-br-[inherit] -ml-4 -mr-4 md:-mr-8 md:-ml-8',
         className,
       )}
     >

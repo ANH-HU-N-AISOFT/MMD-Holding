@@ -8,7 +8,7 @@ import { TypeOf } from 'zod';
 import { BusinessStatusEnum } from '../../models/BusinessStatusEnum';
 import { Department } from '../../models/Department';
 import { SelectBusinessStatus } from '../SelectVariants/SelectBusinessStatus';
-import { SelectManagementUnit } from '../SelectVariants/SelectManagementUnit';
+import { SelectDepartment } from '../SelectVariants/SelectDepartment';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
@@ -146,9 +146,9 @@ export const FormMutation = ({
               label={t('department:manage_department')}
               error={errors.manageDepartmentId?.message}
             >
-              <SelectManagementUnit
+              <SelectDepartment
                 extraDepartments={department?.managementUnit ? [department.managementUnit] : []}
-                managementUnit={manageDepartmentId}
+                department={manageDepartmentId}
                 onChange={value => {
                   setValue('manageDepartmentId', value);
                   if (errors.manageDepartmentId) {

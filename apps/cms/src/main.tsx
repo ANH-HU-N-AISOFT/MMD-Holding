@@ -24,7 +24,7 @@ if ('serviceWorker' in navigator) {
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-  <ThemeProvider config={{ controlHeight: 42, borderRadius: 12, colorPrimary: '#C00027' }}>
+  <ThemeProvider config={{ controlHeight: 42, borderRadius: 10, colorPrimary: '#C00027' }}>
     <I18nextProvider i18n={i18next}>
       <App />
     </I18nextProvider>

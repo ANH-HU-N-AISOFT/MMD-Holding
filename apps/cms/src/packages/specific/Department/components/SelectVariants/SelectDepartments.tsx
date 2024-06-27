@@ -1,20 +1,19 @@
 import { prop, uniqBy } from 'ramda';
 import { useTranslation } from 'react-i18next';
 import { SelectMultipleDecoupling, SelectMultipleDecouplingProps } from 'reactjs';
-import { GetAllParams } from '~/constants/GetAllParams';
-import { Department } from '~/packages/specific/Department/models/Department';
-import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
+import { DepartmentPopulated } from '../../models/DepartmentPopulated';
+import { GetDepartmentsInSelect, getDepartmentsInSelect } from '../../services/getDepartmentsInSelect';
 
-type ExpectModel = Pick<Department, 'id' | 'code' | 'name'>;
 interface Props {
-  departments?: Array<ExpectModel['id']>;
-  onChange?: SelectMultipleDecouplingProps<ExpectModel, Array<ExpectModel['id']>>['onChange'];
+  departments?: Array<DepartmentPopulated['id']>;
+  onChange?: SelectMultipleDecouplingProps<DepartmentPopulated, Array<DepartmentPopulated['id']>>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
-  fieldValue?: keyof Pick<ExpectModel, 'id' | 'code'>;
-  fieldLabel?: Array<keyof Pick<ExpectModel, 'name' | 'code'>>;
-  extraDepartments: ExpectModel[];
+  fieldValue?: keyof Pick<DepartmentPopulated, 'id' | 'code'>;
+  fieldLabel?: Array<keyof Pick<DepartmentPopulated, 'name' | 'code'>>;
+  extraDepartments: DepartmentPopulated[];
+  params?: GetDepartmentsInSelect;
 }
 
 export const SelectDepartments = ({
@@ -26,6 +25,7 @@ export const SelectDepartments = ({
   fieldValue = 'id',
   fieldLabel = ['name', 'code'],
   extraDepartments,
+  params = {},
 }: Props) => {
   const { t } = useTranslation(['department']);
 
@@ -36,11 +36,9 @@ export const SelectDepartments = ({
       disabled={disabled}
       value={departments}
       onChange={onChange}
+      depsFetch={[params]}
       service={async () => {
-        const response = await getDepartments({
-          ...GetAllParams,
-          sortByName: 1,
-        });
+        const response = await getDepartmentsInSelect(params);
         return uniqBy(prop('id'), [...extraDepartments, ...response.items]);
       }}
       transformToOption={department => {

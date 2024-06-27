@@ -22,7 +22,11 @@ const PromotionRoutes: RouteObject[] = [
     path: '/promotion/:id/detail',
     loader: PromotionDetail.loader,
     shouldRevalidate: PromotionDetail.shouldRevalidate,
-    element: <PromotionDetail.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <PromotionDetail.Page />
+      </Suspense>
+    ),
     errorElement: <PromotionDetail.ErrorBoundary />,
   },
   {
@@ -30,14 +34,22 @@ const PromotionRoutes: RouteObject[] = [
     loader: EditPromotion.loader,
     action: EditPromotion.action,
     shouldRevalidate: EditPromotion.shouldRevalidate,
-    element: <EditPromotion.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <EditPromotion.Page />
+      </Suspense>
+    ),
     errorElement: <EditPromotion.ErrorBoundary />,
   },
   {
     path: '/promotion/create',
     action: CreatePromotion.action,
     shouldRevalidate: CreatePromotion.shouldRevalidate,
-    element: <CreatePromotion.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <CreatePromotion.Page />
+      </Suspense>
+    ),
     errorElement: <CreatePromotion.ErrorBoundary />,
   },
   {

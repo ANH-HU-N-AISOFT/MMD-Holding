@@ -80,6 +80,7 @@ export const RegistrationFormLocales = {
     active: 'Còn hiệu lực',
     inactive: 'Hết hiệu lực',
     download: 'Tải xuống phiếu đăng ký',
+    departure: 'Đơn vị',
 
     BANK: 'Chuyển khoản',
     CASH: 'Tiên mặt',

@@ -153,6 +153,7 @@ export const ThemeProvider: FC<Props> = ({ children, config = {}, locale = viVN 
           },
         },
         token: {
+          fontFamily: 'Lexend Deca',
           ...config,
         },
       }}

@@ -23,7 +23,11 @@ const DepartmentRoutes: RouteObject[] = [
     path: '/department/:id/detail',
     loader: DepartmentDetail.loader,
     shouldRevalidate: DepartmentDetail.shouldRevalidate,
-    element: <DepartmentDetail.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <DepartmentDetail.Page />
+      </Suspense>
+    ),
     errorElement: <DepartmentDetail.ErrorBoundary />,
   },
   {
@@ -31,7 +35,11 @@ const DepartmentRoutes: RouteObject[] = [
     loader: EditDepartment.loader,
     action: EditDepartment.action,
     shouldRevalidate: EditDepartment.shouldRevalidate,
-    element: <EditDepartment.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <EditDepartment.Page />
+      </Suspense>
+    ),
     errorElement: <EditDepartment.ErrorBoundary />,
   },
   {
@@ -39,7 +47,11 @@ const DepartmentRoutes: RouteObject[] = [
     loader: CreateDepartment.loader,
     action: CreateDepartment.action,
     shouldRevalidate: CreateDepartment.shouldRevalidate,
-    element: <CreateDepartment.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <CreateDepartment.Page />
+      </Suspense>
+    ),
     errorElement: <CreateDepartment.ErrorBoundary />,
   },
   {

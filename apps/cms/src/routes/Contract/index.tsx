@@ -22,7 +22,11 @@ const ContractRoutes: RouteObject[] = [
     path: '/contract/:id/detail',
     loader: ContractDetail.loader,
     shouldRevalidate: ContractDetail.shouldRevalidate,
-    element: <ContractDetail.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <ContractDetail.Page />
+      </Suspense>
+    ),
     errorElement: <ContractDetail.ErrorBoundary />,
   },
   {
@@ -30,14 +34,22 @@ const ContractRoutes: RouteObject[] = [
     loader: EditContract.loader,
     action: EditContract.action,
     shouldRevalidate: EditContract.shouldRevalidate,
-    element: <EditContract.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <EditContract.Page />
+      </Suspense>
+    ),
     errorElement: <EditContract.ErrorBoundary />,
   },
   {
     path: '/contract/create',
     action: CreateContract.action,
     shouldRevalidate: CreateContract.shouldRevalidate,
-    element: <CreateContract.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <CreateContract.Page />
+      </Suspense>
+    ),
     errorElement: <CreateContract.ErrorBoundary />,
   },
   {

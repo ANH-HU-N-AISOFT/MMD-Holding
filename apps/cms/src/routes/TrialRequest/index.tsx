@@ -23,7 +23,11 @@ const TrialRequestRoutes: RouteObject[] = [
     path: '/trial-request/:id/detail',
     loader: TrialRequestDetail.loader,
     shouldRevalidate: TrialRequestDetail.shouldRevalidate,
-    element: <TrialRequestDetail.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <TrialRequestDetail.Page />
+      </Suspense>
+    ),
     errorElement: <TrialRequestDetail.ErrorBoundary />,
   },
   {
@@ -31,7 +35,11 @@ const TrialRequestRoutes: RouteObject[] = [
     loader: EditTrialRequest.loader,
     action: EditTrialRequest.action,
     shouldRevalidate: EditTrialRequest.shouldRevalidate,
-    element: <EditTrialRequest.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <EditTrialRequest.Page />
+      </Suspense>
+    ),
     errorElement: <EditTrialRequest.ErrorBoundary />,
   },
   {
@@ -39,7 +47,11 @@ const TrialRequestRoutes: RouteObject[] = [
     loader: CreateTrialRequest.loader,
     action: CreateTrialRequest.action,
     shouldRevalidate: CreateTrialRequest.shouldRevalidate,
-    element: <CreateTrialRequest.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <CreateTrialRequest.Page />
+      </Suspense>
+    ),
     errorElement: <CreateTrialRequest.ErrorBoundary />,
   },
   {

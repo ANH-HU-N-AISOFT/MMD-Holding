@@ -26,7 +26,11 @@ import TrialRequestRoutes from './routes/TrialRequest';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <RootLayout.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <RootLayout.Page />
+      </Suspense>
+    ),
     loader: RootLayout.loader,
     errorElement: <Navigate to="/404" />,
     children: [
@@ -73,15 +77,27 @@ const router = createBrowserRouter([
   },
   {
     path: '/500',
-    element: <InternalError.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <InternalError.Page />
+      </Suspense>
+    ),
   },
   {
     path: '/404',
-    element: <NotFound.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <NotFound.Page />
+      </Suspense>
+    ),
   },
   {
     path: '/403',
-    element: <Forbidden.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <Forbidden.Page />
+      </Suspense>
+    ),
   },
   {
     path: '/logout',

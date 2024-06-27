@@ -96,6 +96,7 @@ export class FetchAPI {
         const accessToken = this.setAccessToken();
         // config.headers['Authorization'] = accessToken;
         config.headers['access-token'] = config.headers['access-token'] || accessToken;
+        config.headers['Authorization'] = config.headers['Authorization'] || `Bearer ${accessToken}`;
       }
       return config;
     });

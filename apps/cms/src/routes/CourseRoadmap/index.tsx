@@ -23,7 +23,11 @@ const CourseRoadmapRoutes: RouteObject[] = [
     path: '/course-roadmap/:id/detail',
     loader: CourseRoadmapDetail.loader,
     shouldRevalidate: CourseRoadmapDetail.shouldRevalidate,
-    element: <CourseRoadmapDetail.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <CourseRoadmapDetail.Page />
+      </Suspense>
+    ),
     errorElement: <CourseRoadmapDetail.ErrorBoundary />,
   },
   {
@@ -31,14 +35,22 @@ const CourseRoadmapRoutes: RouteObject[] = [
     loader: EditCourseRoadmap.loader,
     action: EditCourseRoadmap.action,
     shouldRevalidate: EditCourseRoadmap.shouldRevalidate,
-    element: <EditCourseRoadmap.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <EditCourseRoadmap.Page />
+      </Suspense>
+    ),
     errorElement: <EditCourseRoadmap.ErrorBoundary />,
   },
   {
     path: '/course-roadmap/create',
     action: CreateCourseRoadmap.action,
     shouldRevalidate: CreateCourseRoadmap.shouldRevalidate,
-    element: <CreateCourseRoadmap.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <CreateCourseRoadmap.Page />
+      </Suspense>
+    ),
     errorElement: <CreateCourseRoadmap.ErrorBoundary />,
   },
   {

@@ -23,7 +23,11 @@ const ConsultantFormRoutes: RouteObject[] = [
     path: '/consultant-form/:id/detail',
     loader: ConsultantFormDetail.loader,
     shouldRevalidate: ConsultantFormDetail.shouldRevalidate,
-    element: <ConsultantFormDetail.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <ConsultantFormDetail.Page />
+      </Suspense>
+    ),
     errorElement: <ConsultantFormDetail.ErrorBoundary />,
   },
   {
@@ -31,7 +35,11 @@ const ConsultantFormRoutes: RouteObject[] = [
     loader: EditConsultantForm.loader,
     action: EditConsultantForm.action,
     shouldRevalidate: EditConsultantForm.shouldRevalidate,
-    element: <EditConsultantForm.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <EditConsultantForm.Page />
+      </Suspense>
+    ),
     errorElement: <EditConsultantForm.ErrorBoundary />,
   },
   {
@@ -39,7 +47,11 @@ const ConsultantFormRoutes: RouteObject[] = [
     action: CreateConsultantForm.action,
     loader: CreateConsultantForm.loader,
     shouldRevalidate: CreateConsultantForm.shouldRevalidate,
-    element: <CreateConsultantForm.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <CreateConsultantForm.Page />
+      </Suspense>
+    ),
     errorElement: <CreateConsultantForm.ErrorBoundary />,
   },
   {

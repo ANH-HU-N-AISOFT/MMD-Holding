@@ -1,4 +1,5 @@
 import { BusinessStatusEnum } from './BusinessStatusEnum';
+import { DepartmentPopulated } from './DepartmentPopulated';
 
 export enum CapHanhChinh {
   CAP_1 = 1,
@@ -6,13 +7,6 @@ export enum CapHanhChinh {
   CAP_3 = 3,
 }
 
-export interface ManagementUnit {
-  id: string;
-  name: string;
-  code: string;
-  phoneNumber: string;
-  email: string;
-}
 export interface UnitManager {
   id: string;
   employeeId: string;
@@ -31,7 +25,7 @@ export interface Department {
   code: string;
   businessStatus: BusinessStatusEnum;
   level: CapHanhChinh;
-  managementUnit?: ManagementUnit;
+  managementUnit?: DepartmentPopulated;
   unitManager?: UnitManager;
   id: string;
 }

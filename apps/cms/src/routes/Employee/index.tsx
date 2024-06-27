@@ -24,7 +24,11 @@ const EmployeeRoutes: RouteObject[] = [
     path: '/employee/:id/detail',
     loader: EmployeeDetail.loader,
     shouldRevalidate: EmployeeDetail.shouldRevalidate,
-    element: <EmployeeDetail.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <EmployeeDetail.Page />
+      </Suspense>
+    ),
     errorElement: <EmployeeDetail.ErrorBoundary />,
   },
   {
@@ -32,7 +36,11 @@ const EmployeeRoutes: RouteObject[] = [
     loader: EditEmployee.loader,
     action: EditEmployee.action,
     shouldRevalidate: EditEmployee.shouldRevalidate,
-    element: <EditEmployee.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <EditEmployee.Page />
+      </Suspense>
+    ),
     errorElement: <EditEmployee.ErrorBoundary />,
   },
   {
@@ -40,7 +48,11 @@ const EmployeeRoutes: RouteObject[] = [
     loader: CreateEmployee.loader,
     action: CreateEmployee.action,
     shouldRevalidate: CreateEmployee.shouldRevalidate,
-    element: <CreateEmployee.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <CreateEmployee.Page />
+      </Suspense>
+    ),
     errorElement: <CreateEmployee.ErrorBoundary />,
   },
   {

@@ -8,32 +8,43 @@ import {
   SelectSingleDecouplingProps,
   notification,
 } from 'reactjs';
+import { StudentPopulated } from '../../models/StudentPopulated';
 import { createStudent } from '../../services/createStudent';
+import { GetStudentsInSelect, getStudentsInSelect } from '../../services/getStudentsInSelect';
 import { formMutationValuesToCreateStudentService } from '../../utils/formMutationValuesToCreateStudentService';
 import { FormMutation, FormValues } from '../FormMutation/FormMutation';
 import { ModalWithI18n } from '~/components/AntCustom/ModalWithI18n';
-import { GetAllParams } from '~/constants/GetAllParams';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
-import { Student } from '~/packages/specific/Student/models/Student';
-import { getStudents } from '~/packages/specific/Student/services/getStudents';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 
 interface Props {
-  student?: Student['id'];
-  onChange?: SelectSingleDecouplingProps<Student, Student['id']>['onChange'];
+  student?: StudentPopulated['id'];
+  onChange?: SelectSingleDecouplingProps<StudentPopulated, StudentPopulated['id']>['onChange'];
   disabled?: boolean;
   allowClear?: boolean;
   placeholder?: string;
-  label?: (student: Student) => string;
+  label?: (student: StudentPopulated) => string;
+  params?: GetStudentsInSelect;
 }
 
 const FormCreateUid = 'FormCreateUid';
-export const SelectStudent = ({ disabled, student, allowClear = true, placeholder, onChange, label }: Props) => {
+export const SelectStudent = ({
+  disabled,
+  student,
+  allowClear = true,
+  placeholder,
+  onChange,
+  label,
+  params = {},
+}: Props) => {
   const { t } = useTranslation(['student', 'components']);
 
-  const transformToOption: SelectSingleDecouplingProps<Student, Student['id']>['transformToOption'] = student => {
+  const transformToOption: SelectSingleDecouplingProps<
+    StudentPopulated,
+    StudentPopulated['id']
+  >['transformToOption'] = student => {
     const display = label ? label(student) : [student.fullName, student.phoneNumber].filter(Boolean).join(' - ');
     return {
       label: display,
@@ -43,7 +54,7 @@ export const SelectStudent = ({ disabled, student, allowClear = true, placeholde
     };
   };
 
-  const [sessionCreateStudents, setSessionCreateStudents] = useState<Student[]>([]);
+  const [sessionCreateStudents, setSessionCreateStudents] = useState<StudentPopulated[]>([]);
   const [isOpenFormCreate, setIsOpenFormCreate] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
 
@@ -69,7 +80,7 @@ export const SelectStudent = ({ disabled, student, allowClear = true, placeholde
 
   return (
     <>
-      <SelectSingleDecoupling<Student, Student['id']>
+      <SelectSingleDecoupling<StudentPopulated, StudentPopulated['id']>
         notFoundContent={
           <div className="just-center flex flex-col items-center gap-2">
             <Empty description={t('components:Listing.Table.empty')} />
@@ -89,12 +100,10 @@ export const SelectStudent = ({ disabled, student, allowClear = true, placeholde
         value={student}
         onChange={onChange}
         extraModels={sessionCreateStudents}
+        depsFetch={[params]}
         service={async () => {
           setSessionCreateStudents([]);
-          const response = await getStudents({
-            ...GetAllParams,
-            sortByName: 1,
-          });
+          const response = await getStudentsInSelect(params);
           return response.items;
         }}
         transformToOption={transformToOption}

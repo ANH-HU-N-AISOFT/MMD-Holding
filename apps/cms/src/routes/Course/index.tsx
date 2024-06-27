@@ -23,7 +23,11 @@ const CourseRoutes: RouteObject[] = [
     path: '/course/:id/detail',
     loader: CourseDetail.loader,
     shouldRevalidate: CourseDetail.shouldRevalidate,
-    element: <CourseDetail.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <CourseDetail.Page />
+      </Suspense>
+    ),
     errorElement: <CourseDetail.ErrorBoundary />,
   },
   {
@@ -31,14 +35,22 @@ const CourseRoutes: RouteObject[] = [
     loader: EditCourse.loader,
     action: EditCourse.action,
     shouldRevalidate: EditCourse.shouldRevalidate,
-    element: <EditCourse.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <EditCourse.Page />
+      </Suspense>
+    ),
     errorElement: <EditCourse.ErrorBoundary />,
   },
   {
     path: '/course/create',
     action: CreateCourse.action,
     shouldRevalidate: CreateCourse.shouldRevalidate,
-    element: <CreateCourse.Page />,
+    element: (
+      <Suspense fallback={null}>
+        <CreateCourse.Page />
+      </Suspense>
+    ),
     errorElement: <CreateCourse.ErrorBoundary />,
   },
   {
