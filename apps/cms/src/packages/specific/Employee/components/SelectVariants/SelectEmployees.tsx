@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Empty } from 'reactjs';
-import { SelectSingleDecoupling, SelectSingleDecouplingProps } from 'reactjs';
+import { SelectMultipleDecoupling, SelectMultipleDecouplingProps } from 'reactjs';
 import { Role } from '../../../../common/SelectVariants/Role/constants/Role';
 import { EmployeePopulated } from '../../models/EmployeePopulated';
 import { WorkStatus } from '../../models/WorkStatus';
@@ -10,31 +10,31 @@ import { GetAllParams } from '~/constants/GetAllParams';
 import { Employee } from '~/packages/specific/Employee/models/Employee';
 import { getEmployees } from '~/packages/specific/Employee/services/getEmployees';
 
-interface SelectEmployeeInADepartment {
+interface SelectEmployeesInADepartment {
   emptyText: string;
   organizationId: string | string[] | undefined;
   scope: 'inADepartment';
 }
 
-interface SelectEmployeeOfSystem {
-  scope: 'allSystem';
+interface SelectEmployeesOfSystem {
+  scope: 'allSystem' | 'currentUser';
   organizationId?: undefined;
   emptyText?: undefined;
 }
 
 type Props = {
-  employee: Employee['employeeId'] | undefined;
+  employees: string[] | undefined;
+  onChange: SelectMultipleDecouplingProps<Employee, string[]>['onChange'];
   disabled: boolean;
-  onChange: SelectSingleDecouplingProps<Employee, Employee['employeeId']>['onChange'];
   allowClear?: boolean;
   placeholder?: string;
   role?: Role;
-} & (SelectEmployeeOfSystem | SelectEmployeeInADepartment);
+} & (SelectEmployeesOfSystem | SelectEmployeesInADepartment);
 
-export const SelectEmployee = ({
+export const SelectEmployees = ({
   disabled,
   allowClear = true,
-  employee,
+  employees,
   onChange,
   placeholder,
   role,
@@ -75,15 +75,15 @@ export const SelectEmployee = ({
   };
 
   return (
-    <SelectSingleDecoupling
+    <SelectMultipleDecoupling
       notFoundContent={needWarning && emptyText ? <Empty description={emptyText} /> : undefined}
       allowClear={allowClear}
       placeholder={placeholder ?? t('employee:employee')}
       disabled={disabled}
-      value={employee}
+      value={employees}
       onChange={onChange}
-      depsFetch={[organizationId, scope, role]}
       service={handleFetchData}
+      depsFetch={[organizationId, scope, role]}
       transformToOption={employee => ({
         label: (
           <TooltipDetailInformation

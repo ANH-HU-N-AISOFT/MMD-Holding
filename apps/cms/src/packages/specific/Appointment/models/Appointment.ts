@@ -25,6 +25,13 @@ export interface Appointment {
   test: IeltsTestEnum;
   notes: string;
   createdAt: string;
+  createdBy?: {
+    id: string;
+    phoneNumber: string;
+    fullName: string;
+    personalEmail: string;
+    workEmail: string;
+  };
   student?: {
     id: string;
     fullName: string;

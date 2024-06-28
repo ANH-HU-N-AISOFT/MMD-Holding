@@ -47,6 +47,7 @@ export const loader = async ({
   const { page = 1, search, businessStatus, layout } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
     const response = await getDepartments({
+      withoutPermission: false,
       businessStatus: layout === 'tree' ? undefined : businessStatus,
       page: layout === 'tree' ? GetAllParams.page : page,
       query: layout === 'tree' ? undefined : search,

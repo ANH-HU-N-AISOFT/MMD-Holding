@@ -49,6 +49,7 @@ export const RoleSystem = ({
         error={errors.personalInformation?.departments?.message}
       >
         <SelectDepartments
+          scope="currentUser"
           extraDepartments={student?.organizations ? student.organizations : []}
           departments={departments?.filter((item): item is string => Boolean(item))}
           onChange={value => {

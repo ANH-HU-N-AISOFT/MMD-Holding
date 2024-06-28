@@ -61,6 +61,7 @@ export const PersonnelRecord = ({ form, disabledField, employee }: Props) => {
         error={errors.personnelRecord?.department?.message}
       >
         <SelectDepartment
+          scope="currentUser"
           extraDepartments={
             employee?.organization
               ? [
@@ -98,6 +99,7 @@ export const PersonnelRecord = ({ form, disabledField, employee }: Props) => {
       </Field>
       <Field label={t('employee:direction_manager')} error={errors.personnelRecord?.directionManager?.message}>
         <SelectEmployee
+          scope="inADepartment"
           organizationId={department}
           emptyText={t('employee:must_select_department')}
           employee={directionManager ?? undefined}

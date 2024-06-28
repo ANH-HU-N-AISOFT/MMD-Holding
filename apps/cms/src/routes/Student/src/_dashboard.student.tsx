@@ -54,6 +54,7 @@ export const loader = async ({
   const { page = 1, search, department } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
     const response = await getStudents({
+      withoutPermission: false,
       page,
       query: search,
       orgCodes: department,

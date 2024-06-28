@@ -244,6 +244,7 @@ export const Page = () => {
           onViewExpectInspectationDepartment={record => window.open(`/department/${record.organization?.id}/detail`)}
           onViewAdmin={record => window.open(`/employee/${record.admin?.id}/detail`)}
           onViewTester={record => window.open(`/employee/${record.tester?.id}/detail`)}
+          onViewCreatedBy={record => window.open(`/employee/${record.createdBy?.id}/detail`)}
           onViewConsultant={record => window.open(`/employee/${record.consultant?.id}/detail`)}
           onUpdateStatus={({ record, status }) => {
             update({ id: record.id, status, revalidate: () => handleRequest({}) });

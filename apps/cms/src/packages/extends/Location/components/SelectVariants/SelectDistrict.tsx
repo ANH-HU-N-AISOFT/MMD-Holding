@@ -2,19 +2,28 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Empty } from 'reactjs';
 import { SelectOption, SelectSingle, SelectSingleProps } from 'reactjs';
+import { District } from '../../models/Location';
+import { ResponseSuccess, getDistricts } from '../../services/getDistricts';
 import { GetAllParams } from '~/constants/GetAllParams';
-import { District } from '~/packages/extends/Location/models/Location';
-import { getDistricts } from '~/packages/extends/Location/services/getDistricts';
 
-interface Props {
-  district?: District['id'];
-  onChange?: SelectSingleProps<District['id'], District>['onChange'];
-  disabled?: boolean;
-  allowClear?: boolean;
-  cityCode: 'GET_ALL' | string | undefined;
+interface SelectDistrictOfCityProps {
+  scope: 'inACity';
+  cityCode: string | undefined;
 }
 
-export const SelectDistrict = ({ district, disabled, allowClear = true, cityCode, onChange }: Props) => {
+interface SelectAllDistrictProps {
+  scope: 'allSystem';
+  cityCode?: undefined;
+}
+
+type Props = (SelectDistrictOfCityProps | SelectAllDistrictProps) & {
+  district: District['id'] | undefined;
+  onChange: SelectSingleProps<District['id'], District>['onChange'] | undefined;
+  disabled: boolean;
+  allowClear?: boolean;
+};
+
+export const SelectDistrict = ({ district, disabled, allowClear = true, cityCode, scope, onChange }: Props) => {
   const { t } = useTranslation(['location']);
   const [isFetching, setIsFetching] = useState(false);
   const [options, setOptions] = useState<SelectOption<District['id']>[]>([]);
@@ -25,22 +34,26 @@ export const SelectDistrict = ({ district, disabled, allowClear = true, cityCode
   const handleFetchOption = async () => {
     setIsFetching(true);
     try {
-      if (cityCode) {
-        const response = await getDistricts({
-          ...GetAllParams,
-          provinceCode: cityCode === 'GET_ALL' ? undefined : cityCode,
-        });
-        setOptions(
-          response.items.map(item => ({
-            label: item.name,
-            value: item.id,
-            searchValue: item.name,
-            rawData: item,
-          })),
-        );
-      } else {
-        setOptions([]);
+      let response: ResponseSuccess | undefined;
+      if (scope === 'allSystem') {
+        response = await getDistricts({ ...GetAllParams });
       }
+      if (scope === 'inACity') {
+        if (cityCode) {
+          response = await getDistricts({
+            ...GetAllParams,
+            provinceCode: cityCode,
+          });
+        }
+      }
+      setOptions(
+        (response?.items ?? []).map(item => ({
+          label: item.name,
+          value: item.id,
+          searchValue: item.name,
+          rawData: item,
+        })),
+      );
     } catch (error) {
       console.log(error);
     } finally {
@@ -51,7 +64,7 @@ export const SelectDistrict = ({ district, disabled, allowClear = true, cityCode
   useEffect(() => {
     handleFetchOption();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cityCode]);
+  }, [cityCode, scope]);
 
   return (
     <SelectSingle

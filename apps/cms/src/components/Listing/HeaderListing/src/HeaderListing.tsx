@@ -1,6 +1,6 @@
-import { PlusOutlined, ImportOutlined, ExportOutlined } from '@ant-design/icons';
+import { ExportOutlined, ImportOutlined } from '@ant-design/icons';
 import { FC, ReactNode } from 'react';
-import { Button } from 'reactjs';
+import { Button, IconAddLinear } from 'reactjs';
 
 export interface HeaderListingProps {
   title: ReactNode;
@@ -44,7 +44,7 @@ export const HeaderListing: FC<HeaderListingProps> = ({
           </Button>
         )}
         {creatable && (
-          <Button onClick={onCreate} icon={<PlusOutlined />} color="primary">
+          <Button onClick={onCreate} icon={<IconAddLinear className="text-2xl" />} color="primary">
             {createBtn}
           </Button>
         )}

@@ -17,6 +17,7 @@ interface GetEmployees {
   roles?: string;
   workStatus?: WorkStatus;
   sortByName?: 1 | -1;
+  withoutPermission: boolean;
 }
 export const getEmployees = async ({
   page,
@@ -26,6 +27,7 @@ export const getEmployees = async ({
   roles,
   workStatus,
   sortByName,
+  withoutPermission,
 }: GetEmployees) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     url: '/employees',
@@ -37,6 +39,7 @@ export const getEmployees = async ({
       roles,
       workStatus,
       sortByName,
+      withoutPermission,
     },
   });
 

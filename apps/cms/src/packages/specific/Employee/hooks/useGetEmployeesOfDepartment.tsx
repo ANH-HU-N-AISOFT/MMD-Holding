@@ -21,6 +21,7 @@ export const useGetEmployeesOfDepartment = ({ departmentId }: Props) => {
 
   useEffect(() => {
     run({
+      withoutPermission: false,
       query: search,
       page,
       perPage: 8,

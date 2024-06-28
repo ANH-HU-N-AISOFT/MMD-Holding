@@ -55,6 +55,7 @@ export const AppointmentLocales = {
     owner: 'Lọc nhân viên',
     all: 'Tất cả',
     me: 'Của tôi',
+    created_by: 'Người tạo',
 
     appointment_status: 'Trạng thái lịch hẹn',
     all_status: 'Tất cả',

@@ -21,6 +21,7 @@ export const useGetStudentsOfDepartment = ({ departmentCode }: Props) => {
 
   useEffect(() => {
     run({
+      withoutPermission: false,
       query: search,
       page,
       perPage: 8,

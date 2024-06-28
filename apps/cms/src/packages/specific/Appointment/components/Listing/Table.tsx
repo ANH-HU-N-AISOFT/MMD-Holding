@@ -26,6 +26,7 @@ export interface Props
   onViewAdmin?: (record: Appointment) => void;
   onViewConsultant?: (record: Appointment) => void;
   onViewTester?: (record: Appointment) => void;
+  onViewCreatedBy?: (record: Appointment) => void;
   onViewExpectInspectationDepartment?: (record: Appointment) => void;
   onUpdateStatus?: (params: { record: Appointment; status: AppointmentStatus }) => void;
   editable?: boolean;
@@ -45,6 +46,7 @@ export const Table = ({
   onViewAdmin,
   onViewConsultant,
   onViewTester,
+  onViewCreatedBy,
   onViewExpectInspectationDepartment,
   onView,
   onUpdateStatus,
@@ -126,38 +128,6 @@ export const Table = ({
             <Typography.Paragraph className="!mb-1 text-[inherit]">{record.student?.fullName}</Typography.Paragraph>
             <Typography.Paragraph className="!mb-0 text-[inherit]">{record.student?.phoneNumber}</Typography.Paragraph>
           </Typography.Link>
-        );
-      },
-    },
-    {
-      width: 200,
-      title: t('appointment:status'),
-      align: 'center',
-      render: (_, record) => {
-        return (
-          <div className="flex items-center justify-between gap-2">
-            <Tag color={AppointmentStatusMappingToColors[record.status]}>
-              {AppointmentStatusMappingToLabels[record.status]}
-            </Tag>
-            {editable && (
-              <Dropdown
-                items={Object.values(AppointmentStatus).reduce<DropdownMenuItem[]>((result, item) => {
-                  if (item === record.status) {
-                    return result;
-                  }
-                  return result.concat({
-                    key: item,
-                    onClick: () => onUpdateStatus?.({ record: record, status: item }),
-                    label: (
-                      <Tag color={AppointmentStatusMappingToColors[item]}>{AppointmentStatusMappingToLabels[item]}</Tag>
-                    ),
-                  });
-                }, [])}
-              >
-                <EditOutlined className="text-status-blue cursor-pointer" />
-              </Dropdown>
-            )}
-          </div>
         );
       },
     },
@@ -250,6 +220,26 @@ export const Table = ({
       },
     },
     {
+      width: 240,
+      title: t('appointment:created_by'),
+      render: (_, record) => {
+        if (!record.createdBy) {
+          return null;
+        }
+        return (
+          <Typography.Link onClick={() => onViewCreatedBy?.(record)}>
+            <TooltipDetailInformation
+              title={[record.createdBy?.fullName].filter(Boolean).join(' - ')}
+              extra={[
+                [t('employee:phone'), record.createdBy?.phoneNumber].join(': '),
+                [t('employee:work_email'), record.createdBy?.workEmail].join(': '),
+              ]}
+            />
+          </Typography.Link>
+        );
+      },
+    },
+    {
       width: 280,
       title: t('appointment:expect_inspection_department_short'),
       render: (_, record) => {
@@ -257,6 +247,39 @@ export const Table = ({
           <Typography.Link onClick={() => onViewExpectInspectationDepartment?.(record)}>
             {[record.organization?.name, record.organization?.code].filter(Boolean).join(' - ')}
           </Typography.Link>
+        );
+      },
+    },
+    {
+      width: 200,
+      title: t('appointment:status'),
+      fixed: 'right',
+      align: 'center',
+      render: (_, record) => {
+        return (
+          <div className="flex items-center justify-between gap-2">
+            <Tag color={AppointmentStatusMappingToColors[record.status]}>
+              {AppointmentStatusMappingToLabels[record.status]}
+            </Tag>
+            {editable && (
+              <Dropdown
+                items={Object.values(AppointmentStatus).reduce<DropdownMenuItem[]>((result, item) => {
+                  if (item === record.status) {
+                    return result;
+                  }
+                  return result.concat({
+                    key: item,
+                    onClick: () => onUpdateStatus?.({ record: record, status: item }),
+                    label: (
+                      <Tag color={AppointmentStatusMappingToColors[item]}>{AppointmentStatusMappingToLabels[item]}</Tag>
+                    ),
+                  });
+                }, [])}
+              >
+                <EditOutlined className="text-status-blue cursor-pointer" />
+              </Dropdown>
+            )}
+          </div>
         );
       },
     },

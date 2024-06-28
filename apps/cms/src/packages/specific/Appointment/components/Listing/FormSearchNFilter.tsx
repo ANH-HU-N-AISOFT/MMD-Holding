@@ -46,6 +46,7 @@ export const FormSearchNFilter = ({
 }: FormFilterProps) => {
   const { t } = useTranslation(['appointment', 'common']);
   const { isMobile } = useMobile();
+  const disabledField = !!isSubmiting;
 
   const AppointmentStatusMappingToLabel = useMemo(() => {
     return getAppointmentStatusMappingToLabels(t);
@@ -97,6 +98,7 @@ export const FormSearchNFilter = ({
             <Form method="GET" id={UID} onSubmit={handleSubmit}>
               <Field label={t('appointment:owner')}>
                 <SelectSingle
+                  disabled={disabledField}
                   options={[
                     { label: t('appointment:all'), value: 0, rawData: undefined },
                     { label: t('appointment:me'), value: 1, rawData: undefined },
@@ -105,34 +107,10 @@ export const FormSearchNFilter = ({
                   onChange={value => setValue('isOwner', Boolean(value))}
                 />
               </Field>
-              {/* <Field label={t('appointment:status')}>
-              <SelectAppointmentStatus
-                allowClear={false}
-                placeholder={t('appointment:status')}
-                withAllOption
-                appointmentStatus={status ?? 'all'}
-                onChange={value => setValue('status', value)}
-              />
-            </Field> */}
-              {/* <Field label={t('appointment:appointment_date')}>
-              <SingleDayPicker
-                className="w-full"
-                placeholder={t('appointment:appointment_date')}
-                value={date ? dayjs(date) : undefined}
-                onChange={value => setValue('date', value?.toISOString())}
-              />
-            </Field> */}
-              {/* <Field label={t('appointment:test_shift')}>
-              <Select className="w-full" placeholder={t('appointment:test_shift')} />
-            </Field>
-            <Field label={t('appointment:test')}>
-              <SelectIeltsTestEnum
-                ieltsTest={test as IeltsTestEnum | undefined}
-                onChange={value => setValue('test', value)}
-              />
-            </Field> */}
               <Field label={t('appointment:expect_inspection_department')}>
                 <SelectDepartment
+                  disabled={disabledField}
+                  scope="currentUser"
                   extraDepartments={[]}
                   placeholder={t('appointment:expect_inspection_department')}
                   department={organizationId}
@@ -254,6 +232,7 @@ export const FormSearchNFilter = ({
             <Form method="GET" id={UID} onSubmit={handleSubmit}>
               <Field label={t('appointment:owner')}>
                 <SelectSingle
+                  disabled={disabledField}
                   options={[
                     { label: t('appointment:all'), value: 0, rawData: undefined },
                     { label: t('appointment:me'), value: 1, rawData: undefined },
@@ -262,34 +241,10 @@ export const FormSearchNFilter = ({
                   onChange={value => setValue('isOwner', Boolean(value))}
                 />
               </Field>
-              {/* <Field label={t('appointment:status')}>
-                <SelectAppointmentStatus
-                  allowClear={false}
-                  placeholder={t('appointment:status')}
-                  withAllOption
-                  appointmentStatus={status ?? 'all'}
-                  onChange={value => setValue('status', value)}
-                />
-              </Field> */}
-              {/* <Field label={t('appointment:appointment_date')}>
-                <SingleDayPicker
-                  className="w-full"
-                  placeholder={t('appointment:appointment_date')}
-                  value={date ? dayjs(date) : undefined}
-                  onChange={value => setValue('date', value?.toISOString())}
-                />
-              </Field> */}
-              {/* <Field label={t('appointment:test_shift')}>
-                <Select className="w-full" placeholder={t('appointment:test_shift')} />
-              </Field>
-              <Field label={t('appointment:test')}>
-                <SelectIeltsTestEnum
-                  ieltsTest={test as IeltsTestEnum | undefined}
-                  onChange={value => setValue('test', value)}
-                />
-              </Field> */}
               <Field label={t('appointment:expect_inspection_department')}>
                 <SelectDepartment
+                  scope="currentUser"
+                  disabled={disabledField}
                   extraDepartments={[]}
                   placeholder={t('appointment:expect_inspection_department')}
                   department={organizationId}

@@ -35,6 +35,7 @@ export const FormSearchNFilter = ({
   hideFilter,
 }: FormFilterProps) => {
   const { t } = useTranslation(['common', 'student']);
+  const disabledField = !!isSubmiting;
 
   const { handleSubmit, reset, watch, setValue } = useRemixForm<FormFilterValues>({
     mode: 'onSubmit',
@@ -74,6 +75,8 @@ export const FormSearchNFilter = ({
           <Form method="GET" id={UID} onSubmit={handleSubmit}>
             <Field label={t('student:department_name')}>
               <SelectDepartments
+                scope="currentUser"
+                disabled={disabledField}
                 extraDepartments={[]}
                 placeholder={t('student:department_name')}
                 departments={department?.split(',')}

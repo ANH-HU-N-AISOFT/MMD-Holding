@@ -33,6 +33,7 @@ export const SelectPresentDepartment = ({
       service={async () => {
         const response = await getEmployees({
           ...GetAllParams,
+          withoutPermission: false,
           sortByName: 1,
           workStatus: WorkStatus.WORKING,
         });

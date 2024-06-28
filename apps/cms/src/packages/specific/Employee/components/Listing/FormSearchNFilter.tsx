@@ -38,6 +38,7 @@ export const FormSearchNFilter = ({
   hideFilter,
 }: FormFilterProps) => {
   const { t } = useTranslation(['common', 'employee']);
+  const disabledField = !!isSubmiting;
 
   const { handleSubmit, reset, watch, setValue } = useRemixForm<FormFilterValues>({
     mode: 'onSubmit',
@@ -79,6 +80,7 @@ export const FormSearchNFilter = ({
           <Form method="GET" id={UID} onSubmit={handleSubmit}>
             <Field label={t('employee:status')}>
               <SelectEmployeeStatus
+                disabled={disabledField}
                 placeholder={t('employee:status')}
                 employeeStatus={status}
                 onChange={value => {
@@ -88,6 +90,8 @@ export const FormSearchNFilter = ({
             </Field>
             <Field label={t('employee:department_name')}>
               <SelectDepartment
+                disabled={disabledField}
+                scope="currentUser"
                 extraDepartments={[]}
                 fieldValue="id"
                 fieldLabel={['name', 'code']}
@@ -100,6 +104,7 @@ export const FormSearchNFilter = ({
             </Field>
             <Field label={t('employee:role')}>
               <SelectRoles
+                disabled={disabledField}
                 ignoreRoles={[Role.Student]}
                 roles={roles?.split(',').filter((item): item is Exclude<Role, Role.SuperAdmin> => {
                   return item !== Role.SuperAdmin && Object.values(Role).includes(item as Role);

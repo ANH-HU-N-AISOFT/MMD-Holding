@@ -1,21 +1,37 @@
-import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Empty } from 'reactjs';
-import { SelectOption, SelectSingle, SelectSingleProps } from 'reactjs';
+import { Empty, SelectOption, SelectSingle, SelectSingleProps } from 'reactjs';
+import { School } from '../../models/Location';
+import { ResponseSuccess, getSchools } from '../../services/getSchools';
 import { GetAllParams } from '~/constants/GetAllParams';
-import { School } from '~/packages/extends/Location/models/Location';
-import { getSchools } from '~/packages/extends/Location/services/getSchools';
 
-interface Props {
-  school?: School['id'];
-  onChange?: SelectSingleProps<School['id'], School>['onChange'];
-  disabled?: boolean;
-  allowClear?: boolean;
-  cityCode: 'GET_ALL' | string | undefined;
-  placeholder?: ReactNode;
+interface SelectSchoolOfCityProps {
+  scope: 'inACity';
+  cityCode: string | undefined;
 }
 
-export const SelectSchool = ({ school, disabled, allowClear = true, cityCode, onChange, placeholder }: Props) => {
+interface SelectAllSchoolProps {
+  scope: 'allSystem';
+  cityCode?: undefined;
+}
+
+type Props = (SelectSchoolOfCityProps | SelectAllSchoolProps) & {
+  school: School['id'] | undefined;
+  onChange: SelectSingleProps<School['id'], School>['onChange'] | undefined;
+  disabled: boolean;
+  allowClear?: boolean;
+  placeholder?: string;
+};
+
+export const SelectSchool = ({
+  school,
+  disabled,
+  allowClear = true,
+  cityCode,
+  onChange,
+  placeholder,
+  scope,
+}: Props) => {
   const { t } = useTranslation(['location']);
   const [isFetching, setIsFetching] = useState(false);
   const [options, setOptions] = useState<SelectOption<School['id']>[]>([]);
@@ -26,22 +42,26 @@ export const SelectSchool = ({ school, disabled, allowClear = true, cityCode, on
   const handleFetchOption = async () => {
     setIsFetching(true);
     try {
-      if (cityCode) {
-        const response = await getSchools({
-          ...GetAllParams,
-          provinceCode: cityCode === 'GET_ALL' ? undefined : cityCode,
-        });
-        setOptions(
-          response.items.map(item => ({
-            label: item.name,
-            value: item.id,
-            searchValue: item.name,
-            rawData: item,
-          })),
-        );
-      } else {
-        setOptions([]);
+      let response: ResponseSuccess | undefined;
+      if (scope === 'allSystem') {
+        response = await getSchools({ ...GetAllParams });
       }
+      if (scope === 'inACity') {
+        if (cityCode) {
+          response = await getSchools({
+            ...GetAllParams,
+            provinceCode: cityCode,
+          });
+        }
+      }
+      setOptions(
+        (response?.items ?? []).map(item => ({
+          label: item.name,
+          value: item.id,
+          searchValue: item.name,
+          rawData: item,
+        })),
+      );
     } catch (error) {
       console.log(error);
     } finally {

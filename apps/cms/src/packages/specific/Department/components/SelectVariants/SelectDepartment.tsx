@@ -2,18 +2,20 @@ import { prop, uniqBy } from 'ramda';
 import { useTranslation } from 'react-i18next';
 import { SelectSingleDecoupling, SelectSingleDecouplingProps } from 'reactjs';
 import { DepartmentPopulated } from '../../models/DepartmentPopulated';
-import { GetDepartmentsInSelect, getDepartmentsInSelect } from '../../services/getDepartmentsInSelect';
+import { GetAllParams } from '~/constants/GetAllParams';
+import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 
 interface Props {
-  department?: DepartmentPopulated['id'];
-  onChange?: SelectSingleDecouplingProps<DepartmentPopulated, DepartmentPopulated['id']>['onChange'];
-  disabled?: boolean;
+  department: string | undefined;
+  onChange: SelectSingleDecouplingProps<DepartmentPopulated, string>['onChange'] | undefined;
+  disabled: boolean;
+  extraDepartments: DepartmentPopulated[];
+  // Nếu là "allSystem" ==> Bỏ giới hạn "currentUser"
+  scope: 'allSystem' | 'currentUser';
   allowClear?: boolean;
   placeholder?: string;
-  fieldValue?: keyof Pick<DepartmentPopulated, 'id' | 'code'>;
-  fieldLabel?: Array<keyof Pick<DepartmentPopulated, 'name' | 'code'>>;
-  extraDepartments: DepartmentPopulated[];
-  params?: GetDepartmentsInSelect;
+  fieldValue?: keyof DepartmentPopulated;
+  fieldLabel?: Array<keyof DepartmentPopulated>;
 }
 
 export const SelectDepartment = ({
@@ -25,20 +27,24 @@ export const SelectDepartment = ({
   fieldValue = 'id',
   fieldLabel = ['name', 'code'],
   extraDepartments,
-  params = {},
+  scope,
 }: Props) => {
   const { t } = useTranslation(['department']);
 
   return (
-    <SelectSingleDecoupling<DepartmentPopulated, DepartmentPopulated['id']>
+    <SelectSingleDecoupling<DepartmentPopulated, string>
       allowClear={allowClear}
       placeholder={placeholder ?? t('department:department')}
       disabled={disabled}
       value={department}
       onChange={onChange}
-      depsFetch={[params]}
+      depsFetch={[scope]}
       service={async () => {
-        const response = await getDepartmentsInSelect(params);
+        const response = await getDepartments({
+          ...GetAllParams,
+          withoutPermission: scope === 'allSystem',
+          sortByName: 1,
+        });
         return uniqBy(prop('id'), [...extraDepartments, ...response.items]);
       }}
       transformToOption={department => {

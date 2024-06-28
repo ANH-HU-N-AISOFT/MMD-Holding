@@ -2,18 +2,21 @@ import { prop, uniqBy } from 'ramda';
 import { useTranslation } from 'react-i18next';
 import { SelectMultipleDecoupling, SelectMultipleDecouplingProps } from 'reactjs';
 import { DepartmentPopulated } from '../../models/DepartmentPopulated';
-import { GetDepartmentsInSelect, getDepartmentsInSelect } from '../../services/getDepartmentsInSelect';
+import { GetAllParams } from '~/constants/GetAllParams';
+import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 
 interface Props {
-  departments?: Array<DepartmentPopulated['id']>;
-  onChange?: SelectMultipleDecouplingProps<DepartmentPopulated, Array<DepartmentPopulated['id']>>['onChange'];
-  disabled?: boolean;
+  departments: Array<DepartmentPopulated['id']> | undefined;
+  onChange:
+    | SelectMultipleDecouplingProps<DepartmentPopulated, Array<DepartmentPopulated['id']>>['onChange']
+    | undefined;
+  disabled: boolean;
+  extraDepartments: DepartmentPopulated[];
+  scope: 'allSystem' | 'currentUser';
   allowClear?: boolean;
   placeholder?: string;
   fieldValue?: keyof Pick<DepartmentPopulated, 'id' | 'code'>;
   fieldLabel?: Array<keyof Pick<DepartmentPopulated, 'name' | 'code'>>;
-  extraDepartments: DepartmentPopulated[];
-  params?: GetDepartmentsInSelect;
 }
 
 export const SelectDepartments = ({
@@ -25,7 +28,7 @@ export const SelectDepartments = ({
   fieldValue = 'id',
   fieldLabel = ['name', 'code'],
   extraDepartments,
-  params = {},
+  scope,
 }: Props) => {
   const { t } = useTranslation(['department']);
 
@@ -36,9 +39,13 @@ export const SelectDepartments = ({
       disabled={disabled}
       value={departments}
       onChange={onChange}
-      depsFetch={[params]}
+      depsFetch={[scope]}
       service={async () => {
-        const response = await getDepartmentsInSelect(params);
+        const response = await getDepartments({
+          ...GetAllParams,
+          withoutPermission: scope === 'allSystem',
+          sortByName: 1,
+        });
         return uniqBy(prop('id'), [...extraDepartments, ...response.items]);
       }}
       transformToOption={department => {

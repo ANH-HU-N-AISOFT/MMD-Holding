@@ -49,6 +49,7 @@ export const loader = async ({
   const { page = 1, search, department, roles, status } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
     const response = await getEmployees({
+      withoutPermission: false,
       page,
       query: search,
       organizationId: department,

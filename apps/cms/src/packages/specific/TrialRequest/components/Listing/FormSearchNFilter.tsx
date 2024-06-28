@@ -52,6 +52,8 @@ export const FormSearchNFilter = ({
 }: FormFilterProps) => {
   const { t } = useTranslation(['common', 'trial_request']);
 
+  const disabledField = !!isSubmiting;
+
   const {
     handleSubmit,
     watch,
@@ -117,6 +119,7 @@ export const FormSearchNFilter = ({
             <div className="grid grid-cols-1 gap-3">
               <Field label={t('trial_request:status')} error={errors.status?.message}>
                 <SelectTrialRequestStatus
+                  disabled={disabledField}
                   placeholder={t('trial_request:status')}
                   trialRequestStatus={status}
                   onChange={value => {
@@ -127,6 +130,7 @@ export const FormSearchNFilter = ({
               </Field>
               <Field label={t('trial_request:course_roadmap')} error={errors.courseRoadmapId?.message}>
                 <SelectCourseRoadmap
+                  disabled={disabledField}
                   placeholder={t('trial_request:course_roadmap')}
                   courseRoadmap={courseRoadmapId}
                   onChange={value => {
@@ -137,6 +141,7 @@ export const FormSearchNFilter = ({
               </Field>
               <Field label={t('trial_request:demo_type')} error={errors.demoType?.message}>
                 <SelectDemoType
+                  disabled={disabledField}
                   placeholder={t('trial_request:demo_type')}
                   demoType={demoType}
                   onChange={value => {
@@ -147,6 +152,7 @@ export const FormSearchNFilter = ({
               </Field>
               <Field label={t('trial_request:study_mode')} error={errors.studyMode?.message}>
                 <SelectStudyMode
+                  disabled={disabledField}
                   placeholder={t('trial_request:study_mode')}
                   studyMode={studyMode}
                   onChange={value => {
@@ -157,6 +163,8 @@ export const FormSearchNFilter = ({
               </Field>
               <Field label={t('trial_request:office_learning')} error={errors.departmentId?.message}>
                 <SelectDepartment
+                  disabled={disabledField}
+                  scope="currentUser"
                   extraDepartments={[]}
                   placeholder={t('trial_request:office_learning')}
                   department={departmentId}

@@ -20,7 +20,7 @@ import { SelectSchool } from '~/packages/extends/Location/components/SelectVaria
 import { SelectCourseRoadmap } from '~/packages/specific/CourseRoadmap/components/SelectVariants/SelectCourseRoadmap';
 import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
 import { SelectEmployee } from '~/packages/specific/Employee/components/SelectVariants/SelectEmployee';
-import { SelectSaleEmployees } from '~/packages/specific/Employee/components/SelectVariants/SelectSaleEmployees';
+import { SelectEmployees } from '~/packages/specific/Employee/components/SelectVariants/SelectEmployees';
 import { SelectSourceEnum } from '~/packages/specific/Student/components/SelectVariants/SelectSourceEnum';
 import { SelectStudent } from '~/packages/specific/Student/components/SelectVariants/SelectStudent';
 
@@ -126,6 +126,7 @@ export const FormMutation = ({
           <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2">
             <Field withRequiredMark label={t('trial_request:student_name')} error={errors.studentId?.message}>
               <SelectStudent
+                scope="currentUser"
                 disabled={disabledField}
                 placeholder={t('trial_request:student_name')}
                 student={studentId}
@@ -151,8 +152,9 @@ export const FormMutation = ({
             </Field>
             <Field label={t('trial_request:student_school')}>
               <SelectSchool
+                onChange={() => undefined}
                 school={displayStudentSchool ?? undefined}
-                cityCode="GET_ALL"
+                scope="allSystem"
                 disabled
                 placeholder={t('trial_request:student_school')}
               />
@@ -165,13 +167,19 @@ export const FormMutation = ({
               />
             </Field>
             <Field label={t('trial_request:sale_employee')}>
-              <SelectSaleEmployees organizations="GET_ALL" saleEmployees={displaySaleEmployees ?? undefined} disabled />
+              <SelectEmployees
+                scope="allSystem"
+                disabled
+                onChange={() => undefined}
+                employees={displaySaleEmployees ?? undefined}
+              />
             </Field>
             <Field withRequiredMark label={t('trial_request:consultantor')} error={errors.consultantId?.message}>
               <SelectEmployee
+                scope="inADepartment"
                 organizationId={learningOrganizationId}
                 emptyText={t('trial_request:must_select_expect_department')}
-                roles={[Role.Consultant]}
+                role={Role.Consultant}
                 disabled={disabledField}
                 placeholder={t('trial_request:consultantor')}
                 employee={consultantId}
@@ -236,6 +244,7 @@ export const FormMutation = ({
               error={errors.learningOrganizationId?.message}
             >
               <SelectDepartment
+                scope="currentUser"
                 extraDepartments={trialRequest?.learningOrganization ? [trialRequest.learningOrganization] : []}
                 allowClear={false}
                 department={learningOrganizationId ?? undefined}
@@ -299,9 +308,10 @@ export const FormMutation = ({
             </div>
             <Field label={t('trial_request:lecture')} error={errors.lectureId?.message}>
               <SelectEmployee
+                scope="inADepartment"
                 organizationId={learningOrganizationId}
                 emptyText={t('trial_request:must_select_expect_department')}
-                roles={[Role.Lecturer]}
+                role={Role.Lecturer}
                 allowClear
                 placeholder={t('trial_request:lecture')}
                 disabled={disabledField}
@@ -316,9 +326,10 @@ export const FormMutation = ({
             </Field>
             <Field label={t('trial_request:admin')} error={errors.adminId?.message}>
               <SelectEmployee
+                scope="inADepartment"
                 organizationId={learningOrganizationId}
                 emptyText={t('trial_request:must_select_expect_department')}
-                roles={[Role.Admin]}
+                role={Role.Admin}
                 allowClear
                 placeholder={t('trial_request:admin')}
                 disabled={disabledField}

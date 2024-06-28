@@ -36,6 +36,7 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
       </Field>
       <Field withRequiredMark label={t('registration_form:student')} error={errors.studentId?.message}>
         <SelectStudent
+          scope="currentUser"
           disabled={disabledField || isEdit}
           placeholder={t('registration_form:student')}
           student={formValues.studentId}
@@ -173,11 +174,11 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
       </Field>
       <Field label={t('registration_form:district')} error={errors.studentDistrict?.message}>
         <SelectDistrict
+          scope="inACity"
           disabled={disabledField}
           cityCode={formValues.studentCityCode ?? undefined}
           district={formValues.studentDistrict ?? undefined}
           onChange={value => {
-            console.log(111, value);
             setValue('studentDistrict', value);
             if (errors.studentDistrict) {
               trigger('studentDistrict');

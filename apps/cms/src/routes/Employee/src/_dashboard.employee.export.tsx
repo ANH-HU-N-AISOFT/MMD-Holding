@@ -16,6 +16,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   try {
     const response = await exportEmployees({
+      withoutPermission: false,
       query: search,
       organizationId: department,
       roles,

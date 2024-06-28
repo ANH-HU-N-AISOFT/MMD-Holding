@@ -16,6 +16,7 @@ interface GetDepartments {
   isManagementUnit?: boolean;
   sortByName?: 1 | -1;
   parentOrganizationId?: string;
+  withoutPermission: boolean;
 }
 export const getDepartments = async ({
   businessStatus,
@@ -25,6 +26,7 @@ export const getDepartments = async ({
   isManagementUnit,
   sortByName,
   parentOrganizationId,
+  withoutPermission,
 }: GetDepartments) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     url: '/organizations',
@@ -36,6 +38,7 @@ export const getDepartments = async ({
       isManagementUnit,
       sortByName,
       parentOrganizationId,
+      withoutPermission,
     },
   });
 

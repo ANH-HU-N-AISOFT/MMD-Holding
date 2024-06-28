@@ -10,11 +10,12 @@ import { FormValues } from '../FormMutation';
 import { Field } from '~/components/Field/Field';
 import { useRemixForm } from '~/overrides/remix-hook-form';
 import { SelectGender } from '~/packages/common/SelectVariants/Gender/SelectGender';
+import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectCity } from '~/packages/extends/Location/components/SelectVariants/SelectCity';
 import { SelectDistrict } from '~/packages/extends/Location/components/SelectVariants/SelectDistrict';
 import { SelectSchool } from '~/packages/extends/Location/components/SelectVariants/SelectSchool';
 import { SelectDepartments } from '~/packages/specific/Department/components/SelectVariants/SelectDepartments';
-import { SelectSaleEmployees } from '~/packages/specific/Employee/components/SelectVariants/SelectSaleEmployees';
+import { SelectEmployees } from '~/packages/specific/Employee/components/SelectVariants/SelectEmployees';
 import { takeOnlyNumber } from '~/utils/functions/handleInputValue/takeOnlyNumber';
 
 interface Props {
@@ -131,6 +132,7 @@ export const PersonalInformation = ({ form, disabledField, isEdit, student }: Pr
       </Field>
       <Field label={t('student:district')} error={errors.personalInformation?.district?.message}>
         <SelectDistrict
+          scope="inACity"
           cityCode={cityCode}
           district={district ?? undefined}
           onChange={value => {
@@ -160,6 +162,7 @@ export const PersonalInformation = ({ form, disabledField, isEdit, student }: Pr
       </Field>
       <Field label={t('student:school')} error={errors.personalInformation?.school?.message}>
         <SelectSchool
+          scope="inACity"
           school={school ?? undefined}
           cityCode={cityCode}
           onChange={value => {
@@ -247,6 +250,7 @@ export const PersonalInformation = ({ form, disabledField, isEdit, student }: Pr
         error={errors.personalInformation?.departments?.message}
       >
         <SelectDepartments
+          scope="currentUser"
           extraDepartments={student?.organizations ? student.organizations : []}
           departments={departments}
           onChange={value => {
@@ -260,9 +264,12 @@ export const PersonalInformation = ({ form, disabledField, isEdit, student }: Pr
         />
       </Field>
       <Field label={t('student:sale_employees')} error={errors.personalInformation?.saleEmployees?.message}>
-        <SelectSaleEmployees
-          organizations={departments ?? []}
-          saleEmployees={saleEmployees?.filter((item): item is string => Boolean(item))}
+        <SelectEmployees
+          scope="inADepartment"
+          role={Role.Sale}
+          organizationId={departments}
+          emptyText={t('student:must_select_department')}
+          employees={saleEmployees?.filter((item): item is string => Boolean(item))}
           onChange={value => {
             setValue('personalInformation.saleEmployees', value);
             if (errors.personalInformation?.saleEmployees) {

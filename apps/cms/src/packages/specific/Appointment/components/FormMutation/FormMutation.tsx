@@ -1,13 +1,20 @@
 import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
 import { uniq } from 'ramda';
-import { ComponentProps, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Divider, Input, Radio, Textarea } from 'reactjs';
-import { Field, SingleTimePicker, useDeepCompareEffect } from 'reactjs';
-import { SingleDayPicker } from 'reactjs';
-import { disableDaysPast } from 'reactjs';
-import { SelectMultiple } from 'reactjs';
+import {
+  Divider,
+  Field,
+  Input,
+  Radio,
+  SelectMultiple,
+  SingleDayPicker,
+  SingleTimePicker,
+  Textarea,
+  disableDaysPast,
+  useDeepCompareEffect,
+} from 'reactjs';
 import { TypeOf } from 'zod';
 import { getTestTypeMappingToLabels } from '../../constants/TestTypeMappingToLabels';
 import { Appointment } from '../../models/Appointment';
@@ -23,8 +30,9 @@ import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectSchool } from '~/packages/extends/Location/components/SelectVariants/SelectSchool';
 import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
 import { SelectDepartments } from '~/packages/specific/Department/components/SelectVariants/SelectDepartments';
+import { DepartmentPopulated } from '~/packages/specific/Department/models/DepartmentPopulated';
 import { SelectEmployee } from '~/packages/specific/Employee/components/SelectVariants/SelectEmployee';
-import { SelectSaleEmployees } from '~/packages/specific/Employee/components/SelectVariants/SelectSaleEmployees';
+import { SelectEmployees } from '~/packages/specific/Employee/components/SelectVariants/SelectEmployees';
 import { SelectSourceEnum } from '~/packages/specific/Student/components/SelectVariants/SelectSourceEnum';
 import { SelectStudent } from '~/packages/specific/Student/components/SelectVariants/SelectStudent';
 
@@ -142,7 +150,8 @@ export const FormMutation = ({
           <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2">
             <Field withRequiredMark label={t('appointment:student')} error={errors.studentId?.message}>
               <SelectStudent
-                disabled={disabledField || isEdit}
+                scope="allSystem"
+                disabled={disabledField || !!isEdit}
                 student={studentId}
                 onChange={(value, option) => {
                   setValue('studentId', value);
@@ -173,19 +182,25 @@ export const FormMutation = ({
               />
             </Field>
             <Field label={t('appointment:school')} error={errors.studentSchool?.message}>
-              <SelectSchool school={studentSchool ?? undefined} cityCode="GET_ALL" disabled />
+              <SelectSchool scope="allSystem" school={studentSchool ?? undefined} disabled onChange={() => undefined} />
             </Field>
             <Field label={t('appointment:source')} error={errors.studentSource?.message}>
               <SelectSourceEnum allowClear={false} sourceEnum={studentSource ?? undefined} disabled />
             </Field>
             <Field label={t('appointment:sale_employees')} error={errors.studentSaleEmployees?.message}>
-              <SelectSaleEmployees saleEmployees={studentSaleEmployees ?? undefined} organizations="GET_ALL" disabled />
+              <SelectEmployees
+                scope="allSystem"
+                disabled
+                role={Role.Sale}
+                employees={studentSaleEmployees ?? undefined}
+                onChange={() => undefined}
+              />
             </Field>
             <Field label={t('appointment:department')} error={errors.departmentOfSaleEmployees?.message}>
               <SelectDepartments
-                extraDepartments={(appointment?.saleEmployees ?? [])?.reduce<
-                  ComponentProps<typeof SelectDepartments>['extraDepartments']
-                >((result, item) => {
+                scope="allSystem"
+                onChange={() => undefined}
+                extraDepartments={(appointment?.saleEmployees ?? [])?.reduce<DepartmentPopulated[]>((result, item) => {
                   if (item.organization) {
                     return result.concat({
                       id: item.organization.id,
@@ -225,6 +240,7 @@ export const FormMutation = ({
               error={errors.expectInspectionDepartmentId?.message}
             >
               <SelectDepartment
+                scope="allSystem"
                 extraDepartments={appointment?.organization ? [appointment?.organization] : []}
                 department={expectInspectionDepartmentId}
                 onChange={value => {
@@ -360,9 +376,10 @@ export const FormMutation = ({
             </div>
             <Field withRequiredMark label={t('appointment:consultant')} error={errors.consultant?.message}>
               <SelectEmployee
+                scope="inADepartment"
                 organizationId={expectInspectionDepartmentId}
                 emptyText={t('appointment:must_select_expect_inspection_department')}
-                roles={[Role.Consultant]}
+                role={Role.Consultant}
                 placeholder={t('appointment:consultant')}
                 employee={consultant}
                 onChange={value => {
@@ -376,10 +393,10 @@ export const FormMutation = ({
             </Field>
             <Field label={t('appointment:admin')} error={errors.admin?.message}>
               <SelectEmployee
+                scope="inADepartment"
                 organizationId={expectInspectionDepartmentId}
                 emptyText={t('appointment:must_select_expect_inspection_department')}
-                roles={[Role.Admin]}
-                allowClear
+                role={Role.Admin}
                 placeholder={t('appointment:admin')}
                 disabled={disabledField}
                 employee={admin ?? undefined}
@@ -393,10 +410,10 @@ export const FormMutation = ({
             </Field>
             <Field label={t('appointment:tester')}>
               <SelectEmployee
+                scope="inADepartment"
                 organizationId={expectInspectionDepartmentId}
                 emptyText={t('appointment:must_select_expect_inspection_department')}
-                roles={[Role.Lecturer]}
-                allowClear
+                role={Role.Lecturer}
                 placeholder={t('appointment:tester')}
                 disabled={disabledField}
                 employee={tester ?? undefined}

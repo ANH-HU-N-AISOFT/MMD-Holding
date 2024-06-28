@@ -50,6 +50,7 @@ export const RoleSystem = ({
         error={errors.personnelRecord?.department?.message}
       >
         <SelectDepartment
+          scope="currentUser"
           extraDepartments={
             employee?.organization
               ? [

@@ -14,8 +14,9 @@ interface GetStudents {
   perPage?: number;
   orgCodes?: string;
   sortByName?: -1 | 1;
+  withoutPermission: boolean;
 }
-export const getStudents = async ({ page, query, perPage, orgCodes, sortByName }: GetStudents) => {
+export const getStudents = async ({ page, query, perPage, orgCodes, sortByName, withoutPermission }: GetStudents) => {
   const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
     url: '/students',
     params: {
@@ -24,6 +25,7 @@ export const getStudents = async ({ page, query, perPage, orgCodes, sortByName }
       perPage,
       orgCodes,
       sortByName,
+      withoutPermission,
     },
   });
 

@@ -16,7 +16,7 @@ import { SelectCourseCombo } from '~/packages/specific/CourseCombo/SelectVariant
 import { SelectCourseRoadmap } from '~/packages/specific/CourseRoadmap/components/SelectVariants/SelectCourseRoadmap';
 import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
 import { SelectEmployee } from '~/packages/specific/Employee/components/SelectVariants/SelectEmployee';
-import { SelectSaleEmployees } from '~/packages/specific/Employee/components/SelectVariants/SelectSaleEmployees';
+import { SelectEmployees } from '~/packages/specific/Employee/components/SelectVariants/SelectEmployees';
 import { SelectDiscounts } from '~/packages/specific/Promotion/components/SelectVariants/SelectDiscounts';
 import { useGetGiftsOfOrganization } from '~/packages/specific/Promotion/hooks/useGetGiftsOfOrganization';
 import { SelectSourceEnum } from '~/packages/specific/Student/components/SelectVariants/SelectSourceEnum';
@@ -66,6 +66,7 @@ export const Consultant = ({ disabledField, form, consultantForm }: Props) => {
     <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
       <Field withRequiredMark label={t('consultant_form:student_name')} error={errors.studentId?.message}>
         <SelectStudent
+          scope="currentUser"
           disabled={disabledField}
           placeholder={t('consultant_form:student_name')}
           student={studentId}
@@ -91,8 +92,9 @@ export const Consultant = ({ disabledField, form, consultantForm }: Props) => {
       </Field>
       <Field label={t('consultant_form:student_school')}>
         <SelectSchool
+          onChange={() => undefined}
           school={displayStudentSchool ?? undefined}
-          cityCode="GET_ALL"
+          scope="allSystem"
           disabled
           placeholder={t('consultant_form:student_school')}
         />
@@ -105,13 +107,20 @@ export const Consultant = ({ disabledField, form, consultantForm }: Props) => {
         />
       </Field>
       <Field label={t('consultant_form:sale_employee')}>
-        <SelectSaleEmployees organizations="GET_ALL" saleEmployees={displaySaleEmployees ?? undefined} disabled />
+        <SelectEmployees
+          scope="allSystem"
+          role={Role.Sale}
+          disabled
+          employees={displaySaleEmployees ?? undefined}
+          onChange={() => undefined}
+        />
       </Field>
       <Field withRequiredMark label={t('consultant_form:consultantor')} error={errors.consultantId?.message}>
         <SelectEmployee
+          scope="inADepartment"
           organizationId={expectDepartmentId}
           emptyText={t('consultant_form:must_select_expect_department')}
-          roles={[Role.Consultant]}
+          role={Role.Consultant}
           disabled={disabledField}
           placeholder={t('consultant_form:consultantor')}
           employee={consultantId}
@@ -125,6 +134,7 @@ export const Consultant = ({ disabledField, form, consultantForm }: Props) => {
       </Field>
       <Field label={t('consultant_form:expect_department')} error={errors.expectDepartmentId?.message}>
         <SelectDepartment
+          scope="currentUser"
           extraDepartments={consultantForm?.learningOrganization ? [consultantForm.learningOrganization] : []}
           disabled={disabledField}
           placeholder={t('consultant_form:expect_department')}
