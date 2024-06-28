@@ -59,7 +59,6 @@ export const ModalPreview = <T extends ValidateServiceResponse>({
       return result;
     }, []);
   }, [validateResponse]);
-  console.log(invalidRecords);
 
   const data: InvalidRecord<T>[] | ValidNRawRecord<T>[] = useMemo(() => {
     if (tabActive === 'all') {

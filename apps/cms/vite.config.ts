@@ -1,6 +1,6 @@
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import react from '@vitejs/plugin-react';
-import { defineConfig, splitVendorChunkPlugin } from 'vite';
+import { defineConfig } from 'vite';
 import path from 'path';
 
 export default defineConfig({
@@ -19,7 +19,19 @@ export default defineConfig({
     host: 'localhost',
   },
 
-  plugins: [react(), splitVendorChunkPlugin(), nxViteTsPaths()],
+  plugins: [react(), nxViteTsPaths()],
+
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          cacheV1_ramda: ['ramda'],
+          cacheV1_antd: ['antd'],
+          'cacheV1_@ant-design/iconsV1': ['@ant-design/icons'],
+        },
+      },
+    },
+  },
 
   // Uncomment this if you are using workers.
   worker: {
