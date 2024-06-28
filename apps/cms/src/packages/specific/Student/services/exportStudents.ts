@@ -2,7 +2,7 @@ import { fetchApi } from '~/utils/functions/fetchApi';
 
 interface ExportStudents {
   query?: string;
-  orgCodes?: string;
+  orgCodes?: string[];
   withoutPermission: boolean;
 }
 

@@ -1,18 +1,17 @@
 import { AxiosResponse } from 'axios';
 import { Student } from '../models/Student';
-import { ServiceHeaderResponse } from '~/@types/ServiceHeaderResponse';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {
   items: Student[];
-  headers: ServiceHeaderResponse;
+  total: number;
 }
 
 interface GetStudents {
   query?: string;
   page?: number;
   perPage?: number;
-  orgCodes?: string;
+  orgCodes?: string[];
   sortByName?: -1 | 1;
   withoutPermission: boolean;
 }

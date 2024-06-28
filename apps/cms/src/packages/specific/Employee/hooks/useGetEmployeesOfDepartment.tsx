@@ -26,7 +26,7 @@ export const useGetEmployeesOfDepartment = ({ departmentId }: Props) => {
       page,
       perPage: 8,
       sortByName: -1,
-      organizationId: departmentId,
+      organizationIds: [departmentId],
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, page, departmentId]);

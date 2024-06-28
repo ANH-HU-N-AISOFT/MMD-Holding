@@ -17,8 +17,7 @@ import { getAppointmentStatusMappingToLabels } from '~/packages/specific/Appoint
 import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
 import './styles.css';
 
-export interface FormFilterValues
-  extends Pick<ListingSearchParams, 'status' | 'organizationId' | 'date' | 'test' | 'testShiftId' | 'isOwner'> {}
+export interface FormFilterValues extends Pick<ListingSearchParams, 'status' | 'organizationId' | 'isOwner'> {}
 
 interface FormFilterProps {
   onFilter?: (formFilterValues: FormFilterValues) => void;
@@ -62,8 +61,6 @@ export const FormSearchNFilter = ({
   });
   const status = watch('status');
   const isOwner = watch('isOwner') ?? false;
-  // const date = watch('date');
-  // const test = watch('test');
   const organizationId = watch('organizationId');
 
   const handleResetFormFilterValues = () => {

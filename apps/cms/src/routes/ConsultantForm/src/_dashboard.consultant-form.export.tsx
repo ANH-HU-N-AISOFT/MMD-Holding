@@ -5,7 +5,7 @@ import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { exportConsultantForms } from '~/packages/specific/ConsultantForm/services/exportConsultantForms';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/ConsultantForm/utils/lisitngUrlSearchParamsUtils';
 import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
-import { downloadAxiosResponseAsCSV } from '~/utils/functions/downloadAxiosResponseAsCSV';
+import { downloadAxiosResponseAsXlsx } from '~/utils/functions/downloadAxiosResponseAsXlsx';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
@@ -21,7 +21,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       status,
     });
 
-    downloadAxiosResponseAsCSV({ response, fileName: t('consultant_form:consultant_forms') });
+    downloadAxiosResponseAsXlsx({ response, fileName: t('consultant_form:consultant_forms') });
 
     return json({
       hasError: false,

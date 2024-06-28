@@ -5,14 +5,14 @@ interface ExportAppointments {
   query?: string;
   status?: AppointmentStatus;
   isOwner?: boolean;
-  organizationId?: string;
+  organizationIds?: string[];
 }
 
-export const exportAppointments = async ({ query, isOwner, organizationId, status }: ExportAppointments) => {
+export const exportAppointments = async ({ query, isOwner, organizationIds, status }: ExportAppointments) => {
   const response = await fetchApi.request({
     url: '/appointments/export',
     responseType: 'blob',
-    params: { query, isOwner, organizationId, status },
+    params: { query, isOwner, organizationIds, status },
   });
   return response.data;
 };

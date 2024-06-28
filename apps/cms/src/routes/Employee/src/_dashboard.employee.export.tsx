@@ -5,7 +5,7 @@ import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { exportEmployees } from '~/packages/specific/Employee/services/exportEmployees';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Employee/utils/lisitngUrlSearchParamsUtils';
 import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
-import { downloadAxiosResponseAsCSV } from '~/utils/functions/downloadAxiosResponseAsCSV';
+import { downloadAxiosResponseAsXlsx } from '~/utils/functions/downloadAxiosResponseAsXlsx';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
@@ -18,12 +18,12 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     const response = await exportEmployees({
       withoutPermission: false,
       query: search,
-      organizationId: department,
+      organizationIds: department ? [department] : undefined,
       roles,
       workStatus: status,
     });
 
-    downloadAxiosResponseAsCSV({ response, fileName: t('employee:employees') });
+    downloadAxiosResponseAsXlsx({ response, fileName: t('employee:employees') });
 
     return json({
       hasError: false,

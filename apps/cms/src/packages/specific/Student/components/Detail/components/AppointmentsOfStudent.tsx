@@ -1,4 +1,5 @@
 import { Student } from '../../../models/Student';
+import { RecordsPerPage } from '~/constants/RecordsPerPage';
 import { Table } from '~/packages/specific/Appointment/components/Listing/Table';
 import { useGetAppointmentsOfStudent } from '~/packages/specific/Appointment/hooks/useGetAppointmentsOfStudent';
 
@@ -18,8 +19,8 @@ export const AppointmentsOfStudent = ({ student }: Props) => {
         paginationMode="none"
         currentPage={page}
         onChange={changePage}
-        pageSize={data?.headers['x-per-page'] ?? 0}
-        totalRecords={data?.headers['x-total-count'] ?? 0}
+        pageSize={RecordsPerPage}
+        totalRecords={data?.total ?? 0}
         loading={loading}
         dataSource={data?.items}
         deletable={false}

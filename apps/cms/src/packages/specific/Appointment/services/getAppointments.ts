@@ -1,13 +1,12 @@
 import { AxiosResponse } from 'axios';
 import { Appointment } from '../models/Appointment';
 import { AppointmentStatus } from '../models/AppointmentStatus';
-import { ServiceHeaderResponse } from '~/@types/ServiceHeaderResponse';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {
   items: Appointment[];
-  headers: ServiceHeaderResponse;
   totalsByStatus: Record<AppointmentStatus, number>;
+  total: number;
 }
 
 interface GetAppointments {
@@ -17,7 +16,7 @@ interface GetAppointments {
   sortByDate?: 1 | -1;
   status?: AppointmentStatus;
   isOwner?: boolean;
-  organizationId?: string;
+  organizationIds?: string[];
   studentId?: string;
 }
 export const getAppointments = async ({
@@ -25,7 +24,7 @@ export const getAppointments = async ({
   query,
   perPage,
   isOwner,
-  organizationId,
+  organizationIds,
   sortByDate,
   status,
   studentId,
@@ -37,7 +36,7 @@ export const getAppointments = async ({
       query,
       perPage,
       isOwner,
-      organizationId,
+      organizationIds,
       sortByDate,
       status,
       studentId,

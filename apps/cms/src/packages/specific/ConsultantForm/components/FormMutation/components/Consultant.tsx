@@ -10,6 +10,7 @@ import { SelectFormStatus } from '../../SelectVariants/SelectFormStatus';
 import { CourseRoadmapOrCombo } from '../constants';
 import { FormValues } from '../FormMutation';
 import { useRemixForm } from '~/overrides/remix-hook-form';
+import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectSchool } from '~/packages/extends/Location/components/SelectVariants/SelectSchool';
 import { SelectCourseCombo } from '~/packages/specific/CourseCombo/SelectVariants/SelectCourseCombo';
@@ -118,7 +119,9 @@ export const Consultant = ({ disabledField, form, consultantForm }: Props) => {
       <Field withRequiredMark label={t('consultant_form:consultantor')} error={errors.consultantId?.message}>
         <SelectEmployee
           scope="inADepartment"
-          organizationId={expectDepartmentId}
+          organizationIds={[expectDepartmentId, getSession()?.profile?.organizationId].filter(
+            (item): item is string => !!item,
+          )}
           emptyText={t('consultant_form:must_select_expect_department')}
           role={Role.Consultant}
           disabled={disabledField}

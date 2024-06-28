@@ -5,31 +5,24 @@ import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { exportAppointments } from '~/packages/specific/Appointment/services/exportAppointments';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Appointment/utils/lisitngUrlSearchParamsUtils';
 import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
-import { downloadAxiosResponseAsCSV } from '~/utils/functions/downloadAxiosResponseAsCSV';
+import { downloadAxiosResponseAsXlsx } from '~/utils/functions/downloadAxiosResponseAsXlsx';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request }: ActionFunctionArgs) => {
   await isCanAccessRoute(isCanExportAppointment);
   const t = i18next.t;
-  const {
-    search,
-    organizationId,
-    status,
-    // date,
-    isOwner,
-    // test, testShiftId
-  } = lisitngUrlSearchParamsUtils.decrypt(request);
+  const { search, organizationId, status, isOwner } = lisitngUrlSearchParamsUtils.decrypt(request);
 
   try {
     const response = await exportAppointments({
       query: search,
       status: status === 'all' ? undefined : status,
-      organizationId,
+      organizationIds: organizationId ? [organizationId] : undefined,
       isOwner,
     });
 
-    downloadAxiosResponseAsCSV({
+    downloadAxiosResponseAsXlsx({
       response,
       fileName: t('appointment:appointments'),
     });

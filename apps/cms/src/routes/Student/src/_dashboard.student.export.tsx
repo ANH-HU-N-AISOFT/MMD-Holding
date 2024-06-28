@@ -5,23 +5,23 @@ import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { exportStudents } from '~/packages/specific/Student/services/exportStudents';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/Student/utils/lisitngUrlSearchParamsUtils';
-import { downloadAxiosResponseAsCSV } from '~/utils/functions/downloadAxiosResponseAsCSV';
+import { downloadAxiosResponseAsXlsx } from '~/utils/functions/downloadAxiosResponseAsXlsx';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
 export const action = async ({ request }: ActionFunctionArgs) => {
   await isCanAccessRoute(isCanExportStudent);
   const t = i18next.t;
-  const { search, department } = lisitngUrlSearchParamsUtils.decrypt(request);
+  const { search, departments } = lisitngUrlSearchParamsUtils.decrypt(request);
 
   try {
     const response = await exportStudents({
       withoutPermission: false,
       query: search,
-      orgCodes: department,
+      orgCodes: departments,
     });
 
-    downloadAxiosResponseAsCSV({ response, fileName: t('student:students') });
+    downloadAxiosResponseAsXlsx({ response, fileName: t('student:students') });
 
     return json({
       hasError: false,

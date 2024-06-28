@@ -17,6 +17,8 @@ import {
 } from './utils/Is';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
+import { getTotalPages } from '~/constants/getTotalPages';
+import { RecordsPerPage } from '~/constants/RecordsPerPage';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/remix';
 import { useListingData } from '~/packages/base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/base/types/SimpleListingLoaderResponse';
@@ -48,7 +50,7 @@ export const loader = async ({
       page,
       query: search,
       status: status === 'all' ? undefined : status,
-      organizationId,
+      organizationIds: organizationId ? [organizationId] : undefined,
       isOwner: isOwner,
       sortByDate:
         !status || status === 'all'
@@ -62,12 +64,12 @@ export const loader = async ({
       info: {
         hits: response.items,
         pagination: {
-          totalPages: response.headers['x-pages-count'],
-          totalRecords: response.headers['x-total-count'],
-          pageSize: response.headers['x-per-page'],
+          totalPages: getTotalPages(response.total, RecordsPerPage),
+          totalRecords: response.total,
+          pageSize: RecordsPerPage,
         },
       },
-      page: Math.min(page, response.headers['x-pages-count'] || 1),
+      page,
       counts: response.totalsByStatus,
     });
   } catch (error) {
@@ -210,9 +212,6 @@ export const Page = () => {
           formFilterValues={{
             status: paramsInUrl.status,
             organizationId: paramsInUrl.organizationId,
-            date: paramsInUrl.date,
-            test: paramsInUrl.test,
-            testShiftId: paramsInUrl.testShiftId,
             isOwner: paramsInUrl.isOwner,
           }}
           isSubmiting={isFetchingList}
@@ -221,9 +220,6 @@ export const Page = () => {
             handleRequest({
               page: 1,
               organizationId: undefined,
-              date: undefined,
-              test: undefined,
-              testShiftId: undefined,
               isOwner: undefined,
             });
           }}

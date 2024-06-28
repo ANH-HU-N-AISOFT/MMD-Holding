@@ -26,6 +26,7 @@ import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Form } from '~/overrides/remix';
 import { useRemixForm } from '~/overrides/remix-hook-form';
+import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectSchool } from '~/packages/extends/Location/components/SelectVariants/SelectSchool';
 import { SelectDepartment } from '~/packages/specific/Department/components/SelectVariants/SelectDepartment';
@@ -377,7 +378,9 @@ export const FormMutation = ({
             <Field withRequiredMark label={t('appointment:consultant')} error={errors.consultant?.message}>
               <SelectEmployee
                 scope="inADepartment"
-                organizationId={expectInspectionDepartmentId}
+                organizationIds={[expectInspectionDepartmentId, getSession()?.profile?.organizationId].filter(
+                  (item): item is string => !!item,
+                )}
                 emptyText={t('appointment:must_select_expect_inspection_department')}
                 role={Role.Consultant}
                 placeholder={t('appointment:consultant')}
@@ -394,7 +397,9 @@ export const FormMutation = ({
             <Field label={t('appointment:admin')} error={errors.admin?.message}>
               <SelectEmployee
                 scope="inADepartment"
-                organizationId={expectInspectionDepartmentId}
+                organizationIds={[expectInspectionDepartmentId, getSession()?.profile?.organizationId].filter(
+                  (item): item is string => !!item,
+                )}
                 emptyText={t('appointment:must_select_expect_inspection_department')}
                 role={Role.Admin}
                 placeholder={t('appointment:admin')}
@@ -411,7 +416,9 @@ export const FormMutation = ({
             <Field label={t('appointment:tester')}>
               <SelectEmployee
                 scope="inADepartment"
-                organizationId={expectInspectionDepartmentId}
+                organizationIds={[expectInspectionDepartmentId, getSession()?.profile?.organizationId].filter(
+                  (item): item is string => !!item,
+                )}
                 emptyText={t('appointment:must_select_expect_inspection_department')}
                 role={Role.Lecturer}
                 placeholder={t('appointment:tester')}

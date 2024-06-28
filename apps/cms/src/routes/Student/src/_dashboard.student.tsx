@@ -22,6 +22,8 @@ import {
 import { ModalWithI18n } from '~/components/AntCustom/ModalWithI18n';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
+import { getTotalPages } from '~/constants/getTotalPages';
+import { RecordsPerPage } from '~/constants/RecordsPerPage';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/remix';
 import { useListingData } from '~/packages/base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/base/types/SimpleListingLoaderResponse';
@@ -51,25 +53,25 @@ export const loader = async ({
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<Student>>> => {
   await isCanAccessRoute(isCanReadStudent);
   const t = i18next.t;
-  const { page = 1, search, department } = lisitngUrlSearchParamsUtils.decrypt(request);
+  const { page = 1, search, departments } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
     const response = await getStudents({
       withoutPermission: false,
       page,
       query: search,
-      orgCodes: department,
+      orgCodes: departments,
     });
 
     return json({
       info: {
         hits: response.items,
         pagination: {
-          totalPages: response.headers['x-pages-count'],
-          totalRecords: response.headers['x-total-count'],
-          pageSize: response.headers['x-per-page'],
+          totalPages: getTotalPages(response.total, RecordsPerPage),
+          totalRecords: response.total,
+          pageSize: RecordsPerPage,
         },
       },
-      page: Math.min(page, response.headers['x-pages-count'] || 1),
+      page,
     });
   } catch (error) {
     return json({
@@ -226,11 +228,11 @@ export const Page = () => {
           containerClassName="justify-end mb-1"
           searchValue={paramsInUrl.search?.toString()}
           formFilterValues={{
-            department: paramsInUrl.department,
+            departments: paramsInUrl.departments,
           }}
           isSubmiting={isFetchingList}
           onFilter={values => handleRequest({ page: 1, ...values })}
-          onResetFilter={() => handleRequest({ page: 1, department: undefined })}
+          onResetFilter={() => handleRequest({ page: 1, departments: undefined })}
           onSearch={value => handleRequest({ page: 1, search: value })}
         />
         <Table
@@ -278,7 +280,7 @@ export const Page = () => {
         ref={importActions}
         revalidate={() => {
           handleRequest({
-            department: undefined,
+            departments: undefined,
             page: 1,
             search: undefined,
           });

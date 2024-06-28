@@ -15,6 +15,7 @@ import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Field } from '~/components/Field/Field';
 import { Form } from '~/overrides/remix';
 import { useRemixForm } from '~/overrides/remix-hook-form';
+import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { Role } from '~/packages/common/SelectVariants/Role/constants/Role';
 import { SelectSchool } from '~/packages/extends/Location/components/SelectVariants/SelectSchool';
 import { SelectCourseRoadmap } from '~/packages/specific/CourseRoadmap/components/SelectVariants/SelectCourseRoadmap';
@@ -177,7 +178,9 @@ export const FormMutation = ({
             <Field withRequiredMark label={t('trial_request:consultantor')} error={errors.consultantId?.message}>
               <SelectEmployee
                 scope="inADepartment"
-                organizationId={learningOrganizationId}
+                organizationIds={[learningOrganizationId, getSession()?.profile?.organizationId].filter(
+                  (item): item is string => !!item,
+                )}
                 emptyText={t('trial_request:must_select_expect_department')}
                 role={Role.Consultant}
                 disabled={disabledField}
@@ -309,7 +312,9 @@ export const FormMutation = ({
             <Field label={t('trial_request:lecture')} error={errors.lectureId?.message}>
               <SelectEmployee
                 scope="inADepartment"
-                organizationId={learningOrganizationId}
+                organizationIds={[learningOrganizationId, getSession()?.profile?.organizationId].filter(
+                  (item): item is string => !!item,
+                )}
                 emptyText={t('trial_request:must_select_expect_department')}
                 role={Role.Lecturer}
                 allowClear
@@ -327,7 +332,9 @@ export const FormMutation = ({
             <Field label={t('trial_request:admin')} error={errors.adminId?.message}>
               <SelectEmployee
                 scope="inADepartment"
-                organizationId={learningOrganizationId}
+                organizationIds={[learningOrganizationId, getSession()?.profile?.organizationId].filter(
+                  (item): item is string => !!item,
+                )}
                 emptyText={t('trial_request:must_select_expect_department')}
                 role={Role.Admin}
                 allowClear

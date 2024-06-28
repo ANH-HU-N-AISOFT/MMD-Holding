@@ -1,4 +1,5 @@
 import { Department } from '../../../models/Department';
+import { RecordsPerPage } from '~/constants/RecordsPerPage';
 import { FormSearchNFilter } from '~/packages/specific/Student/components/Listing/FormSearchNFilter';
 import { Table } from '~/packages/specific/Student/components/Listing/Table';
 import { useGetStudentsOfDepartment } from '~/packages/specific/Student/hooks/useGetStudentsOfDepartment';
@@ -26,8 +27,8 @@ export const StudentsOfDepartment = ({ department }: Props) => {
         paginationMode="none"
         currentPage={page}
         onChange={changePage}
-        pageSize={data?.headers['x-per-page'] ?? 0}
-        totalRecords={data?.headers['x-total-count'] ?? 0}
+        pageSize={RecordsPerPage}
+        totalRecords={data?.total ?? 0}
         loading={loading}
         dataSource={data?.items}
         deletable={false}

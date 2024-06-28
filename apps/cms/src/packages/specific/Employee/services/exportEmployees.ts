@@ -3,15 +3,15 @@ import { fetchApi } from '~/utils/functions/fetchApi';
 
 interface ExportEmployees {
   query?: string;
-  organizationId?: string;
-  roles?: string;
+  organizationIds?: string[];
+  roles?: string[];
   workStatus?: WorkStatus;
   withoutPermission: boolean;
 }
 
 export const exportEmployees = async ({
   query,
-  organizationId,
+  organizationIds,
   roles,
   workStatus,
   withoutPermission,
@@ -21,7 +21,7 @@ export const exportEmployees = async ({
     responseType: 'blob',
     params: {
       query,
-      organizationId,
+      organizationIds,
       roles,
       workStatus,
       withoutPermission,

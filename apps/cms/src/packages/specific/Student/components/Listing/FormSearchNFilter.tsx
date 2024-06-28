@@ -10,7 +10,7 @@ import { useRemixForm } from '~/overrides/remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/base/utils/getCountForFilterDrawer';
 import { SelectDepartments } from '~/packages/specific/Department/components/SelectVariants/SelectDepartments';
 
-export interface FormFilterValues extends Pick<ListingSearchParams, 'department'> {}
+export interface FormFilterValues extends Pick<ListingSearchParams, 'departments'> {}
 
 interface FormFilterProps {
   onFilter?: (formFilterValues: FormFilterValues) => void;
@@ -45,7 +45,7 @@ export const FormSearchNFilter = ({
       onValid: onFilter,
     },
   });
-  const department = watch('department');
+  const departments = watch('departments');
 
   const handleResetFormFilterValues = () => {
     reset({});
@@ -70,7 +70,7 @@ export const FormSearchNFilter = ({
         hideFilter: hideFilter,
         uid: UID,
         onReset: handleResetFormFilterValues,
-        count: getCountForFilterDrawer({ fieldKeys: ['department'], formFilterValues }),
+        count: getCountForFilterDrawer({ fieldKeys: ['departments'], formFilterValues }),
         form: (
           <Form method="GET" id={UID} onSubmit={handleSubmit}>
             <Field label={t('student:department_name')}>
@@ -79,12 +79,10 @@ export const FormSearchNFilter = ({
                 disabled={disabledField}
                 extraDepartments={[]}
                 placeholder={t('student:department_name')}
-                departments={department?.split(',')}
+                departments={departments}
                 fieldValue="code"
                 fieldLabel={['name', 'code']}
-                onChange={value => {
-                  setValue('department', value?.join(','));
-                }}
+                onChange={value => setValue('departments', value)}
               />
             </Field>
           </Form>

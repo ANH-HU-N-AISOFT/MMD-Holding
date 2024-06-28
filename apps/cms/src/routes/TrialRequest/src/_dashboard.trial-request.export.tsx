@@ -5,7 +5,7 @@ import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
 import { exportTrialRequests } from '~/packages/specific/TrialRequest/services/exportTrialRequests';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/TrialRequest/utils/lisitngUrlSearchParamsUtils';
-import { downloadAxiosResponseAsCSV } from '~/utils/functions/downloadAxiosResponseAsCSV';
+import { downloadAxiosResponseAsXlsx } from '~/utils/functions/downloadAxiosResponseAsXlsx';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
@@ -37,7 +37,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       studyMode,
     });
 
-    downloadAxiosResponseAsCSV({ response, fileName: t('trial_request:trials') });
+    downloadAxiosResponseAsXlsx({ response, fileName: t('trial_request:trials') });
 
     return json({
       hasError: false,

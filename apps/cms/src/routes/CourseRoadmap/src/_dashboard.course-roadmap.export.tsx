@@ -5,7 +5,7 @@ import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { exportCourseRoadmaps } from '~/packages/specific/CourseRoadmap/services/exportCourseRoadmaps';
 import { lisitngUrlSearchParamsUtils } from '~/packages/specific/CourseRoadmap/utils/lisitngUrlSearchParamsUtils';
 import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
-import { downloadAxiosResponseAsCSV } from '~/utils/functions/downloadAxiosResponseAsCSV';
+import { downloadAxiosResponseAsXlsx } from '~/utils/functions/downloadAxiosResponseAsXlsx';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 
 export type ActionResponse = SimpleResponse<undefined, undefined>;
@@ -20,7 +20,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       status,
     });
 
-    downloadAxiosResponseAsCSV({ response, fileName: t('course_roadmap:course_roadmaps') });
+    downloadAxiosResponseAsXlsx({ response, fileName: t('course_roadmap:course_roadmaps') });
 
     return json({
       hasError: false,

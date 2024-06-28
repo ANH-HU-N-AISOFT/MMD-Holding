@@ -20,6 +20,8 @@ import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { GetAllParams } from '~/constants/GetAllParams';
+import { getTotalPages } from '~/constants/getTotalPages';
+import { RecordsPerPage } from '~/constants/RecordsPerPage';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/remix';
 import { useListingData } from '~/packages/base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/base/types/SimpleListingLoaderResponse';
@@ -28,7 +30,6 @@ import { FormSearchNFilter } from '~/packages/specific/Department/components/Lis
 import { Header } from '~/packages/specific/Department/components/Listing/Header';
 import { Table } from '~/packages/specific/Department/components/Listing/Table';
 import { TableForTreeLayout } from '~/packages/specific/Department/components/Listing/TableForTreeLayout';
-import { QuantityDepartmentsPerPage } from '~/packages/specific/Department/constants/QuantityDepartmentsPerPage';
 import { Department } from '~/packages/specific/Department/models/Department';
 import { getDepartments } from '~/packages/specific/Department/services/getDepartments';
 import { ListingSearchParams } from '~/packages/specific/Department/types/ListingSearchParams';
@@ -58,9 +59,9 @@ export const loader = async ({
       info: {
         hits: response.items,
         pagination: {
-          totalPages: response.total,
+          totalPages: getTotalPages(response.total, RecordsPerPage),
           totalRecords: response.total,
-          pageSize: QuantityDepartmentsPerPage,
+          pageSize: RecordsPerPage,
         },
       },
       page,

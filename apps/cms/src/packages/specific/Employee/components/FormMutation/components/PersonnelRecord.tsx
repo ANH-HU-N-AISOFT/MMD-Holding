@@ -100,7 +100,7 @@ export const PersonnelRecord = ({ form, disabledField, employee }: Props) => {
       <Field label={t('employee:direction_manager')} error={errors.personnelRecord?.directionManager?.message}>
         <SelectEmployee
           scope="inADepartment"
-          organizationId={department}
+          organizationIds={department ? [department] : undefined}
           emptyText={t('employee:must_select_department')}
           employee={directionManager ?? undefined}
           placeholder={t('employee:direction_manager')}

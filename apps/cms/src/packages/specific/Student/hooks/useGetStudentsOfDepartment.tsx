@@ -26,7 +26,7 @@ export const useGetStudentsOfDepartment = ({ departmentCode }: Props) => {
       page,
       perPage: 8,
       sortByName: -1,
-      orgCodes: departmentCode,
+      orgCodes: departmentCode ? [departmentCode] : undefined,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, page, departmentCode]);

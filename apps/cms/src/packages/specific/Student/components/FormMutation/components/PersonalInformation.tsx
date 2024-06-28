@@ -267,7 +267,7 @@ export const PersonalInformation = ({ form, disabledField, isEdit, student }: Pr
         <SelectEmployees
           scope="inADepartment"
           role={Role.Sale}
-          organizationId={departments}
+          organizationIds={departments}
           emptyText={t('student:must_select_department')}
           employees={saleEmployees?.filter((item): item is string => Boolean(item))}
           onChange={value => {

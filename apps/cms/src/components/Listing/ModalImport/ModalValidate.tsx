@@ -109,7 +109,7 @@ export const ModalValidate = <T extends ValidateServiceResponse>({
       });
       downloadAxiosResponse({
         response: response.data,
-        fileName: `${importType}.csv`,
+        fileName: `${importType}.xlsx`,
       });
     } catch (error) {
       notification.error({

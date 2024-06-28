@@ -6,7 +6,6 @@ interface DownloadAxiosResponsex {
 }
 
 export const downloadAxiosResponse = ({ fileName, response }: DownloadAxiosResponsex) => {
-  console.log(response);
   // create file link in browser's memory
   const href = URL.createObjectURL(response as Blob);
 

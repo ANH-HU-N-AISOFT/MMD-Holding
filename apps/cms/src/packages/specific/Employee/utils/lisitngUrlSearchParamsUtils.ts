@@ -1,5 +1,5 @@
 import { UrlSearchParamsUtils } from 'utilities';
-import { number, object, string, enum as enum_ } from 'zod';
+import { number, object, string, enum as enum_, array } from 'zod';
 import { WorkStatus } from '../models/WorkStatus';
 
 export const lisitngUrlSearchParamsSchema = object({
@@ -12,7 +12,7 @@ export const lisitngUrlSearchParamsSchema = object({
     WorkStatus.WORKING,
   ]).optional(),
   department: string().optional(),
-  roles: string().optional(),
+  roles: array(string()).optional(),
 });
 
 export const lisitngUrlSearchParamsUtils = new UrlSearchParamsUtils({

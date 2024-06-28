@@ -22,6 +22,8 @@ import {
 import { ModalWithI18n } from '~/components/AntCustom/ModalWithI18n';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
+import { getTotalPages } from '~/constants/getTotalPages';
+import { RecordsPerPage } from '~/constants/RecordsPerPage';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/remix';
 import { useListingData } from '~/packages/base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/base/types/SimpleListingLoaderResponse';
@@ -52,7 +54,7 @@ export const loader = async ({
       withoutPermission: false,
       page,
       query: search,
-      organizationId: department,
+      organizationIds: department ? [department] : [],
       roles,
       workStatus: status,
     });
@@ -61,12 +63,12 @@ export const loader = async ({
       info: {
         hits: response.items,
         pagination: {
-          totalPages: response.headers['x-pages-count'],
-          totalRecords: response.headers['x-total-count'],
-          pageSize: response.headers['x-per-page'],
+          totalPages: getTotalPages(response.total, RecordsPerPage),
+          totalRecords: response.total,
+          pageSize: RecordsPerPage,
         },
       },
-      page: Math.min(page, response.headers['x-pages-count'] || 1),
+      page,
     });
   } catch (error) {
     return json({

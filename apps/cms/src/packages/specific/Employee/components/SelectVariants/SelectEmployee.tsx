@@ -1,3 +1,4 @@
+import { isEmpty } from 'ramda';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Empty } from 'reactjs';
@@ -12,13 +13,13 @@ import { getEmployees } from '~/packages/specific/Employee/services/getEmployees
 
 interface SelectEmployeeInADepartment {
   emptyText: string;
-  organizationId: string | string[] | undefined;
+  organizationIds: string[] | undefined;
   scope: 'inADepartment';
 }
 
 interface SelectEmployeeOfSystem {
   scope: 'allSystem';
-  organizationId?: undefined;
+  organizationIds?: undefined;
   emptyText?: undefined;
 }
 
@@ -38,24 +39,24 @@ export const SelectEmployee = ({
   onChange,
   placeholder,
   role,
-  organizationId,
+  organizationIds,
   emptyText,
   scope,
 }: Props) => {
   const { t } = useTranslation(['employee']);
-  const needWarning = useMemo(() => !organizationId, [organizationId]);
+  const needWarning = useMemo(() => isEmpty(organizationIds), [organizationIds]);
 
   const handleFetchData = async (): Promise<EmployeePopulated[]> => {
     // Nếu theo "department" thì bỏ giới hạn "currentUser"
     if (scope === 'inADepartment') {
-      if (organizationId) {
+      if (!isEmpty(organizationIds)) {
         const response = await getEmployees({
           ...GetAllParams,
           withoutPermission: true,
           sortByName: 1,
-          roles: role,
+          roles: role ? [role] : undefined,
           workStatus: WorkStatus.WORKING,
-          organizationId: typeof organizationId === 'string' ? organizationId : organizationId.join(','),
+          organizationIds,
         });
         return response.items;
       }
@@ -66,7 +67,7 @@ export const SelectEmployee = ({
         ...GetAllParams,
         withoutPermission: scope === 'allSystem',
         sortByName: 1,
-        roles: role,
+        roles: role ? [role] : undefined,
         workStatus: WorkStatus.WORKING,
       });
       return response.items;
@@ -82,7 +83,7 @@ export const SelectEmployee = ({
       disabled={disabled}
       value={employee}
       onChange={onChange}
-      depsFetch={[organizationId, scope, role]}
+      depsFetch={[organizationIds, scope, role]}
       service={handleFetchData}
       transformToOption={employee => ({
         label: (

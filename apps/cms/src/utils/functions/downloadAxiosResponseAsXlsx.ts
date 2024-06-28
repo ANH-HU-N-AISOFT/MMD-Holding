@@ -1,18 +1,18 @@
 import { AxiosResponse } from 'axios';
 
-interface DownloadAxiosResponseAsCSV {
+interface DownloadAxiosResponseAsXlsx {
   response: AxiosResponse['data'];
   fileName: string;
 }
 
-export const downloadAxiosResponseAsCSV = ({ fileName, response }: DownloadAxiosResponseAsCSV) => {
+export const downloadAxiosResponseAsXlsx = ({ fileName, response }: DownloadAxiosResponseAsXlsx) => {
   // create file link in browser's memory
   const href = URL.createObjectURL(response as Blob);
 
   // create "a" HTML element with href to file & click
   const link = document.createElement('a');
   link.href = href;
-  link.setAttribute('download', `${fileName}.csv`); //or any other extension
+  link.setAttribute('download', `${fileName}.xlsx`); //or any other extension
   document.body.appendChild(link);
   link.click();
 

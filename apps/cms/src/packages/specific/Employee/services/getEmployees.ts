@@ -1,20 +1,19 @@
 import { AxiosResponse } from 'axios';
 import { Employee } from '../models/Employee';
 import { WorkStatus } from '../models/WorkStatus';
-import { ServiceHeaderResponse } from '~/@types/ServiceHeaderResponse';
 import { fetchApi } from '~/utils/functions/fetchApi';
 
 export interface ResponseSuccess {
   items: Employee[];
-  headers: ServiceHeaderResponse;
+  total: number;
 }
 
 interface GetEmployees {
   query?: string;
   page?: number;
   perPage?: number;
-  organizationId?: string;
-  roles?: string;
+  organizationIds?: string[];
+  roles?: string[];
   workStatus?: WorkStatus;
   sortByName?: 1 | -1;
   withoutPermission: boolean;
@@ -23,7 +22,7 @@ export const getEmployees = async ({
   page,
   query,
   perPage,
-  organizationId,
+  organizationIds,
   roles,
   workStatus,
   sortByName,
@@ -35,7 +34,7 @@ export const getEmployees = async ({
       page,
       query,
       perPage,
-      organizationId,
+      organizationIds,
       roles,
       workStatus,
       sortByName,
