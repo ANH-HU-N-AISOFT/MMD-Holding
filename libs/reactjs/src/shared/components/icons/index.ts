@@ -5,3 +5,4 @@ export * from './src/IconHomeLinear';
 export * from './src/IconReceiptLinear';
 export * from './src/IconUserLinear';
 export * from './src/IconArrowLeftLinear';
+export * from './src/IconDocumentUploadLinear';

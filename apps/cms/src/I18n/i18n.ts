@@ -168,8 +168,12 @@ const resources = {
         show_more: 'Xem thêm',
         show_less: 'Rút gọn',
       },
-      UploadSingle: {
+      DraggerSingle: {
         choose_file: 'Chọn file',
+      },
+      DraggerMultiple: {
+        title: 'Nhấp hoặc kéo tệp vào khu vực này để tải lên',
+        hint: 'Hỗ trợ tải lên hình ảnh và có thể tải lên nhiều tệp cùng lúc.',
       },
     },
     page500: {

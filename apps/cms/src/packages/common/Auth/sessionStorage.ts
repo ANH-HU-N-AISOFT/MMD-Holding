@@ -38,6 +38,7 @@ export const sessionSchema = object({
         ResourceType.PROMOTION,
         ResourceType.STUDENT,
         ResourceType.TRIAL_REQUEST,
+        ResourceType.DOCUMENT_TEMPLATE,
       ]),
     }),
   ).optional(),

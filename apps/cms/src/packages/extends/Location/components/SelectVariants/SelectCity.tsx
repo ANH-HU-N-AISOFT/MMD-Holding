@@ -11,9 +11,10 @@ interface Props {
   disabled?: boolean;
   allowClear?: boolean;
   fieldKey?: keyof City;
+  placeholder?: string;
 }
 
-export const SelectCity = ({ city, disabled, allowClear = true, onChange, fieldKey = 'id' }: Props) => {
+export const SelectCity = ({ city, disabled, allowClear = true, onChange, fieldKey = 'id', placeholder }: Props) => {
   const { t } = useTranslation(['location']);
   const [isFetching, setIsFetching] = useState(false);
   const [options, setOptions] = useState<SelectOption<City['id']>[]>([]);
@@ -51,7 +52,7 @@ export const SelectCity = ({ city, disabled, allowClear = true, onChange, fieldK
       value={city}
       onChange={onChange}
       disabled={disabled}
-      placeholder={t('location:city')}
+      placeholder={placeholder ?? t('location:city')}
       className="w-full"
       loading={isFetching}
       searchValue={searchValue}

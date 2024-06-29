@@ -130,19 +130,19 @@ export const Table = ({
     },
     {
       width: 200,
-      title: t('student:name'),
+      title: t('student:student_name'),
       render: (_, record) => {
         return <Typography.Link onClick={() => onView?.(record)}>{record.fullName}</Typography.Link>;
       },
     },
     {
       width: 160,
-      title: t('student:phone'),
+      title: t('student:student_phone'),
       render: (_, record) => record.phoneNumber,
     },
     {
       width: 140,
-      title: t('student:date_of_birth'),
+      title: t('student:student_date_of_birth'),
       render: (_, record) => {
         return record.birthday ? dayjs(record.birthday).format('DD/MM/YYYY') : null;
       },

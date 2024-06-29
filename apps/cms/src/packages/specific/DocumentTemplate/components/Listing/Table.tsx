@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
 import { Button, TableActions, Tag, Typography } from 'reactjs';
+import { dayjs } from 'utilities';
 import { DocumentTemplateStatusMappingToColors } from '../../constants/DocumentTemplateStatusMappingToColors';
 import { getDocumentTemplateStatusMappingToLabels } from '../../constants/DocumentTemplateStatusMappingToLabels';
 import { getDocumentTemplateTypeMappingToLabels } from '../../constants/DocumentTemplateTypeMappingToLabels';
@@ -120,6 +121,13 @@ export const Table = ({
       },
     },
     {
+      width: 200,
+      title: t('document_template:created_at'),
+      render: (_, record) => {
+        return record.createdAt ? dayjs(record.createdAt).format('DD/MM/YYYY') : null;
+      },
+    },
+    {
       width: 160,
       title: t('document_template:status'),
       align: 'center',
@@ -132,14 +140,6 @@ export const Table = ({
         );
       },
     },
-    {
-      width: 200,
-      title: t('document_template:created_at'),
-      // render: (_, record) => {
-      //   // return record.createdAt ? dayjs(record.createdAt).format('DD/MM/YYYY') : null;
-      // },
-    },
-
     {
       width: 80,
       align: 'center',

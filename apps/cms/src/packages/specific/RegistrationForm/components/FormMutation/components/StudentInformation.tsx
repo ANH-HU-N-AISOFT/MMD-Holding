@@ -111,7 +111,7 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
       <Field label={t('registration_form:date_of_birth')} error={errors.studentDateOfBirth?.message}>
         <SingleDayPicker
           disabled={disabledField}
-          disabledDate={isEdit ? undefined : disableDaysFuture}
+          disabledDate={disableDaysFuture}
           className="!w-full"
           placeholder={t('registration_form:date_of_birth')}
           value={formValues.studentDateOfBirth ? dayjs(formValues.studentDateOfBirth) : undefined}
@@ -204,7 +204,6 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
       <Field label={t('registration_form:notify_result_to_parent')} error={errors.notifyResultToParent?.message}>
         <Radio<boolean>
           items={[
-            // FIXME: I18n
             { value: false, label: t('registration_form:disable_notify') },
             { value: true, label: t('registration_form:enable_notify') },
           ]}

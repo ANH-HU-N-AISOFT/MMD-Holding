@@ -8,4 +8,5 @@ export interface DocumentTemplate {
   description: string;
   filePath: string;
   status: DocumentTemplateStatus;
+  createdAt: string;
 }

@@ -84,34 +84,34 @@ export const Import = forwardRef<ImportActions, Props>(({ revalidate }, ref) => 
         columns={[
           {
             width: 200,
-            title: t('student:name'),
+            title: t('student:student_name'),
             render: (_, record) => record.fullName,
           },
           {
             width: 160,
-            title: t('student:phone'),
+            title: t('student:student_phone'),
             render: (_, record) => record.phoneNumber,
           },
           {
             width: 240,
-            title: t('student:email'),
+            title: t('student:student_email'),
             render: (_, record) => record.email,
           },
           {
             width: 150,
-            title: t('student:current_address'),
+            title: t('student:student_current_address'),
             render: (_, record) => record.address,
           },
           {
             width: 120,
-            title: t('student:date_of_birth'),
+            title: t('student:student_date_of_birth'),
             render: (_, record) => {
               return record.birthday ? dayjs(record.birthday).format('DD/MM/YYYY') : null;
             },
           },
           {
             width: 90,
-            title: t('student:gender'),
+            title: t('student:student_gender'),
             render: (_, record) => GenderEnumMappingToLabels[record.gender as GenderEnum],
           },
           {

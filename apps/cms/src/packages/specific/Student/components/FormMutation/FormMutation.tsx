@@ -6,8 +6,10 @@ import { useDeepCompareEffect } from 'reactjs';
 import { DeepPartial } from 'typescript-utilities';
 import { TypeOf } from 'zod';
 import { Student } from '../../models/Student';
-import { PersonalInformation } from './components/PersonalInformation';
+import { DepartmentInformation } from './components/DepartmentInformation';
+import { ParentInformation } from './components/ParentInfomation';
 import { RoleSystem } from './components/RoleSystem';
+import { StudentInformation } from './components/StudentInformation';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
 import { Form } from '~/overrides/remix';
@@ -126,7 +128,9 @@ export const FormMutation = ({
               label: t('student:personal_information'),
               children: (
                 <BoxFields>
-                  <PersonalInformation student={student} isEdit={isEdit} form={form} disabledField={disabledField} />
+                  <StudentInformation student={student} isEdit={isEdit} form={form} disabledField={disabledField} />
+                  <ParentInformation student={student} isEdit={isEdit} form={form} disabledField={disabledField} />
+                  <DepartmentInformation student={student} isEdit={isEdit} form={form} disabledField={disabledField} />
                 </BoxFields>
               ),
             },

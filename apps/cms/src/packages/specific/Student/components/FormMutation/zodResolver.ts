@@ -11,6 +11,7 @@ import { getRequiredMessage } from '~/utils/functions/getRequiredMessage';
 import { getRequiredMessageSelectField } from '~/utils/functions/getRequiredMessageSelectField';
 import { isEmail, isPhone } from '~/utils/regexes';
 import { isAddress } from '~/utils/regexes/src/isAddress';
+import { isCitizenIdCard } from '~/utils/regexes/src/isCitizenIdCard';
 import { isNameOfPerson } from '~/utils/regexes/src/isNameOfPerson';
 import { isStrongPassword } from '~/utils/regexes/src/isStrongPassword';
 import { isUserName } from '~/utils/regexes/src/isUserName';
@@ -36,38 +37,67 @@ export const getFormMutationSchema = ({
     required: getRequiredMessageSelectField(t, 'student:access_status'),
   };
 
-  const fullName = {
-    required: getRequiredMessage(t, 'student:fullName'),
-    length: getRangeLengthMessage(t, 'student:fullName', 1, 100),
-    invalid: t('student:full_name_invalid'),
+  const studentName = {
+    required: getRequiredMessage(t, 'student:student_name'),
+    length: getRangeLengthMessage(t, 'student:student_name', 1, 100),
+    invalid: t('student:student_name_invalid'),
   };
-  const phone = {
-    required: getRequiredMessage(t, 'student:phone'),
-    invalid: getInvalidMessage(t, 'student:phone'),
+  const studentPhone = {
+    required: getRequiredMessage(t, 'student:student_phone'),
+    invalid: getInvalidMessage(t, 'student:student_phone'),
   };
-  const email = {
-    invalid: getInvalidMessage(t, 'student:email'),
+  const studentEmail = {
+    invalid: getInvalidMessage(t, 'student:student_email'),
   };
-  const currentAddress = {
-    length: getRangeLengthMessage(t, 'student:current_address', 3, 64),
-    invalid: t('student:current_address_invalid'),
+  const studentCurrentAddress = {
+    length: getRangeLengthMessage(t, 'student:student_current_address', 3, 64),
+    invalid: t('student:student_current_address_invalid'),
+  };
+  const studentCitizenIdCard = {
+    length: getRangeLengthMessage(t, 'student:student_citizen_id_card', 8, 16),
+    invalid: t('student:citizen_id_card_invalid'),
+  };
+  const studentResidenceAddress = {
+    required: getRequiredMessage(t, 'student:student_residence_address'),
+    length: getRangeLengthMessage(t, 'student:student_residence_address', 3, 64),
+    invalid: t('student:student_residence_address_invalid'),
+  };
+
+  const parentName = {
+    required: getRequiredMessage(t, 'student:parent_name'),
+    length: getRangeLengthMessage(t, 'student:parent_name', 1, 100),
+    invalid: t('student:parent_name_invalid'),
   };
   const parentPhone = {
     invalid: getInvalidMessage(t, 'student:parent_phone'),
   };
+  const parentCitizenIdCard = {
+    length: getRangeLengthMessage(t, 'student:parent_citizen_id_card', 8, 16),
+    invalid: t('student:citizen_id_card_invalid'),
+  };
+  const parentResidenceAddress = {
+    required: getRequiredMessage(t, 'student:parent_residence_address'),
+    length: getRangeLengthMessage(t, 'student:parent_residence_address', 3, 64),
+    invalid: t('student:parent_residence_address_invalid'),
+  };
+
   const departments = {
     required: t('student:department_invalid'),
   };
 
   return object({
     personalInformation: object({
-      fullName: string({ required_error: fullName.required })
+      // Student
+      studentName: string({ required_error: studentName.required })
         .trim()
-        .min(1, fullName.length)
-        .max(100, fullName.length)
-        .regex(isNameOfPerson, fullName.invalid),
-      phone: string({ required_error: phone.required }).trim().min(1, phone.required).regex(isPhone, phone.invalid),
-      email: string()
+        .min(1, studentName.length)
+        .max(100, studentName.length)
+        .regex(isNameOfPerson, studentName.invalid),
+      studentPhone: string({ required_error: studentPhone.required })
+        .trim()
+        .min(1, studentPhone.required)
+        .regex(isPhone, studentPhone.invalid),
+      studentEmail: string()
         .trim()
         .refine(
           value => {
@@ -76,24 +106,52 @@ export const getFormMutationSchema = ({
             }
             return true;
           },
-          { message: email.invalid },
+          { message: studentEmail.invalid },
         )
         .optional()
         .or(literal(''))
         .nullable(),
-      currentAddress: string()
+      studentCurrentAddress: string()
         .trim()
-        .min(3, currentAddress.length)
-        .max(64, currentAddress.length)
-        .regex(isAddress, currentAddress.invalid)
+        .min(3, studentCurrentAddress.length)
+        .max(64, studentCurrentAddress.length)
+        .regex(isAddress, studentCurrentAddress.invalid)
         .optional()
         .or(literal(''))
         .nullable(),
-      city: string().trim().optional().or(literal('')).nullable(),
-      district: string().trim().optional().or(literal('')).nullable(),
-      dateOfBirth: string().trim().optional().or(literal('')).nullable(),
-      school: string().trim().optional().nullable(),
-      gender: enum_([GenderEnum.MALE, GenderEnum.FEMALE]).optional().nullable(),
+      studentCity: string().trim().optional().or(literal('')).nullable(),
+      studentDistrict: string().trim().optional().or(literal('')).nullable(),
+      studentSchool: string().trim().optional().nullable(),
+      studentDateOfBirth: string().trim().optional().or(literal('')).nullable(),
+      studentGender: enum_([GenderEnum.MALE, GenderEnum.FEMALE]).optional().nullable(),
+      studentCitizenIdCard: string()
+        .trim()
+        .min(8, studentCitizenIdCard.length)
+        .max(16, studentCitizenIdCard.length)
+        .regex(isCitizenIdCard, studentCitizenIdCard.invalid)
+        .optional()
+        .or(literal(''))
+        .nullable(),
+      studentCitizenIdCardCreatedAt: string().trim().or(literal('')).optional().nullable(),
+      studentCitizenIdCardCreatedWhere: string().trim().or(literal('')).optional().nullable(),
+      studentResidenceAddress: string({ required_error: studentResidenceAddress.required })
+        .trim()
+        .min(3, studentResidenceAddress.length)
+        .max(64, studentResidenceAddress.length)
+        .regex(isAddress, studentResidenceAddress.invalid)
+        .or(literal(''))
+        .optional()
+        .nullable(),
+
+      // Parent
+      parentName: string({ required_error: parentName.required })
+        .trim()
+        .min(1, parentName.length)
+        .max(100, parentName.length)
+        .regex(isNameOfPerson, parentName.invalid)
+        .or(literal(''))
+        .optional()
+        .nullable(),
       parentPhone: string()
         .trim()
         .refine(
@@ -108,7 +166,29 @@ export const getFormMutationSchema = ({
         .optional()
         .or(literal(''))
         .nullable(),
+      parentDateOfBirth: string().trim().optional().or(literal('')).nullable(),
+      parentGender: enum_([GenderEnum.MALE, GenderEnum.FEMALE]).optional().nullable(),
+      parentCitizenIdCard: string()
+        .trim()
+        .min(8, parentCitizenIdCard.length)
+        .max(16, parentCitizenIdCard.length)
+        .regex(isCitizenIdCard, parentCitizenIdCard.invalid)
+        .optional()
+        .or(literal(''))
+        .nullable(),
+      parentCitizenIdCardCreatedAt: string().trim().or(literal('')).optional().nullable(),
+      parentCitizenIdCardCreatedWhere: string().trim().or(literal('')).optional().nullable(),
+      parentResidenceAddress: string({ required_error: parentResidenceAddress.required })
+        .trim()
+        .min(3, parentResidenceAddress.length)
+        .max(64, parentResidenceAddress.length)
+        .regex(isAddress, parentResidenceAddress.invalid)
+        .or(literal(''))
+        .optional()
+        .nullable(),
       notifyResultToParent: boolean().optional().nullable(),
+
+      // Department
       source: enum_([
         SourceEnum.Cold,
         SourceEnum.Communication,

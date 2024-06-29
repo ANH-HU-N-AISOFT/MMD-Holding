@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
-import { Input, Textarea, UploadSingle, useDeepCompareEffect } from 'reactjs';
+import { Input, Textarea, UploadSingle, notification, useDeepCompareEffect } from 'reactjs';
 import { TypeOf } from 'zod';
 import { SelectDocumentTemplateType } from '../SelectVariants/SelectDocumentTemplateType';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
@@ -113,6 +113,13 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               <Field tagName="div" withRequiredMark label={t('document_template:file')} error={errors.file?.message}>
                 <div className="grid grid-cols-1 gap-1">
                   <UploadSingle
+                    maxFileSize={1024 * 1024 * 2} // 2MB
+                    onTooLarge={() => {
+                      notification.error({
+                        message: t('document_template:upload_failure'),
+                        description: t('document_template:file_too_large'),
+                      });
+                    }}
                     accept=".docx"
                     disabled={disabledField}
                     request={async ({ file }) => {

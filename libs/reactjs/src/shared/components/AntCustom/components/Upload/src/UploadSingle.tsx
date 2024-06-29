@@ -88,6 +88,7 @@ export const UploadSingle = <Response extends AnyRecord>({
         }
         if (maxFileSize && file.size > maxFileSize) {
           onTooLarge?.();
+          return;
         }
         const uid = v4();
         setValueState({

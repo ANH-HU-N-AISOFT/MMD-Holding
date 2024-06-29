@@ -9,9 +9,21 @@ import {
 } from 'reactjs';
 import { useNavigate } from '~/overrides/remix';
 import { isCanShow } from '~/packages/specific/Permission/isCan/isCanShow';
-import { ActionType, ResourceType } from '~/packages/specific/Permission/Permission';
 import { getDefaultListingAppointmentsUrl } from '~/routes/Appointment/constants/getDefaultFilterUrl';
+import { isCanReadAppointment } from '~/routes/Appointment/src/utils/Is';
+import { isCanReadConsultantForm } from '~/routes/ConsultantForm/src/utils/Is';
+import { isCanReadContract } from '~/routes/Contract/src/utils/Is';
+import { isCanReadCourse } from '~/routes/Course/src/utils/Is';
+import { isCanReadCourseCombo } from '~/routes/CourseCombo/src/utils/Is';
+import { isCanReadCourseRoadmap } from '~/routes/CourseRoadmap/src/utils/Is';
+import { isCanReadDepartment } from '~/routes/Department/src/utils/Is';
+import { isCanReadDocumentTemplate } from '~/routes/DocumentTemplate/src/utils/Is';
+import { isCanReadEmployee } from '~/routes/Employee/src/utils/Is';
+import { isCanReadPromotion } from '~/routes/Promotion/src/utils/Is';
+import { isCanReadRegistrationForm } from '~/routes/RegistrationForm/src/utils/Is';
+import { isCanReadStudent } from '~/routes/Student/src/utils/Is';
 import { getDefaultListingTrialRequestsUrl } from '~/routes/TrialRequest/constants/getDefaultFilterUrl';
+import { isCanReadTrialRequest } from '~/routes/TrialRequest/src/utils/Is';
 
 export const useGetNavData = () => {
   const { t } = useTranslation(['dashboard_layout']);
@@ -28,32 +40,26 @@ export const useGetNavData = () => {
       key: '/organizational-structure',
       icon: <ClusterOutlined />,
       label: t('dashboard_layout:menu.organizational_structure'),
-      className:
-        isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.ORGANIZATION }) ||
-        isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.EMPLOYEE })
-          ? ''
-          : '!hidden',
+      className: isCanShow(isCanReadDepartment) || isCanShow(isCanReadEmployee) ? '' : '!hidden',
       children: [
         {
           key: '/department',
           label: t('dashboard_layout:menu.department_list'),
           onClick: () => navigate('/department'),
-          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.ORGANIZATION })
-            ? ''
-            : '!hidden',
+          className: isCanShow(isCanReadDepartment) ? '' : '!hidden',
         },
         {
           key: '/employee',
           label: t('dashboard_layout:menu.employee'),
           onClick: () => navigate('/employee'),
-          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.EMPLOYEE }) ? '' : '!hidden',
+          className: isCanShow(isCanReadEmployee) ? '' : '!hidden',
         },
         {
           key: '/student',
           // icon: <UserOutlined />,
           label: t('dashboard_layout:menu.student'),
           onClick: () => navigate('/student'),
-          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.STUDENT }) ? '' : '!hidden',
+          className: isCanShow(isCanReadStudent) ? '' : '!hidden',
         },
       ],
     },
@@ -62,7 +68,7 @@ export const useGetNavData = () => {
       icon: <IconCalendarEditLinear className="!text-lg" />,
       label: t('dashboard_layout:menu.appointment'),
       onClick: () => navigate(getDefaultListingAppointmentsUrl()),
-      className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.APPOINTMENT }) ? '' : '!hidden',
+      className: isCanShow(isCanReadAppointment) ? '' : '!hidden',
     },
     {
       key: '/input-check',
@@ -75,11 +81,11 @@ export const useGetNavData = () => {
       icon: <IconHeartEditLinear className="!text-lg" />,
       label: t('dashboard_layout:menu.consultation'),
       className:
-        isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.CONSULTATION }) ||
-        isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.PROMOTION }) ||
-        isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.COURSE_COMBO }) ||
-        isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.COURSE_ROADMAP }) ||
-        isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.COURSE })
+        isCanShow(isCanReadConsultantForm) ||
+        isCanShow(isCanReadPromotion) ||
+        isCanShow(isCanReadCourseCombo) ||
+        isCanShow(isCanReadCourseRoadmap) ||
+        isCanShow(isCanReadCourse)
           ? ''
           : '!hidden',
       children: [
@@ -87,37 +93,31 @@ export const useGetNavData = () => {
           key: '/consultant-form',
           label: t('dashboard_layout:menu.consultant_form'),
           onClick: () => navigate('/consultant-form'),
-          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.CONSULTATION })
-            ? ''
-            : '!hidden',
+          className: isCanShow(isCanReadConsultantForm) ? '' : '!hidden',
         },
         {
           key: '/promotion',
           label: t('dashboard_layout:menu.promotion'),
           onClick: () => navigate('/promotion'),
-          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.PROMOTION }) ? '' : '!hidden',
+          className: isCanShow(isCanReadPromotion) ? '' : '!hidden',
         },
         {
           key: '/course-combo',
           label: t('dashboard_layout:menu.course_combo'),
           onClick: () => navigate('/course-combo'),
-          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.COURSE_COMBO })
-            ? ''
-            : '!hidden',
+          className: isCanShow(isCanReadCourseCombo) ? '' : '!hidden',
         },
         {
           key: '/course-roadmap',
           label: t('dashboard_layout:menu.course_roadmap'),
           onClick: () => navigate('/course-roadmap'),
-          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.COURSE_ROADMAP })
-            ? ''
-            : '!hidden',
+          className: isCanShow(isCanReadCourseRoadmap) ? '' : '!hidden',
         },
         {
           key: '/course',
           label: t('dashboard_layout:menu.course'),
           onClick: () => navigate('/course'),
-          className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.COURSE }) ? '' : '!hidden',
+          className: isCanShow(isCanReadCourse) ? '' : '!hidden',
         },
       ],
     },
@@ -126,28 +126,34 @@ export const useGetNavData = () => {
       icon: <ExperimentOutlined />,
       label: t('dashboard_layout:menu.trial_request'),
       onClick: () => navigate(getDefaultListingTrialRequestsUrl()),
-      className: isCanShow({ actionType: ActionType.READ, resourceType: ResourceType.TRIAL_REQUEST }) ? '' : '!hidden',
+      className: isCanShow(isCanReadTrialRequest) ? '' : '!hidden',
     },
     {
       key: '/contract_signing',
       icon: <IconReceiptLinear className="!text-lg" />,
       label: t('dashboard_layout:menu.contract_signing'),
-      // FIXME: Permission
+      className:
+        isCanShow(isCanReadDocumentTemplate) || isCanShow(isCanReadContract) || isCanShow(isCanReadRegistrationForm)
+          ? ''
+          : '!hidden',
       children: [
         {
           key: '/document-template',
           label: t('dashboard_layout:menu.document_template'),
           onClick: () => navigate('/document-template'),
+          className: isCanShow(isCanReadDocumentTemplate) ? '' : '!hidden',
         },
         {
           key: '/contract',
           label: t('dashboard_layout:menu.contract_list'),
           onClick: () => navigate('/contract'),
+          className: isCanShow(isCanReadContract) ? '' : '!hidden',
         },
         {
           key: '/registration-form',
           label: t('dashboard_layout:menu.registration_form_list'),
           onClick: () => navigate('/registration-form'),
+          className: isCanShow(isCanReadRegistrationForm) ? '' : '!hidden',
         },
       ],
     },

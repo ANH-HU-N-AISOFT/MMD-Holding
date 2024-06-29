@@ -17,7 +17,7 @@ interface Props {
   isEdit: boolean;
 }
 
-export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
+export const PersonalInformation = ({ form, disabledField }: Props) => {
   const { t } = useTranslation(['common', 'employee']);
 
   const {
@@ -83,7 +83,7 @@ export const PersonalInformation = ({ form, disabledField, isEdit }: Props) => {
         error={errors.personalInformation?.dateOfBirth?.message}
       >
         <SingleDayPicker
-          disabledDate={isEdit ? undefined : disableDaysFuture}
+          disabledDate={disableDaysFuture}
           format="DD/MM/YYYY"
           value={dateOfBirth ? dayjs(dateOfBirth) : undefined}
           onChange={value => {

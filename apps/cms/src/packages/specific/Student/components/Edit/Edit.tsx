@@ -21,28 +21,39 @@ export const Edit = ({ student, onResetPassword, ...formProps }: Props) => {
       needPasswordValidation={false}
       defaultValues={{
         personalInformation: {
-          city: student.province?.id,
-          currentAddress: student.address,
-          dateOfBirth: student.birthday,
           departments: student.organizationIds,
-          district: student.district?.id,
-          email: student.email,
-          fullName: student.fullName,
-          gender: student.gender,
+          saleEmployees: student.supporterIds ?? [],
+          source: student.source,
+
+          // Student
+          studentCity: student.province?.id,
+          studentCurrentAddress: student.address,
+          studentDateOfBirth: student.birthday,
+          studentDistrict: student.district?.id,
+          studentEmail: student.email,
+          studentGender: student.gender,
+          studentName: student.fullName,
+          studentPhone: student.phoneNumber,
+          studentSchool: student.school?.id,
+          studentCitizenIdCard: student.identityCardNo,
+          studentCitizenIdCardCreatedAt: student.identityCardDate,
+          studentCitizenIdCardCreatedWhere: student.identityCardPlace,
+          studentResidenceAddress: student.permanentAddress,
+
+          // Parent
           notifyResultToParent: student.notifyParentsOfResults,
           parentPhone: student.parentPhoneNumber,
-          phone: student.phoneNumber,
-          saleEmployees: student.supporterIds ?? [],
-          school: student.school?.id,
-          source: student.source,
+          parentCitizenIdCard: student.parentIdentityCardNo,
+          parentCitizenIdCardCreatedAt: student.parentIdentityCardDate,
+          parentCitizenIdCardCreatedWhere: student.parentIdentityCardPlace,
+          parentDateOfBirth: student.parentBirthday,
+          parentGender: student.parentGender,
+          parentName: student.parentFullName,
+          parentResidenceAddress: student.parentPermanentAddress,
         },
         roleSystem: {
           accessStatus: student.user?.accessStatus,
           username: student.user?.userName,
-          password: '********',
-        },
-        temporaryOptional: {
-          cityCode: student.province?.code,
         },
       }}
     />

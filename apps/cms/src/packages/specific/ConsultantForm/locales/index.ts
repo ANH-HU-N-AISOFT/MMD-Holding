@@ -54,6 +54,8 @@ export const ConsultantFormLocales = {
     gift2: 'Hiện vật',
     create_trial: 'Yêu cầu học thử',
     must_select_expect_department: 'Vui lòng chọn đơn vị học dự kiến để tiếp tục',
+    upload_failure: 'Tải file lên thất bại',
+    file_too_large: 'Vui lòng chọn các file có kích thước nhỏ hơn 2MB',
 
     Consulted: 'Đã tư vấn',
     UnderCare: 'Đang chăm sóc',

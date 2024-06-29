@@ -102,6 +102,7 @@ export const UploadMultiple = <Response extends AnyRecord>({
         }
         if (maxFileSize && file.size > maxFileSize) {
           onTooLarge?.();
+          return;
         }
         const uid = v4();
         setValueState(state => {

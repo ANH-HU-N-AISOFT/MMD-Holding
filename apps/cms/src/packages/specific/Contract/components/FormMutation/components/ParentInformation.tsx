@@ -16,7 +16,7 @@ interface Props {
   isEdit: boolean;
 }
 
-export const ParentInformation = ({ form, disabledField, isEdit }: Props) => {
+export const ParentInformation = ({ form, disabledField }: Props) => {
   const { t } = useTranslation(['common', 'contract']);
 
   const {
@@ -87,7 +87,7 @@ export const ParentInformation = ({ form, disabledField, isEdit }: Props) => {
       <Field label={t('contract:parent_date_of_birth')} error={errors.parentDateOfBirth?.message}>
         <SingleDayPicker
           disabled={disabledField}
-          disabledDate={isEdit ? undefined : disableDaysFuture}
+          disabledDate={disableDaysFuture}
           className="!w-full"
           placeholder={t('contract:parent_date_of_birth')}
           value={formValues.parentDateOfBirth ? dayjs(formValues.parentDateOfBirth) : undefined}
@@ -120,7 +120,7 @@ export const ParentInformation = ({ form, disabledField, isEdit }: Props) => {
         <SingleDayPicker
           className="!w-full"
           disabled={disabledField}
-          disabledDate={isEdit ? undefined : disableDaysFuture}
+          disabledDate={disableDaysFuture}
           placeholder={t('contract:citizen_id_card_created_at')}
           value={formValues.parentCitizenIdCardCreatedAt ? dayjs(formValues.parentCitizenIdCardCreatedAt) : undefined}
           onChange={value => {

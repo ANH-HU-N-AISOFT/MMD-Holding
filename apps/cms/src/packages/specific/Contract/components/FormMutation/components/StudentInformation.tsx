@@ -90,7 +90,7 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
       <Field withRequiredMark label={t('contract:student_date_of_birth')} error={errors.studentDateOfBirth?.message}>
         <SingleDayPicker
           disabled={disabledField}
-          disabledDate={isEdit ? undefined : disableDaysFuture}
+          disabledDate={disableDaysFuture}
           className="!w-full"
           placeholder={t('contract:student_date_of_birth')}
           value={formValues.studentDateOfBirth ? dayjs(formValues.studentDateOfBirth) : undefined}
@@ -132,7 +132,7 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
         <SingleDayPicker
           className="!w-full"
           disabled={disabledField}
-          disabledDate={isEdit ? undefined : disableDaysFuture}
+          disabledDate={disableDaysFuture}
           placeholder={t('contract:citizen_id_card_created_at')}
           value={formValues.studentCitizenIdCardCreatedAt ? dayjs(formValues.studentCitizenIdCardCreatedAt) : undefined}
           onChange={value => {

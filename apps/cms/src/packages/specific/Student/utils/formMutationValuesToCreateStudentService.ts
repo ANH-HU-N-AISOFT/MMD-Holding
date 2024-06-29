@@ -1,23 +1,40 @@
 import { FormValues } from '../components/FormMutation/FormMutation';
+import { CreateStudent } from '../services/createStudent';
+import { DefaultPassword } from '~/constants/DefaultPassword';
 
-export const formMutationValuesToCreateStudentService = (data: FormValues) => {
+export const formMutationValuesToCreateStudentService = (data: FormValues): CreateStudent => {
   return {
     accessStatus: data.roleSystem.accessStatus,
-    address: data.personalInformation.currentAddress ?? undefined,
-    birthday: data.personalInformation.dateOfBirth ?? undefined,
-    districtId: data.personalInformation.district ?? undefined,
-    email: data.personalInformation.email ?? undefined,
-    fullName: data.personalInformation.fullName,
-    gender: data.personalInformation.gender ?? undefined,
-    notifyParentsOfResults: data.personalInformation.notifyResultToParent ?? undefined,
     organizationIds: data.personalInformation.departments,
-    parentPhoneNumber: data.personalInformation.parentPhone ?? undefined,
-    password: data.roleSystem.password as string,
-    phoneNumber: data.personalInformation.phone,
-    schoolId: data.personalInformation.school ?? undefined,
     source: data.personalInformation.source ?? undefined,
     supporterIds: data.personalInformation.saleEmployees ?? undefined,
     username: data.roleSystem.username,
-    provinceId: data.personalInformation.city ?? undefined,
+    password: data.roleSystem.password ?? DefaultPassword,
+
+    // Student
+    address: data.personalInformation.studentCurrentAddress ?? undefined,
+    birthday: data.personalInformation.studentDateOfBirth ?? undefined,
+    districtId: data.personalInformation.studentDistrict ?? undefined,
+    email: data.personalInformation.studentEmail ?? undefined,
+    fullName: data.personalInformation.studentName,
+    gender: data.personalInformation.studentGender ?? undefined,
+    identityCardDate: data.personalInformation.studentCitizenIdCardCreatedAt,
+    identityCardNo: data.personalInformation.studentCitizenIdCard,
+    identityCardPlace: data.personalInformation.studentResidenceAddress,
+    permanentAddress: data.personalInformation.studentResidenceAddress,
+    phoneNumber: data.personalInformation.studentPhone,
+    provinceId: data.personalInformation.studentCity ?? undefined,
+    schoolId: data.personalInformation.studentSchool ?? undefined,
+
+    // Parent
+    parentBirthday: data.personalInformation.parentDateOfBirth,
+    parentFullName: data.personalInformation.parentName,
+    parentGender: data.personalInformation.parentGender,
+    parentIdentityCardDate: data.personalInformation.parentCitizenIdCardCreatedAt,
+    parentIdentityCardNo: data.personalInformation.parentCitizenIdCard,
+    parentIdentityCardPlace: data.personalInformation.parentCitizenIdCardCreatedWhere,
+    parentPermanentAddress: data.personalInformation.parentResidenceAddress,
+    parentPhoneNumber: data.personalInformation.parentPhone ?? undefined,
+    notifyParentsOfResults: data.personalInformation.notifyResultToParent ?? undefined,
   };
 };

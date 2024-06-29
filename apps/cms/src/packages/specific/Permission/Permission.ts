@@ -18,4 +18,5 @@ export enum ResourceType {
   COURSE = 'course',
   COURSE_ROADMAP = 'course-readmap',
   COURSE_COMBO = 'course-combo',
+  DOCUMENT_TEMPLATE = 'document-template',
 }

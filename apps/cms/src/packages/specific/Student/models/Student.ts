@@ -52,4 +52,15 @@ export interface Student {
     roles: Role[];
     accessStatus: SystemAccessStatus;
   };
+  identityCardNo?: string;
+  identityCardDate?: string;
+  identityCardPlace?: string;
+  permanentAddress?: string;
+  parentFullName?: string;
+  parentGender?: GenderEnum;
+  parentBirthday?: string;
+  parentIdentityCardNo?: string;
+  parentIdentityCardDate?: string;
+  parentIdentityCardPlace?: string;
+  parentPermanentAddress?: string;
 }

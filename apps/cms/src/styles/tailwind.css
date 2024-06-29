@@ -14,6 +14,11 @@ body {
   @apply !m-0;
 }
 
+.yy-result-extra {
+  display: flex;
+  justify-content: center;
+}
+
 .description-3-lines {
   display: -webkit-box;
   -webkit-line-clamp: 3;

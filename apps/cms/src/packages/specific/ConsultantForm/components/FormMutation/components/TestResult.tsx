@@ -1,12 +1,14 @@
-import { DeleteOutlined, InboxOutlined, LoadingOutlined } from '@ant-design/icons';
+import { DeleteOutlined, LoadingOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import { range } from 'ramda';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AntRawImage, UploadMultiple, notification, FileState } from 'reactjs';
+import { AntRawImage, FileState, UploadMultiple, notification } from 'reactjs';
 import { uploadImage } from '../../../services/uploadImage';
 import { FormValues } from '../FormMutation';
+import { DraggerMultiple } from '~/components/Dragger/DraggerMultiple';
 import { useRemixForm } from '~/overrides/remix-hook-form';
+import { getResourceUrl } from '~/utils/functions/getResourceUrl';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 
@@ -63,6 +65,13 @@ export const TestResult = ({ disabledField, form }: Props) => {
         disabled={disabledField}
         accept="image/png, image/jpg, image/jpeg"
         value={uploadFilesState}
+        maxFileSize={1024 * 1024 * 2} // 2MB
+        onTooLarge={() => {
+          notification.error({
+            message: t('consultant_form:upload_failure'),
+            description: t('consultant_form:file_too_large'),
+          });
+        }}
         onStateChange={nextState => {
           setQuantityItemLoading(nextState?.filter(item => item.status === 'loading').length ?? 0);
           setUploadFilesState(nextState ?? []);
@@ -83,11 +92,7 @@ export const TestResult = ({ disabledField, form }: Props) => {
           }
         }}
       >
-        <p className="ant-upload-drag-icon">
-          <InboxOutlined />
-        </p>
-        <p className="ant-upload-text">Nhấp hoặc kéo tệp vào khu vực này để tải lên</p>
-        <p className="ant-upload-hint">Hỗ trợ tải lên hình ảnh và có thể tải lên nhiều tệp cùng lúc.</p>
+        <DraggerMultiple />
       </UploadMultiple>
       <div className="flex flex-wrap gap-2">
         <AntRawImage.PreviewGroup>
@@ -111,7 +116,7 @@ export const TestResult = ({ disabledField, form }: Props) => {
                 <AntRawImage
                   style={{ borderTop: '1px solid' }}
                   className="!h-40 !w-40 shrink-0 grow-0 !border-t-neutral-200 bg-black/5 object-contain"
-                  src={item}
+                  src={getResourceUrl(item)}
                 />
               </div>
             );

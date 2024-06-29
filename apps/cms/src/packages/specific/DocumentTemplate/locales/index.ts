@@ -30,6 +30,8 @@ export const DocumentTemplateLocales = {
     document_template_with_name: 'Mẫu tài liệu - {{ name }}',
     add_document_template: 'Thêm mẫu tài liệu',
     document_template_type: 'Loại tài liệu',
+    upload_failure: 'Tải file lên thất bại',
+    file_too_large: 'Vui lòng chọn file có kích thước nhỏ hơn 2MB',
 
     ACTIVE: 'Hoạt động',
     IN_ACTIVE: 'Không hoạt động',
