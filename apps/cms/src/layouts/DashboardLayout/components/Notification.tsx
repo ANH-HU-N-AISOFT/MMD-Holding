@@ -1,7 +1,6 @@
-import { BellOutlined } from '@ant-design/icons';
 import { CSSProperties, cloneElement } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Badge, Button, Divider, Dropdown, Typography, useThemeProviderToken } from 'reactjs';
+import { Badge, Button, Divider, Dropdown, IconNotificationLinear, Typography, useThemeProviderToken } from 'reactjs';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 
 export const Notification = () => {
@@ -80,7 +79,7 @@ export const Notification = () => {
       ]}
     >
       <Badge count={5} className="cursor-pointer">
-        <BellOutlined className="text-xl" />
+        <IconNotificationLinear className="text-xl" />
       </Badge>
     </Dropdown>
   );

@@ -1,9 +1,7 @@
-import { FilterOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Drawer } from 'reactjs';
-import { Button } from 'reactjs';
+import { Button, Drawer, IconFilterSearchLinear } from 'reactjs';
 import type { ReactNode } from 'react';
 import './styles.css';
 
@@ -37,7 +35,7 @@ export const FilterDrawer = ({ containerClassName, children, count, formId, onAp
         className={containerClassName}
         onClick={() => setIsOpen(true)}
         disabled={isLoading}
-        icon={<FilterOutlined />}
+        icon={<IconFilterSearchLinear className="text-base" />}
       >
         <div
           className={classNames(
