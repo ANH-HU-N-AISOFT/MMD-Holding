@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ModalWithI18n, ModalWithI18nProps } from '../AntCustom/ModalWithI18n';
+import { ModalWithI18n, ModalWithI18nProps } from '../ModalWithI18n/ModalWithI18n';
 
 export interface ModalConfirmDeleteProps extends Pick<ModalWithI18nProps, 'open' | 'onCancel' | 'onOk'> {
   title: ReactNode;

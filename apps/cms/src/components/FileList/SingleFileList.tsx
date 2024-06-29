@@ -1,15 +1,15 @@
 import { CloseOutlined, FileTextOutlined } from '@ant-design/icons';
-import { Progress } from '../components/Progress';
-import { FileState } from '../types/FileState';
+import { Progress } from '../Progress/Progress';
+import { getFileNameFromUrl } from '~/utils/functions/getFileNameFromUrl';
 
 interface Props {
-  fileState?: FileState<any>;
+  fileState?: File | string;
   onRemove: () => void;
   onClick: () => void;
   disabled?: boolean;
 }
 
-export const DefaultResult = ({ fileState, onRemove, onClick, disabled }: Props) => {
+export const SingleFileList = ({ fileState, onRemove, onClick, disabled }: Props) => {
   if (!fileState) {
     return null;
   }
@@ -25,23 +25,14 @@ export const DefaultResult = ({ fileState, onRemove, onClick, disabled }: Props)
             className="hover:text-brand-base mb-1 cursor-pointer truncate text-left text-sm font-medium text-neutral-700 transition-all"
             onClick={onClick}
           >
-            {fileState.file.name}
+            {typeof fileState === 'string' ? getFileNameFromUrl(fileState) : fileState.name}
           </div>
-          {fileState.progressPercent !== undefined && (
-            <Progress
-              color={fileState.status === 'failure' ? 'red' : fileState.status === 'success' ? 'green' : 'blue'}
-              percent={fileState.status === 'success' ? 100 : fileState.progressPercent}
-              size="small"
-            />
-          )}
+          <Progress color="green" percent={100} size="small" />
         </div>
         {!disabled && (
-          <div className="flex shrink-0 grow justify-end">
+          <div className="flex shrink-0 grow cursor-pointer justify-end" onClick={onRemove}>
             <div className="flex h-6 w-6 items-center justify-center rounded-full bg-neutral-200">
-              <CloseOutlined
-                className="hover:text-primary-base cursor-pointer text-sm text-neutral-700 transition-all"
-                onClick={onRemove}
-              />
+              <CloseOutlined className="hover:text-primary-base text-sm text-neutral-700 transition-all" />
             </div>
           </div>
         )}

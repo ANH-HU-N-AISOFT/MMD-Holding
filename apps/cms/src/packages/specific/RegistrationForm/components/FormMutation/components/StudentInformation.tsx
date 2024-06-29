@@ -36,7 +36,7 @@ export const StudentInformation = ({ form, disabledField, isEdit }: Props) => {
       </Field>
       <Field withRequiredMark label={t('registration_form:student')} error={errors.studentId?.message}>
         <SelectStudent
-          scope="currentUser"
+          scope="allSystem"
           disabled={disabledField || isEdit}
           placeholder={t('registration_form:student')}
           student={formValues.studentId}

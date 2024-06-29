@@ -1,24 +1,15 @@
 import { TFunction } from 'i18next';
-import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Input, Textarea, notification } from 'reactjs';
-import { useDeepCompareEffect } from 'reactjs';
-import { v4 } from 'uuid';
+import { Input, Textarea, UploadSingle, useDeepCompareEffect } from 'reactjs';
 import { TypeOf } from 'zod';
 import { SelectDocumentTemplateType } from '../SelectVariants/SelectDocumentTemplateType';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
-import { UploadSingle } from '~/components/AntCustom/Upload';
-import { FileState } from '~/components/AntCustom/Upload/src/types/FileState';
-import { DefaultResult } from '~/components/AntCustom/Upload/src/UploadSingle/DefaultResult';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
+import { DraggerSingle } from '~/components/Dragger/DraggerSingle';
 import { Field } from '~/components/Field/Field';
+import { SingleFileList } from '~/components/FileList/SingleFileList';
 import { Form } from '~/overrides/remix';
 import { useRemixForm } from '~/overrides/remix-hook-form';
-import { SelectDocumentTemplateStatus } from '~/packages/specific/DocumentTemplate/components/SelectVariants/SelectDocumentTemplateStatus';
-import { fetchApi } from '~/utils/functions/fetchApi';
-import { getFileNameFromUrl } from '~/utils/functions/getFileNameFromUrl';
-import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
-import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 
 export interface FormValues extends TypeOf<ReturnType<typeof getFormMutationSchema>> {}
 
@@ -31,14 +22,8 @@ interface Props {
   disabled?: boolean;
 }
 
-interface StateItem {
-  src: string;
-}
-
 export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubmiting, onSubmit, disabled }: Props) => {
   const { t } = useTranslation(['common', 'document_template']);
-
-  const [uploadFilesState, setUploadFilesState] = useState<FileState<StateItem> | undefined>(undefined);
 
   const disabledField = disabled || isSubmiting;
 
@@ -78,29 +63,9 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
         ...defaultValues,
       });
     }
-    setUploadFilesState(
-      defaultValues.file
-        ? {
-            file: { name: getFileNameFromUrl(defaultValues.file), size: 0 },
-            status: 'success',
-            uid: v4(),
-            response: { src: defaultValues.file },
-            progressPercent: 100,
-          }
-        : undefined,
-    );
   }, [defaultValues]);
 
   const formValues = watch();
-
-  useEffect(() => {
-    const value = uploadFilesState?.response?.src;
-    setValue('file', value);
-    if (errors.file) {
-      trigger('file');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [uploadFilesState]);
 
   return (
     <div>
@@ -145,53 +110,34 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
               />
             </Field>
             <div className="md:col-span-2">
-              <Field withRequiredMark label={t('document_template:status')} error={errors.status?.message}>
-                <SelectDocumentTemplateStatus
-                  disabled={disabledField}
-                  documentTemplateStatus={formValues.status}
-                  onChange={value => {
-                    setValue('status', value);
-                    if (errors.status) {
-                      trigger('status');
-                    }
-                  }}
-                />
-              </Field>
-            </div>
-            <div className="md:col-span-2">
               <Field tagName="div" withRequiredMark label={t('document_template:file')} error={errors.file?.message}>
                 <div className="grid grid-cols-1 gap-1">
-                  <UploadSingle<StateItem>
+                  <UploadSingle
+                    accept=".docx"
                     disabled={disabledField}
-                    onStateChange={setUploadFilesState}
-                    request={async ({ file, onUploadProgress }) => {
-                      try {
-                        await fetchApi.request({
-                          method: 'POST',
-                          url: 'https://jsonplaceholder.typicode.com/todos',
-                          onUploadProgress,
-                        });
-                        return { src: `https://projects.wojtekmaj.pl/react-pdf/assets/${file.name}` };
-                      } catch (error) {
-                        notification.error({
-                          message: t('common:upload_failure'),
-                          description: handleGetMessageToToast(t, await handleCatchClauseSimpleAtClient(error)),
-                        });
-                        return;
+                    request={async ({ file }) => {
+                      return file;
+                    }}
+                    onStateChange={fileState => {
+                      setValue('file', fileState?.file.originalFile);
+                      if (errors.file) {
+                        trigger('file');
                       }
                     }}
                   >
-                    <UploadSingle.DefaultChildren />
+                    <DraggerSingle />
                   </UploadSingle>
-                  <DefaultResult
+                  <SingleFileList
                     disabled={disabledField}
+                    fileState={formValues.file}
+                    onRemove={() => setValue('file', undefined)}
                     onClick={() => {
-                      if (uploadFilesState?.response) {
-                        window.open(uploadFilesState?.response?.src);
+                      if (formValues.file) {
+                        const url =
+                          typeof formValues.file === 'string' ? formValues.file : URL.createObjectURL(formValues.file);
+                        window.open(url);
                       }
                     }}
-                    fileState={uploadFilesState}
-                    onRemove={() => setUploadFilesState(undefined)}
                   />
                 </div>
               </Field>

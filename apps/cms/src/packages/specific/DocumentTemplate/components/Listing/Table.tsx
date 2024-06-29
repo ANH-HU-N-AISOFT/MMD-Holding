@@ -1,10 +1,8 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
-import dayjs from 'dayjs';
 import { useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'react-i18next';
-import { Button, Tag, Typography } from 'reactjs';
-import { TableActions } from 'reactjs';
+import { Button, TableActions, Tag, Typography } from 'reactjs';
 import { DocumentTemplateStatusMappingToColors } from '../../constants/DocumentTemplateStatusMappingToColors';
 import { getDocumentTemplateStatusMappingToLabels } from '../../constants/DocumentTemplateStatusMappingToLabels';
 import { getDocumentTemplateTypeMappingToLabels } from '../../constants/DocumentTemplateTypeMappingToLabels';
@@ -137,9 +135,9 @@ export const Table = ({
     {
       width: 200,
       title: t('document_template:created_at'),
-      render: (_, record) => {
-        return record.createdAt ? dayjs(record.createdAt).format('DD/MM/YYYY') : null;
-      },
+      // render: (_, record) => {
+      //   // return record.createdAt ? dayjs(record.createdAt).format('DD/MM/YYYY') : null;
+      // },
     },
 
     {

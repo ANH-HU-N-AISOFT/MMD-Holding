@@ -11,7 +11,7 @@ import {
 import { createStudent } from '../../services/createStudent';
 import { formMutationValuesToCreateStudentService } from '../../utils/formMutationValuesToCreateStudentService';
 import { FormMutation, FormValues } from '../FormMutation/FormMutation';
-import { ModalWithI18n } from '~/components/AntCustom/ModalWithI18n';
+import { ModalWithI18n } from '~/components/ModalWithI18n/ModalWithI18n';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';

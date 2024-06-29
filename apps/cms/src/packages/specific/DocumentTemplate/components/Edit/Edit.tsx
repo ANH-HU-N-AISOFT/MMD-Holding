@@ -16,9 +16,8 @@ export const Edit = ({ documentTemplate, ...formProps }: Props) => {
       {...formProps}
       defaultValues={{
         description: documentTemplate.description,
-        file: documentTemplate.file,
+        file: documentTemplate.filePath,
         name: documentTemplate.name,
-        status: documentTemplate.status,
         type: documentTemplate.type,
       }}
     />

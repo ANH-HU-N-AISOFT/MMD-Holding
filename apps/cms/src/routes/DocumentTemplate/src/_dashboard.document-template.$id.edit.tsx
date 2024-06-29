@@ -17,6 +17,7 @@ import {
   useLoaderData,
   useNavigate,
   useNavigation,
+  useSubmit,
 } from '~/overrides/remix';
 import { getValidatedFormData } from '~/overrides/remix-hook-form';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
@@ -27,6 +28,7 @@ import { DocumentTemplate } from '~/packages/specific/DocumentTemplate/models/Do
 import { getDocumentTemplate } from '~/packages/specific/DocumentTemplate/services/getDocumentTemplate';
 import { updateDocumentTemplate } from '~/packages/specific/DocumentTemplate/services/updateDocumentTemplate';
 import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
+import { objectToFormData } from '~/utils/functions/formData/objectToFormData';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
@@ -41,7 +43,7 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
   const t = i18next.t;
   try {
     const { errors, data } = await getValidatedFormData<FormValues>(
-      request,
+      request.clone(),
       getFormMutationResolver(t as TFunction<any>),
     );
     if (data) {
@@ -51,8 +53,7 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
           id: params['id'],
           name: data.name,
           description: data.description,
-          file: data.file,
-          status: data.status,
+          file: typeof data.file === 'string' ? undefined : data.file,
           type: data.type,
         },
       });
@@ -97,6 +98,7 @@ export const Page = () => {
 
   const navigation = useNavigation();
   const actionData = useActionData<typeof action>();
+  const submit = useSubmit();
 
   const isSubmiting = useMemo(() => {
     return navigation.state === 'loading' || navigation.state === 'submitting';
@@ -137,7 +139,17 @@ export const Page = () => {
         onBack={() => navigate('/document-template')}
       />
       <div className="mb-4 flex-1">
-        <Edit isSubmiting={isSubmiting} uid={FormUpdate} documentTemplate={loaderData.info.documentTemplate} />
+        <Edit
+          isSubmiting={isSubmiting}
+          uid={FormUpdate}
+          documentTemplate={loaderData.info.documentTemplate}
+          onSubmit={values => {
+            submit(objectToFormData(values), {
+              encType: 'multipart/form-data',
+              method: 'POST',
+            });
+          }}
+        />
       </div>
       <Footer
         isLoading={isSubmiting}

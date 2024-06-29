@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AntRawUpload, Button, ModalProps, notification } from 'reactjs';
 import { ValidateServiceResponse } from './types/ValidateServiceResponse';
-import { ModalWithI18n } from '~/components/AntCustom/ModalWithI18n';
+import { ModalWithI18n } from '~/components/ModalWithI18n/ModalWithI18n';
 import { downloadAxiosResponse } from '~/utils/functions/downloadAxiosResponse';
 import { fetchApi } from '~/utils/functions/fetchApi';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';

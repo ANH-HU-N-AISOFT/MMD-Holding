@@ -17,7 +17,7 @@ export const DocumentTemplateLocales = {
     create_failure: 'Tạo thất bại',
     update_failure: 'Cập nhật thất bại',
     update_success: 'Cập nhật thành công',
-    search_placeholder: 'Nhập tên hoặc mô tả mẫu tài liệu',
+    search_placeholder: 'Nhập tên mẫu tài liệu',
     not_found: 'Không tìm thấy mẫu tài liệu',
     back_to_list: 'Quay lại danh sách',
 

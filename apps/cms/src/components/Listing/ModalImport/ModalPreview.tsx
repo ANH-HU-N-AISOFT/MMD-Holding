@@ -4,7 +4,7 @@ import { Button, ModalProps, Tabs, Tag } from 'reactjs';
 import { notification } from 'reactjs';
 import { ListingColumnType, TableListing } from '../TableListing';
 import { ValidateServiceResponse } from './types/ValidateServiceResponse';
-import { ModalWithI18n } from '~/components/AntCustom/ModalWithI18n';
+import { ModalWithI18n } from '~/components/ModalWithI18n/ModalWithI18n';
 import { handleCatchClauseSimpleAtClient } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
 

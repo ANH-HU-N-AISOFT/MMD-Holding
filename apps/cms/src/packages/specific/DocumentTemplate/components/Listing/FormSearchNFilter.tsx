@@ -1,18 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
-import { Field, useDeepCompareEffect } from 'reactjs';
-import { SingleDayPicker } from 'reactjs';
+import { Field, SingleDayPicker, useDeepCompareEffect } from 'reactjs';
 import { ListingSearchParams } from '../../types/ListingSearchParams';
 import { lisitngUrlSearchParamsSchema } from '../../utils/lisitngUrlSearchParamsUtils';
-import { SelectDocumentTemplateType } from '../SelectVariants/SelectDocumentTemplateType';
 import { SearchNFilter } from '~/components/Listing';
 import { Form } from '~/overrides/remix';
 import { useRemixForm } from '~/overrides/remix-hook-form';
 import { getCountForFilterDrawer } from '~/packages/base/utils/getCountForFilterDrawer';
-import { SelectDocumentTemplateStatus } from '~/packages/specific/DocumentTemplate/components/SelectVariants/SelectDocumentTemplateStatus';
 
-export interface FormFilterValues extends Pick<ListingSearchParams, 'createdAt' | 'status' | 'type'> {}
+export interface FormFilterValues extends Pick<ListingSearchParams, 'createdAt'> {}
 
 interface FormFilterProps {
   onFilter?: (formFilterValues: FormFilterValues) => void;
@@ -45,8 +42,6 @@ export const FormSearchNFilter = ({
     },
   });
   const createdAt = watch('createdAt');
-  const type = watch('type');
-  const status = watch('status');
 
   const handleResetFormFilterValues = () => {
     reset({ createdAt: undefined });
@@ -70,33 +65,15 @@ export const FormSearchNFilter = ({
       filter={{
         uid: UID,
         onReset: handleResetFormFilterValues,
-        count: getCountForFilterDrawer({ fieldKeys: ['createdAt', 'type', 'status'], formFilterValues }),
+        count: getCountForFilterDrawer({ fieldKeys: ['createdAt'], formFilterValues }),
         form: (
           <Form method="GET" id={UID} onSubmit={handleSubmit}>
-            <Field label={t('document_template:document_template_type')}>
-              <SelectDocumentTemplateType
-                allowClear
-                documentTemplateType={type}
-                onChange={value => {
-                  setValue('type', value);
-                }}
-              />
-            </Field>
-            <Field label={t('document_template:status')}>
-              <SelectDocumentTemplateStatus
-                allowClear
-                documentTemplateStatus={status}
-                onChange={value => {
-                  setValue('status', value);
-                }}
-              />
-            </Field>
             <Field label={t('document_template:created_at')}>
               <SingleDayPicker
                 className="w-full"
                 value={createdAt ? dayjs(createdAt) : undefined}
                 onChange={value => {
-                  setValue('createdAt', value?.valueOf());
+                  setValue('createdAt', value?.toISOString());
                 }}
               />
             </Field>

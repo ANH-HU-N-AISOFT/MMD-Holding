@@ -21,6 +21,11 @@ export interface Props<Response extends AnyRecord>
   onStateChange?: (filesState: FileState<Response>[] | undefined) => void;
   /** Maximum number of files that can be uploaded. */
   maxCount?: number;
+
+  /** Limit size of file */
+  maxFileSize?: number;
+  /** Function to handle file size too large */
+  onTooLarge?: () => void;
 }
 
 /**
@@ -49,6 +54,8 @@ export const UploadMultiple = <Response extends AnyRecord>({
   onStateChange,
   maxCount = Number.MAX_SAFE_INTEGER,
   beforeUpload,
+  maxFileSize,
+  onTooLarge,
 }: Props<Response>): ReactNode => {
   useInitializeContext();
   const isMounted = useIsMounted();
@@ -92,6 +99,9 @@ export const UploadMultiple = <Response extends AnyRecord>({
         }
         if (!(file instanceof File)) {
           return;
+        }
+        if (maxFileSize && file.size > maxFileSize) {
+          onTooLarge?.();
         }
         const uid = v4();
         setValueState(state => {

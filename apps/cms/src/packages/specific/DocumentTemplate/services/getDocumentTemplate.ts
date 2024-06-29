@@ -1,5 +1,6 @@
+import { AxiosResponse } from 'axios';
 import { DocumentTemplate } from '../models/DocumentTemplate';
-import { documentTemplates } from './data';
+import { fetchApi } from '~/utils/functions/fetchApi';
 
 export type ResponseSuccess = DocumentTemplate;
 
@@ -8,17 +9,9 @@ interface GetDocumentTemplate {
 }
 
 export const getDocumentTemplate = async ({ id }: GetDocumentTemplate) => {
-  // const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
-  //   method: 'GET',
-  //   url: `/document-templates/${id}`,
-  // });
-  // return response.data;
-
-  const documentTemplate = documentTemplates.find(template => template.id === id);
-
-  if (!documentTemplate) {
-    throw new Error('Document template not exist');
-  }
-
-  return documentTemplate;
+  const response: AxiosResponse<ResponseSuccess> = await fetchApi.request({
+    method: 'GET',
+    url: `/document-templates/${id}`,
+  });
+  return response.data;
 };

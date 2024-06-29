@@ -19,8 +19,8 @@ import {
   isCanImportEmployee,
   isCanReadEmployee,
 } from './utils/Is';
-import { ModalWithI18n } from '~/components/AntCustom/ModalWithI18n';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
+import { ModalWithI18n } from '~/components/ModalWithI18n/ModalWithI18n';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
 import { getTotalPages } from '~/constants/getTotalPages';
 import { RecordsPerPage } from '~/constants/RecordsPerPage';

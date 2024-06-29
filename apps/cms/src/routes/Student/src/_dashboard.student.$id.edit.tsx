@@ -8,7 +8,7 @@ import {
   action as actionResetPassword,
 } from './_dashboard.student.$id.reset-password';
 import { isCanEditStudent } from './utils/Is';
-import { ModalWithI18n } from '~/components/AntCustom/ModalWithI18n';
+import { ModalWithI18n } from '~/components/ModalWithI18n/ModalWithI18n';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';

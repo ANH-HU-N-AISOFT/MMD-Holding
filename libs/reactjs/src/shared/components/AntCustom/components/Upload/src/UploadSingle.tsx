@@ -20,6 +20,11 @@ export interface Props<Response extends AnyRecord>
   }) => Promise<Response | undefined>;
   /** Callback to handle state change */
   onStateChange?: (filesState: FileState<Response> | undefined) => void;
+
+  /** Limit size of file */
+  maxFileSize?: number;
+  /** Function to handle file size too large */
+  onTooLarge?: () => void;
 }
 
 /**
@@ -31,6 +36,8 @@ export interface Props<Response extends AnyRecord>
  * @param {ReactNode} [props.children] - The trigger element for the upload.
  * @param {boolean} [props.disabled] - Whether the upload functionality is disabled.
  * @param {string} [props.accept] - Accepted file types for the upload.
+ * @param {FileState<Response>} [props.maxFileSize] - Limit size of file
+ * @param {FileState<Response>} [props.onTooLarge] - Function to handle file size too large
  * @param {FileState<Response>} [props.value] - The current state of the file upload.
  * @param {(params: { file: File; onUploadProgress: AxiosRequestConfig['onUploadProgress'] }) => Promise<Response>} props.request - The function to handle the file upload request.
  * @param {(filesState: FileState<Response> | undefined) => void} [props.onStateChange] - Callback to handle state changes.
@@ -44,6 +51,8 @@ export const UploadSingle = <Response extends AnyRecord>({
   value,
   request,
   onStateChange,
+  maxFileSize,
+  onTooLarge,
 }: Props<Response>): ReactNode => {
   useInitializeContext();
   const isMounted = useIsMounted();
@@ -76,6 +85,9 @@ export const UploadSingle = <Response extends AnyRecord>({
       customRequest={async ({ file }) => {
         if (!(file instanceof File)) {
           return;
+        }
+        if (maxFileSize && file.size > maxFileSize) {
+          onTooLarge?.();
         }
         const uid = v4();
         setValueState({

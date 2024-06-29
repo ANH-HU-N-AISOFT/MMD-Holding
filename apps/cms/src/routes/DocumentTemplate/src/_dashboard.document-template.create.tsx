@@ -6,15 +6,23 @@ import { isCanCreateDocumentTemplate } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
-import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/remix';
+import {
+  ActionFunctionArgs,
+  TypedResponse,
+  json,
+  useActionData,
+  useNavigate,
+  useNavigation,
+  useSubmit,
+} from '~/overrides/remix';
 import { getValidatedFormData } from '~/overrides/remix-hook-form';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { FormMutation, FormValues } from '~/packages/specific/DocumentTemplate/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/DocumentTemplate/components/FormMutation/zodResolver';
-import { DocumentTemplateStatus } from '~/packages/specific/DocumentTemplate/models/DocumentTemplateStatus';
 import { DocumentTemplateType } from '~/packages/specific/DocumentTemplate/models/DocumentTemplateType';
 import { createDocumentTemplate } from '~/packages/specific/DocumentTemplate/services/createDocumentTemplate';
 import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
+import { objectToFormData } from '~/utils/functions/formData/objectToFormData';
 import { handleCatchClauseSimple } from '~/utils/functions/handleErrors/handleCatchClauseSimple';
 import { handleFormResolverError } from '~/utils/functions/handleErrors/handleFormResolverError';
 import { handleGetMessageToToast } from '~/utils/functions/handleErrors/handleGetMessageToToast';
@@ -26,15 +34,15 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
   const t = i18next.t;
   try {
     const { errors, data } = await getValidatedFormData<FormValues>(
-      request,
+      request.clone(),
       getFormMutationResolver(t as TFunction<any>),
     );
+
     if (data) {
       await createDocumentTemplate({
         name: data.name,
         description: data.description,
-        file: data.file,
-        status: data.status,
+        file: typeof data.file === 'string' ? undefined : data.file,
         type: data.type,
       });
       return json({
@@ -43,6 +51,7 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
         info: undefined,
       });
     }
+
     return json(...handleFormResolverError<FormValues>(errors));
   } catch (error) {
     return handleCatchClauseSimple(error);
@@ -62,6 +71,7 @@ export const Page = () => {
 
   const navigation = useNavigation();
   const actionData = useActionData<typeof action>();
+  const submit = useSubmit();
 
   const isSubmiting = useMemo(() => {
     return navigation.state === 'loading' || navigation.state === 'submitting';
@@ -90,7 +100,12 @@ export const Page = () => {
           uid={FormCreateUid}
           defaultValues={{
             type: DocumentTemplateType.CONTRACT,
-            status: DocumentTemplateStatus.ACTIVE,
+          }}
+          onSubmit={values => {
+            submit(objectToFormData(values), {
+              encType: 'multipart/form-data',
+              method: 'POST',
+            });
           }}
         />
       </div>

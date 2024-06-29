@@ -67,7 +67,7 @@ export const Consultant = ({ disabledField, form, consultantForm }: Props) => {
     <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
       <Field withRequiredMark label={t('consultant_form:student_name')} error={errors.studentId?.message}>
         <SelectStudent
-          scope="currentUser"
+          scope="allSystem"
           disabled={disabledField}
           placeholder={t('consultant_form:student_name')}
           student={studentId}

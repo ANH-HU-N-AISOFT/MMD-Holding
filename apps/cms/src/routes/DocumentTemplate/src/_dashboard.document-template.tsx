@@ -17,6 +17,8 @@ import {
 } from './utils/Is';
 import { ModalConfirmDelete } from '~/components/ModalConfirmDelete/ModalConfirmDelete';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
+import { getTotalPages } from '~/constants/getTotalPages';
+import { RecordsPerPage } from '~/constants/RecordsPerPage';
 import { LoaderFunctionArgs, TypedResponse, json, useFetcher, useLoaderData, useNavigate } from '~/overrides/remix';
 import { useListingData } from '~/packages/base/hooks/useListingData';
 import { SimpleListingLoaderResponse } from '~/packages/base/types/SimpleListingLoaderResponse';
@@ -38,26 +40,24 @@ export const loader = async ({
 }: LoaderFunctionArgs): Promise<TypedResponse<SimpleListingLoaderResponse<DocumentTemplate>>> => {
   await isCanAccessRoute(isCanReadDocumentTemplate);
   const t = i18next.t;
-  const { search, page = 1, createdAt, status, type } = lisitngUrlSearchParamsUtils.decrypt(request);
+  const { search, page = 1, createdAt } = lisitngUrlSearchParamsUtils.decrypt(request);
   try {
     const response = await getDocumentTemplates({
       page,
       query: search,
-      createdAt,
-      status,
-      type,
+      createdDate: createdAt,
     });
 
     return json({
       info: {
         hits: response.items,
         pagination: {
-          totalPages: response.headers['x-pages-count'],
-          totalRecords: response.headers['x-total-count'],
-          pageSize: response.headers['x-per-page'],
+          totalPages: getTotalPages(response.total, RecordsPerPage),
+          totalRecords: response.total,
+          pageSize: RecordsPerPage,
         },
       },
-      page: Math.min(page, response.headers['x-pages-count'] || 1),
+      page,
     });
   } catch (error) {
     return json({
@@ -147,8 +147,6 @@ export const Page = () => {
           searchValue={paramsInUrl.search?.toString()}
           formFilterValues={{
             createdAt: paramsInUrl.createdAt,
-            type: paramsInUrl.type,
-            status: paramsInUrl.status,
           }}
           isSubmiting={isFetchingList}
           onFilter={values => handleRequest({ page: 1, ...values })}
@@ -156,8 +154,6 @@ export const Page = () => {
             handleRequest({
               page: 1,
               createdAt: undefined,
-              type: undefined,
-              status: undefined,
             });
           }}
           onSearch={value => handleRequest({ page: 1, search: value })}
