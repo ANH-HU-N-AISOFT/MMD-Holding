@@ -68,7 +68,7 @@ export const ModalValidate = <T extends ValidateServiceResponse>({
           setFileState(file ?? null);
         }}
         showUploadList={false}
-        accept=".csv, .xls, .xlsx"
+        accept=".xls, .xlsx"
         className="block h-[120px]"
       >
         <div className="flex items-center justify-center">

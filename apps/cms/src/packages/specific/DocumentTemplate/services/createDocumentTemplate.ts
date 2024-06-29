@@ -6,7 +6,7 @@ import { objectToFormData } from '~/utils/functions/formData/objectToFormData';
 export interface CreateDocumentTemplate {
   name: string;
   type: DocumentTemplateType;
-  description: string | undefined | null;
+  description: string | null;
   file: File | undefined;
 }
 

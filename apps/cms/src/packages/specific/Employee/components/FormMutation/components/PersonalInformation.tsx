@@ -206,14 +206,13 @@ export const PersonalInformation = ({ form, disabledField }: Props) => {
         </Divider>
       </div>
       <Field
-        withRequiredMark
         label={t('employee:emergency_contact_name')}
         error={errors.personalInformation?.emergencyContactName?.message}
       >
         <Input
           showCount
           maxLength={100}
-          value={emergencyContactName}
+          value={emergencyContactName ?? undefined}
           onChange={value => {
             setValue('personalInformation.emergencyContactName', value);
             if (errors.personalInformation?.emergencyContactName) {

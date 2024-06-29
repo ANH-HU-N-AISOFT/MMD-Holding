@@ -51,7 +51,7 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
           id: params['id'],
           name: data.name,
           courseRoadmapIds: data.courseRoadmapIds,
-          notes: data.description,
+          notes: data.description ?? null,
           status: data.status,
         },
       });

@@ -6,9 +6,11 @@ import { isCanCreateEmployee } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
+import { DefaultPassword } from '~/constants/DefaultPassword';
 import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/remix';
 import { getValidatedFormData } from '~/overrides/remix-hook-form';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
+import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
 import { VIETNAM_VALUE } from '~/packages/extends/Location/components/SelectVariants/SelectCountry';
 import { FormMutation, FormValues } from '~/packages/specific/Employee/components/FormMutation/FormMutation';
@@ -34,23 +36,23 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
       await createEmployee({
         accessStatus: data.roleSystem.accessStatus,
         birthday: data.personalInformation.dateOfBirth,
-        cmnd: data.personalInformation.citizenIdCard ?? undefined,
-        contractEndDate: data.personnelRecord.contractEndEffectDate ?? undefined,
-        contractStartDate: data.personnelRecord.contractStartEffectDate ?? undefined,
-        contractType: data.personnelRecord.contractType ?? undefined,
-        currentAddress: data.personalInformation.currentAddress ?? undefined,
-        directManagerId: data.personnelRecord.directionManager ?? undefined,
-        emergencyContactName: data.personalInformation.emergencyContactName,
+        cmnd: data.personalInformation.citizenIdCard ?? null,
+        contractEndDate: data.personnelRecord.contractEndEffectDate ?? null,
+        contractStartDate: data.personnelRecord.contractStartEffectDate ?? null,
+        contractType: data.personnelRecord.contractType ?? null,
+        currentAddress: data.personalInformation.currentAddress ?? null,
+        directManagerId: data.personnelRecord.directionManager ?? null,
+        emergencyContactName: data.personalInformation.emergencyContactName ?? null,
         emergencyContactPhone: data.personalInformation.emergencyContactPhone,
-        emergencyContactRelationship: data.personalInformation.emergencyContactRelationship ?? undefined,
+        emergencyContactRelationship: data.personalInformation.emergencyContactRelationship ?? null,
         fullName: data.personalInformation.fullName,
         gender: data.personalInformation.gender,
         jobTitles: data.personnelRecord.jobTitles,
-        nationality: data.personalInformation.country ?? undefined,
-        notes: data.personalInformation.notes ?? undefined,
+        nationality: data.personalInformation.country ?? null,
+        notes: data.personalInformation.notes ?? null,
         organizationId: data.personnelRecord.department,
         password: data.roleSystem.password as string,
-        permanentAddress: data.personalInformation.residenceAddress ?? undefined,
+        permanentAddress: data.personalInformation.residenceAddress ?? null,
         personalEmail: data.personalInformation.personalEmail,
         phoneNumber: data.personalInformation.phone,
         roles: data.roleSystem.roles,
@@ -115,10 +117,11 @@ export const Page = () => {
             },
             personnelRecord: {
               workStatus: WorkStatus.WORKING,
+              department: getSession()?.profile?.organizationId,
             },
             roleSystem: {
               accessStatus: SystemAccessStatus.GRANTED,
-              password: 'Abc@123456',
+              password: DefaultPassword,
             },
           }}
         />

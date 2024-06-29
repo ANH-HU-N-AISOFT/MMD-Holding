@@ -11,12 +11,12 @@ export interface CreateTrialRequest {
   demoType: DemoType;
   courseRoadmapId: string;
   learningOrganizationId: string;
-  studyDate: string | undefined | null;
-  studyTime: string | undefined | null;
+  studyDate: string | null;
+  studyTime: string | null;
   studyMode: StudyMode;
-  lecturerId: string | undefined | null;
-  adminId: string | undefined | null;
-  notes: string | undefined | null;
+  lecturerId: string | null;
+  adminId: string | null;
+  notes: string | null;
 }
 
 export type ResponseSuccess = TrialRequest;

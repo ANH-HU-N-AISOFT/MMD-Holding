@@ -8,7 +8,7 @@ export interface UpdateDocumentTemplate {
     id: DocumentTemplate['id'];
     name: string;
     type: DocumentTemplateType;
-    description: string | undefined | null;
+    description: string | null;
     file?: File;
   };
 }

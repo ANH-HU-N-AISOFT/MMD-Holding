@@ -12,6 +12,7 @@ import { createStudent } from '../../services/createStudent';
 import { formMutationValuesToCreateStudentService } from '../../utils/formMutationValuesToCreateStudentService';
 import { FormMutation, FormValues } from '../FormMutation/FormMutation';
 import { ModalWithI18n } from '~/components/ModalWithI18n/ModalWithI18n';
+import { DefaultPassword } from '~/constants/DefaultPassword';
 import { GetAllParams } from '~/constants/GetAllParams';
 import { getSession } from '~/packages/common/Auth/sessionStorage';
 import { SystemAccessStatus } from '~/packages/common/SelectVariants/SystemAccessStatus/constants/SystemAccessStatus';
@@ -124,7 +125,7 @@ export const SelectStudent = ({ disabled, student, allowClear = true, placeholde
             },
             roleSystem: {
               accessStatus: SystemAccessStatus.GRANTED,
-              password: 'Abc@123456',
+              password: DefaultPassword,
             },
           }}
           isSubmiting={isCreating}

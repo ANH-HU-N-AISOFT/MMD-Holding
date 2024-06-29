@@ -32,7 +32,7 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
       await createCourseCombo({
         name: data.name,
         courseRoadmapIds: data.courseRoadmapIds,
-        notes: data.description,
+        notes: data.description ?? null,
         status: data.status,
       });
       return json({

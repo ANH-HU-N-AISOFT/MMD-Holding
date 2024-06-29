@@ -9,7 +9,7 @@ export interface CreateCourseRoadmap {
   sessionDuration: number;
   price: number;
   status: string;
-  notes: string | undefined | null;
+  notes: string | null;
 }
 
 export type ResponseSuccess = CourseRoadmap;

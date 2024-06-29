@@ -31,7 +31,7 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
     if (data) {
       await createCourseRoadmap({
         name: data.name,
-        notes: data.description,
+        notes: data.description ?? null,
         status: data.status,
         code: data.code,
         courseId: data.courseId,

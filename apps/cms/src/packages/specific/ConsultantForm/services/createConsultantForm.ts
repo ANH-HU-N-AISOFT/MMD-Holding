@@ -6,13 +6,13 @@ export interface CreateConsultantForm {
   studentId: string;
   consultantId: string;
   learningOrganizationId: string;
-  status: FormStatus | undefined | null;
-  courseRoadmapId: string | undefined | null;
-  courseComboId: string | undefined | null;
-  promotionIds: string[] | undefined | null;
+  status: FormStatus | null;
+  courseRoadmapId: string | null;
+  courseComboId: string | null;
+  promotionIds: string[] | null;
   giftIds: string[];
-  notes: string | undefined | null;
-  examResults: string[] | undefined | null;
+  notes: string | null;
+  examResults: string[] | null;
 }
 
 export type ResponseSuccess = ConsultantForm;

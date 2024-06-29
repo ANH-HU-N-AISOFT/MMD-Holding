@@ -45,16 +45,16 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
     if (data) {
       await createConsultantForm({
         consultantId: data.consultantId,
-        courseComboId: data.directionalType === CourseRoadmapOrCombo.COMBO ? data.courseRoadMapOrComboId : undefined,
+        courseComboId: data.directionalType === CourseRoadmapOrCombo.COMBO ? data.courseRoadMapOrComboId : null,
         courseRoadmapId:
-          data.directionalType === CourseRoadmapOrCombo.COURSE_ROADMAP ? data.courseRoadMapOrComboId : undefined,
+          data.directionalType === CourseRoadmapOrCombo.COURSE_ROADMAP ? data.courseRoadMapOrComboId : null,
         giftIds: data.gifts ?? [],
         learningOrganizationId: data.expectDepartmentId,
-        notes: data.note,
-        status: data.status,
+        notes: data.note ?? null,
+        status: data.status ?? null,
         studentId: data.studentId,
-        promotionIds: data.promotionIds,
-        examResults: data.examResults,
+        promotionIds: data.promotionIds ?? null,
+        examResults: data.examResults ?? null,
       });
       return json({
         hasError: false,

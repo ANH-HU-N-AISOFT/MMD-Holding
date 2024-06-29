@@ -50,7 +50,7 @@ export const action = async ({ request, params }: ActionFunctionArgs): Promise<T
         data: {
           id: params['id'],
           name: data.name,
-          notes: data.description,
+          notes: data.description ?? null,
           status: data.status,
           code: data.code,
           courseId: data.courseId,

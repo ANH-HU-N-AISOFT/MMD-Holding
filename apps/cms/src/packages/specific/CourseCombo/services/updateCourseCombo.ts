@@ -9,7 +9,7 @@ export interface UpdateCourseCombo {
     name: string;
     courseRoadmapIds: string[];
     status: CourseStatus;
-    notes: string | undefined | null;
+    notes: string | null;
   };
 }
 

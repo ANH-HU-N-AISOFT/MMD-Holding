@@ -147,7 +147,10 @@ export const getFormMutationSchema = ({
         .trim()
         .min(1, emergencyContactName.length)
         .max(100, emergencyContactName.length)
-        .regex(isNameOfPerson, emergencyContactName.invalid),
+        .regex(isNameOfPerson, emergencyContactName.invalid)
+        .optional()
+        .or(literal(''))
+        .nullable(),
       emergencyContactPhone: string({ required_error: emergencyContactPhone.required })
         .trim()
         .min(1, emergencyContactPhone.required)

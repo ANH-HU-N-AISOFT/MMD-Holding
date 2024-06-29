@@ -13,15 +13,15 @@ export type RegistrationForm = FormValues & {
 //     studentId: string;
 //     studentPhone: string;
 //     studentEmail: string;
-//     studentDateOfBirth: string | undefined | null;
-//     studentGender: string | undefined | null;
+//     studentDateOfBirth: string | null;
+//     studentGender: string | null;
 //     studentCurrentAddress: string;
 //     studentCityName: string;
 //     studentCityId: string;
-//     studentCityCode: string | undefined | null;
-//     studentDistrict: string | undefined | null;
+//     studentCityCode: string | null;
+//     studentDistrict: string | null;
 //     studentParentPhone: string;
-//     notifyResultToParent: boolean | undefined | null;
+//     notifyResultToParent: boolean | null;
 //   };
 
 //   course?: Array<{
@@ -30,7 +30,7 @@ export type RegistrationForm = FormValues & {
 //   }>;
 //   paymentMethod: PaymentMethod;
 
-//   benefitDeposit: number | undefined | null;
+//   benefitDeposit: number | null;
 //   receiptNumber: string;
 //   volumeNumber: string;
 //   firstTuitionFee: number;

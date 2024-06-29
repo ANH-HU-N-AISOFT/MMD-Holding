@@ -6,7 +6,7 @@ export interface CreateCourseCombo {
   name: string;
   courseRoadmapIds: string[];
   status: CourseStatus;
-  notes: string | undefined | null;
+  notes: string | null;
 }
 
 export type ResponseSuccess = CourseCombo;

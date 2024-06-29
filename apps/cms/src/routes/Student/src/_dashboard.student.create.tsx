@@ -6,6 +6,7 @@ import { isCanCreateStudent } from './utils/Is';
 import { Footer } from '~/components/Mutation/Footer';
 import { Header } from '~/components/Mutation/Header';
 import { PageErrorBoundary } from '~/components/PageErrorBoundary/PageErrorBoundary';
+import { DefaultPassword } from '~/constants/DefaultPassword';
 import { ActionFunctionArgs, TypedResponse, json, useActionData, useNavigate, useNavigation } from '~/overrides/remix';
 import { getValidatedFormData } from '~/overrides/remix-hook-form';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
@@ -88,7 +89,7 @@ export const Page = () => {
             },
             roleSystem: {
               accessStatus: SystemAccessStatus.GRANTED,
-              password: 'Abc@123456',
+              password: DefaultPassword,
             },
           }}
           isSubmiting={isSubmiting}

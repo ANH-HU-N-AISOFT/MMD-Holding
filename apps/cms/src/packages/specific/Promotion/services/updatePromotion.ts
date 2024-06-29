@@ -15,11 +15,11 @@ export interface UpdatePromotion {
     endDate: string;
     programType: PromotionType;
     scope: PromotionScope;
-    organizationIds: string[] | undefined | null;
-    notes: string | undefined | null;
-    feeDiscount: number | undefined | null;
-    giftDiscount: string | undefined | null;
-    percentageDiscount: number | undefined | null;
+    organizationIds: string[] | null;
+    notes: string | null;
+    feeDiscount: number | null;
+    giftDiscount: string | null;
+    percentageDiscount: number | null;
   };
 }
 

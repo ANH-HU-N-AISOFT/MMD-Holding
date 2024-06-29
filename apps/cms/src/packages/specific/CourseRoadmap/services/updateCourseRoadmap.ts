@@ -12,7 +12,7 @@ export interface UpdateCourseRoadmap {
     sessionDuration: number;
     price: number;
     status: string;
-    notes: string | null | undefined;
+    notes: string | null;
   };
 }
 

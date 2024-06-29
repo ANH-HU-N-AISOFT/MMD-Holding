@@ -41,7 +41,7 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<TypedResp
     if (data) {
       await createDocumentTemplate({
         name: data.name,
-        description: data.description,
+        description: data.description ?? null,
         file: typeof data.file === 'string' ? undefined : data.file,
         type: data.type,
       });
