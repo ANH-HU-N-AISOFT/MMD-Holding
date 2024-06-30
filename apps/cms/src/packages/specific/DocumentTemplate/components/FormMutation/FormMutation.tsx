@@ -11,6 +11,7 @@ import { Field } from '~/components/Field/Field';
 import { SingleFileList } from '~/components/FileList/SingleFileList';
 import { Form } from '~/overrides/remix';
 import { useRemixForm } from '~/overrides/remix-hook-form';
+import { getResourceUrl } from '~/utils/functions/getResourceUrl';
 
 export interface FormValues extends TypeOf<ReturnType<typeof getFormMutationSchema>> {}
 
@@ -142,7 +143,9 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                     onClick={() => {
                       if (formValues.file) {
                         const url =
-                          typeof formValues.file === 'string' ? formValues.file : URL.createObjectURL(formValues.file);
+                          typeof formValues.file === 'string'
+                            ? getResourceUrl(formValues.file)
+                            : URL.createObjectURL(formValues.file);
                         window.open(url);
                       }
                     }}
