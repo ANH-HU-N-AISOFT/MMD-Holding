@@ -247,7 +247,7 @@ export const FormMutation = ({
               error={errors.learningOrganizationId?.message}
             >
               <SelectDepartment
-                scope="currentUser"
+                scope="allSystem"
                 extraDepartments={trialRequest?.learningOrganization ? [trialRequest.learningOrganization] : []}
                 allowClear={false}
                 department={learningOrganizationId ?? undefined}

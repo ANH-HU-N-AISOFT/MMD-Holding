@@ -16,6 +16,7 @@ export const Detail = ({ documentTemplate }: Props) => {
         file: documentTemplate.filePath,
         name: documentTemplate.name,
         type: documentTemplate.type,
+        status: documentTemplate.status,
       }}
     />
   );

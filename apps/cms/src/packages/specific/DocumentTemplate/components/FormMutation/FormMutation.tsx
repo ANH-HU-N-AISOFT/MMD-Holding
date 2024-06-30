@@ -2,6 +2,7 @@ import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { Input, Textarea, UploadSingle, notification, useDeepCompareEffect } from 'reactjs';
 import { TypeOf } from 'zod';
+import { SelectDocumentTemplateStatus } from '../SelectVariants/SelectDocumentTemplateStatus';
 import { SelectDocumentTemplateType } from '../SelectVariants/SelectDocumentTemplateType';
 import { getFormMutationResolver, getFormMutationSchema } from './zodResolver';
 import { BoxFields } from '~/components/BoxFields/BoxFields';
@@ -147,6 +148,23 @@ export const FormMutation = ({ uid, defaultValues = {}, fieldsError = {}, isSubm
                     }}
                   />
                 </div>
+              </Field>
+            </div>
+            <div className="md:col-span-2">
+              <Field withRequiredMark label={t('document_template:status')} error={errors.status?.message}>
+                <SelectDocumentTemplateStatus
+                  allowClear={false}
+                  documentTemplateStatus={formValues.status}
+                  disabled
+                  // disabled={disabledField}
+                  placeholder={t('document_template:status')}
+                  onChange={value => {
+                    setValue('status', value);
+                    if (errors.status) {
+                      trigger('status');
+                    }
+                  }}
+                />
               </Field>
             </div>
             <div className="md:col-span-2">

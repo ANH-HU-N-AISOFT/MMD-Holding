@@ -49,7 +49,7 @@ export const SelectEmployees = ({
   const handleFetchData = async (): Promise<EmployeePopulated[]> => {
     // Nếu theo "department" thì bỏ giới hạn "currentUser"
     if (scope === 'inADepartment') {
-      if (isEmpty(organizationIds)) {
+      if (!isEmpty(organizationIds)) {
         const response = await getEmployees({
           ...GetAllParams,
           withoutPermission: true,

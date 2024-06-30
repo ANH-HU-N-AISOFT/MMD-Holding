@@ -19,6 +19,7 @@ import { getValidatedFormData } from '~/overrides/remix-hook-form';
 import { SimpleResponse } from '~/packages/base/types/SimpleResponse';
 import { FormMutation, FormValues } from '~/packages/specific/DocumentTemplate/components/FormMutation/FormMutation';
 import { getFormMutationResolver } from '~/packages/specific/DocumentTemplate/components/FormMutation/zodResolver';
+import { DocumentTemplateStatus } from '~/packages/specific/DocumentTemplate/models/DocumentTemplateStatus';
 import { DocumentTemplateType } from '~/packages/specific/DocumentTemplate/models/DocumentTemplateType';
 import { createDocumentTemplate } from '~/packages/specific/DocumentTemplate/services/createDocumentTemplate';
 import { isCanAccessRoute } from '~/packages/specific/Permission/isCan/isCanAccessRoute';
@@ -100,6 +101,7 @@ export const Page = () => {
           uid={FormCreateUid}
           defaultValues={{
             type: DocumentTemplateType.CONTRACT,
+            status: DocumentTemplateStatus.ACTIVE,
           }}
           onSubmit={values => {
             submit(objectToFormData(values), {

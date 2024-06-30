@@ -137,7 +137,7 @@ export const Consultant = ({ disabledField, form, consultantForm }: Props) => {
       </Field>
       <Field label={t('consultant_form:expect_department')} error={errors.expectDepartmentId?.message}>
         <SelectDepartment
-          scope="currentUser"
+          scope="allSystem"
           extraDepartments={consultantForm?.learningOrganization ? [consultantForm.learningOrganization] : []}
           disabled={disabledField}
           placeholder={t('consultant_form:expect_department')}

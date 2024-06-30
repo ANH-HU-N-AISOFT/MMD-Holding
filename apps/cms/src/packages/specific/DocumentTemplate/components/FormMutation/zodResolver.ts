@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { custom, enum as enum_, literal, object, string } from 'zod';
+import { DocumentTemplateStatus } from '../../models/DocumentTemplateStatus';
 import { DocumentTemplateType } from '../../models/DocumentTemplateType';
 import type { TFunction } from 'i18next';
 import { getRangeLengthMessage } from '~/utils/functions/getRangeLengthMessage';
@@ -28,6 +29,7 @@ export const getFormMutationSchema = (t: TFunction<['common', 'document_template
     }),
     name: string({ required_error: name.required }).trim().min(1, name.required),
     file: custom<File | string>(v => v && (typeof v === 'string' || v instanceof File), { message: file.required }),
+    status: enum_([DocumentTemplateStatus.ACTIVE, DocumentTemplateStatus.IN_ACTIVE]),
     description: string()
       .trim()
       .min(0, description.length)

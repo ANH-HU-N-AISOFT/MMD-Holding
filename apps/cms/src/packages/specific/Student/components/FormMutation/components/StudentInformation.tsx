@@ -62,15 +62,17 @@ export const StudentInformation = ({ form, disabledField }: Props) => {
           value={formValues.personalInformation?.studentPhone}
           onChange={value_ => {
             const value = value_ ? takeOnlyNumber(value_) : undefined;
-            setValue('personalInformation.studentPhone', value);
-            if (errors.personalInformation?.studentPhone) {
-              trigger('personalInformation.studentPhone');
-            }
+
             if (
               !formValues.roleSystem?.username ||
               formValues.roleSystem?.username === formValues.personalInformation?.studentPhone
             ) {
               setValue('roleSystem.username', value);
+            }
+
+            setValue('personalInformation.studentPhone', value);
+            if (errors.personalInformation?.studentPhone) {
+              trigger('personalInformation.studentPhone');
             }
           }}
           addonBefore={<div>+84</div>}

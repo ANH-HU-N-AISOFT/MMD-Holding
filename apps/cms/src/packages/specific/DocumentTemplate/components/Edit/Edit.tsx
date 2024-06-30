@@ -19,6 +19,7 @@ export const Edit = ({ documentTemplate, ...formProps }: Props) => {
         file: documentTemplate.filePath,
         name: documentTemplate.name,
         type: documentTemplate.type,
+        status: documentTemplate.status,
       }}
     />
   );
