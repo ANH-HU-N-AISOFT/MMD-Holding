@@ -55,6 +55,9 @@ export const Edit = ({ student, onResetPassword, ...formProps }: Props) => {
           accessStatus: student.user?.accessStatus,
           username: student.user?.userName,
         },
+        temporaryOptional: {
+          cityCode: student.province?.code,
+        },
       }}
     />
   );

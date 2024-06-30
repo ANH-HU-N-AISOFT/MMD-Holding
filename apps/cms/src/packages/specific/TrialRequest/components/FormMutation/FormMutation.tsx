@@ -127,7 +127,7 @@ export const FormMutation = ({
           <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2">
             <Field withRequiredMark label={t('trial_request:student_name')} error={errors.studentId?.message}>
               <SelectStudent
-                scope="allSystem"
+                scope="currentUser"
                 disabled={disabledField}
                 placeholder={t('trial_request:student_name')}
                 student={studentId}

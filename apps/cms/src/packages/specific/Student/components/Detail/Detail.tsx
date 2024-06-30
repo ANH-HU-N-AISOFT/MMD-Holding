@@ -71,6 +71,9 @@ export const Detail = ({ student }: Props) => {
                     accessStatus: student.user?.accessStatus,
                     username: student.user?.userName,
                   },
+                  temporaryOptional: {
+                    cityCode: student.province?.code,
+                  },
                 }}
               />
             ),
@@ -122,6 +125,9 @@ export const Detail = ({ student }: Props) => {
                   roleSystem: {
                     accessStatus: student.user?.accessStatus,
                     username: student.user?.userName,
+                  },
+                  temporaryOptional: {
+                    cityCode: student.province?.code,
                   },
                 }}
               />

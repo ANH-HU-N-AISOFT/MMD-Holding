@@ -151,7 +151,7 @@ export const FormMutation = ({
           <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2">
             <Field withRequiredMark label={t('appointment:student')} error={errors.studentId?.message}>
               <SelectStudent
-                scope="allSystem"
+                scope="currentUser"
                 disabled={disabledField || !!isEdit}
                 student={studentId}
                 onChange={(value, option) => {
